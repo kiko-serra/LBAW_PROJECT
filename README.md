@@ -20,13 +20,30 @@ The social network will have an adaptive design so that users can access it thro
 
 ## A2: Actors and User stories
 
-> Brief presentation of the artefact goals.
+This artifact contains the specification of the actors and their user stories, serving as agile documentation of the project’s requirements.
+
 
 
 ### 1. Actors
 
-> Diagram identifying actors and their relationships.  
-> Table identifying actors, including a brief description.
+<br>
+
+<p align="center" justify="center">
+  <img src="img/A2.png"/>
+</p>
+<p align="center">
+  <b>Figure 1: Actors. </b>  
+</p>  
+
+| **Identifier**  |  **Description** |
+|---|---|
+|User|Generic user that has access to public information, such as public profiles and groups. |
+|Un-authenticated User|	Unauthenticated user that can register itself (sign-up) or sign-in in the social network. |
+|Authenticated User| User that has access to public information aswell as its own and its friends, can create and delete its own posts, create, leave and interact with groups, react and comment posts (aswell as delete its own comments), manage friends and manage friend requests. |
+|Group Administrator| User that can manage a group, deleting posts and comments, inviting other users and accepting group access requests. |
+|Verified User| User that has its account verified and therefore will be easier to identify as a student. |
+|Unverified User| User that does not have its account verified, cannot be identified as a student. |
+|Administrator| Can manage posts, delete/block users and receive reports and complaints. |
 
 
 ### 2. User Stories
