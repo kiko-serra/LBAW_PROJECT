@@ -44,7 +44,9 @@ This artifact contains the specification of the actors and their user stories, s
 |Verified User| User that has its account verified and therefore will be easier to identify as a student. |
 |Unverified User| User that does not have its account verified, cannot be identified as a student. |
 |Administrator| Can manage posts, delete/block users and receive reports and complaints. |
-
+<p align="center">
+  <b>Table 1: Actors description. </b>  
+</p>  
 
 ### 2. User Stories
 
