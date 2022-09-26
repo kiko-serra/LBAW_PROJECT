@@ -32,7 +32,7 @@ This artifact contains the specification of the actors and their user stories, s
   <img src="img/A2.png"/>
 </p>
 <p align="center">
-  <b>Figure 1: Actors. </b>  
+  <b> Figure 1: Actors. </b>  
 </p>  
 
 | **Identifier**  |  **Description** |
@@ -45,19 +45,72 @@ This artifact contains the specification of the actors and their user stories, s
 |Unverified User| User that does not have its account verified, cannot be identified as a student. |
 |Administrator| Can manage posts, delete/block users and receive reports and complaints. |
 <p align="center">
-  <b>Table 1: Actors description. </b>  
+  <b> Table 1: Actors description. </b>  
 </p>  
 
 ### 2. User Stories
 
-> User stories organized by actor.  
-> For each actor, a table containing a line for each user story, and for each user story: an identifier, a name, a priority, and a description (following the recommended pattern).
+For the (_PROJECT_NAME) sozial network, consider the user stories that are presented in the following sections.
 
-#### 2.1. Actor 1
+#### 2.1. Un-authenticated User
 
-#### 2.2. Actor 2
+| **Identifier** | **Name** | **Priority** | **Description** |
+|---|---|---|---|
+| US001 | Sign-In | High | As an _Un-autheticated User_ I want to be able to authenticate into the social network so that I can have access to privileged information. |
+| US002 | Sign-Up | High | As an _Un-autheticated User_ I want to be able to register myself into the social network so that I can authenticate and have access to privileged information. |
 
-#### 2.N. Actor n
+<p align="center">
+  <b> Table 2: <i> Un-authenticated User </i> user stories. </b>  
+</p>  
+
+
+
+#### 2.2. User
+
+| **Identifier** | **Name** | **Priority** | **Description** |
+|---|---|---|---|
+| US101 | See Home | High | As a _User_, I want to access the Home page, so that I can see a brief presentation of the website. |
+| US102 | See About Us | High | As a _User_, I want to access the About Us page, so that I can get more information about the website and its creators. |
+| US103 | See Contacts | High | As a _User_, I want to access contacts, so that I can come in touch with the website creators. |
+| US104 | Search | High | As a _User_, I want to be able to search through the social network's keywords so that I can find public posts. |
+| US105 | View Profile | High | As a _User_, I want to be able to see a public profile. |
+| US106 | See Specific Post | Low | As an _User_ I want to be able to see a specific public post. |
+
+<p align="center">
+  <b> Table 3: <i> User </i> user stories. </b>  
+</p>  
+
+//FAQ? Services?
+
+#### 2.3. Authenticated User
+| **Identifier** | **Name** | **Priority** | **Description** |
+|---|---|---|---|
+| US201 | See Timeline | High | As an _Autheticated User_ I want to be able to see my timeline, consisting of posts from my friends and the groups I belong to, aswell as deciding its order. |
+| US202 | Send Friend Requests | High | As an _Autheticated User_ I want to be able to send friend requests in order to add a friend to my friends list. |
+| US203 | Remove Friends | High | As an _Autheticated User_ I want to be able to remove friends from my friends list. |
+| US204 | Accept Friend Requests | High | As an _Autheticated User_ I want to be able to accept a friend request. |
+| US205 | Decline Friend Requests | High | As an _Autheticated User_ I want to be able to decline a friend request. |
+| US206 | Create a Post | High | As an _Autheticated User_ I want to be able to create a post. |
+| US207 | Edit a Post | High | As an _Autheticated User_ I want to be able to edit my own post. |
+| US208 | Delete a Post | High | As an _Autheticated User_ I want to be able to delete my own post. |
+| US209 | Tag Friend a Post | Low | As an _Autheticated User_ I want to be able to tag a friend on my own post. |
+| US210 | Manage a Post's Visibility | Low | As an _Autheticated User_ I want to be able to manage my own post's visibility. |
+| US211 | Comment on a Post | Medium | As an _Autheticated User_ I want to be able to comment on a post. |
+| US212 | Edit a Comment on a Post | Medium | As an _Autheticated User_ I want to be able to edit my own comment on a post. |
+| US213 | Delete a Comment on a Post | Medium | As an _Autheticated User_ I want to be able to delete my own comment on a post. |
+| US214 | Tag a Friend on a Comment | Low | As an _Autheticated User_ I want to be able tag a friend on a comment. |
+| US215 | Create a Group | Medium | As an _Authenticated User_ I want to be able to create my own group. |
+| US216 | Invite to a Group | Medium | As an _Authenticated User_ I want to be able to invite friends to a group, if given permission by an administrator. |
+| US217 | Accept a Group Invite | Medium | As an _Authenticated User_ I want to be able to accept a group invite. |
+| US218 | Request to Join a Public Group | Medium | As an _Authenticated User_ I want to be able to request to join a public group. |
+| US219 | Create a Post on a Group | Medium | As an _Authenticated User_ I want to be able to create a post on a group, if given permission by an administrator. |
+| US220 | Leave a Group | Medium | As an _Authenticated User_ I want to be able to leave a group I belong. |
+| US221 | React to a Post | Medium | As an _Authenticated User_ I want to be able to react to a post. |
+| US222 | React to a Comment | Medium | As an _Authenticated User_ I want to be able to react to a comment. |
+
+<p align="center">
+  <b> Table 4: <i> Autheticated User </i> user stories. </b>  
+</p>  
 
 
 ### 3. Supplementary Requirements
