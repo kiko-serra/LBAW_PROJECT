@@ -91,6 +91,6 @@ Changes made to the first submission:
 ***
 GROUP21gg, DD/MM/2021
 
-* Group member 1 name, email (Editor)
+* André Ismael Ferraz Ávila, up202006767@edu.fe.up.pt
 * Group member 2 name, email
 * ...
