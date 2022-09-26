@@ -58,6 +58,7 @@ For the (_PROJECT_NAME) sozial network, consider the user stories that are prese
 |---|---|---|---|
 | US001 | Sign-In | High | As an _Un-autheticated User_ I want to be able to authenticate into the social network so that I can have access to privileged information. |
 | US002 | Sign-Up | High | As an _Un-autheticated User_ I want to be able to register myself into the social network so that I can authenticate and have access to privileged information. |
+| US003 | Recover Password | High | As an _Un-autheticated User_ I want to be able to recover my password. |
 
 <p align="center">
   <b> Table 2: <i> Un-authenticated User </i> user stories. </b>  
@@ -79,8 +80,6 @@ For the (_PROJECT_NAME) sozial network, consider the user stories that are prese
 <p align="center">
   <b> Table 3: <i> User </i> user stories. </b>  
 </p>  
-
-//FAQ? Services?
 
 #### 2.3. Authenticated User
 | **Identifier** | **Name** | **Priority** | **Description** |
@@ -107,11 +106,47 @@ For the (_PROJECT_NAME) sozial network, consider the user stories that are prese
 | US220 | Leave a Group | Medium | As an _Authenticated User_ I want to be able to leave a group I belong. |
 | US221 | React to a Post | Medium | As an _Authenticated User_ I want to be able to react to a post. |
 | US222 | React to a Comment | Medium | As an _Authenticated User_ I want to be able to react to a comment. |
+| US223 | Check my Notification | High | As an _Authenticated User_ I want to be able check my notifications. |
+| US224 | Delete My Account | High | As an _Authenticated User_ I want to be able to delete my account. |
+| US225 | Log Out | High | As an _Authenticated User_ I want to be able to log out. |
 
 <p align="center">
   <b> Table 4: <i> Autheticated User </i> user stories. </b>  
 </p>  
 
+#### 2.3. Group Administrator
+
+| **Identifier** | **Name** | **Priority** | **Description** |
+|---|---|---|---|
+| US301 | Edit Group Information | High | As a _Group Administrator_, I want to be able to edit the group's information. |
+| US302 | Manage Member Permissions | Medium | As a _Group Administrator_, I want to be able to manage who can post, invite, etc... |
+| US303 | Remove Member | High | As a _Group Administrator_, I want to be able to remove a member from the group. |
+| US304 | Add to Group | High | As a _Group Administrator_, I want to be able to ???? WHAT DOES THIS MEAN?. |
+| US305 | Remove Post from Group | Low | As a _Group Administrator_, I want to be able to remove a post from the group. |
+| US306 | Change Group Visibility | Low | As a _Group Administrator_, I want to be able to change the group visibility. |
+| US306 | Manage Join Requests | Low | As a _Group Administrator_, I want to be able to manage the group join requests (accept/decline). |
+| US307 | Add Group Administrators | Low | As a _Group Administrator_, I want to be able to make a member a group administrator. |
+
+<p align="center">
+  <b> Table 4: <i> Group Administrator </i> user stories. </b>  
+</p>  
+
+#### 2.3. Administrator
+
+| **Identifier** | **Name** | **Priority** | **Description** |
+|---|---|---|---|
+| US401 | Find User Account | High | As a _Administrator_, I want to be able to find an user's account. |
+| US402 | View User Account | High | As a _Administrator_, I want to be able to view an user's account. |
+| US402 | Edit User Account | High | As a _Administrator_, I want to be able to edit an user's account. |
+| US403 | Create User Account | High | As a _Administrator_, I want to be able to create an user account. |
+| US404 | Block and Unblock User Accounts | High | As a _Administrator_, I want to be able to block and unblock an user account. |
+| US405 | Delete User Account | High | As a _Administrator_, I want to be able to delete an user account. |
+
+<p align="center">
+  <b> Table 5: <i> Administrator </i> user stories. </b>  
+</p>  
+
+//FAQ? Services? Numeração??
 
 ### 3. Supplementary Requirements
 
