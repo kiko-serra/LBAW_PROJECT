@@ -57,9 +57,9 @@ For the (_PROJECT_NAME) social network, consider the user stories that are prese
 
 | **Identifier** | **Name** | **Priority** | **Description** |
 |---|---|---|---|
-| US001 | Log-In_m_ | High | As an _Un-autheticated User_ I want to be able to authenticate into the social network so that I can have access to privileged information. |
-| US002 | Sign-Up_m_ | High | As an _Un-autheticated User_ I want to be able to register myself into the social network so that I can authenticate and have access to privileged information. |
-| US003 | Recover Password_m_ | Medium | As an _Un-autheticated User_ I want to be able to recover my password. |
+| US001 | Log-In | High | As an _Un-autheticated User_ I want to be able to authenticate into the social network so that I can have access to privileged information. |
+| US002 | Sign-Up | High | As an _Un-autheticated User_ I want to be able to register myself into the social network so that I can authenticate and have access to privileged information. |
+| US003 | Recover Password | Medium | As an _Un-autheticated User_ I want to be able to recover my password. |
 
 <p align="center">
   <b> Table 2: <i> Un-authenticated User </i> user stories. </b>  
@@ -70,14 +70,14 @@ For the (_PROJECT_NAME) social network, consider the user stories that are prese
 
 | **Identifier** | **Name** | **Priority** | **Description** |
 |---|---|---|---|
-| US101 | Search_m_ | High | As a _User_, I want to be able to search through the social network's keywords (posts, comments, users, etc... using exact match, full-text serach, multiple attributes and filters and ordering the results) so that I can find public posts. |
-| US102 | View Profile_m_ | High | As a _User_, I want to be able to see a public profile. |
-| US103 | See Main Features_m_ | Medium | As a _User_, I want to access the Home page, so that I can see a brief presentation of the website's main features. |
-| US104 | See About Us_m_ | Medium | As a _User_, I want to access the About Us page, so that I can get more information about the website and its creators. |
-| US105 | See Contacts_m_ | Medium | As a _User_, I want to access contacts, so that I can come in touch with the website creators. |
-| US106 | Contextual Error Messages_m_ | Medium | As an _User_ I want to be able to see error messages so that I know what happened or what I did wrong. |
-| US107 | Contextual Help_m_ | Medium | As an _User_ I want to be able to ask for help. |
-| US108 | See Specific Post_m_ | Low | As an _User_ I want to be able to see a specific public post. |
+| US101 | Search | High | As a _User_, I want to be able to search through the social network's keywords (posts, comments, users, etc... using exact match, full-text serach, multiple attributes and filters and ordering the results) so that I can find public posts. |
+| US102 | View Profile | High | As a _User_, I want to be able to see a public profile. |
+| US103 | See Main Features | Medium | As a _User_, I want to access the Home page, so that I can see a brief presentation of the website's main features. |
+| US104 | See About Us | Medium | As a _User_, I want to access the About Us page, so that I can get more information about the website and its creators. |
+| US105 | See Contacts | Medium | As a _User_, I want to access contacts, so that I can come in touch with the website creators. |
+| US106 | Contextual Error Messages | Medium | As an _User_ I want to be able to see error messages so that I know what happened or what I did wrong. |
+| US107 | Contextual Help | Medium | As an _User_ I want to be able to ask for help. |
+| US108 | See Specific Post | Low | As an _User_ I want to be able to see a specific public post. |
 
 
 <p align="center">
@@ -87,40 +87,40 @@ For the (_PROJECT_NAME) social network, consider the user stories that are prese
 #### 2.3. Authenticated User
 | **Identifier** | **Name** | **Priority** | **Description** |
 |---|---|---|---|
-| US201 | See Timeline_m_ | High | As an _Autheticated User_ I want to be able to see my timeline, consisting of posts from my friends and the groups I belong to, aswell as deciding its order. |
-| US202 | Create a Post_m_ | High | As an _Autheticated User_ I want to be able to create a post. |
-| US203 | Edit a Post_m_ | High | As an _Autheticated User_ I want to be able to edit my own post. |
-| US204 | Delete a Post_m_ | High | As an _Autheticated User_ I want to be able to delete my own post. |
-| US205 | Log Out_m_ | High | As an _Authenticated User_ I want to be able to log out. |
-| US206 | Edit Profile_m_ | High | As an _Authenticated User_ I want to be able to edit my profile. |
-| US207 | View Private Profile_m_ | High | As an _Authenticated User_, I want to be able to see a private profile if that user is my friend. |
-| US208 | Send Friend Requests_m_ | Medium | As an _Autheticated User_ I want to be able to send friend requests in order to add a friend to my friends list. |
-| US209 | Remove Friends_m_ | Medium | As an _Autheticated User_ I want to be able to remove friends from my friends list. |
-| US210 | Accept Friend Requests_m_ | Medium | As an _Autheticated User_ I want to be able to accept a friend request. |
-| US211 | Decline Friend Requests_m_ | Medium | As an _Autheticated User_ I want to be able to decline a friend request. |
-| US212 | Comment on a Post_m_ | Medium | As an _Autheticated User_ I want to be able to comment on a post. |
-| US213 | Edit a Comment on a Post_m_ | Medium | As an _Autheticated User_ I want to be able to edit my own comment on a post. |
-| US214 | Delete a Comment on a Post_m_ | Medium | As an _Autheticated User_ I want to be able to delete my own comment on a post. |
-| US215 | Create a Group_m_ | Medium | As an _Authenticated User_ I want to be able to create my own group. |
-| US216 | Invite to a Group_m_ | Medium | As an _Authenticated User_ I want to be able to invite friends to a group, if given permission by an administrator. |
-| US217 | Accept a Group Invite_m_ | Medium | As an _Authenticated User_ I want to be able to accept a group invite. |
-| US218 | Create a Post on a Group_m_ | Medium | As an _Authenticated User_ I want to be able to create a post on a group, if given permission by an administrator. |
-| US219 | Leave a Group_m_ | Medium | As an _Authenticated User_ I want to be able to leave a group I belong. |
-| US220 | React to a Post_m_ | Medium | As an _Authenticated User_ I want to be able to react to a post. |
-| US221 | React to a Comment_m_ | Medium | As an _Authenticated User_ I want to be able to react to a comment. |
-| US222 | Check Personal Notifications_m_ | Medium | As an _Authenticated User_ I want to be able check my notifications. |
-| US223 | Delete My Account_m_ | Medium | As an _Authenticated User_ I want to be able to delete my account. |
-| US224 | Add Profile Picture_m_ | Medium | As an _Authenticated User_ I want to be able to add my profile picture. |
-| US225 | View Group's Members_m_ | Medium | As an _Autheticated User_ I want to be able to see a group's members if I'm allowed to. |
-| US226 | Receive Likes on a Post Notifications_m_ | Medium | As an _Autheticated User_ I want to be able to receive a notification when a post of mine receives a like so that I can be aware of it happening. |
-| US227 | Receive Friend Request Notifications_m_ | Medium | As an _Autheticated User_ I want to be able to receive a notification when I receive a friend request so that I can be aware of it happening. |
-| US228 | Change Profile Visibility_m_ | Medium | As a _Authenticated User_, I want to be able to change my profile's visibility. |
-| US229 | Appeal for Unblock_m_ | Low | As an _Authenticated User_ I want to be able to appeal for unblock so that I can have access to my account's full functionalities. |
-| US230 | View Friends Feed_m_ | Low | As an _Autheticated User_ I want to be able to see my friend's feed. |
-| US231 | Tag Friend in a Post_m_ | Low | As an _Autheticated User_ I want to be able to tag a friend on my own post. |
-| US232 | Manage a Post's Visibility_m_ | Low | As an _Autheticated User_ I want to be able to manage my own post's visibility. |
+| US201 | See Timeline | High | As an _Autheticated User_ I want to be able to see my timeline, consisting of posts from my friends and the groups I belong to, aswell as deciding its order. |
+| US202 | Create a Post | High | As an _Autheticated User_ I want to be able to create a post. |
+| US203 | Edit a Post | High | As an _Autheticated User_ I want to be able to edit my own post. |
+| US204 | Delete a Post | High | As an _Autheticated User_ I want to be able to delete my own post. |
+| US205 | Log Out | High | As an _Authenticated User_ I want to be able to log out. |
+| US206 | Edit Profile | High | As an _Authenticated User_ I want to be able to edit my profile. |
+| US207 | View Private Profile | High | As an _Authenticated User_, I want to be able to see a private profile if that user is my friend. |
+| US208 | Send Friend Requests | Medium | As an _Autheticated User_ I want to be able to send friend requests in order to add a friend to my friends list. |
+| US209 | Remove Friends | Medium | As an _Autheticated User_ I want to be able to remove friends from my friends list. |
+| US210 | Accept Friend Requests | Medium | As an _Autheticated User_ I want to be able to accept a friend request. |
+| US211 | Decline Friend Requests | Medium | As an _Autheticated User_ I want to be able to decline a friend request. |
+| US212 | Comment on a Post | Medium | As an _Autheticated User_ I want to be able to comment on a post. |
+| US213 | Edit a Comment on a Post | Medium | As an _Autheticated User_ I want to be able to edit my own comment on a post. |
+| US214 | Delete a Comment on a Post | Medium | As an _Autheticated User_ I want to be able to delete my own comment on a post. |
+| US215 | Create a Group | Medium | As an _Authenticated User_ I want to be able to create my own group. |
+| US216 | Invite to a Group | Medium | As an _Authenticated User_ I want to be able to invite friends to a group, if given permission by an administrator. |
+| US217 | Accept a Group Invite | Medium | As an _Authenticated User_ I want to be able to accept a group invite. |
+| US218 | Create a Post on a Group | Medium | As an _Authenticated User_ I want to be able to create a post on a group, if given permission by an administrator. |
+| US219 | Leave a Group | Medium | As an _Authenticated User_ I want to be able to leave a group I belong. |
+| US220 | React to a Post | Medium | As an _Authenticated User_ I want to be able to react to a post. |
+| US221 | React to a Comment | Medium | As an _Authenticated User_ I want to be able to react to a comment. |
+| US222 | Check Personal Notifications | Medium | As an _Authenticated User_ I want to be able check my notifications. |
+| US223 | Delete My Account | Medium | As an _Authenticated User_ I want to be able to delete my account. |
+| US224 | Add Profile Picture | Medium | As an _Authenticated User_ I want to be able to add my profile picture. |
+| US225 | View Group's Members | Medium | As an _Autheticated User_ I want to be able to see a group's members if I'm allowed to. |
+| US226 | Receive Likes on a Post Notifications | Medium | As an _Autheticated User_ I want to be able to receive a notification when a post of mine receives a like so that I can be aware of it happening. |
+| US227 | Receive Friend Request Notifications | Medium | As an _Autheticated User_ I want to be able to receive a notification when I receive a friend request so that I can be aware of it happening. |
+| US228 | Change Profile Visibility | Medium | As a _Authenticated User_, I want to be able to change my profile's visibility. |
+| US229 | Appeal for Unblock | Low | As an _Authenticated User_ I want to be able to appeal for unblock so that I can have access to my account's full functionalities. |
+| US230 | View Friends Feed | Low | As an _Autheticated User_ I want to be able to see my friend's feed. |
+| US231 | Tag Friend in a Post | Low | As an _Autheticated User_ I want to be able to tag a friend on my own post. |
+| US232 | Manage a Post's Visibility | Low | As an _Autheticated User_ I want to be able to manage my own post's visibility. |
 | US233 | Tag a Friend on a Comment | Low | As an _Autheticated User_ I want to be able tag a friend on a comment. |
-| US234 | Request to Join a Public Group_m_ | Low | As an _Authenticated User_ I want to be able to request to join a public group. |
+| US234 | Request to Join a Public Group | Low | As an _Authenticated User_ I want to be able to request to join a public group. |
 
 <p align="center">
   <b> Table 4: <i> Autheticated User </i> user stories. </b>  
@@ -130,13 +130,13 @@ For the (_PROJECT_NAME) social network, consider the user stories that are prese
 
 | **Identifier** | **Name** | **Priority** | **Description** |
 |---|---|---|---|
-| US301 | Edit Group Information_m_ | Medium | As a _Group Administrator_, I want to be able to edit the group's information. |
-| US302 | Remove Member_m_ | Medium | As a _Group Administrator_, I want to be able to remove a member from the group. |
-| US303 | Add to Group_m_ | Medium | As a _Group Administrator_, I want to be able to add an user to a group. |
+| US301 | Edit Group Information | Medium | As a _Group Administrator_, I want to be able to edit the group's information. |
+| US302 | Remove Member | Medium | As a _Group Administrator_, I want to be able to remove a member from the group. |
+| US303 | Add to Group | Medium | As a _Group Administrator_, I want to be able to add an user to a group. |
 | US304 | Manage Member Permissions | Low | As a _Group Administrator_, I want to be able to manage who can post, invite, etc... |
-| US305 | Remove Post from Group_m_ | Low | As a _Group Administrator_, I want to be able to remove a post from the group. |
-| US306 | Change Group Visibility_m_ | Low | As a _Group Administrator_, I want to be able to change the group visibility. |
-| US307 | Manage Join Requests_m_ | Low | As a _Group Administrator_, I want to be able to manage the group join requests (accept/decline). |
+| US305 | Remove Post from Group | Low | As a _Group Administrator_, I want to be able to remove a post from the group. |
+| US306 | Change Group Visibility | Low | As a _Group Administrator_, I want to be able to change the group visibility. |
+| US307 | Manage Join Requests | Low | As a _Group Administrator_, I want to be able to manage the group join requests (accept/decline). |
 | US308 | Add Group Administrators | Low | As a _Group Administrator_, I want to be able to make a member a group administrator. |
 
 <p align="center">
@@ -147,12 +147,12 @@ For the (_PROJECT_NAME) social network, consider the user stories that are prese
 
 | **Identifier** | **Name** | **Priority** | **Description** |
 |---|---|---|---|
-| US401 | Find User Account_m_ | High | As a _Administrator_, I want to be able to find an user's account. |
-| US402 | View User Account_m_ | High | As a _Administrator_, I want to be able to view an user's account. |
-| US403 | Edit User Account_m_ | High | As a _Administrator_, I want to be able to edit an user's account. |
-| US404 | Create User Account_m_ | High | As a _Administrator_, I want to be able to create an user account. |
-| US405 | Block and Unblock User Accounts_m_ | Medium | As a _Administrator_, I want to be able to block and unblock an user account. |
-| US406 | Delete User Account_m_ | Medium | As a _Administrator_, I want to be able to delete an user account. |
+| US401 | Find User Account | High | As a _Administrator_, I want to be able to find an user's account. |
+| US402 | View User Account | High | As a _Administrator_, I want to be able to view an user's account. |
+| US403 | Edit User Account | High | As a _Administrator_, I want to be able to edit an user's account. |
+| US404 | Create User Account | High | As a _Administrator_, I want to be able to create an user account. |
+| US405 | Block and Unblock User Accounts | Medium | As a _Administrator_, I want to be able to block and unblock an user account. |
+| US406 | Delete User Account | Medium | As a _Administrator_, I want to be able to delete an user account. |
 
 <p align="center">
   <b> Table 6: <i> Administrator </i> user stories. </b>  
