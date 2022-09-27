@@ -171,17 +171,41 @@ A business rule defines or constrains one aspect of the business, with the inten
 | BR001 | Upon Account Deletion | Upon account deletion, shared user data (e.g. comments, reactions) is kept but made anonymous. |
 | BR002 | Upon Group Creation | Upon group creation, the group's creator is made it's first group administrator. |
 
+<p align="center">
+  <b> Table 7: (_PROJECT_NAME) business rules. </b>  
+</p>  
+
 #### 3.2. Technical requirements
 
 | **Identifier** | **Name** |**Description** |
 |---|---|---|
-| BR001 | Upon Account Deletion | Upon account deletion, shared user data (e.g. comments, reactions) is kept but made anonymous. |
-| BR002 | Upon Group Creation | Upon group creation, the group's creator is made it's first group administrator. |
-| BR003 | Profile Visibility | Profiles can be public or private, the public profiles being accessible to every user, authenticated or not and the private profile being accessible only to that users friends. |
+| TR001 | Availability | The system must be available 99 percent of the time in each 24-hour period. |
+| TR002 | Accessibilty | The system must be accessible to anyone that wants to use it, regardless of having any handicap or having a different browser. |
+| **TR003** | **Usabilty** | **The system must be simple to use, with a simple, not too overcroweded interface, so that any user can use it without needing to learn how to and without being confused by the visual elements present.** |
+| TR004 | Performance | The system must have a response time lower than 2 seconds to ensure the user's attention. |
+| **TR005** | **Web Application** | **The system should be implemented as a web application with dynamic pages (HTML5, JavaScript, CSS3 and PHP). <br> Assuring that the system is accessible without the need to install specific aplications or software, adopting standard web technologies leads to a ready to use social network, accessible to anyone, anywhere.** |
+| **TR006** | **Portability** | **The server-side system should work across multiple platforms (Linux, Mac OS, etc...).The system is designed to be used by students at anytime, therefore, it must be available quickly at multiple platforms (platform-independent).** |
+| TR007 | Database | The system must have The PostgreSQL database management system must be used, with a version of 11 or higher. |
+| TR008 | Security | The system shall protect the users sensitive information from unautherized access through the use of an authentication and verification system. |
+| TR009 | Robustness | The system must be prepared to handle runtime errors in order to continue operating. |
+| TR010 | Scalability | The system must be prepared for the growth in numbers of users and their actions |
+| TR011 | Ethics | The system must respect the ethical principles in software development (for example, personal user details, or data usage, should not be collected nor shared without full acknowledgement and authorization from its owner) |
+
+
+<p align="center">
+  <b> Table 8: (_PROJECT_NAME) technical requirements. </b>  
+</p>  
 
 #### 3.3. Restrictions
 
+| **Identifier** | **Name** |**Description** |
+|---|---|---|
+| C001 | Deadline | The system should be ready to use by Christmas. |
 
+
+<p align="center">
+  <b> Table 9: (_PROJECT_NAME) project restrictions. </b>  
+</p>  
 ---
 
 
