@@ -170,6 +170,9 @@ A business rule defines or constrains one aspect of the business, with the inten
 |---|---|---|
 | BR001 | Upon Account Deletion | Upon account deletion, shared user data (e.g. comments, reactions) is kept but made anonymous. |
 | BR002 | Upon Group Creation | Upon group creation, the group's creator is made it's first group administrator. |
+| BR003 | Users's Self Interaction | A user can react, promote and comment under their own post. |
+| BR004 | Chronological Order | An authenticated user's post date must be more recent than the account's creation date. |
+| BR005 | Content Moderation | NSFW, extremist or hateful content will be deleted with the possibility of the author's account being terminated. |
 
 <p align="center">
   <b> Table 7: (_PROJECT_NAME) business rules. </b>  
@@ -246,4 +249,4 @@ GROUP21gg, DD/MM/2021
 
 * André Ismael Ferraz Ávila, up202006767@edu.fe.up.pt (Editor)
 * Francisco Maria Lopes Pinto Pimentel Serra, up202007723@edu.fe.up.pt
-* ...
+* Diogo Miguel Ferreira da Costa, up202007770@edu.fe.up.pt
