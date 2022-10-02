@@ -214,14 +214,18 @@ A business rule defines or constrains one aspect of the business, with the inten
 
 ## A3: Information Architecture
 
-> Brief presentation of the artefact goals.
-
+This artifact presents a brief overview of the information architecture of the system to be developed.
 
 ### 1. Sitemap
 
-> Sitemap presenting the overall structure of the web application.  
-> Each page must be identified in the sitemap.  
-> Multiple instances of the same page (e.g. student profile in SIGARRA) are presented as page stacks.
+The (_PROJECT_NAME) social media is organized in four main areas, the static pages that provide general information about the system and the login page(Static Pages), the pages focused on posts and the search for them (Post Pages), the pages editable by the user (User Pages), and the pages with administration features (Admin Pages).
+
+<p align="center" justify="center">
+  <img src="img/A3.png"/>
+</p>
+<p align="center">
+  <b> Figure 2: (_PROJECT_NAME) sitemap. </b>  
+</p>  
 
 
 ### 2. Wireframes
