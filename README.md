@@ -245,8 +245,9 @@ Changes made to the first submission:
 1. ...
 
 ***
-GROUP21gg, DD/MM/2021
+GROUP2122, 03/10/2022
 
 * André Ismael Ferraz Ávila, up202006767@edu.fe.up.pt (Editor)
 * Francisco Maria Lopes Pinto Pimentel Serra, up202007723@edu.fe.up.pt
 * Diogo Miguel Ferreira da Costa, up202007770@edu.fe.up.pt
+* Manuel João Gomes Alves Amorim, up202007485@edu.fe.up.pt
