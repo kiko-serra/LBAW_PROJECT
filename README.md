@@ -6,7 +6,7 @@
 
 ## A1: Project Name
 
-The (_PROJECT_NAME) is a project developed by a startup (stakeholders) as a product targeted at college students as a way of helping them integrate easier.
+The **UniLinks** is a project developed by a startup (stakeholders) as a product targeted at college students as a way of helping them integrate easier.
 
 The main goal of the project is the development of a web-based social network for enabling students to interact with each other in an academic context. This is a tool that can be used by students and other members of the academic environment. A team of administrators is defined, which will be responsible for managing complaints and reports, being able to delete/block accounts if needed.
 
@@ -51,7 +51,7 @@ This artifact contains the specification of the actors and their user stories, s
 
 ### 2. User Stories
 
-For the (_PROJECT_NAME) social network, consider the user stories that are presented in the following sections.
+For the **UniLinks** social network, consider the user stories that are presented in the following sections.
 
 #### 2.1. Un-authenticated User
 
@@ -178,7 +178,7 @@ A business rule defines or constrains one aspect of the business, with the inten
 | BR005 | Content Moderation | NSFW, extremist or hateful content will be deleted with the possibility of the author's account being terminated. |
 
 <p align="center">
-  <b> Table 7: (_PROJECT_NAME) business rules. </b>  
+  <b> Table 7: UniLinks business rules. </b>  
 </p>  
 
 #### 3.2. Technical requirements
@@ -199,7 +199,7 @@ A business rule defines or constrains one aspect of the business, with the inten
 
 
 <p align="center">
-  <b> Table 8: (_PROJECT_NAME) technical requirements. </b>  
+  <b> Table 8: UniLinks technical requirements. </b>  
 </p>  
 
 #### 3.3. Restrictions
@@ -210,7 +210,7 @@ A business rule defines or constrains one aspect of the business, with the inten
 
 
 <p align="center">
-  <b> Table 9: (_PROJECT_NAME) project restrictions. </b>  
+  <b> Table 9: UniLinks project restrictions. </b>  
 </p>  
 ---
 
@@ -221,19 +221,19 @@ This artifact presents a brief overview of the information architecture of the s
 
 ### 1. Sitemap
 
-The (_PROJECT_NAME) social media is organized in four main areas, the static pages that provide general information about the system and the login page(Static Pages), the pages focused on posts and the search for them (Post Pages), the pages editable by the user (User Pages), and the pages with administration features (Admin Pages).
+The **UniLinks** social media is organized in four main areas, the static pages that provide general information about the system and the login page(Static Pages), the pages focused on posts and the search for them (Post Pages), the pages editable by the user (User Pages), and the pages with administration features (Admin Pages).
 
 <p align="center" justify="center">
   <img src="img/A3.png"/>
 </p>
 <p align="center">
-  <b> Figure 2: (_PROJECT_NAME) sitemap. </b>  
+  <b> Figure 2: UniLinks sitemap. </b>  
 </p>  
 
 
 ### 2. Wireframes
 
-For the **(_PROJECT_NAME)** social media, the wireframes for the timeline page (UI12) and the user profile page (UI12) are presented in Figures 3 and 4, respectively.
+For the **UniLinks** social media, the wireframes for the timeline page (UI12) and the user profile page (UI12) are presented in Figures 3 and 4, respectively.
 
 #### UI01: Timeline
 
