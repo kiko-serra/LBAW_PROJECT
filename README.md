@@ -2,8 +2,6 @@
 
 # ER: Requirements Specification Component
 
-> Project vision.
-
 ## A1: Project Name
 
 The **UniLinks** is a project developed by a startup (stakeholders) as a product targeted at college students as a way of helping them integrate easier.
