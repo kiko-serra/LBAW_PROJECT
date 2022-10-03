@@ -121,6 +121,9 @@ For the (_PROJECT_NAME) social network, consider the user stories that are prese
 | US232 | Manage a Post's Visibility | Low | As an _Autheticated User_ I want to be able to manage my own post's visibility. |
 | US233 | Tag a Friend on a Comment | Low | As an _Autheticated User_ I want to be able tag a friend on a comment. |
 | US234 | Request to Join a Public Group | Low | As an _Authenticated User_ I want to be able to request to join a public group. |
+| US235 | Receive Suggestions | Low | As an _Authenticated User_ I want to be able to be suggested other users and groups to help me integrate better. |
+| US236 | View Other Users' Friends | Low | As an _Authenticated User_ I want to be able to see who a user with a public profile is friends with so that I can find my friends that I'm not friends on the social media through my social media friends. |
+| US237 | See University Related Ads | Low | As an _Authenticated User_ I want to be able to see an ad related to my university so that I can join extracurricular activities, for example, an ad of when NIAEFEUP is recruting or an ad of a Hackathon happening in my university. |
 
 <p align="center">
   <b> Table 4: <i> Autheticated User </i> user stories. </b>  
