@@ -230,14 +230,26 @@ The (_PROJECT_NAME) social media is organized in four main areas, the static pag
 
 ### 2. Wireframes
 
-> Wireframes for, at least, two main pages of the web application.
-> Do not include trivial use cases.
+For the **(_PROJECT_NAME)** social media, the wireframes for the timeline page (UI12) and the user profile page (UI12) are presented in Figures 3 and 4, respectively.
+
+#### UI01: Timeline
+
+<p align="center" justify="center">
+  <img src="img/Timeline.png"/>
+</p>
+<p align="center">
+  <b> Figure 3: Timeline (UI01) wireframe. </b>  
+</p>  
 
 
-#### UIxx: Page Name
+#### UI12: User Profile
 
-#### UIxx: Page Name
-
+<p align="center" justify="center">
+  <img src="img/UserProfile.png"/>
+</p>
+<p align="center">
+  <b> Figure 4: User Profile (UI12) wireframe. </b>  
+</p>  
 
 ---
 
