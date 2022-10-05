@@ -100,9 +100,8 @@ For the **UniLinks** social network, consider the user stories that are presente
 | US213 | Edit a Comment on a Post | Medium | As an _Autheticated User_ I want to be able to edit my own comment on a post. |
 | US214 | Delete a Comment on a Post | Medium | As an _Autheticated User_ I want to be able to delete my own comment on a post. |
 | US215 | Create a Group | Medium | As an _Authenticated User_ I want to be able to create my own group. |
-| US216 | Invite to a Group | Medium | As an _Authenticated User_ I want to be able to invite friends to a group, if given permission by an administrator. |
-| US217 | Accept a Group Invite | Medium | As an _Authenticated User_ I want to be able to accept a group invite. |
-| US218 | Create a Post on a Group | Medium | As an _Authenticated User_ I want to be able to create a post on a group, if given permission by an administrator. |
+| US216 | Invite to a Group | Medium | As an _Authenticated User_ I want to be able to invite friends to a group. |
+| US218 | Create a Post on a Group | Medium | As an _Authenticated User_ I want to be able to create a post on a group. |
 | US219 | Leave a Group | Medium | As an _Authenticated User_ I want to be able to leave a group I belong. |
 | US220 | React to a Post | Medium | As an _Authenticated User_ I want to be able to react to a post. |
 | US221 | React to a Comment | Medium | As an _Authenticated User_ I want to be able to react to a comment. |
@@ -258,8 +257,9 @@ For the **UniLinks** social media, the wireframes for the timeline page (UI12) a
 ## Revision history
 
 Changes made to the first submission:
-1. Item 1
-1. ...
+1. Modified US216
+2. Removed US217
+3. Modified US218
 
 ***
 GROUP2122, 03/10/2022
