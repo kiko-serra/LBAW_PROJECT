@@ -53,10 +53,11 @@ CREATE TABLE post (
 );
 
 CREATE TABLE account_report (
-    id_report INTEGER PRIMARY KEY AUTOINCREMENT,
-    reason TEXT CONSTRAINT null_account_report_reason NOT NULL,
-    description TEXT
-    id_account_reported INTEGER CONSTRAINT null_account_report_id_account_reported NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
+    id_report SERIAL PRIMARY KEY,
+    reason INTEGER CONSTRAINT null_account_report_reason NOT NULL,
+    description TEXT,
+	id_account_reporting INTEGER CONSTRAINT null_account_id_account_reporting NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
+    id_account_reported INTEGER CONSTRAINT null_account_report_id_account_reported NOT NULL REFERENCES account (id_account) ON DELETE CASCADE
 );
 
 CREATE TABLE friend_request (
@@ -66,10 +67,10 @@ CREATE TABLE friend_request (
 );
 
 CREATE TABLE notification (
-    id_notification INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_notification SERIAL PRIMARY KEY,
     id_receiver INTEGER CONSTRAINT null_Notification_id_receiver NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
-    link TEXT CONSTRAINT null_Notification_link NOT NULL,
-    date DATE CONSTRAINT null_Notification_date NOT NULL CONSTRAINT check_Notification_date CHECK (date <= NOW()) DEFAULT NOW(),
+    url TEXT CONSTRAINT null_Notification_url NOT NULL,
+    notification_date timestamp(2) CONSTRAINT null_Notification_date NOT NULL CONSTRAINT check_Notification_date CHECK (notification_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
     description TEXT CONSTRAINT null_Notification_description NOT NULL,
     is_read BOOLEAN CONSTRAINT null_Notification_is_read NOT NULL
 );

@@ -25,5 +25,24 @@ VALUES
   (2, null, 1, null, 'Nondisp Maisonneuve''s fx r leg, subs for clos fx w nonunion', true, '2021-12-13', '2022-09-24', 0, false),
   (3, 1, 1, 1, 'Corrosion of third degree of back of left hand, sequela', false, '2021-07-01', '2022-01-25', 0, true),
   (4, null, 6, null, 'Lobar pneumonia, unspecified organism', false, '2022-06-01', '2022-09-22', 0, false);
+
+
+INSERT INTO account_report (reason, description, id_account_reporting, id_account_reported)
+VALUES
+   (3, 'They wouldn''t stop spamming my posts', 1, 6);
+  
+
+INSERT INTO friend_request (id_sender, id_receiver)
+VALUES
+   (1, 4),
+   (1, 5),
+   (6, 5),
+   (4, 7);
+  
+INSERT INTO notification (id_receiver, url, description, is_read)
+VALUES
+   (1, 'https:/youtube.com', 'Diogo sent you a friend request.', false),
+   (6, 'https:/youtube.com', 'Manuel promoted your post.', false),
+   (5, 'https:/youtube.com', 'Francisco accepted your friend request', false);
 -- CREATE INDEX user_work ON "user" USING btree (id);
 -- CLUSTER "user" USING user_work;
