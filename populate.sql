@@ -44,5 +44,41 @@ VALUES
    (1, 'https:/youtube.com', 'Diogo sent you a friend request.', false),
    (6, 'https:/youtube.com', 'Manuel promoted your post.', false),
    (5, 'https:/youtube.com', 'Francisco accepted your friend request', false);
+
+INSERT INTO recovery_code (id_account, code, valid_until)
+VALUES
+   (8, 'hfKJsdjHJASas', '2022-10-19 21:50:50');
+
+INSERT INTO post_report (id_post, reason, description)
+VALUES
+   (4, 2, 'The coment was just inappropriate.');
+
+INSERT INTO relationship (id_group, id_account, status)
+VALUES
+   (1, 5, 'member'),
+   (1, 6, 'admin'),
+   (2, 7, 'admin'),
+   (2, 8, 'pending');
+
+INSERT INTO post_promotion (id_account, id_post, promotion_date)
+VALUES
+   (1, 4, '2022-10-18 21:54:34');
+
+INSERT INTO post_promotion (id_account, id_post)
+VALUES
+   (5, 4);
+
+INSERT INTO post_react (id_account, id_post, react_date, up_vote)
+VALUES
+   (1, 4, '2022-10-18 20:54:34', true),
+   (4, 4, '2022-10-18 21:54:34', true),
+   (6, 2, '2022-10-18 21:56:34', true);
+
+
+INSERT INTO friendship (account1_id, account2_id)
+VALUES
+   (1, 4),
+   (5, 4),
+   (6, 8);
 -- CREATE INDEX user_work ON "user" USING btree (id);
 -- CLUSTER "user" USING user_work;

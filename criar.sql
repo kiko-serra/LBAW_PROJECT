@@ -76,37 +76,37 @@ CREATE TABLE notification (
 );
 
 CREATE TABLE recovery_code (
-    id_recovery_code INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_recovery_code SERIAL PRIMARY KEY,
     id_account INTEGER CONSTRAINT null_Recovery_code_id_account NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
-    code TEXT CONSTRAINT null_Recovery_code_code NOT NULL,
-    valid_until DATE CONSTRAINT null_Recovery_code_valid_until NOT NULL CONSTRAINT check_Recovery_code_valid_until CHECK (valid_until <= NOW()) DEFAULT NOW()
+    code TEXT CONSTRAINT null_Recovery_code_code NOT NULL UNIQUE,
+    valid_until TIMESTAMP(2) CONSTRAINT null_Recovery_code_valid_until NOT NULL CONSTRAINT check_Recovery_code_valid_until CHECK (valid_until >= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE
 );
 
 CREATE TABLE post_report (
-    id_report INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_report SERIAL PRIMARY KEY,
     id_post INTEGER CONSTRAINT null_Post_report_id_post NOT NULL REFERENCES post (id_post) ON DELETE CASCADE,
-    reason TEXT CONSTRAINT null_Post_report_reason NOT NULL,
+    reason INTEGER CONSTRAINT null_Post_report_reason NOT NULL,
     description TEXT
 );
 
 CREATE TABLE relationship (
-    id_group INTEGER CONSTRAINT null_Relationship_id_group NOT NULL REFERENCES group (id_group) ON DELETE CASCADE,
+    id_group INTEGER CONSTRAINT null_Relationship_id_group NOT NULL REFERENCES group_table (id_group) ON DELETE CASCADE,
     id_account INTEGER CONSTRAINT null_Relationship_account_id NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
-    status TEXT CONSTRAINT null_Relationship_status NOT NULL CONSTRAINT check_Relationship_status CHECK (status = "member" OR status = "admin" OR status = "pending"),
+    status TEXT CONSTRAINT null_Relationship_status NOT NULL CONSTRAINT check_Relationship_status CHECK (status = 'member' OR status = 'admin' OR status = 'pending'),
     PRIMARY KEY (id_group, id_account)
 );
 
 CREATE TABLE post_promotion (
     id_account INTEGER CONSTRAINT null_Post_promotion_id_account NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     id_post INTEGER CONSTRAINT null_Post_promotion_id_post NOT NULL REFERENCES post (id_post) ON DELETE CASCADE,
-    date DATE CONSTRAINT null_Post_promotion_date NOT NULL CONSTRAINT check_Post_promotion_date CHECK (date <= NOW()) DEFAULT NOW(),
+    promotion_date TIMESTAMP(2) CONSTRAINT null_Post_promotion_date NOT NULL CONSTRAINT check_Post_promotion_date CHECK (promotion_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
     PRIMARY KEY (id_account, id_post)
 );
 
 CREATE TABLE post_react (
     id_account INTEGER CONSTRAINT null_Post_react_id_account NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     id_post INTEGER CONSTRAINT null_Post_react_id_post NOT NULL REFERENCES post (id_post) ON DELETE CASCADE,
-    date DATE CONSTRAINT null_Post_react_date NOT NULL CONSTRAINT check_Post_react_date CHECK (date <= NOW()) DEFAULT NOW(),
+    react_date DATE CONSTRAINT null_Post_react_date NOT NULL CONSTRAINT check_Post_react_date CHECK (react_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
     up_vote BOOLEAN CONSTRAINT null_Post_react_up_vote NOT NULL,
     PRIMARY KEY (id_account, id_post)
 );
@@ -114,5 +114,6 @@ CREATE TABLE post_react (
 CREATE TABLE friendship (
     account1_id INTEGER CONSTRAINT null_Friendship_account1_id NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     account2_id INTEGER CONSTRAINT null_Friendship_account2_id NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
+	CHECK (account1_id <> account2_id),
     PRIMARY KEY (account1_id, account2_id)
 );
