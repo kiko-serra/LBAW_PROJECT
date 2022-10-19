@@ -8,17 +8,17 @@ DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS friend_request;
 DROP TABLE IF EXISTS account_report;
 DROP TABLE IF EXISTS post;
-DROP TABLE IF EXISTS group;
+DROP TABLE IF EXISTS group_table;
 DROP TABLE IF EXISTS account;
 
 --Tables
 
 CREATE TABLE account (
-    id_account INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_account SERIAL PRIMARY KEY,
     account_tag TEXT CONSTRAINT null_account_account_tag NOT NULL CONSTRAINT unique_account_account_tag UNIQUE,
     password TEXT CONSTRAINT null_account_password NOT NULL,
     name TEXT CONSTRAINT null_account_name NOT NULL,
-    age NUMBER CONSTRAINT null_account_age NOT NULL CONSTRAINT check_account_age CHECK (age >= 16),
+    age NUMERIC(3,0) CONSTRAINT null_account_age NOT NULL CONSTRAINT check_account_age CHECK (age >= 16),
     birthday DATE CONSTRAINT null_account_birthdate NOT NULL,
     is_private BOOLEAN CONSTRAINT null_account_is_private NOT NULL,
 	email TEXT CONSTRAINT null_account_email NOT NULL CONSTRAINT unique_account_email UNIQUE,
@@ -32,23 +32,23 @@ CREATE TABLE account (
 	is_blocked BOOLEAN CONSTRAINT null_account_is_blocked NOT NULL
 );
 
-CREATE TABLE group(
-    id_group INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE group_table (
+    id_group SERIAL PRIMARY KEY,
     name TEXT CONSTRAINT null_Group_name NOT NULL,
     description TEXT,
     is_public BOOLEAN CONSTRAINT null_Group_is_public NOT NULL
 );
 
 CREATE TABLE post (
-    id_post INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_post SERIAL PRIMARY KEY,
     parent_post INTEGER REFERENCES post(id_post),
-    owner   INTEGER CONSTRAINT null_Post_owner NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
-    group  INTEGER CONSTRAINT null_Post_group NOT NULL REFERENCES group (id_group) ON DELETE CASCADE,
+    owner_id INTEGER CONSTRAINT null_Post_owner NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
+    group_id INTEGER CONSTRAINT null_Post_group REFERENCES group_table (id_group) ON DELETE CASCADE,
     description TEXT CONSTRAINT null_Post_description NOT NULL CONSTRAINT check_Post_description CHECK (LENGTH(description) < 500 AND LENGTH(description) > 0),
     has_images BOOLEAN CONSTRAINT null_Post_has_images NOT NULL,
-    date DATE CONSTRAINT null_Post_date NOT NULL CONSTRAINT check_Post_date CHECK (date >= NOW()) DEFAULT NOW(),
-    edited_date DATE CONSTRAINT check_Post_edited_date CHECK (edited_date <= NOW() AND edited_date > date),
-    comments_count INTEGER CONSTRAINT null_Post_comments_count NOT NULL CONSTRAINTS check_Post_is_private CHECK (comments_count >= 0),
+    publication_date DATE CONSTRAINT null_Post_date NOT NULL DEFAULT NOW(),
+    edited_date DATE CONSTRAINT check_Post_edited_date CHECK (edited_date <= NOW() AND edited_date > publication_date),
+    comments_count INTEGER CONSTRAINT null_Post_comments_count NOT NULL CONSTRAINT check_Post_is_private CHECK (comments_count >= 0),
     is_visible BOOLEAN CONSTRAINT null_Post_is_private NOT NULL
 );
 
