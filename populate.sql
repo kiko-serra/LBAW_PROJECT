@@ -68,7 +68,7 @@ INSERT INTO post_promotion (id_account, id_post)
 VALUES
    (5, 4);
 
-INSERT INTO post_react (id_account, id_post, react_date, up_vote)
+INSERT INTO post_reaction (id_account, id_post, react_date, up_vote)
 VALUES
    (1, 4, '2022-10-18 20:54:34', true),
    (4, 4, '2022-10-18 21:54:34', true),
