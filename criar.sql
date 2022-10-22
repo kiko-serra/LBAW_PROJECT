@@ -46,8 +46,8 @@ CREATE TABLE post (
     group_id INTEGER CONSTRAINT null_Post_group REFERENCES group_table (id_group) ON DELETE CASCADE,
     description TEXT CONSTRAINT null_Post_description NOT NULL CONSTRAINT check_Post_description CHECK (LENGTH(description) < 500 AND LENGTH(description) > 0),
     has_images BOOLEAN CONSTRAINT null_Post_has_images NOT NULL,
-    publication_date DATE CONSTRAINT null_Post_date NOT NULL DEFAULT NOW(),
-    edited_date DATE CONSTRAINT check_Post_edited_date CHECK (edited_date <= NOW() AND edited_date > publication_date),
+    publication_date TIMESTAMP(2) CONSTRAINT null_Post_date NOT NULL DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
+    edited_date TIMESTAMP(2) CONSTRAINT check_Post_edited_date CHECK (edited_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE AND edited_date > publication_date),
     comments_count INTEGER CONSTRAINT null_Post_comments_count NOT NULL CONSTRAINT check_Post_is_private CHECK (comments_count >= 0),
     is_visible BOOLEAN CONSTRAINT null_Post_is_private NOT NULL
 );
@@ -70,7 +70,7 @@ CREATE TABLE notification (
     id_notification SERIAL PRIMARY KEY,
     id_receiver INTEGER CONSTRAINT null_Notification_id_receiver NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     url TEXT CONSTRAINT null_Notification_url NOT NULL,
-    notification_date timestamp(2) CONSTRAINT null_Notification_date NOT NULL CONSTRAINT check_Notification_date CHECK (notification_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
+    notification_date TIMESTAMP(2) CONSTRAINT null_Notification_date NOT NULL CONSTRAINT check_Notification_date CHECK (notification_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
     description TEXT CONSTRAINT null_Notification_description NOT NULL,
     is_read BOOLEAN CONSTRAINT null_Notification_is_read NOT NULL
 );

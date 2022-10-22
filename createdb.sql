@@ -1,3 +1,9 @@
+DROP TRIGGER IF EXISTS administrator_t on relationship;
+DROP FUNCTION IF EXISTS administartor_t;
+
+DROP TRIGGER IF EXISTS friends_t ON friend_request;
+DROP FUNCTION IF EXISTS friends_t();
+
 DROP TRIGGER IF EXISTS react_once ON post_reaction;
 DROP FUNCTION IF EXISTS react_once();
 
@@ -55,8 +61,8 @@ CREATE TABLE post (
     group_id INTEGER CONSTRAINT null_Post_group REFERENCES group_table (id_group) ON DELETE CASCADE,
     description TEXT CONSTRAINT null_Post_description NOT NULL CONSTRAINT check_Post_description CHECK (LENGTH(description) < 500 AND LENGTH(description) > 0),
     has_images BOOLEAN CONSTRAINT null_Post_has_images NOT NULL,
-    publication_date DATE CONSTRAINT null_Post_date NOT NULL DEFAULT NOW(),
-    edited_date DATE CONSTRAINT check_Post_edited_date CHECK (edited_date <= NOW() AND edited_date > publication_date),
+    publication_date TIMESTAMP(2) CONSTRAINT null_Post_date NOT NULL DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
+    edited_date TIMESTAMP(2) CONSTRAINT check_Post_edited_date CHECK (edited_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE AND edited_date > publication_date),
     comments_count INTEGER CONSTRAINT null_Post_comments_count NOT NULL CONSTRAINT check_Post_is_private CHECK (comments_count >= 0),
     is_visible BOOLEAN CONSTRAINT null_Post_is_private NOT NULL
 );
@@ -129,21 +135,6 @@ CREATE TABLE friendship (
 
 
 --Triggers
-
-DROP TRIGGER IF EXISTS administrator_t on relationship;
-DROP FUNCTION IF EXISTS administartor_t;
-
-DROP TRIGGER IF EXISTS friends_t ON friend_request;
-DROP FUNCTION IF EXISTS friends_t();
-
-DROP TRIGGER IF EXISTS react_once ON post_reaction;
-DROP FUNCTION IF EXISTS react_once();
-
-DROP TRIGGER IF EXISTS promotion_once ON post_promotion;
-DROP FUNCTION IF EXISTS promotion_once();
-
-DROP TRIGGER IF EXISTS post_tsv_update ON post;
-DROP FUNCTION IF EXISTS post_tsv_update();
 
 --Add tsvector column to post 
 ALTER TABLE post
