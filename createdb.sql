@@ -1,5 +1,5 @@
 DROP TRIGGER IF EXISTS administrator_t on relationship;
-DROP FUNCTION IF EXISTS administartor_t;
+DROP FUNCTION IF EXISTS administrator_t();
 
 DROP TRIGGER IF EXISTS friends_t ON friend_request;
 DROP FUNCTION IF EXISTS friends_t();
@@ -121,7 +121,7 @@ CREATE TABLE post_promotion (
 CREATE TABLE post_reaction (
     id_account INTEGER CONSTRAINT null_Post_reaction_id_account NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     id_post INTEGER CONSTRAINT null_Post_reaction_id_post NOT NULL REFERENCES post (id_post) ON DELETE CASCADE,
-    react_date DATE CONSTRAINT null_Post_reaction_date NOT NULL CONSTRAINT check_Post_reaction_date CHECK (react_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
+    react_date TIMESTAMP(2) CONSTRAINT null_Post_reaction_date NOT NULL CONSTRAINT check_Post_reaction_date CHECK (react_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE) DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
     up_vote BOOLEAN CONSTRAINT null_Post_reaction_up_vote NOT NULL,
     PRIMARY KEY (id_account, id_post)
 );
@@ -242,14 +242,14 @@ CREATE FUNCTION administrator_t() RETURNS TRIGGER AS $$
 BEGIN
     --UPDATE
 	IF TG_OP = 'UPDATE' THEN
-		IF NEW.status <> OLD.status AND OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_group = OLD.id_group AND status='admin') = 1
+		IF (NEW.status <> OLD.status AND OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_group = OLD.id_group AND status='admin') = 1)
 			THEN RAISE EXCEPTION 'User is the only administrator';
 		END IF;
 	END IF;
 
     --DELETE
 	IF TG_OP = 'DELETE' THEN
-		IF OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_group = OLD.id_group AND status = 'admin') = 1
+		IF (OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_group = OLD.id_group AND status = 'admin') = 1)
 			THEN RAISE EXCEPTION 'User is the only administrator';
 		END IF;
 	END IF;
