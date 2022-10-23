@@ -13,7 +13,7 @@ VALUES
  ('efarnaby9', 'zFMGF4WFl6Wq', 'Everett Farnaby', 19, '1986-04-11', false, 'efarnaby9@51.la', 'Kosin University', 'Expo LRV', false, 'Perianal biopsy', 'Besançon', 'S60', false, true);
 
 
-INSERT INTO group_table (name, description, is_public)
+INSERT INTO community_table (name, description, is_public)
 VALUES
   ('LBAW22/23', 'Grupo dedicado a Laboratório de Bases de Dados e Aplicações Web.', true),
   ('Grupo3RCOM', 'Grupo 3 para o projeto de RCOM.', true);
