@@ -264,8 +264,6 @@ EXECUTE PROCEDURE administrator_t();
 
 --Indexes
 
-CREATE INDEX account_tag ON account USING hash(account_tag);
-
 CREATE INDEX post_date_idx ON post USING btree(publication_date);
 
 CREATE INDEX post_owner_date_idx ON post USING BTREE(owner_id, publication_date);
