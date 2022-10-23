@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS friend_request;
 DROP TABLE IF EXISTS account_report;
 DROP TABLE IF EXISTS post;
-DROP TABLE IF EXISTS group_table;
+DROP TABLE IF EXISTS community;
 DROP TABLE IF EXISTS account;
 
 --Tables
@@ -47,7 +47,7 @@ CREATE TABLE account (
 	is_blocked BOOLEAN CONSTRAINT null_account_is_blocked NOT NULL
 );
 
-CREATE TABLE group_table (
+CREATE TABLE community (
     id_group SERIAL PRIMARY KEY,
     name TEXT CONSTRAINT null_Group_name NOT NULL,
     description TEXT,
@@ -58,7 +58,7 @@ CREATE TABLE post (
     id_post SERIAL PRIMARY KEY,
     parent_post INTEGER REFERENCES post(id_post),
     owner_id INTEGER CONSTRAINT null_Post_owner NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
-    group_id INTEGER CONSTRAINT null_Post_group REFERENCES group_table (id_group) ON DELETE CASCADE,
+    group_id INTEGER CONSTRAINT null_Post_group REFERENCES community (id_group) ON DELETE CASCADE,
     description TEXT CONSTRAINT null_Post_description NOT NULL CONSTRAINT check_Post_description CHECK (LENGTH(description) < 500 AND LENGTH(description) > 0),
     has_images BOOLEAN CONSTRAINT null_Post_has_images NOT NULL,
     publication_date TIMESTAMP(2) CONSTRAINT null_Post_date NOT NULL DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
@@ -105,7 +105,7 @@ CREATE TABLE post_report (
 );
 
 CREATE TABLE relationship (
-    id_group INTEGER CONSTRAINT null_Relationship_id_group NOT NULL REFERENCES group_table (id_group) ON DELETE CASCADE,
+    id_group INTEGER CONSTRAINT null_Relationship_id_group NOT NULL REFERENCES community (id_group) ON DELETE CASCADE,
     id_account INTEGER CONSTRAINT null_Relationship_account_id NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     status TEXT CONSTRAINT null_Relationship_status NOT NULL CONSTRAINT check_Relationship_status CHECK (status = 'member' OR status = 'admin' OR status = 'pending'),
     PRIMARY KEY (id_group, id_account)
