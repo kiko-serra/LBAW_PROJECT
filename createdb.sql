@@ -48,17 +48,17 @@ CREATE TABLE account (
 );
 
 CREATE TABLE community (
-    id_group SERIAL PRIMARY KEY,
-    name TEXT CONSTRAINT null_Group_name NOT NULL,
+    id_community SERIAL PRIMARY KEY,
+    name TEXT CONSTRAINT null_Community_name NOT NULL,
     description TEXT,
-    is_public BOOLEAN CONSTRAINT null_Group_is_public NOT NULL
+    is_public BOOLEAN CONSTRAINT null_Community_is_public NOT NULL
 );
 
 CREATE TABLE post (
     id_post SERIAL PRIMARY KEY,
     parent_post INTEGER REFERENCES post(id_post),
     owner_id INTEGER CONSTRAINT null_Post_owner NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
-    group_id INTEGER CONSTRAINT null_Post_group REFERENCES community (id_group) ON DELETE CASCADE,
+    group_id INTEGER CONSTRAINT null_Post_group REFERENCES community (id_community) ON DELETE CASCADE,
     description TEXT CONSTRAINT null_Post_description NOT NULL CONSTRAINT check_Post_description CHECK (LENGTH(description) < 500 AND LENGTH(description) > 0),
     has_images BOOLEAN CONSTRAINT null_Post_has_images NOT NULL,
     publication_date TIMESTAMP(2) CONSTRAINT null_Post_date NOT NULL DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
@@ -105,10 +105,10 @@ CREATE TABLE post_report (
 );
 
 CREATE TABLE relationship (
-    id_group INTEGER CONSTRAINT null_Relationship_id_group NOT NULL REFERENCES community (id_group) ON DELETE CASCADE,
+    id_community INTEGER CONSTRAINT null_Relationship_id_community NOT NULL REFERENCES community (id_community) ON DELETE CASCADE,
     id_account INTEGER CONSTRAINT null_Relationship_account_id NOT NULL REFERENCES account (id_account) ON DELETE CASCADE,
     status TEXT CONSTRAINT null_Relationship_status NOT NULL CONSTRAINT check_Relationship_status CHECK (status = 'member' OR status = 'admin' OR status = 'pending'),
-    PRIMARY KEY (id_group, id_account)
+    PRIMARY KEY (id_community, id_account)
 );
 
 CREATE TABLE post_promotion (
@@ -242,14 +242,14 @@ CREATE FUNCTION administrator_t() RETURNS TRIGGER AS $$
 BEGIN
     --UPDATE
 	IF TG_OP = 'UPDATE' THEN
-		IF (NEW.status <> OLD.status AND OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_group = OLD.id_group AND status='admin') = 1)
+		IF (NEW.status <> OLD.status AND OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_community = OLD.id_community AND status='admin') = 1)
 			THEN RAISE EXCEPTION 'User is the only administrator';
 		END IF;
 	END IF;
 
     --DELETE
 	IF TG_OP = 'DELETE' THEN
-		IF (OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_group = OLD.id_group AND status = 'admin') = 1)
+		IF (OLD.status = 'admin' AND (SELECT COUNT(*) FROM relationship WHERE id_community = OLD.id_community AND status = 'admin') = 1)
 			THEN RAISE EXCEPTION 'User is the only administrator';
 		END IF;
 	END IF;
