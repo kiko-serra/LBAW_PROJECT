@@ -1,3 +1,9 @@
+--Index drops
+DROP INDEX IF EXISTS tsv_idx;
+DROP INDEX IF EXISTS post_owner_date_idx;
+DROP INDEX IF EXISTS post_date_idx;
+
+--Trigger drops
 DROP TRIGGER IF EXISTS administrator_t on relationship;
 DROP FUNCTION IF EXISTS administrator_t();
 
@@ -13,6 +19,7 @@ DROP FUNCTION IF EXISTS promotion_once();
 DROP TRIGGER IF EXISTS post_tsv_update ON post;
 DROP FUNCTION IF EXISTS post_tsv_update();
 
+--Table drops
 DROP TABLE IF EXISTS friendship;
 DROP TABLE IF EXISTS post_reaction;
 DROP TABLE IF EXISTS post_promotion;
@@ -263,8 +270,6 @@ FOR EACH ROW
 EXECUTE PROCEDURE administrator_t();
 
 --Indexes
-
-CREATE INDEX account_tag ON account USING hash(account_tag);
 
 CREATE INDEX post_date_idx ON post USING btree(publication_date);
 
