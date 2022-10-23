@@ -230,7 +230,7 @@ BEGIN
             THEN RAISE EXCEPTION 'Friend already requested';
 		END IF;
             
-        IF EXISTS (SELECT * FROM friendship WHERE (id_account_1 = NEW.id_account_1 AND  id_account_2 = NEW.id_account_2) OR  (id_account_1 = NEW.id_account_2 AND  id_account_2 = NEW.id_account_1))
+        IF EXISTS (SELECT * FROM friendship WHERE (account1_id = NEW.id_sender AND  account2_id = NEW.id_receiver) OR  (account1_id = NEW.id_receiver AND  account2_id = NEW.id_sender))
                 THEN RAISE EXCEPTION '2 users are friends';
         END IF;
     END IF;
