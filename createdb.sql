@@ -4,6 +4,13 @@ DROP INDEX IF EXISTS post_owner_date_idx;
 DROP INDEX IF EXISTS post_date_idx;
 
 --Trigger drops
+
+DROP TRIGGER IF EXISTS community_admin on community;
+DROP FUNCTION IF EXISTS community_admin();
+
+DROP TRIGGER IF EXISTS delete_account on account;
+DROP FUNCTION IF EXISTS delete_account();
+
 DROP TRIGGER IF EXISTS administrator_t on relationship;
 DROP FUNCTION IF EXISTS administrator_t();
 
@@ -269,7 +276,36 @@ BEFORE INSERT ON relationship
 FOR EACH ROW
 EXECUTE PROCEDURE administrator_t();
 
+--Deleting account
+CREATE FUNCTION delete_account() RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        UPDATE account SET name = 'Annonymous', account_tag = CONCAT('anon', OLD.id_account) WHERE id_account = OLD.id_account;
+    END IF;
+RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
 
+CREATE TRIGGER delete_account
+BEFORE DELETE ON account
+FOR EACH ROW
+EXECUTE PROCEDURE delete_account();
+
+
+--Community creation admin becomes admin
+CREATE FUNCTION community_admin() RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO relationship VALUES (NEW.id_account, NEW.id_community, 'admin');
+    END IF;
+RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER community_admin
+AFTER INSERT ON community
+FOR EACH ROW
+EXECUTE PROCEDURE community_admin();
 
 
 --Indexes
