@@ -11,11 +11,11 @@ servers:
 
 externalDocs:
   description: Find more info here.
-  url: https://web.fe.up.pt/~ssn/wiki/teach/lbaw/medialib/a07
+  url: https://git.fe.up.pt/lbaw/lbaw2223/lbaw2222/-/wikis/Home
 
 tags:
   - name: 'M01: Authentication and Individual Profile'
-  - name: 'M02: Works'
+  - name: 'M02: User Administration'
   - name: 'M03: Reviews and Wish list'
   - name: 'M04: Loans'
   - name: 'M05: User Administration and Static pages'
@@ -179,80 +179,97 @@ paths:
         '200':
           description: 'Ok. Show view profile UI'
  
-
-  /api/works:
+  /admin/users:
     get:
-      operationId: R202
-      summary: 'R202: Search Works API'
-      description: 'Searches for works and returns the results as JSON. Access: PUB.'
-
-      tags: 
-        - 'M02: Works'
-
-      parameters:
-        - in: query
-          name: query
-          description: String to use for full-text search
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: item
-          description: Category of the works
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: loaned
-          description: Boolean with the loaned flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: owner
-          description: Boolean with the owner flag value
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: classification
-          description: Integer corresponding to the work classification
-          schema:
-            type: integer
-          required: false
-
+      operationId: R107
+      summary: 'R107: View all users'
+      description: 'Show all users. Access: ADM'
+      tags:
+        - 'M02: User Administration'
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
+          description: 'Ok. Show view all users UI'
+    
+  /admin/users/{account_tag}/block:
+    post:
+      operationId: R108
+      summary: 'R108: block user'
+      description: 'Block user. Access: ADM'
+      tags:
+        - 'M02: User Administration'
+      parameters:
+        - in: path
+          name: account_tag
+          schema:
+            type: string
+          required: true
+      responses:
+        '302':
+          description: 'Redirect after processing the block.'
+          headers:
+            Location:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    title:
-                      type: string
-                    obs:
-                      type: string
-                    year:
-                      type: string
-                    owner:
-                      type: string
-                    type:
-                      type: string
-                example:
-                  - id: 1
-                    title: Rihanna - Unapologetic
-                    obs: Good pop music album.
-                    year: 2012
-                    owner: Joana Lima
-                    type: MP3
-                  - id: 15
-                    title: Mr. Bean
-                    obs: The best comedy movie.
-                    year: 1995
-                    owner: Manuel Teixeira
-                    type: DVD
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful block. Redirect to user profile.'
+                  value: '/users/{account_tag}'
+                302Failure:
+                  description: 'Failed block. Redirect to login form.'
+                  value: '/login'
+
+  /admin/users/{account_tag}/unblock:
+    post:
+      operationId: R109
+      summary: 'R109: unblock user'
+      description: 'Unblock user. Access: ADM'
+      tags:
+        - 'M02: User Administration'
+      parameters:
+        - in: path
+          name: account_tag
+          schema:
+            type: string
+          required: true
+      responses:
+        '302':
+          description: 'Redirect after processing the unblock.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful unblock. Redirect to user profile.'
+                  value: '/users/{account_tag}'
+                302Failure:
+                  description: 'Failed unblock. Redirect to login form.'
+                  value: '/login'
+
+  /admin/users/{account_tag}/delete:
+    post:
+      operationId: R110
+      summary: 'R110: delete user'
+      description: 'Delete user. Access: ADM'
+      tags:
+        - 'M02: User Administration'
+      parameters:
+        - in: path
+          name: account_tag
+          schema:
+            type: string
+          required: true
+      responses:
+        '302':
+          description: 'Redirect after processing the delete.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful delete. Redirect to user profile.'
+                  value: '/users/{account_tag}'
+                302Failure:
+                  description: 'Failed delete. Redirect to login form.'
+                  value: '/login'
