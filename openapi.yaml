@@ -16,7 +16,7 @@ externalDocs:
 tags:
   - name: 'M01: Authentication and Individual Profile'
   - name: 'M02: User Administration'
-  - name: 'M03: Reviews and Wish list'
+  - name: 'M03: Content'
   - name: 'M04: Loans'
   - name: 'M05: User Administration and Static pages'
 
@@ -273,3 +273,15 @@ paths:
                 302Failure:
                   description: 'Failed delete. Redirect to login form.'
                   value: '/login'
+
+  /feed:
+    get:
+      operationId: R107
+      summary: 'R107: View Feed'
+      description: 'Show the current logged user''s feed'
+      tags:
+        - 'M03: Content'
+
+      responses:
+        '200':
+          description: 'Ok. Show feed'
