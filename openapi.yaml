@@ -160,7 +160,7 @@ paths:
                   description: 'Failed authentication. Redirect to login form.'
                   value: '/login'
 
-  /users/{account_tag}:
+  /user/{account_tag}:
     get:
       operationId: R106
       summary: 'R106: View user profile'
