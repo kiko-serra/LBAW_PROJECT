@@ -12,8 +12,8 @@ class Community extends Model
     /**
      * The cards this user owns.
      */
-     public function members() {
+    public function members() {
       return $this->hasMany('App\Models\Account')
-                            ->where('relationship', 'member');
+                            ->using('App\Models\Relationship');
     }
 }
