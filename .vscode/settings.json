@@ -1,0 +1,49 @@
+{
+    "favorites.resources": [
+        {
+            "filePath": "app/Http/Controllers",
+            "group": "Default"
+        },
+        {
+            "filePath": "app/Http/Middleware",
+            "group": "Default"
+        },
+        {
+            "filePath": "app/Models",
+            "group": "Default"
+        },
+        {
+            "filePath": "app/Policies",
+            "group": "Default"
+        },
+        {
+            "filePath": "resources/sql/seed.sql",
+            "group": "Default"
+        },
+        {
+            "filePath": "resources/views",
+            "group": "Default"
+        },
+        {
+            "filePath": "routes",
+            "group": "Default"
+        },
+        {
+            "filePath": "openapi.yaml",
+            "group": "Default"
+        },
+        {
+            "filePath": "public/css",
+            "group": "Default"
+        },
+        {
+            "filePath": "public/js",
+            "group": "Default"
+        },
+        {
+            "filePath": ".env",
+            "group": "Default"
+        }
+    ],
+    "favorites.sortOrder": "ASC"
+}
