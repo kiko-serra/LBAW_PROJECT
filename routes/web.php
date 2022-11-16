@@ -39,3 +39,18 @@ Route::post('register', 'Auth\RegisterController@register');
 
 //User
 //Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
+
+
+/**
+ * 
+ * DEBUG ROUTES, should be deleted afterwards.
+ * 
+*/
+
+
+Route::get('debug/users', function() {
+    foreach (\App\Models\User::all() as $user) {
+        echo $user->id . " " . $user->name . "<br>";
+    }
+    dump(\App\Models\User::get());
+});
