@@ -1,4 +1,4 @@
---Index drops
+a--Index drops
 DROP INDEX IF EXISTS tsv_idx;
 DROP INDEX IF EXISTS post_owner_date_idx;
 DROP INDEX IF EXISTS post_date_idx;
