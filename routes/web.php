@@ -11,9 +11,12 @@
 |
 */
 // Home
-// //Route::get('/home', '');
-Route::get('/',  function(){
+Route::get('/home',  function(){
     return view('home.home');
+})->name('home');
+
+Route::get('/', function() {
+    return redirect()->route('home');
 });
 
 // Cards

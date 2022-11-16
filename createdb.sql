@@ -5,9 +5,6 @@ DROP INDEX IF EXISTS post_date_idx;
 
 --Trigger drops
 
-DROP TRIGGER IF EXISTS community_admin on community;
-DROP FUNCTION IF EXISTS community_admin();
-
 DROP TRIGGER IF EXISTS delete_account on account;
 DROP FUNCTION IF EXISTS delete_account();
 
@@ -290,22 +287,6 @@ CREATE TRIGGER delete_account
 BEFORE DELETE ON account
 FOR EACH ROW
 EXECUTE PROCEDURE delete_account();
-
-
---Community creation admin becomes admin
-CREATE FUNCTION community_admin() RETURNS TRIGGER AS $$
-BEGIN
-    IF TG_OP = 'INSERT' THEN
-        INSERT INTO relationship VALUES (NEW.id_account, NEW.id_community, 'admin');
-    END IF;
-RETURN NEW;
-END
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER community_admin
-AFTER INSERT ON community
-FOR EACH ROW
-EXECUTE PROCEDURE community_admin();
 
 
 --Indexes
