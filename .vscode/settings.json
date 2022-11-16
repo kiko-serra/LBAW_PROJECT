@@ -43,6 +43,10 @@
         {
             "filePath": ".env",
             "group": "Default"
+        },
+        {
+            "filePath": "config",
+            "group": "Default"
         }
     ],
     "favorites.sortOrder": "ASC"

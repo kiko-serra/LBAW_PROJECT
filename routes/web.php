@@ -1,12 +1,9 @@
 <?php
-
 /*
-|--------------------------------------------------------------------------
 | Web Routes - web routes for your app
-|--------------------------------------------------------------------------
 */
 
-// Home
+// ----------------Home--------------------
 Route::get('/home',  function(){
     return view('home.home');
 })->name('home');
@@ -14,6 +11,7 @@ Route::get('/home',  function(){
 Route::get('/', function() {
     return redirect()->route('home');
 });
+
 
 // Cards
 Route::get('cards', 'CardController@list');
@@ -26,7 +24,7 @@ Route::put('api/cards/{card_id}/', 'ItemController@create');
 Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
 
-// Authentication
+// ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');

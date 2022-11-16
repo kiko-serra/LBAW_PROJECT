@@ -15,7 +15,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug
-        // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
     <script type="text/javascript" src={{ asset('js/app.js') }} defer>
 </script>
@@ -23,8 +22,8 @@
   <body>
     <main>
       <header>
-        <h1><a href="{{ url('/cards') }}">Unilinks!</a></h1>
-        @if (Auth::check())
+        <h1><a href="{{ url('/cards') }}">Unilinks!</a></h1> <!-- Mudar link! -->
+        @if (Auth::check()) 
         <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
         @endif
       </header>
