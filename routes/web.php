@@ -5,12 +5,17 @@
 
 // ----------------Home--------------------
 Route::get('/home',  function(){
-    return view('home.home');
+    return view('pages.home');
 })->name('home');
 
 Route::get('/', function() {
     return redirect()->route('home');
 });
+
+// ----------------Timeline--------------------
+Route::get('/timeline', function() {
+    return view('pages.timeline');
+})->name('timeline');
 
 
 // Cards
