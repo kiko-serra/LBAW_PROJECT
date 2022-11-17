@@ -23,7 +23,7 @@
     <main>
       <area id="background_color_1"></area>
       <header>
-        <h1><a href="{{ url('/cards') }}">Unilinks!</a></h1> <!-- Mudar link! -->
+        <h1><a href="{{ url('/posts') }}">Unilinks!</a></h1> <!-- Mudar link! -->
         @if (Auth::check()) 
         <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
         @endif

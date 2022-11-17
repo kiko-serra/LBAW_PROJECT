@@ -6,61 +6,61 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Card;
+use App\Models\Post;
 
 class CardController extends Controller
 {
     /**
-     * Shows the card for a given id.
+     * Shows the post for a given id.
      *
      * @param  int  $id
      * @return Response
      */
     public function show($id)
     {
-      $card = Card::find($id);
-      $this->authorize('show', $card);
-      return view('pages.card', ['card' => $card]);
+      $post = Post::find($id);
+      $this->authorize('show', $post);
+      return view('pages.post', ['post' => $post]);
     }
 
     /**
-     * Shows all cards.
+     * Shows all posts.
      *
      * @return Response
      */
     public function list()
     {
       if (!Auth::check()) return redirect('/login');
-      $this->authorize('list', Card::class);
-      $cards = Auth::user()->cards()->orderBy('id')->get();
-      return view('pages.cards', ['cards' => $cards]);
+      $this->authorize('list', Post::class);
+      $posts = Auth::user()->posts()->orderBy('id')->get();
+      return view('pages.posts', ['posts' => $posts]);
     }
 
     /**
-     * Creates a new card.
+     * Creates a new post.
      *
-     * @return Card The card created.
+     * @return Post The post created.
      */
     public function create(Request $request)
     {
-      $card = new Card();
+      $post = new Post();
 
-      $this->authorize('create', $card);
+      $this->authorize('create', $post);
 
-      $card->name = $request->input('name');
-      $card->user_id = Auth::user()->id;
-      $card->save();
+      $post->name = $request->input('name');
+      $post->user_id = Auth::user()->id;
+      $post->save();
 
-      return $card;
+      return $post;
     }
 
     public function delete(Request $request, $id)
     {
-      $card = Card::find($id);
+      $post = Post::find($id);
 
-      $this->authorize('delete', $card);
-      $card->delete();
+      $this->authorize('delete', $post);
+      $post->delete();
 
-      return $card;
+      return $post;
     }
 }

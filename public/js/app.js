@@ -1,25 +1,25 @@
 function addEventListeners() {
-  let itemCheckers = document.querySelectorAll('article.card li.item input[type=checkbox]');
+  let itemCheckers = document.querySelectorAll('article.post li.item input[type=checkbox]');
   [].forEach.call(itemCheckers, function(checker) {
     checker.addEventListener('change', sendItemUpdateRequest);
   });
 
-  let itemCreators = document.querySelectorAll('article.card form.new_item');
+  let itemCreators = document.querySelectorAll('article.post form.new_item');
   [].forEach.call(itemCreators, function(creator) {
     creator.addEventListener('submit', sendCreateItemRequest);
   });
 
-  let itemDeleters = document.querySelectorAll('article.card li a.delete');
+  let itemDeleters = document.querySelectorAll('article.post li a.delete');
   [].forEach.call(itemDeleters, function(deleter) {
     deleter.addEventListener('click', sendDeleteItemRequest);
   });
 
-  let cardDeleters = document.querySelectorAll('article.card header a.delete');
+  let cardDeleters = document.querySelectorAll('article.post header a.delete');
   [].forEach.call(cardDeleters, function(deleter) {
     deleter.addEventListener('click', sendDeleteCardRequest);
   });
 
-  let cardCreator = document.querySelector('article.card form.new_card');
+  let cardCreator = document.querySelector('article.post form.new_card');
   if (cardCreator != null)
     cardCreator.addEventListener('submit', sendCreateCardRequest);
 }
@@ -60,7 +60,7 @@ function sendCreateItemRequest(event) {
   let description = this.querySelector('input[name=description]').value;
 
   if (description != '')
-    sendAjaxRequest('put', '/api/cards/' + id, {description: description}, itemAddedHandler);
+    sendAjaxRequest('put', '/api/posts/' + id, {description: description}, itemAddedHandler);
 
   event.preventDefault();
 }
@@ -68,14 +68,14 @@ function sendCreateItemRequest(event) {
 function sendDeleteCardRequest(event) {
   let id = this.closest('article').getAttribute('data-id');
 
-  sendAjaxRequest('delete', '/api/cards/' + id, null, cardDeletedHandler);
+  sendAjaxRequest('delete', '/api/posts/' + id, null, cardDeletedHandler);
 }
 
 function sendCreateCardRequest(event) {
   let name = this.querySelector('input[name=name]').value;
 
   if (name != '')
-    sendAjaxRequest('put', '/api/cards/', {name: name}, cardAddedHandler);
+    sendAjaxRequest('put', '/api/posts/', {name: name}, cardAddedHandler);
 
   event.preventDefault();
 }
@@ -95,8 +95,8 @@ function itemAddedHandler() {
   let new_item = createItem(item);
 
   // Insert the new item
-  let card = document.querySelector('article.card[data-id="' + item.card_id + '"]');
-  let form = card.querySelector('form.new_item');
+  let post = document.querySelector('article.post[data-id="' + item.card_id + '"]');
+  let form = post.querySelector('form.new_item');
   form.previousElementSibling.append(new_item);
 
   // Reset the new item form
@@ -112,39 +112,39 @@ function itemDeletedHandler() {
 
 function cardDeletedHandler() {
   if (this.status != 200) window.location = '/';
-  let card = JSON.parse(this.responseText);
-  let article = document.querySelector('article.card[data-id="'+ card.id + '"]');
+  let post = JSON.parse(this.responseText);
+  let article = document.querySelector('article.post[data-id="'+ post.id + '"]');
   article.remove();
 }
 
 function cardAddedHandler() {
   if (this.status != 200) window.location = '/';
-  let card = JSON.parse(this.responseText);
+  let post = JSON.parse(this.responseText);
 
-  // Create the new card
-  let new_card = createCard(card);
+  // Create the new post
+  let new_card = createCard(post);
 
-  // Reset the new card input
-  let form = document.querySelector('article.card form.new_card');
+  // Reset the new post input
+  let form = document.querySelector('article.post form.new_card');
   form.querySelector('[type=text]').value="";
 
-  // Insert the new card
+  // Insert the new post
   let article = form.parentElement;
   let section = article.parentElement;
   section.insertBefore(new_card, article);
 
-  // Focus on adding an item to the new card
+  // Focus on adding an item to the new post
   new_card.querySelector('[type=text]').focus();
 }
 
-function createCard(card) {
+function createCard(post) {
   let new_card = document.createElement('article');
-  new_card.classList.add('card');
-  new_card.setAttribute('data-id', card.id);
+  new_card.classList.add('post');
+  new_card.setAttribute('data-id', post.id);
   new_card.innerHTML = `
 
   <header>
-    <h2><a href="cards/${card.id}">${card.name}</a></h2>
+    <h2><a href="posts/${post.id}">${post.name}</a></h2>
     <a href="#" class="delete">&#10761;</a>
   </header>
   <ul></ul>

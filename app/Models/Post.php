@@ -14,7 +14,7 @@ class Post extends Model
   protected $table = 'post';
 
   /**
-   * The user this card belongs to
+   * The user this post belongs to
    */
   public function user() {
     return $this->belongsTo('App\Models\User');

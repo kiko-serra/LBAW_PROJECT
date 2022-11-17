@@ -16,14 +16,14 @@ Route::get('/', function() {
 Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
 
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
+// Posts
+Route::get('posts', 'CardController@list');
+Route::get('posts/{id}', 'CardController@show');
 
 // API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
+Route::put('api/posts', 'CardController@create');
+Route::delete('api/posts/{card_id}', 'CardController@delete');
+Route::put('api/posts/{card_id}/', 'ItemController@create');
 Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
 
