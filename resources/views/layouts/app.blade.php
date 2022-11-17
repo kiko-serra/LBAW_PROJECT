@@ -21,6 +21,7 @@
   </head>
   <body>
     <main>
+      <area id="background_color_1"></area>
       <header>
         <h1><a href="{{ url('/cards') }}">Unilinks!</a></h1> <!-- Mudar link! -->
         @if (Auth::check()) 

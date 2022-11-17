@@ -1,6 +1,34 @@
+body,html {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+/* -----------------------  VARIABLES  ------------------------ */
+
+:root{
+  --bg_color1: rgb(140, 229, 254);
+  --bg_color2: rgb(248, 248, 248);
+}
+
+
+
+/* ----------------------------------------------- */
+
 body {
-  background-color: #ffffff;
+  background: var(--bg_color2);
+  height: 98vh;
   color: #9b4dca;
+}
+area#background_color_1{
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100%;
+  height: 50vh;
+  background: var(--bg_color1);
 }
 main > header {
   display: grid;
@@ -21,64 +49,135 @@ main > header span {
   margin: 1em;
   justify-self: center;
 }
-#cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+section#content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
-#cards article.card {
+
+section.sidepanel {
+  background: white;
+  border-radius: 20px;
+  width: 300px;
+  height: 50vh;
+}
+
+section#timeline {
+  background: white;
+  border-radius: 20px;
+  width: 600px;
+}
+
+section#profile{
+  width: 100%;
+  height: 300px;
+  display: grid;
+  grid-template-areas:
+    "profile_img info     info"
+    "identity    identity follow"
+    "bio         bio      bio"
+    "filters     filters  filters";
+  grid-template-rows: 100px 80px 70px 40px;
+  grid-template-columns: 30% 40% 30%;
+}
+
+section#profile > #profile_image{
+  grid-area: profile_img;
+  background-color: lightgreen;
+  height: 100%;
+  
+}
+section#profile > #user_life_info{
+  grid-area: info;
+  background-color: lightblue;
+  height: 100%;
+  
+}
+section#profile > #user_identity_info{
+  grid-area: identity;
+  background-color:  lightslategrey;
+  height: 100%;
+  
+}
+section#profile > #follow_button{
+  grid-area: follow;
+  background-color:  lightcoral;
+  height: 100%;
+  
+}
+section#profile > #user_bio{
+  grid-area: bio;
+  background-color: lightyellow;
+  height: 100%;
+
+}
+section#profile > #filters{
+  grid-area: filters;
+  background-color: lightpink;
+  height: 100%;
+}
+
+/* --------------- posts ----------------- */
+#posts {
+  display: flex;
+  flex-direction: column;
+}
+#posts article.card {
   display: flex;
   flex-direction: column;
   background-color: #d3edc3;
   padding: 1em;
   margin: 1em;
 }
-#cards article.card header {
+#posts article.card header {
   display: flex;
   align-items: center;
 }
-#cards article.card header h2 {
+#posts article.card header h2 {
   flex-grow: 1;
 }
-#cards article.card header a.delete {
+#posts article.card header a.delete {
   display: none;
   font-size: 2.6rem;
   margin-top: .5rem;
   margin-bottom: 2.5rem;
   line-height: 1.25;
 }
-#cards article.card header:hover a.delete {
+#posts article.card header:hover a.delete {
   display: inline;
 }
-#cards article.card li {
+#posts article.card li {
   list-style-type: none;
 }
-#cards article.card li label {
+#posts article.card li label {
   display: flex;
   align-items: baseline;
 }
-#cards article.card li label span {
+#posts article.card li label span {
   margin-left: .5em;
   flex-grow: 1;
 }
-#cards article.card li label a {
+#posts article.card li label a {
   display: none;
 }
-#cards article.card li label:hover a {
+#posts article.card li label:hover a {
   display: inline;
 }
-#cards article.card input:checked + span {
+#posts article.card input:checked + span {
   text-decoration: var(--primary-color) solid line-through;
 }
-#cards article.card ul {
+#posts article.card ul {
   margin: 0;
 }
-#cards article.card form {
+#posts article.card form {
   margin: 0;
 }
-#cards article.card input[type=text] {
+#posts article.card input[type=text] {
   background-color: white;
   margin: 0;
 }
+/* --------------------------------------- */
 #content label {
   font-weight: normal;
 }
@@ -96,7 +195,7 @@ main > header span {
   background-color: white;
 }
 @media (max-width: 70em) {
-  #cards {
+  #posts {
     grid-template-columns: repeat(2, 1fr);
   }
   main > header {
@@ -108,7 +207,7 @@ main > header span {
   }
 }
 @media (max-width: 40em) {
-  #cards {
+  #posts {
     grid-template-columns: 1fr;
   }
 }
@@ -127,7 +226,7 @@ main > header span {
     margin: 0;
     max-width: 25em;
   }
-  article.card {
+  article.post {
     margin: 0;
     border-bottom: 1px solid rgba(96, 108, 118, 0.4);
   }
