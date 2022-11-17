@@ -4,22 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class Post extends Model
 {
   // Don't add create and update timestamps in database.
   public $timestamps  = false;
+
+  protected $primaryKey = 'id_post';
+
+  protected $table = 'post';
 
   /**
    * The user this card belongs to
    */
   public function user() {
     return $this->belongsTo('App\Models\User');
-  }
-
-  /**
-   * Items inside this card
-   */
-  public function items() {
-    return $this->hasMany('App\Models\Item');
   }
 }

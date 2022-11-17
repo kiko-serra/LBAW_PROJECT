@@ -13,9 +13,7 @@ Route::get('/', function() {
 });
 
 // ----------------Timeline--------------------
-Route::get('/timeline', function() {
-    return view('pages.timeline');
-})->name('timeline');
+Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
 
 // Cards
@@ -52,4 +50,18 @@ Route::get('debug/users', function() {
         echo $user->id . " " . $user->name . "<br>";
     }
     dump(\App\Models\User::get());
+});
+
+Route::get('debug/posts', function() {
+    foreach (\App\Models\Post::all() as $post) {
+        echo $post->id_post . " " . $post->description . "<br>";
+    }
+    dump(\App\Models\Post::get());
+});
+
+Route::get('debug/posts/{id}', function($id) {
+    foreach (\App\Models\User::find($id)->posts()->get() as $post) {
+        echo $post->id_post . " " . $post->description . "<br>";
+    }
+    dump(\App\Models\User::find($id)->posts()->get());
 });
