@@ -1,9 +1,16 @@
 @extends('layouts.app')
 
+@section('title', 'Timeline')
+
 @section('content')
 
-<h1>
-    Timeline page.
-</h1>
+<section id="cards">
+  @each('partials.post', $posts, 'post')
+  <article class="card">
+    <form class="new_card">
+      <input type="text" name="name" placeholder="new card">
+    </form>
+  </article>
+</section>
 
 @endsection
