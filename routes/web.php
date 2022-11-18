@@ -15,6 +15,9 @@ Route::get('/', function() {
 // ----------------Timeline--------------------
 Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
+// ----------------User Profile--------------------
+Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
+
 
 // Posts
 Route::get('posts', 'CardController@list');
