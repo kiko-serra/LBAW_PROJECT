@@ -17,6 +17,20 @@ class Post extends Model
    * The user this post belongs to
    */
   public function user() {
-    return $this->belongsTo('App\Models\User');
+    return $this->belongsTo(User::class);
+  }
+
+  /**
+   * This post's parent
+   */
+  public function parent() {
+    return $this->belongsTo(Post::class);
+  }
+
+  /**
+   * This post's comments
+   */
+  public function comments() {
+    return $this->hasMany(Post::class);
   }
 }
