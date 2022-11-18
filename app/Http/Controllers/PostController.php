@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Post;
 
-class CardController extends Controller
+// TODO: I see no use for this class. Ass: Avila
+
+class PostController extends Controller
 {
     /**
      * Shows the post for a given id.
@@ -31,8 +33,8 @@ class CardController extends Controller
     public function list()
     {
       if (!Auth::check()) return redirect('/login');
-      $this->authorize('list', Post::class);
-      $posts = Auth::user()->posts()->orderBy('id')->get();
+      //$this->authorize('list', Post::class);
+      $posts = Post::all()->sortBy('edited_date');
       return view('pages.posts', ['posts' => $posts]);
     }
 

@@ -20,12 +20,12 @@ Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
 
 
 // Posts
-Route::get('posts', 'CardController@list');
-Route::get('posts/{id}', 'CardController@show');
+Route::get('posts', 'PostController@list');
+Route::get('posts/{id}', 'PostController@show');
 
 // API
-Route::put('api/posts', 'CardController@create');
-Route::delete('api/posts/{card_id}', 'CardController@delete');
+Route::put('api/posts', 'PostController@create');
+Route::delete('api/posts/{card_id}', 'PostController@delete');
 Route::put('api/posts/{card_id}/', 'ItemController@create');
 Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');

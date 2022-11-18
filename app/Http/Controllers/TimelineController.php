@@ -18,8 +18,8 @@ class TimelineController extends Controller
     public function list()
     {
       if (!Auth::check()) return redirect('/login');
-      //$this->authorize('list', Post::class); //TODO: discover what this is
-      $posts = Auth::user()->posts()->orderBy('edited_date')->get();
+      $this->authorize('list', Post::class);
+      $posts = Post::all()->sortBy('edited_date'); //TODO: Show interesting posts
       return view('pages.timeline', ['posts' => $posts]);
     }
 }

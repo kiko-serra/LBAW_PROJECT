@@ -8,21 +8,21 @@ use App\Models\Post;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class CardPolicy
+class PostPolicy
 {
     use HandlesAuthorization;
 
     // REMOVE
     public function show(User $user, Post $post)
     {
-      // Only a post owner can see it
+      // The post should be visible if the owner's profile isn't private or in case it is, if the user is frinds with him
       return $user->id == $post->user_id;
     }
 
     // REMOVE
     public function list(User $user)
     {
-      // Any user can list its own posts
+      // Any user can list posts
       return Auth::check();
     }
 
