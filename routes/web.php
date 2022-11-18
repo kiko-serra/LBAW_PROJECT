@@ -59,9 +59,17 @@ Route::get('debug/posts', function() {
     dump(\App\Models\Post::get());
 });
 
-Route::get('debug/posts/{id}', function($id) {
+/** A user's posts */
+Route::get('debug/user/{id}/posts', function($id) {
     foreach (\App\Models\User::find($id)->posts()->get() as $post) {
         echo $post->id_post . " " . $post->description . "<br>";
     }
     dump(\App\Models\User::find($id)->posts()->get());
+});
+
+/** A user's specific post */
+Route::get('debug/user/{user_id}/posts/{post_id}', function($user_id, $post_id) {
+    $post = \App\Models\User::find($user_id)->posts()->find($post_id);
+    echo $post->id_post . " " . $post->description . "<br>";
+    dump($post);
 });
