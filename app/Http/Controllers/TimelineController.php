@@ -23,6 +23,7 @@ class TimelineController extends Controller
       $this->authorize('list', Post::class);
       $posts = User::join('post', 'account.id_account', '=', 'post.owner_id')->get(['post.*', 'account.name', 'account.account_tag'])->sortByDesc('edited_date'); //TODO: Show interesting posts
 
+      dump($posts);
       return view('pages.timeline', ['posts' => $posts]);
     }
 }
