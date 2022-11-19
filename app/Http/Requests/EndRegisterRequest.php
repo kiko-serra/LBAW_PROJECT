@@ -44,7 +44,7 @@ class EndRegisterRequest extends FormRequest
             'pronouns.max' => 'Your pronouns should be no longer than 20 characters',
             'pronouns.regex' => 'Your pronouns should include "/" in between',
             'location.max' => 'Your location should be no longer than 32 characters',
-            'location.max' => 'Your description should be no longer than 255 characters',
+            'description.max' => 'Your description should be no longer than 255 characters',
         ];
     }
 }
