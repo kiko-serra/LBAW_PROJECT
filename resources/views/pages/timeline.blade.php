@@ -7,18 +7,27 @@
 <section class="sidepanel" id="left"> 
     
 </section>
-<section id="timeline">
+<section class="flex flex-col justify-start">
+  <div class="bg-white rounded-2xl p-4">
+    <div class="flex flex-row">
+      <div id="newPostCardLeftBar" class="flex flex-col">
+        <div class="w-24 h-24 bg-blue-500 rounded-full"></div>
+      </div>
+      <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" class="w-full">
+    </div>
+    <div class="flex flex-row justify-between">
+      <select name="showoptions" id="newpostvisibility" class="w-fit">
+        <option disabled> Show to everyone </option>
+        <option value="0">Friends</option>
+        <option value="1">FSI 22/23</option> <!--The user's groups -->
+      </select>
+      <button class="px-4"> Publish </button>
+    </div>
+  </div>
 
-  <section id="profile">
-    <div id="profile_image"></div>
-    <div id="user_life_info"></div>
-    <div id="user_identity_info"></div>
-    <div id="follow_button"></div>
-    <div id="user_bio"></div>
-    <div id="filters"></div>
-  </section>
-
-  <div id="posts">
+  <span class="my-4"></span>
+    
+  <div id="posts" class="bg-white rounded-2xl">
     @each('partials.post', $posts, 'post')
   </div>
 
