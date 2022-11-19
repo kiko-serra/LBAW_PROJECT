@@ -10,7 +10,7 @@ class Community extends Model
     public $timestamps  = false;
 
     /**
-     * The cards this user owns.
+     * The posts this user owns.
      */
     public function members() {
       return $this->hasMany('App\Models\Account')

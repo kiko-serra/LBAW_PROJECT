@@ -16,15 +16,17 @@
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug
     </script>
+    <script src="https://kit.fontawesome.com/343294b271.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src={{ asset('js/app.js') }} defer>
 </script>
   </head>
   <body>
     <main>
+      <area id="background_color_1"></area>
       <header>
-        <h1><a href="{{ url('/cards') }}">Unilinks!</a></h1> <!-- Mudar link! -->
+        <h1><a href="{{ url('/timeline') }}">Unilinks!</a></h1> <!-- Mudar link! -->
         @if (Auth::check()) 
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
+        <a class="button" href="{{ url('/logout') }}"> Logout </a> <a href="{{ route('profile', Auth::user()->id_account) }}">{{ Auth::user()->name }}</a>
         @endif
       </header>
       <section id="content">

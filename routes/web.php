@@ -13,19 +13,21 @@ Route::get('/', function() {
 });
 
 // ----------------Timeline--------------------
-Route::get('/timeline', function() {
-    return view('pages.timeline');
-})->name('timeline');
+Route::get('/timeline', 'TimelineController@list')->name('timeline');
+
+// ----------------User Profile--------------------
+Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
 
 
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
+// Posts
+Route::get('posts', 'PostController@list');
+Route::get('posts/{id}', 'PostController@show');
+Route::post('post/new', 'PostController@create')->name('newpost');
 
 // API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
+Route::put('api/posts', 'PostController@create');
+Route::delete('api/posts/{card_id}', 'PostController@delete');
+Route::put('api/posts/{card_id}/', 'ItemController@create');
 Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
 
@@ -52,4 +54,26 @@ Route::get('debug/users', function() {
         echo $user->id . " " . $user->name . "<br>";
     }
     dump(\App\Models\User::get());
+});
+
+Route::get('debug/posts', function() {
+    foreach (\App\Models\Post::all() as $post) {
+        echo $post->id_post . " " . $post->description . "<br>";
+    }
+    dump(\App\Models\Post::get());
+});
+
+/** A user's posts */
+Route::get('debug/user/{id}/posts', function($id) {
+    foreach (\App\Models\User::find($id)->posts()->get() as $post) {
+        echo $post->id_post . " " . $post->description . "<br>";
+    }
+    dump(\App\Models\User::find($id)->posts()->get());
+});
+
+/** A user's specific post */
+Route::get('debug/user/{user_id}/posts/{post_id}', function($user_id, $post_id) {
+    $post = \App\Models\User::find($user_id)->posts()->find($post_id);
+    echo $post->id_post . " " . $post->description . "<br>";
+    dump($post);
 });

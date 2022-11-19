@@ -10,9 +10,9 @@ class Item extends Model
   public $timestamps  = false;
 
   /**
-   * The card this item belongs to.
+   * The post this item belongs to.
    */
-  public function card() {
-    return $this->belongsTo('App\Models\Card');
+  public function post() {
+    return $this->belongsTo('App\Models\Post');
   }
 }

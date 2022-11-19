@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,html {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+/* -----------------------  VARIABLES  ------------------------ */
+
+:root{
+  --bg_color1: rgb(140, 229, 254);
+  --bg_color2: rgb(248, 248, 248);
+}
+
+
+
+/* ----------------------------------------------- */
+
+body {
+  background: var(--bg_color2);
+  height: 98vh;
+  color: #9b4dca;
+}
+area#background_color_1{
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100%;
+  height: 50vh;
+  background: var(--bg_color1);
+}
+main > header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  background-color: #d2afe7;
+  padding: 1em;
+  margin: 1em;
+}
+main > header h1 {
+  margin: 0;
+}
+main > header a.button {
+  margin: 1em;
+  justify-self: center;
+}
+main > header span {
+  margin: 1em;
+  justify-self: center;
+}
+section#content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+section.sidepanel {
+  background: white;
+  border-radius: 20px;
+  width: 300px;
+  height: 50vh;
+}
+
+section#timeline {
+  background: white;
+  border-radius: 20px;
+  width: 600px;
+}
+
+section#profile{
+  width: 100%;
+  height: 300px;
+  display: grid;
+  grid-template-areas:
+    "profile_img info     info"
+    "identity    identity follow"
+    "bio         bio      bio"
+    "filters     filters  filters";
+  grid-template-rows: 100px 80px 70px 40px;
+  grid-template-columns: 30% 40% 30%;
+}
+
+section#profile > #profile_image{
+  grid-area: profile_img;
+  background-color: lightgreen;
+  height: 100%;
+  
+}
+section#profile > #user_life_info{
+  grid-area: info;
+  background-color: lightblue;
+  height: 100%;
+  
+}
+section#profile > #user_identity_info{
+  grid-area: identity;
+  background-color:  lightslategrey;
+  height: 100%;
+  
+}
+section#profile > #follow_button{
+  grid-area: follow;
+  background-color:  lightcoral;
+  height: 100%;
+  
+}
+section#profile > #user_bio{
+  grid-area: bio;
+  background-color: lightyellow;
+  height: 100%;
+
+}
+section#profile > #filters{
+  grid-area: filters;
+  background-color: lightpink;
+  height: 100%;
+}
+
+/* --------------- posts ----------------- */
+#posts {
+  display: flex;
+  flex-direction: column;
+}
+#posts article.post {
+  display: flex;
+  flex-direction: column;
+  background-color: #d3edc3;
+  padding: 1em;
+  margin: 1em;
+}
+#posts article.post header {
+  display: flex;
+  align-items: center;
+}
+#posts article.post header h2 {
+  flex-grow: 1;
+}
+#posts article.post header a.delete {
+  display: none;
+  font-size: 2.6rem;
+  margin-top: .5rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.25;
+}
+#posts article.post header:hover a.delete {
+  display: inline;
+}
+#posts article.post li {
+  list-style-type: none;
+}
+#posts article.post li label {
+  display: flex;
+  align-items: baseline;
+}
+#posts article.post li label span {
+  margin-left: .5em;
+  flex-grow: 1;
+}
+#posts article.post li label a {
+  display: none;
+}
+#posts article.post li label:hover a {
+  display: inline;
+}
+#posts article.post input:checked + span {
+  text-decoration: var(--primary-color) solid line-through;
+}
+#posts article.post ul {
+  margin: 0;
+}
+#posts article.post form {
+  margin: 0;
+}
+#posts article.post input[type=text] {
+  background-color: white;
+  margin: 0;
+}
+/* --------------------------------------- */
+#content label {
+  font-weight: normal;
+}
+#content > form {
+  margin: 0 auto;
+  padding: 1em;
+  max-width: 20em;
+  border: 1px solid #d2afe7;
+}
+#content > form .error {
+  font-weight: bold;
+  color: #ff3333;
+}
+#content > form input {
+  background-color: white;
+}
+@media (max-width: 70em) {
+  #posts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  main > header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  main > header h1 {
+    grid-row-end: span 2;
+  }
+}
+@media (max-width: 40em) {
+  #posts {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 25em) {
+  body {
+    margin: 0;
+  }
+  main > header {
+    margin: 0;
+    padding: 0.5em;
+  }
+  main > header span {
+    margin: 0;
+  }
+  #content form {
+    margin: 0;
+    max-width: 25em;
+  }
+  article.post {
+    margin: 0;
+    border-bottom: 1px solid rgba(96, 108, 118, 0.4);
+  }
+}
+/**
+ * Overide milligram colors
+ * Some styles might be missing
+ **/
+button {
+  background-color: #9b4dca;
+  border-color: #9b4dca;
+}
+a.button {
+  background-color: #9b4dca;
+  border-color: #9b4dca;
+}
+a.button.button-outline {
+  color: #9b4dca;
+}
+a {
+  color: #9b4dca;
+}
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus {
+  border-color: #9b4dca;
+}

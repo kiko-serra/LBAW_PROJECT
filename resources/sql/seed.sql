@@ -75,7 +75,7 @@ CREATE TABLE post (
     description TEXT CONSTRAINT null_Post_description NOT NULL CONSTRAINT check_Post_description CHECK (LENGTH(description) < 500 AND LENGTH(description) > 0),
     has_images BOOLEAN CONSTRAINT null_Post_has_images NOT NULL,
     publication_date TIMESTAMP(2) CONSTRAINT null_Post_date NOT NULL DEFAULT CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE,
-    edited_date TIMESTAMP(2) CONSTRAINT check_Post_edited_date CHECK (edited_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE AND edited_date > publication_date),
+    edited_date TIMESTAMP(2) CONSTRAINT check_Post_edited_date CHECK (edited_date <= CURRENT_TIMESTAMP(2)::TIMESTAMP WITHOUT TIME ZONE AND edited_date >= publication_date),
     comments_count INTEGER CONSTRAINT null_Post_comments_count NOT NULL CONSTRAINT check_Post_is_private CHECK (comments_count >= 0),
     is_visible BOOLEAN CONSTRAINT null_Post_is_private NOT NULL
 );
