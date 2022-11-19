@@ -4,18 +4,9 @@
 <form method="POST" action="{{ route('register') }}" class = "rounded-2xl bg-white">
     {{ csrf_field() }} 
 
-    <!-- Obligatory and Unique-->
-    <label for="username"> Username </label>
-    <input id="username" type="text" name="username" value="{{ old('username') }}"" required autofocus> 
-    @if ($errors->has('username'))
-      <span class="error">
-          {{ $errors->first('username') }} {{-- Need to create validator --}}
-      </span>
-    @endif
-
     <!-- Obligatory -->
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name" value="{{ old('name') }}" required>
+    <label for="accounttag">Account Tag</label>
+    <input id="accounttag" type="text" name="accounttag" value="{{ old('accounttag') }}" required>
     @if ($errors->has('name'))
       <span class="error">
           {{ $errors->first('name') }} {{-- Need to create validator --}}
@@ -31,6 +22,18 @@
       </span>
     @endif
 
+        <!-- Obligatory-->
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" required>
+    @if ($errors->has('password'))
+      <span class="error">
+          {{ $errors->first('password') }}
+      </span>
+    @endif
+
+    <label for="password-confirm">Confirm Password</label>
+    <input id="password-confirm" type="password" name="password_confirmation" required>
+
     <!-- Obligatory-->
     <label for="birthday">Birthday</label>
     <input id="birthday" type="date" name="birthday" value="{{ old('birthday') }}" required>
@@ -39,14 +42,6 @@
           {{ $errors->first('birthday') }} {{-- Need to create validator --}}
       </span>
     @endif
-
-    <!-- Obligatory-->
-    <label for="privacy">Profile Privacy</label>
-
-    <input type="radio" id="private" name="privacy" value="private" checked="checked">
-    <label for="private">Private</label><br>
-    <input type="radio" id="public" name="privacy" value="public">
-    <label for="public">Public</label><br>
 
     <!-- TO DO: UNIVERSITIES LIST -->
     <!-- Obligatory -->
@@ -67,24 +62,9 @@
       </span>
     @endif
 
-
-    <!-- Obligatory-->
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-      <span class="error">
-          {{ $errors->first('password') }}
-      </span>
-    @endif
-
-
-
-    <label for="password-confirm">Confirm Password</label>
-    <input id="password-confirm" type="password" name="password_confirmation" required>
-
     <button type="submit">
       Register
     </button>
-    <a class="button button-outline" href="{{ route('login') }}">Login</a>
+    <a class="" href="{{ route('login') }}"> I already have an account </a>
 </form>
 @endsection
