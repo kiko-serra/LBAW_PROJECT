@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Support\Facades\Auth;
+
 class EndRegisterRequest extends FormRequest
 {
     /**
@@ -24,10 +26,25 @@ class EndRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:255',
-            'pronouns' => 'string|max:20|regex:/.+\/.+/',
-            'location' => 'string|max:36',
-            'description' => 'string|max:255'
+            'name' => 'string|max:32|nullable',
+            'pronouns' => 'string|max:20|regex:/.+\/.+/|nullable',
+            'location' => 'string|max:32|nullable',
+            'description' => 'string|max:255|nullable',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() { // This is not working
+        return [
+            'name.max' => 'Your name should be no longer than 32 characters',
+            'pronouns.max' => 'Your pronouns should be no longer than 20 characters',
+            'pronouns.regex' => 'Your pronouns should include "/" in between',
+            'location.max' => 'Your location should be no longer than 32 characters',
+            'location.max' => 'Your description should be no longer than 255 characters',
         ];
     }
 }

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
 
+use App\Http\Requests\EndRegisterRequest;
+
 class UserProfileController extends Controller
 {
     /**
@@ -24,9 +26,9 @@ class UserProfileController extends Controller
       return view('pages.userProfile', ['posts' => $posts]);
     }
 
-    public function endRegister(Request $request) {
+    public function endRegister(EndRegisterRequest $request) {
 
-
+      $validated = $request->validated();
 
       if ($request['name'] != null) {
         Auth::user()->name = $request['name'];
@@ -43,6 +45,6 @@ class UserProfileController extends Controller
       }
       Auth::user()->save();
 
-      return Auth::user();//redirect('/timelin');
+      return redirect('/timeline');
   }
 }
