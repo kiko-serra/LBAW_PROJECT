@@ -60,7 +60,7 @@ class PostController extends Controller
       $post->is_visible = true;
       $post->save();
 
-      return $post;
+      return redirect()->route('timeline');
     }
 
     public function delete(Request $request, $id)
