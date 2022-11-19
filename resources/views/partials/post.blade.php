@@ -5,8 +5,8 @@
   <div id="postCardRightBar" class="flex flex-row justify-between w-full">
     <div id="postCardInfo" class="flex flex-col ml-2">
       <header class="flex flex-row gap-x-2 mb-2">
-        <p class="text-3xl">Username</p>
-        <p class="text-2xl">@Usertag</p>
+        <p class="text-3xl">{{ $post->name }}</p>
+        <p class="text-2xl"><span>@</span>{{ $post->account_tag }}</p>
         <p class="text-2xl">{{ $post->edited_date }}</p>
       </header>
       <p> {{$post->description}} </p>

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Post;
+use App\Models\User;
+
 
 class TimelineController extends Controller
 {
@@ -19,7 +21,8 @@ class TimelineController extends Controller
     {
       if (!Auth::check()) return redirect('/login');
       $this->authorize('list', Post::class);
-      $posts = Post::all()->sortBy('edited_date'); //TODO: Show interesting posts
+      $posts = User::join('post', 'account.id_account', '=', 'post.owner_id')->get(['post.*', 'account.name', 'account.account_tag'])->sortByDesc('edited_date'); //TODO: Show interesting posts
+
       return view('pages.timeline', ['posts' => $posts]);
     }
 }
