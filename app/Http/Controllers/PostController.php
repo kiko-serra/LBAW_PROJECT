@@ -48,9 +48,16 @@ class PostController extends Controller
       $post = new Post();
 
       $this->authorize('create', $post);
-
-      $post->name = $request->input('name');
-      $post->user_id = Auth::user()->id;
+      $post->parent_post = null;
+      $post->owner_id = Auth::user()->id_account;
+      $post->group_id = $request->input('group') ? $request->input('group') : null;
+      $post->description = $request->input('description');
+      $post->has_images = false;
+      $thisdate = now();
+      $post->publication_date = $thisdate;
+      $post->edited_date = $thisdate;
+      $post->comments_count = 0;
+      $post->is_visible = true;
       $post->save();
 
       return $post;

@@ -22,6 +22,7 @@ Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
 // Posts
 Route::get('posts', 'PostController@list');
 Route::get('posts/{id}', 'PostController@show');
+Route::post('post/new', 'PostController@create')->name('newpost');
 
 // API
 Route::put('api/posts', 'PostController@create');

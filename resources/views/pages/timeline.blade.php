@@ -8,18 +8,19 @@
     
 </section>
 <section class="flex flex-col justify-start">
-  <form method="POST" action="{{ route('createpost') }}"  class="bg-white rounded-2xl p-4">
+  <form method="POST" action="{{ route('newpost') }}"  class="bg-white rounded-2xl p-4">
+    {{ csrf_field() }}
     <div class="flex flex-row">
       <div id="newPostCardLeftBar" class="flex flex-col">
         <div class="w-24 h-24 bg-blue-500 rounded-full"></div>
       </div>
       <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" class="w-full">
     </div>
-    <div class="flex flex-row justify-between">
-      <select name="showoptions" id="newpostvisibility" class="w-fit">
+    <div class="flex flex-row justify-between mt-4">
+      <select name="group" id="newpostvisibility" class="w-fit">
         <option disabled> Show to everyone </option>
-        <option value="0">Friends</option>
-        <option value="1">FSI 22/23</option> <!--The user's groups -->
+        <option for="group" value="0">Friends</option>
+        <option for="group" value="1">FSI 22/23</option> <!--The user's groups -->
       </select>
       <button class="px-4"> Publish </button>
     </div>
