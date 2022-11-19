@@ -23,4 +23,26 @@ class UserProfileController extends Controller
       $posts = User::find($id)->posts()->orderBy('edited_date')->get();
       return view('pages.userProfile', ['posts' => $posts]);
     }
+
+    public function endRegister(Request $request) {
+
+
+
+      if ($request['name'] != null) {
+        Auth::user()->name = $request['name'];
+      }
+      Auth::user()->is_private = !($request['privacy'] == "public");
+      if ($request['pronouns'] != null) {
+        Auth::user()->pronouns = $request['pronouns'];
+      }
+      if ($request['location'] != null) {
+        Auth::user()->location = $request['location'];
+      }
+      if ($request['description'] != null) {
+        Auth::user()->description = $request['description'];
+      }
+      Auth::user()->save();
+
+      return Auth::user();//redirect('/timelin');
+  }
 }
