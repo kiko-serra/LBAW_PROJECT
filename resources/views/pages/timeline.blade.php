@@ -8,7 +8,7 @@
     
 </section>
 <section class="flex flex-col justify-start">
-  <div class="bg-white rounded-2xl p-4">
+  <form method="POST" action="{{ route('createpost') }}"  class="bg-white rounded-2xl p-4">
     <div class="flex flex-row">
       <div id="newPostCardLeftBar" class="flex flex-col">
         <div class="w-24 h-24 bg-blue-500 rounded-full"></div>
@@ -23,7 +23,7 @@
       </select>
       <button class="px-4"> Publish </button>
     </div>
-  </div>
+  </form>
 
   <span class="my-4"></span>
     
