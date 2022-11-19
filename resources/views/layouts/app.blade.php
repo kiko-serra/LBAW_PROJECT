@@ -25,7 +25,7 @@
       <header>
         <h1><a href="{{ url('/posts') }}">Unilinks!</a></h1> <!-- Mudar link! -->
         @if (Auth::check()) 
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
+        <a class="button" href="{{ url('/logout') }}"> Logout </a> <a href="{{ route('profile', Auth::user()->id_account) }}">{{ Auth::user()->name }}</a>
         @endif
       </header>
       <section id="content">
