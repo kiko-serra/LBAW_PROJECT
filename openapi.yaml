@@ -9,6 +9,7 @@ servers:
   - url: https://lbaw.fe.up.pt
     description: Production server
 
+security: []
 
 externalDocs:
   description: Find more info here.
@@ -25,18 +26,17 @@ tags:
     description: 'Content Review'
   - name: 'M05'
     description: 'User relationship' 
+  - name: 'M06'
+    description: 'Static content'
 
 components:
   securitySchemes:
       cookieuser:        
         type: apiKey
         in: cookie
-        name: SESSIONID
+        name: SESSIONID      #cookie used to save session id
 
 paths:
-
-##### main page??
-
 ######### M1 Authentication and Individual Profile #############
   /login:
     get:
@@ -355,6 +355,7 @@ paths:
         content:
           multipart/form-data: # necessary for photos
             schema:
+              type: string
               properties:
                 new_username:
                   type: string
@@ -500,13 +501,24 @@ paths:
       responses:
         '200':
           description: 'Ok. Show feed'
-    
+
   /new_post:
-    post:
+    get:
       operationId: R303
       security:
         - cookieuser: []
-      summary: 'R303: Create Post'
+      summary: 'R303: New Post Form'
+      description: 'Provide new podt form. Access: Authenticated-USR, ADM'
+      tags:
+        - 'M03'
+      responses:
+        '200':
+          description: 'Ok. Show new post UI'
+    post:
+      operationId: R304
+      security:
+        - cookieuser: []
+      summary: 'R304: Create Post'
       description: 'Create new post. Access: Authenticated-USR, ADM'
       tags:
         - "M03"
@@ -515,6 +527,7 @@ paths:
         content:
           multipart/form-data: # necessary for photos
             schema:
+              type: string
               properties:
                 _token:           #csrf
                   type: string
@@ -524,6 +537,8 @@ paths:
                   type: integer
                 is_visible:
                   type: boolean
+                group_id:
+                  type: integer
                 image1:            #pic1
                   type: string
                   format: binary
@@ -540,7 +555,7 @@ paths:
                 - _token
                 - description
                 - is_visible
-
+      
       responses:
         '302':
           description:  'Redirect after creating post.'
@@ -560,8 +575,8 @@ paths:
     get:      
       security:
         - cookieuser: []
-      operationId: R304
-      summary: 'R304: View Post'
+      operationId: R305
+      summary: 'R305: View Post'
       description: 'Show the post with path id. Access: Authenticated-USR, ADM'
       tags:
         - 'M03'
@@ -577,10 +592,10 @@ paths:
 
   /{post_id}/edit:
     post:
-      operationId: R305
+      operationId: R306
       security:
         - cookieuser: []
-      summary: 'R305: Edit Post'
+      summary: 'R306: Edit Post'
       description: 'Edit post. Access: Authenticated-USR, ADM'
       tags:
         - "M03"
@@ -589,6 +604,7 @@ paths:
         content:
           multipart/form-data: # necessary for photos
             schema:
+              type: string
               properties:
                 _token:           #csrf
                   type: string
@@ -628,13 +644,24 @@ paths:
 
   /{post_id}/delete:
     post:
-      operationId: R306
+      operationId: R307
       security:
         - cookieuser: []
-      summary: 'R306: Delete Post'
+      summary: 'R307: Delete Post'
       description: 'Delete post. Access: Authenticated-USR, ADM'
       tags:
         - "M03"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:         #csrf
+                  type: string
+              required:
+                - _token
 
       responses:
         '302':
@@ -651,3 +678,598 @@ paths:
                   description: 'Error deleting post. Redirect to post.'
                   value: '/{post_id}'
 
+########### M4 Content Review ################
+  /{post_id}/react:
+    post:
+      operationId: R401
+      security:
+        - cookieuser: []
+      summary: 'R401: React Post'
+      description: 'React Post Action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M04"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:         #csrf
+                  type: string
+                up_vote: 
+                  type: boolean
+                remove:
+                  type: boolean    #to remove reaction
+              required:
+                - _token
+                - up_vote
+
+      responses:
+        '302':
+          description:  'Redirect after editing post.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Post delete successful. Redirect to profile.'
+                  value: '/{account_tag}'
+                302Error:
+                  description: 'Error deleting post. Redirect to post.'
+                  value: '/{post_id}'
+
+  /{post_id}/promotion:
+    post:
+      operationId: R402
+      security:
+        - cookieuser: []
+      summary: 'R402: Promote Post'
+      description: 'Promote Post Action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M04"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:         #csrf
+                  type: string
+                remove:
+                  type: boolean    #to remove promotion
+              required:
+                - _token
+
+      responses:
+        '302':
+          description:  'Redirect after editing post.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Post delete successful. Redirect to profile.'
+                  value: '/{account_tag}'
+                302Error:
+                  description: 'Error deleting post. Redirect to post.'
+                  value: '/{post_id}'
+
+  /{post_id}/report:
+    post:
+      operationId: R403
+      security:
+        - cookieuser: []
+      summary: 'R403: Report Post'
+      description: 'Report Post Action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M04"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:         #csrf
+                  type: string
+                description: 
+                  type: string
+                reason: 
+                  type: string
+              required:
+                - _token
+                - reason
+
+      responses:
+        '302':
+          description:  'Redirect after reporting post.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Post report successful. Redirect to post.'
+                  value: '/{post_id}'
+                302Error:
+                  description: 'Post report unsuccessful. Redirect to post.'
+                  value: '/{post_id}'
+
+  /{account_tag}/report:
+    post:
+      operationId: R404
+      security:
+        - cookieuser: []
+      summary: 'R404: Report Account'
+      description: 'Report Account Action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M04"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:         #csrf
+                  type: string
+                description: 
+                  type: string
+                reason: 
+                  type: string
+              required:
+                - _token
+                - reason
+
+      responses:
+        '302':
+          description:  'Redirect after reporting Account.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Account report successful. Redirect to account.'
+                  value: '/{account_tag}'
+                302Error:
+                  description: 'Account report unsuccessful. Redirect to account.'
+                  value: '/{account_tag}'
+
+  /notifications:
+    get:
+      security:
+        - cookieuser: []
+      operationId: R405
+      summary: 'R405: View Notifications'
+      description: 'Show user notifications. Access: Authenticated-USR, ADM'
+      tags:
+        - 'M04'
+      responses:
+        '200':
+          description: 'Ok. Show notifications'
+
+
+########### M5 User relationship ################
+  /{account_tag}/request:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R501
+      summary: 'R501: Send Friend Request'
+      description: 'Send friend request action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:             #csrf
+                  type: string
+              required:
+                - _token
+      responses:
+        '302':
+          description:  'Redirect after processing the friends request.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The friend request was successfully done.'
+                  value: '/{account_tag}'
+                302Error:
+                  description: 'The friend request went wrong.'
+                  value: '/{account_tag}' 
+
+  /{account_tag}/remove_friend:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R502
+      summary: 'R502: Remove Friend '
+      description: 'Remove friend action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:             #csrf
+                  type: string
+              required:
+                - _token
+      responses:
+        '302':
+          description:  'Redirect after processing the friendship removal.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The friendship removal was successfully done.'
+                  value: '/{account_tag}'
+                302Error:
+                  description: 'The friendship removal went wrong.'
+                  value: '/{account_tag}' 
+
+  /{account_tag}/accept_decline_request:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R503
+      summary: 'R503: Accept/Decline Friend Request'
+      description: 'Accept/Decline Friend Request action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:             #csrf
+                  type: string
+                operation:
+                  type: string
+                  pattern: ^(accept)|(decline)$ 
+              required:
+                - _token
+                - operation
+      responses:
+        '302':
+          description:  'Redirect after processing the acceptance/decline of a friend request.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The friend request acceptance/decline was successfully done.'
+                  value: '/{account_tag}'
+                302Error:
+                  description: 'The friend request acceptance/decline went wrong.'
+                  value: '/{account_tag}' 
+
+  /create_group:
+    get:
+      security:
+        - cookieuser: []
+      operationId: R504
+      summary: 'R504: Create group form'
+      description: 'Provide login form. Access: Authenticated-USR, ADM'
+      tags:
+        - 'M05'
+      responses:
+        '200':
+          description: 'Ok. Show create-group UI'
+    post:
+      security:
+        - cookieuser: []
+      operationId: R505
+      summary: 'R505: Create group Action'
+      description: 'Create a new group. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                is_public:
+                  type: boolean
+                _token:
+                  type: string
+                members:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                      role:
+                        type: string
+                        pattern: ^(admin)|(pending)?
+              required:
+                - name
+                - is_public
+                - _token
+                - members
+      responses:
+        '302':
+          description:  'Redirect after processing the group creation.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful group creation. Redirect to group_page.'
+                  value: '/group/{group_id}'
+                302Error:
+                  description: 'Failed group creation. Redirect to user profile.'
+                  value: '/{account_tag}'
+            Set-cookie:
+              schema: 
+                type: string
+                description: sessionID
+                example: SESSIONID=abcde12345; Secure; Path=/; HttpOnly; SameSite=Strict
+
+  /group/{group_id}:
+    get:      
+      security:
+        - cookieuser: []
+      operationId: R506
+      summary: 'R506: View Group Feed (and members)'
+      description: 'Show the group feed. Access: Authenticated-USR, ADM'
+      tags:
+        - 'M05'
+      responses:
+        '200':
+          description: 'Ok. Show group feed'
+  
+  /group/{group_id}/request:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R507
+      summary: 'R507: Send Group Member Request'
+      description: 'Send group member request action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:             #csrf
+                  type: string
+                member_id:
+                  type: integer
+              required:
+                - _token
+                - member_id
+      responses:
+        '302':
+          description:  'Redirect after processing the group member request.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The group member request was successfully done.'
+                  value: '/group/{group_id}'
+                302Error:
+                  description: 'The group member request went wrong.'
+                  value: '/group/{group_id}' 
+
+  /group/{group_id}/remove_member:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R508
+      summary: 'R508: Remove Member '
+      description: 'Remove member action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:             #csrf
+                  type: string
+                member_id:
+                  type: integer
+              required:
+                - _token
+                - member_id
+      responses:
+        '302':
+          description:  'Redirect after processing the friendship removal.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The member removal was successfully done.'
+                  value: '/group/{group_id}'
+                302Error:
+                  description: 'The member removal went wrong.'
+                  value: '/group/{group_id}' 
+
+  /group/{group_id}/edit:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R510
+      summary: 'R510: Edit group '
+      description: 'Edit group action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                is_public:
+                  type: boolean
+                _token:
+                  type: string
+              required:
+                - _token
+      responses:
+        '302':
+          description:  'Redirect after processing the group editing.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The group editing was successfully done.'
+                  value: '/group/{group_id}'
+                302Error:
+                  description: 'The group editing went wrong.'
+                  value: '/group/{group_id}' 
+
+  /group/{group_id}/change_permissions:
+    post:
+        security:
+          - cookieuser: []
+        operationId: R511
+        summary: 'R511: Change Member Permisisons'
+        description: 'Change Member Permisisons action. Access: Group-Administrator, ADM'
+        tags:
+          - "M05"
+        requestBody:
+          required: true
+          content:
+            application/x-www-form-urlencoded:
+              schema:
+                type: object
+                properties:
+                  _token:             #csrf
+                    type: string
+                  member_id:
+                    type: integer
+                  admin: 
+                    type: boolean
+                required:
+                  - _token
+                  - member_id
+                  - admin
+        responses:
+          '302':
+            description:  'Redirect after processing the member permissions changing.'
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: 'The member permissions changing was successfully done.'
+                    value: '/group/{group_id}'
+                  302Error:
+                    description: 'The member permissions changing went wrong.'
+                    value: '/group/{group_id}' 
+
+  /{account_tag}/accept_decline_request_group:
+    post:
+      security:
+        - cookieuser: []
+      operationId: R509
+      summary: 'R509: Accept/Decline group member request'
+      description: 'Accept/Decline group member request action. Access: Authenticated-USR, ADM'
+      tags:
+        - "M05"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                _token:             #csrf
+                  type: string
+                operation:
+                  type: string
+                  pattern: ^(accept)|(decline)$ 
+              required:
+                - _token
+                - operation
+      responses:
+        '302':
+          description:  'Redirect after processing the acceptance/decline of a group member request.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'The group member request acceptance/decline was successfully done.'
+                  value: '/group/{group_id}'
+                302Error:
+                  description: 'The group member request acceptance/decline went wrong.'
+                  value: '/group/{group_id}' 
+
+  
+######### M6 Content #############
+  /welcome:
+    get:
+      operationId: R601
+      summary: 'R601: Welcome page'
+      description: 'Provide page with brief presentation of main features, About us section, Contacts section, Ask for help section. Access: PUB'
+      tags:
+        - 'M06'
+      responses:
+        '200':
+          description: 'Ok. Show new post UI'
+  
+  /ads: 
+    get:
+      operationId: R602
+      summary: 'R602: Ads'
+      description: 'Provide list of ads (related to specific university)'
+      tags:
+        - 'M06'
+      parameters:
+        - in: query
+          name: university_name
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: 'Ok. Show ads'
