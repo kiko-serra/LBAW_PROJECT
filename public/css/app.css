@@ -474,6 +474,9 @@ video {
 .m-4 {
   margin: 1rem;
 }
+.m-4 {
+  margin: 1rem;
+}
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -623,7 +626,6 @@ body,html {
   --bg_color1: rgb(140, 229, 254);
   --bg_color2: rgb(248, 248, 248);
 }
-
 
 
 /* ----------------------------------------------- */
