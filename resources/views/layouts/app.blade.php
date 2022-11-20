@@ -24,9 +24,17 @@
     <main>
       <area id="background_color_1"></area>
       <header>
-        <h1><a href="{{ url('/timeline') }}">Unilinks!</a></h1> <!-- Mudar link! -->
+        <h1><a href="{{ url('/timeline') }}">Unilinks</a></h1> <!-- Mudar link! -->
         @if (Auth::check()) 
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <a href="{{ route('profile', Auth::user()->id_account) }}">{{ Auth::user()->name }}</a>
+        <div class="search_bar flex flex-row">
+          <!-- TODO -->
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <form action="post">
+          <input id="search" type="text" name="search" required>
+          </form>
+        </div>
+        <a class="logout_button" href="{{ url('/logout') }}"> Logout </a>
+        <a href="{{ route('profile', Auth::user()->id_account) }}">{{ Auth::user()->name }}</a>
         @endif
       </header>
       <section id="content">
