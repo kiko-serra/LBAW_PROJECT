@@ -355,7 +355,6 @@ paths:
         content:
           multipart/form-data: # necessary for photos
             schema:
-              type: string
               properties:
                 new_username:
                   type: string
@@ -527,7 +526,6 @@ paths:
         content:
           multipart/form-data: # necessary for photos
             schema:
-              type: string
               properties:
                 _token:           #csrf
                   type: string
@@ -604,7 +602,6 @@ paths:
         content:
           multipart/form-data: # necessary for photos
             schema:
-              type: string
               properties:
                 _token:           #csrf
                   type: string
