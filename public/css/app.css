@@ -567,10 +567,6 @@ video {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity));
-}
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -589,6 +585,8 @@ body,html {
   --bg_color1: rgb(140, 229, 254);
   --bg_color2: rgb(248, 248, 248);
   --text_color: rgb(78, 78, 78);
+  --primary-color: #6495ED;
+  --search-bar-background-color: #ececec;
 }
 
 
@@ -598,6 +596,7 @@ body {
   background: var(--bg_color2);
   height: 98vh;
   color: var(--text_color);
+  font-family: "Helvetica";
 }
 area#background_color_1{
   position:absolute;
@@ -605,23 +604,57 @@ area#background_color_1{
   bottom: 0;
   z-index: -1;
   width: 100%;
-  height: 50vh;
+  height: 55vh;
   background: var(--bg_color1);
 }
 main > header {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 2fr 6fr 1fr 1fr;
   align-items: center;
-  background-color: #d2afe7;
-  padding: 1em;
-  margin: 1em;
+  background-color: #ffffff;
+  padding: 10px 40px;
+  margin-bottom: 2em;
 }
 main > header h1 {
   margin: 0;
+  font-size: 2em;
+  color: var(--primary-color);
+  text-decoration: none;
 }
-main > header a.button {
-  margin: 1em;
+main > header a{
+  font-size: 1.2em;
+}
+main > header a.logout_button {
   justify-self: center;
+  color: var(--primary-color);
+  margin-right: 30px;
+}
+main > header > .search_bar {
+  margin: auto;
+  height: 35px;
+  width: 500px;
+  border-radius: 50px;
+  border: 2px solid var(--primary-color);
+  align-items: center;
+  padding: 0px 20px;
+  text-align: center;
+}
+main > header > .search_bar > form {
+  width: 400px;
+  height: 20px;
+  margin: auto;
+  margin-bottom: 7px;
+  border-bottom: var(--primary-color);
+}
+main > header > .search_bar > i {
+  color: var(--primary-color);
+  font-size: 1.3em;
+}
+main > header > .search_bar > form > input, .search_bar > form > input:focus{
+  border: 0px;
+  border-radius: 0;
+  border-bottom: 2px solid var(--primary-color);
+  height: 20px;
 }
 main > header span {
   margin: 1em;
@@ -782,20 +815,14 @@ section#profile > #filters > a{
 #posts article.post li label:hover a {
   display: inline;
 }
-#posts article.post input:checked + span {
-  -webkit-text-decoration: var(--primary-color) solid line-through;
-          text-decoration: var(--primary-color) solid line-through;
-}
+
 #posts article.post ul {
   margin: 0;
 }
 #posts article.post form {
   margin: 0;
 }
-#posts article.post input[type=text] {
-  background-color: white;
-  margin: 0;
-}
+
 /* --------------------------------------- */
 #content label {
   font-weight: normal;
@@ -855,22 +882,11 @@ section#profile > #filters > a{
  * Some styles might be missing
  **/
 button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: var(--primary-color);
+  border-color: #ffffff;
+  color: white;
 }
-a.button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
-}
-a.button.button-outline {
-  color: #9b4dca;
-}
-a {
-  color: #9b4dca;
-}
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=password]:focus {
-  border-color: #9b4dca;
-}
+
+
+
 
