@@ -23,7 +23,7 @@ class UserProfileController extends Controller
       if (!Auth::check()) return redirect('/login');
       //$this->authorize('list', Post::class); //TODO: discover what this is
       $user = User::find($id);
-      $posts = $user->posts()->orderBy('edited_date')->get();
+      $posts = $user->posts()->orderBy('edited_date')->join('account', 'account.id_account', '=', 'post.owner_id')->get();
       return view('pages.userProfile', ['posts' => $posts, 'user' => $user]);
     }
 

@@ -71,7 +71,39 @@ section#timeline {
   background: white;
   border-radius: 20px;
   width: 600px;
+  min-height: 200px
 }
+
+section#private_profile{
+  width: 100%;
+  height: 300px;
+  display: grid;
+  grid-template-areas:
+    "profile   private_warning"
+    "profile   follow";
+  grid-template-rows: 2fr 1fr;
+  grid-template-columns: 40% 60%;
+  padding: 40px 30px;
+}
+section#private_profile > #private_profile_info{
+  grid-area: profile;
+  width: 100%;
+}
+section#private_profile > #private_profile_info > #profile_image{
+  background-color: lightgreen;
+  width: 60%;
+}
+
+section#private_profile > #private_profile_info > #user_identity_info{
+  margin-top: 10px;
+  text-align: center;
+}
+section#private_profile > #warning_private_profile{
+  grid-area: private_warning;
+  margin: auto;
+  text-align: center;
+}
+
 
 section#profile{
   width: 100%;
@@ -110,7 +142,7 @@ section#profile > #user_identity_info{
   
 }
 
-section#profile > #user_identity_info > #name{
+section#profile > #user_identity_info > #name, section#private_profile #name{
   font-size: 1.3em; 
   color: black;
 }
@@ -118,16 +150,17 @@ section#profile > #user_identity_info i{
   font-size: 5px;
   align-self: center;
 }
-section#profile > #follow_button{
+section#profile > #follow_button, section#private_profile > #follow_button{
   grid-area: follow;
   background-color:  cornflowerblue;
   color: white;
-  height: 40%;
+  height: 30px;
   margin: auto;
-  width: 60%;
+  width: 100px;
+  line-height: 30px;
   text-align: center;
-  
 }
+
 section#profile > #user_bio_section{
   grid-area: bio;
   height: 100%;
