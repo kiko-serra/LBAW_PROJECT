@@ -17,6 +17,7 @@ Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
 // ----------------User Profile--------------------
 Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
+Route::post('endregistration', 'UserProfileController@endRegister');
 
 
 // Posts
@@ -37,6 +38,9 @@ Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+Route::get('endregistration', function() {
+    return view('pages.registerExtra');
+})->name('endregister');
 
 //User
 //Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
