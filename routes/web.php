@@ -21,7 +21,7 @@ Route::post('endregistration', 'UserProfileController@endRegister');
 
 // Search  
 Route::get('/user_search', 'SearchController@show_user');
-
+Route::get('/post_content_search', 'SearchController@show_posts');
 
 // Posts
 Route::get('posts', 'PostController@list');

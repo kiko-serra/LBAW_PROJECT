@@ -189,6 +189,58 @@ paths:
                 description: sessionID
                 example: SESSIONID=abcde12345; Secure; Path=/; HttpOnly; SameSite=Strict
   
+  /endregistration:
+    get:
+      operationId: R114
+      summary: 'R114: Extra information register form'
+      description: 'Provide registration form with fields for extra information (name, privacy, location, description). Access: PUB'
+      tags:
+        - 'M01'
+      responses:
+        '200':
+          description: 'Ok. Show extra information form UI'
+    post:
+        operationId: R113
+        summary: 'R113: End Registration Action'
+        description: 'Processes the extra information to complete user registration (name, privacy, location, description). Access: PUB'
+        tags:
+          - 'M01'
+        requestBody:
+          required: true
+          content:
+            application/x-www-form-urlencoded:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  privacy:
+                    type: string
+                  location: 
+                    type: string
+                  description: 
+                    type: string
+                  _token:
+                    type: string
+                required:
+                  - _token
+
+        responses:
+          '302':
+            description: 'Redirect after processing the extra information register.'
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: 'Successful authentication. Redirect to timeline.'
+                    value: '/timeline'
+                  302Failure:
+                    description: 'Failed authentication. Redirect to main page.'
+                    value: '/'
+    
+
   /recover_password:
     get:
       operationId: R106
@@ -401,6 +453,8 @@ paths:
                 302Error:
                   description: 'Error changing profile. Redirect to profile.'
                   value: '/{account_tag}'
+
+  
 
 ######### M2 User Administration #############
   /user_search:
