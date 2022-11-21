@@ -15,63 +15,42 @@
 
 //require('./bootstrap');
 
-var openFriendModal = function openFriendModal(tab) {
-  var modal = document.querySelector('#connectionsModal');
+var openProfileEditModal = function openProfileEditModal() {
+  var modal = document.querySelector('#editUserModal');
   modal.classList.remove('hidden');
-  switchFriendModalTab(tab);
+  var nameField = document.querySelector("#editUserName");
+  var pronounsField = document.querySelector('#editUserPronouns');
+  var locationField = document.querySelector('#editUserLocation');
+  var descriptionField = document.querySelector('#editUserDescription');
+  nameField.value = nameField.getAttribute('data-default-name');
+  pronounsField.value = pronounsField.getAttribute('data-default-pronouns');
+  locationField.value = locationField.getAttribute('data-default-location');
+  descriptionField.value = descriptionField.getAttribute('data-default-description');
 };
-var closeFriendModal = function closeFriendModal() {
-  var modal = document.querySelector('#connectionsModal');
+var closeProfileEditdModal = function closeProfileEditdModal() {
+  var modal = document.querySelector('#editUserModal');
   modal.classList.add('hidden');
   console.log('close');
 };
-var switchFriendModalTab = function switchFriendModalTab(tab) {
-  if (tab != 0 && tab != 1) return;
-  var tab0Button = document.querySelector("#connectionsModalTab0Button");
-  var tab1Button = document.querySelector("#connectionsModalTab1Button");
-  var tab0Section = document.querySelector("#connectionsModalTab0");
-  var tab1Section = document.querySelector("#connectionsModalTab1");
-  if (tab0Button == null || tab1Button == null || tab0Section == null || tab1Section == null) {
-    closeFriendModal();
-    return;
-  }
-  if (tab == 1) {
-    tab1Button.classList.add('bg-gray-100');
-    tab1Button.classList.add('rounded-t-lg');
-    tab0Button.classList.remove('bg-gray-100');
-    tab0Button.classList.remove('rounded-t-lg');
-    tab0Section.classList.add('hidden');
-    tab1Section.classList.remove('hidden');
-  } else {
-    tab0Button.classList.add('bg-gray-100');
-    tab0Button.classList.add('rounded-t-lg');
-    tab1Button.classList.remove('bg-gray-100');
-    tab1Button.classList.remove('rounded-t-lg');
-    tab0Section.classList.remove('hidden');
-    tab1Section.classList.add('hidden');
-  }
+var followUser = function followUser() {
+  console.log("to be implemented");
+  // TODO: send ajax request
 };
+
 function addEventListeners() {
   var userProfileConnectionButton = document.querySelector('#userProfileConnections');
-  if (userProfileConnectionButton != null) userProfileConnectionButton.addEventListener('click', function () {
-    return openFriendModal(1);
+  var editUserModalBack = document.querySelector('#editUserModalBack');
+  if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
+    return closeProfileEditdModal();
   });
-  var userProfileFriendConnectionButton = document.querySelector('#userProfileFriendConnections');
-  if (userProfileFriendConnectionButton != null) userProfileFriendConnectionButton.addEventListener('click', function () {
-    return openFriendModal(0);
-  });
-  var connectionsModalBack = document.querySelector('#connectionsModalBack');
-  if (connectionsModalBack != null) connectionsModalBack.addEventListener('click', function () {
-    return closeFriendModal();
-  });
-  var tab0Button = document.querySelector("#connectionsModalTab0Button");
-  var tab1Button = document.querySelector("#connectionsModalTab1Button");
-  if (tab0Button != null) tab0Button.addEventListener('click', function () {
-    return switchFriendModalTab(0);
-  });
-  if (tab1Button != null) tab1Button.addEventListener('click', function () {
-    return switchFriendModalTab(1);
-  });
+  var followButton = document.querySelector("#follow_button");
+  if (followButton != null) {
+    if (followButton.getAttribute("data-method") == "edit") followButton.addEventListener('click', function () {
+      return openProfileEditModal();
+    });else if (followButton.getAttribute("data-method") == "connect") followButton.addEventListener('click', function () {
+      return followUser();
+    });
+  }
 }
 addEventListeners();
 

@@ -150,13 +150,6 @@ section#profile>#user_identity_info i{
 }
 section#profile>#follow_button,section#private_profile>#follow_button{
   grid-area:follow;
-  background-color:cornflowerblue;
-  color:#fff;
-  height:30px;
-  margin:auto;
-  width:100px;
-  line-height:30px;
-  text-align:center
 }
 section#profile>#user_bio_section{
   grid-area:bio;

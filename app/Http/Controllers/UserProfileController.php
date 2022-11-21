@@ -10,6 +10,8 @@ use App\Models\Post;
 use App\Models\User;
 
 use App\Http\Requests\EndRegisterRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 
 class UserProfileController extends Controller
 {
@@ -73,5 +75,23 @@ class UserProfileController extends Controller
       Auth::user()->save();
 
       return redirect('/timeline');
+  }
+
+  public function edit(UpdateUserRequest $request) {
+    $validated = $request->validated();
+
+    $user = Auth::user();
+
+    $user->name = $request['name'];
+
+    $user->is_private = $request['privacy'] == "private";
+
+    $user->pronouns = $request['pronouns'];
+
+    $user->description = $request['description'];
+
+    $user->save();
+
+    return redirect('/user/' . Auth::user()->id_account);
   }
 }

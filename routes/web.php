@@ -17,7 +17,8 @@ Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
 // ----------------User Profile--------------------
 Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
-Route::post('endregistration', 'UserProfileController@endRegister');
+Route::post('endregistration', 'UserProfileController@endRegister')->name('endregister');
+Route::post('/user/{id}', 'UserProfileController@edit')->name('profile.edit');
 
 
 // Posts

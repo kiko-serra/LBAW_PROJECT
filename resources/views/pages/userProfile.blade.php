@@ -35,7 +35,11 @@
         <div id="age">{{$user->age}} years old</div>
       </div>
     </div>
-    <a href="" id="follow_button" class="rounded-full">Connect</a>
+    @if ($user->id_account == Auth::user()->id_account)
+      <span id="follow_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
+    @else
+      <span id="follow_button" data-method="connect" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Connect</span>
+    @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
       <div id="userProfileConnections" class="cursor-pointer select-none">{{ count($friendships) }} connections</div>
@@ -84,8 +88,11 @@
     </div>
   </section>
 
-  <?php echo view('partials.UserProfile.connectionsModal', ['commonFriends' => $commonFriendships, 'friends' => $friendships]) ?>
-  
+
+  @if ($user->id_account == Auth::user()->id_account)
+  <?php echo view('partials.UserProfile.editModal', ['user' => $user])?>
+  @endif
+
   <div id="posts">
     @each('partials.post', $posts, 'post')
   </div>
