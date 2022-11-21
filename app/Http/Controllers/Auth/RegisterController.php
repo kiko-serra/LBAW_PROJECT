@@ -48,7 +48,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'accounttag' => 'required|unique:App\Models\User,account_tag|string|min:1|max:254|regex:/[a-zA-z0-9-]*/',
+            'accounttag' => 'required|unique:App\Models\User,account_tag|string|min:1|max:254|regex:/[a-zA-Z][a-zA-Z0-9-]*/',
             'email' => 'required|string|email|max:255|unique:account|regex:/[a-zA-Z0-9]*@[a-zA-Z0-9]+(?>\.[a-zA-Z]+)+/',
             'password' => 'required|string|min:6|confirmed',
             'birthday' => 'required|string',
@@ -63,7 +63,7 @@ class RegisterController extends Controller
             'accounttag.unique' => 'This account tag already exists',
             'accounttag.min' => 'Your account tag should be at least 1 character long',
             'accounttag.max' => 'Your account tag should be no longer than 255 characters',
-            'accounttag.regex' => 'Your account tag should consist of numbers, letters and the character "-" only',
+            'accounttag.regex' => 'Your account tag should consist of numbers, letters and the character "-" only, starting with a letter',
             'email.required' => 'An e-mail is required',
             'email.unique' => 'An account with this e-mail already exists',
             'email.max' => 'Your e-mail should be no longer than 255 characters',
