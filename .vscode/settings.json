@@ -25,10 +25,6 @@
             "group": "Default"
         },
         {
-            "filePath": "routes",
-            "group": "Default"
-        },
-        {
             "filePath": "openapi.yaml",
             "group": "Default"
         },
@@ -46,6 +42,10 @@
         },
         {
             "filePath": "config",
+            "group": "Default"
+        },
+        {
+            "filePath": "routes/web.php",
             "group": "Default"
         }
     ],
