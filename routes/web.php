@@ -2,7 +2,8 @@
 /*
 | Web Routes - web routes for your app
 */
-
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 // ----------------Home--------------------
 Route::get('/home',  function(){
     return view('pages.home');
@@ -42,7 +43,7 @@ Route::post('register', 'Auth\RegisterController@register');
 //Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
 
 //------------------Admin-------------------
-Route::middleware(['can:isAdmin'])->group(function () {
+Route::middleware(['can:is_admin'])->group(function () {
     Route::get('/users', 'AdminController@index')->name('admin');
     Route::get('/users/create', 'AdminController@create')->name('admin.create');
     Route::get('users/{id}', 'AdminController@show')->name('admin.show');

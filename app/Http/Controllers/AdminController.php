@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Http\Controllers;
 
 class AdminController extends Controller
 {
@@ -37,13 +38,18 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'required|date',
-            
+            'university' => 'required|string|max:255',
+            'course' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = new User([
+            'account_tag' => $request->get('account_tag'),
             'name' => $request->get('name'),
             'email' => $request->get('email'),
+            'birthday' => $request->get('birthday'),
+            'university' => $request->get('university'),
+            'course' => $request->get('course'),
             'password' => Hash::make($request->get('password')),
         ]);
         $user->save();
@@ -91,4 +97,29 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
+        $user->save();
+    }
+
+    public function block(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->blocked = 1;
+        $user->save();
+        return redirect('/users')->with('success', 'User has been blocked');
+    }
+
+    public function unblock(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->blocked = 0;
+        $user->save();
+        return redirect('/users')->with('success', 'User has been unblocked');
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/users')->with('success', 'User has been deleted');
+    }
 }
