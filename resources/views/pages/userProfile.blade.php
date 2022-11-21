@@ -8,7 +8,7 @@
 
 <section id="timeline">
 
-@if (!$user->is_private || $isFriend)
+@if (!$user->is_private || $isFriend || $user->id_account == Auth::user()->id_account)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
