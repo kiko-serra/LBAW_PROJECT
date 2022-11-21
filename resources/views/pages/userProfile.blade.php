@@ -9,7 +9,7 @@
 </section>
 <section id="timeline">
 
-@if (!$user->is_private)
+@if (!$user->is_private || $isFriend)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
@@ -45,16 +45,16 @@
         <?php
           if ($user->id_account != Auth::user()->id_account) {
             $i = 0;
-            foreach ($friendships as $friend) {
+            foreach ($commonFriendships as $friend) {
               echo view('partials.UserProfile.commonFriend', ['number'=> $i, 'userId' => $friend->id_account]); 
               $i++;
               if ($i > 3) break;
             }
             $i = 0;
-            foreach ($friendships as $friend) {
+            foreach ($commonFriendships as $friend) {
               echo $friend->name;
               $i++;
-              if ($i > 3 || $i == count($friendships)) break;
+              if ($i > 3 || $i == count($commonFriendships)) break;
               else {
                 echo ', ';
               }

@@ -31,9 +31,11 @@ class UserProfileController extends Controller
 
       $strangerFriendIDs = [];
       foreach ($friendships as $friend) {
-        array_push($strangerFriendIDs, $friend->id_account);
+        if ($friend->id_account != Auth::user()->id_account)
+          array_push($strangerFriendIDs, $friend->id_account);
       }
 
+      
       
       $friendships3 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
       $friendships4 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
@@ -45,10 +47,9 @@ class UserProfileController extends Controller
       }
       $commonFriendships = \App\Models\User::find(array_intersect($strangerFriendIDs, $userFriendIDs));
 
-      $isFriend = $user->friendships()->find(Auth::user()->id_account) === null;
+      $isFriend = !($user->friendships()->find(Auth::user()->id_account) === null);
 
-
-      return view('pages.userProfile', ['posts' => $posts, 'user' => $user, 'friendships' => $friendships, 'commonFriendships' => $commonFriendships, 'friend' => $isFriend]);
+      return view('pages.userProfile', ['posts' => $posts, 'user' => $user, 'friendships' => $friendships, 'commonFriendships' => $commonFriendships, 'isFriend' => $isFriend]);
     }
 
     public function endRegister(EndRegisterRequest $request) {
