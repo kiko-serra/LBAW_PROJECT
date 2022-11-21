@@ -4,9 +4,8 @@
 
 @section('content')
 
-<section class="sidepanel" id="left"> 
-    
-</section>
+<?php echo view('partials.leftPanel.panel'); ?>
+
 <section class="flex flex-col justify-start">
   <form method="POST" action="{{ route('newpost') }}"  class="bg-white rounded-2xl p-4">
     {{ csrf_field() }}

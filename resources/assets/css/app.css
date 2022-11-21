@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer components {
+  /** UserProfile */
+  .profile-page-filter-button {
+    @apply text-center bg-gray-200 rounded-md cursor-pointer text-gray-800 text-2xl p-1 hover:text-gray-800;
+  }
+
+  .profile-page-filter-button-selected {
+    @apply rounded-t-lg;
+  }
+
+  /** LeftPanel */
+  .left-panel-button {
+    @apply flex flex-row justify-start items-center text-2xl p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg;
+  }
+
+  .left-panel-button-selected {
+    @apply bg-blue-300;
+  }
+
+  .left-panel-button-counter {
+    @apply bg-slate-400 px-3 rounded-lg;
+  }
+
+  .sidepanel {
+    @apply flex flex-col bg-white rounded-2xl w-[30rem] h-fit p-4;
+  }
+
+  .left-sidepanel {
+    @apply gap-y-4;
+  }
+}
+
+
 :root{
   --bg_color1:#8ce5fe;
   --bg_color2:#f8f8f8;
@@ -85,12 +119,6 @@ section#content{
   justify-content:space-evenly;
   align-items:flex-start
 }
-section.sidepanel{
-  background:#fff;
-  border-radius:20px;
-  width:300px;
-  height:50vh
-}
 section#timeline{
   background:#fff;
   border-radius:20px;
@@ -161,13 +189,6 @@ section#profile>#user_identity_info i{
 }
 section#profile>#follow_button,section#private_profile>#follow_button{
   grid-area:follow;
-  background-color:cornflowerblue;
-  color:#fff;
-  height:30px;
-  margin:auto;
-  width:100px;
-  line-height:30px;
-  text-align:center
 }
 section#profile>#user_bio_section{
   grid-area:bio;
@@ -187,19 +208,6 @@ section#profile>#user_bio_section>:nth-last-child(1){
 }
 section#profile>#filters{
   grid-area:filters;
-  height:100%;
-  padding:0 20px
-}
-section#profile>#filters>a{
-  align-self:center;
-  width:85px;
-  height:22px;
-  background-color:#e1e1e1;
-  border-radius:5px;
-  font-size:.8em;
-  line-height:22px;
-  text-align:center;
-  color:#202020
 }
 #posts{
   display:flex;
@@ -323,9 +331,4 @@ article #postCardInfo > a .arrows {
       margin:0;
       border-bottom:1px solid rgba(96,108,118,0.4)
   }
-}
-button{
-  background-color: var(--primary-color);
-  border-color: #ffffff;
-  color: white;
 }

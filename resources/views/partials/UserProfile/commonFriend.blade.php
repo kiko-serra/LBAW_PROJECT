@@ -1,0 +1,1 @@
+<div class="bg-blue-300 w-7 h-7 rounded-full relative -left-{{$number*2}}"><div></div></div> <!-- TODO: Replace with photo -->
