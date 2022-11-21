@@ -117,9 +117,7 @@
   @endif
 </section>
 
-<section class="sidepanel" id="right"> 
-    
-</section>
+<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships]); ?>
 
 @endsection
 

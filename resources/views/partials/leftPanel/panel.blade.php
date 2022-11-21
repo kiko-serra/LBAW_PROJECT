@@ -25,7 +25,7 @@
             <p>NOTIFICATIONS</p>
             <span class="left-panel-button-counter">5</span>
         </a>
-        <ul>
+        <ul class="hidden">
             <?php echo view('partials.leftPanel.notification') ?>
         </ul>
     </div>
