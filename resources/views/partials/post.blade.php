@@ -6,7 +6,7 @@
     <div id="postCardInfo" class="flex flex-col ml-2">
       <header class="flex flex-row gap-x-2 mb-2">
         <a class="text-3xl" href="/user/{{ $post->owner_id }}">{{ $post->name }}</a>
-        <a class="text-2xl" href="/user/{{ $post->owner_id }}"><span>@</span>{{ $post->account_tag }}</a>
+        <a class="text-2xl" href="/user/{{ $post->owner_id }}"><span>@</span>{{ $post->account_tag}}</a>
         <a class="text-2xl" href="/post/{{ $post->id_post }}">{{ $post->edited_date }}</a>
       </header>
       <p> {{$post->description}} </p>
