@@ -36,7 +36,11 @@
         <div id="age">{{$user->age}} years old</div>
       </div>
     </div>
+    @if (auth()->user()->id != $user->id)
     <a href="" id="follow_button" class="rounded-full">Connect</a>
+    @else
+    <a href="" id="follow_button" class="rounded-full">Edit</a>
+    @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
       <div>X connections</div>
