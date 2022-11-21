@@ -25,15 +25,13 @@ Route::get('/user_search', 'SearchController@show_user');
 
 // Posts
 Route::get('posts', 'PostController@list');
-Route::get('posts/{id}', 'PostController@show');
+Route::get('posts/{post_id}', 'PostController@show');
 Route::post('post/new', 'PostController@create')->name('newpost');
 
 // API
-Route::put('api/posts', 'PostController@create');
-Route::delete('api/posts/{card_id}', 'PostController@delete');
-Route::put('api/posts/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
+Route::put('posts', 'PostController@create');
+Route::delete('posts/{post_id}', 'PostController@delete');
+Route::put('posts/{post_id}/', 'ItemController@create');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
