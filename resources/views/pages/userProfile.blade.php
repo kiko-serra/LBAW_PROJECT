@@ -84,6 +84,8 @@
       <a class="profile-page-filter-button">Responses</a>
     </div>
   </section>
+
+  <?php echo view('partials.UserProfile.connectionsModal', ['commonFriends' => $commonFriendships, 'friends' => $friendships]) ?>
   
   <div id="posts">
     @each('partials.post', $posts, 'post')

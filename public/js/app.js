@@ -15,8 +15,41 @@
 
 //require('./bootstrap');
 
-var openFriendModal = function openFriendModal(type) {
-  console.log('tried to open with', type);
+var openFriendModal = function openFriendModal(tab) {
+  var modal = document.querySelector('#connectionsModal');
+  modal.classList.remove('hidden');
+  switchFriendModalTab(tab);
+};
+var closeFriendModal = function closeFriendModal() {
+  var modal = document.querySelector('#connectionsModal');
+  modal.classList.add('hidden');
+  console.log('close');
+};
+var switchFriendModalTab = function switchFriendModalTab(tab) {
+  if (tab != 0 && tab != 1) return;
+  var tab0Button = document.querySelector("#connectionsModalTab0Button");
+  var tab1Button = document.querySelector("#connectionsModalTab1Button");
+  var tab0Section = document.querySelector("#connectionsModalTab0");
+  var tab1Section = document.querySelector("#connectionsModalTab1");
+  if (tab0Button == null || tab1Button == null || tab0Section == null || tab1Section == null) {
+    closeFriendModal();
+    return;
+  }
+  if (tab == 1) {
+    tab1Button.classList.add('bg-gray-100');
+    tab1Button.classList.add('rounded-t-lg');
+    tab0Button.classList.remove('bg-gray-100');
+    tab0Button.classList.remove('rounded-t-lg');
+    tab0Section.classList.add('hidden');
+    tab1Section.classList.remove('hidden');
+  } else {
+    tab0Button.classList.add('bg-gray-100');
+    tab0Button.classList.add('rounded-t-lg');
+    tab1Button.classList.remove('bg-gray-100');
+    tab1Button.classList.remove('rounded-t-lg');
+    tab0Section.classList.remove('hidden');
+    tab1Section.classList.add('hidden');
+  }
 };
 function addEventListeners() {
   var userProfileConnectionButton = document.querySelector('#userProfileConnections');
@@ -26,6 +59,18 @@ function addEventListeners() {
   var userProfileFriendConnectionButton = document.querySelector('#userProfileFriendConnections');
   if (userProfileFriendConnectionButton != null) userProfileFriendConnectionButton.addEventListener('click', function () {
     return openFriendModal(0);
+  });
+  var connectionsModalBack = document.querySelector('#connectionsModalBack');
+  if (connectionsModalBack != null) connectionsModalBack.addEventListener('click', function () {
+    return closeFriendModal();
+  });
+  var tab0Button = document.querySelector("#connectionsModalTab0Button");
+  var tab1Button = document.querySelector("#connectionsModalTab1Button");
+  if (tab0Button != null) tab0Button.addEventListener('click', function () {
+    return switchFriendModalTab(0);
+  });
+  if (tab1Button != null) tab1Button.addEventListener('click', function () {
+    return switchFriendModalTab(1);
   });
 }
 addEventListeners();
