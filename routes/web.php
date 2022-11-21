@@ -19,6 +19,9 @@ Route::get('/timeline', 'TimelineController@list')->name('timeline');
 Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
 Route::post('endregistration', 'UserProfileController@endRegister');
 
+// Search  
+Route::get('/user_search', 'SearchController@show_user');
+
 
 // Posts
 Route::get('posts', 'PostController@list');
@@ -44,6 +47,8 @@ Route::get('endregistration', function() {
 
 //User
 //Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
+
+
 
 
 /**

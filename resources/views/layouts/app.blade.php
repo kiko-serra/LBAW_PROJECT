@@ -29,8 +29,8 @@
         <div class="search_bar flex flex-row">
           <!-- TODO -->
           <i class="fa-solid fa-magnifying-glass"></i>
-          <form action="post">
-          <input id="search" type="text" name="search" required>
+          <form type= "get" action="{{url('/user_search')}}">
+            <input id="account_tag" type="text" name="account_tag" required>
           </form>
         </div>
         <a class="logout_button" href="{{ url('/logout') }}"> Logout </a>
