@@ -20,27 +20,33 @@
 
 <section id="timeline">
 
-<div id="users">
-    <h2> Users </h2>
 
-
-    @foreach ($accounts as $acc)
-    <div class="profile_info">
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="profile_image" class="m-auto rounded-full">
-        
-        <div class="user_identity_info" class="m-auto flex flex-col">
-            <a href="/{{$acc['account_tag']}}"><div class="tag"> {{$acc['account_tag']}}</div></a>
-            <div class="university text-gray-400">{{$acc['university']}}</div>  
-        </div>
+@if (isset($bool_posts))
+    <div id="posts">
+        <h2> Posts </h2>
     </div>
-    @endforeach
+@else
+    <div id="users">
+        <h2> Users </h2>
 
-    @if($accounts == [] || $accounts->isEmpty())
-        <p>Nothing found</p>
-    @endif
+        @foreach ($accounts as $acc)
+        <div class="profile_info">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="profile_image" class="m-auto rounded-full">
+            
+            <div class="user_identity_info" class="m-auto flex flex-col">
+                <a href="/{{$acc['account_tag']}}"><div class="tag"> {{$acc['account_tag']}}</div></a>
+                <div class="university text-gray-400">{{$acc['university']}}</div>  
+            </div>
+        </div>
+        @endforeach
+
+        @if($accounts == [] || $accounts->isEmpty())
+            <p>Nothing found</p>
+        @endif
 
 
-</div>
+    </div>
+@endif
 
 {{--
 <div id="posts">
