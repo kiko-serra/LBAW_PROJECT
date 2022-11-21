@@ -56,7 +56,7 @@ class User extends Authenticatable
      * The posts this user owns.
      */
     public function posts() {
-    return $this->hasMany('App\Models\Post', 'owner_id');
+        return $this->hasMany('App\Models\Post', 'owner_id');
     }
 
     /**
@@ -127,6 +127,16 @@ class User extends Authenticatable
      */
     public function friends() { 
         return $this->hasMany('App\Models\Friendship');
+    }
+
+    /**
+     * This user's friendships.
+     */
+    public function friendships() {
+        $friendships1 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $this->id_account)->get();
+        $friendships2 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $this->id_account)->get();
+        $friendships = $friendships1->merge($friendships2);
+        return $friendships;
     }
 
 }
