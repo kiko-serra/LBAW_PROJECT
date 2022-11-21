@@ -20,6 +20,9 @@ Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
 Route::post('endregistration', 'UserProfileController@endRegister')->name('endregister');
 Route::post('/user/{id}', 'UserProfileController@edit')->name('profile.edit');
 
+// Search  
+Route::get('/user_search', 'SearchController@show_user');
+
 
 // Posts
 Route::get('posts', 'PostController@list');
@@ -46,6 +49,8 @@ Route::get('endregistration', function() {
 
 //User
 //Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
+
+
 
 
 /**

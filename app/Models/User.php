@@ -18,7 +18,6 @@ class User extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'id_account';
-
     protected $table = "account";
 
     /**
