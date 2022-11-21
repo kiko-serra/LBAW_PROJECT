@@ -260,6 +260,17 @@ section#profile>#filters>a{
   background-color:#fff;
   margin:0
 }
+article #postCardInfo > a {
+  margin-right: 20px;
+  font-size: 0.8em;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+
+article #postCardInfo > a .arrows {
+  font-size: 1.5em;
+}
 #content label{
   font-weight:normal
 }

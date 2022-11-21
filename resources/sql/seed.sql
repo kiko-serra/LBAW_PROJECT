@@ -147,6 +147,7 @@ CREATE TABLE friendship (
 );
 
 
+
 --Triggers
 
 --Add tsvector column to post 
@@ -328,7 +329,7 @@ VALUES
   (2, null, 1, null, 'Nondisp Maisonneuve''s fx r leg, subs for clos fx w nonunion', true, '2021-12-13', '2022-09-24', 0, false),
   (3, 1, 1, 1, 'Corrosion of third degree of back of left hand, sequela', false, '2021-07-01', '2022-01-25', 0, true),
   (4, null, 6, null, 'Lobar pneumonia, unspecified organism', false, '2022-06-01', '2022-09-22', 0, false);
-
+SELECT pg_catalog.setval(pg_get_serial_sequence('post', 'id_post'), (SELECT MAX(id_post) FROM post)+1);
 
 INSERT INTO account_report (reason, description, id_account_reporting, id_account_reported)
 VALUES
