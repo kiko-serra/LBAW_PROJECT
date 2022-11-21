@@ -295,7 +295,7 @@ paths:
                   description: 'Error changing passwors. Redirect to main-page.'
                   value: '/'
 
-  user/{account_tag}:
+  /user/{account_tag}:
     get:
       security:
         - cookieuser: [] #administrator can see any account
@@ -324,7 +324,7 @@ paths:
                   description: 'Forbidden profile. Redirect to homepage'
                   value: '/'
 
-  user/{account_tag}/edit:
+  /user/{account_tag}/edit:
     get:
       security:
         - cookieuser: [] #administrator can edit any profile
@@ -422,7 +422,7 @@ paths:
         '200':
           description: 'Ok. Show users with that user_tag (or part)' #admins can search all users
 
-  user/{account_tag}/action:
+  /user/{account_tag}/action:
     post:
       security:
         - cookieuser: [] #only admin can delete or unblock/block any account (user can only delete his own account)
@@ -569,7 +569,7 @@ paths:
                   description: 'Error creating post. Redirect to timeline.'
                   value: '/feed'
   
-  post/{post_id}: 
+  /post/{post_id}: 
     get:      
       security:
         - cookieuser: []
@@ -588,7 +588,7 @@ paths:
         '200':
           description: 'Ok. Show post'
 
-  post/{post_id}/edit:
+  /post/{post_id}/edit:
     post:
       operationId: R306
       security:
@@ -639,7 +639,7 @@ paths:
                   description: 'Error editing post. Redirect to timeline.'
                   value: '/feed'
 
-  post/{post_id}/delete:
+  /post/{post_id}/delete:
     post:
       operationId: R307
       security:
@@ -676,7 +676,7 @@ paths:
                   value: '/{post_id}'
 
 ########### M4 Content Review ################
-  post/{post_id}/react:
+  /post/{post_id}/react:
     post:
       operationId: R401
       security:
@@ -717,7 +717,7 @@ paths:
                   description: 'Error deleting post. Redirect to post.'
                   value: '/{post_id}'
 
-  post/{post_id}/promotion:
+  /post/{post_id}/promotion:
     post:
       operationId: R402
       security:
@@ -755,7 +755,7 @@ paths:
                   description: 'Error deleting post. Redirect to post.'
                   value: '/{post_id}'
 
-  post/{post_id}/report:
+  /post/{post_id}/report:
     post:
       operationId: R403
       security:
@@ -796,7 +796,7 @@ paths:
                   description: 'Post report unsuccessful. Redirect to post.'
                   value: '/{post_id}'
 
-  user/{account_tag}/report:
+  /user/{account_tag}/report:
     post:
       operationId: R404
       security:
@@ -852,7 +852,7 @@ paths:
 
 
 ########### M5 User relationship ################
-  user/{account_tag}/request:
+  /user/{account_tag}/request:
     post:
       security:
         - cookieuser: []
@@ -887,7 +887,7 @@ paths:
                   description: 'The friend request went wrong.'
                   value: '/{account_tag}' 
 
-  userr/{account_tag}/remove_friend:
+  /userr/{account_tag}/remove_friend:
     post:
       security:
         - cookieuser: []
@@ -922,7 +922,7 @@ paths:
                   description: 'The friendship removal went wrong.'
                   value: '/{account_tag}' 
 
-  user/{account_tag}/accept_decline_request:
+  /user/{account_tag}/accept_decline_request:
     post:
       security:
         - cookieuser: []
