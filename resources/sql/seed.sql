@@ -305,8 +305,8 @@ INSERT INTO account (account_tag, password, name, age, birthday, is_private, ema
 VALUES
  ('AvilaAndre', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W', 'André Ávila', 20, '2002-07-01', false, 'up202006767@edu.fe.up.pt', 'Faculdade de Engenharia da Universidade do Porto', 'Engenharia Informática e Computação', true, 'Olá, bem-vindo à minha página!', 'Porto', 'He/Him', true, false),
  ('rspencock0', '3MYlqie', 'Rickert Spencock', 16, '1983-06-03', false, 'rspencock0@java.com', 'Tarim University', 'Dakota', false, 'Peritoneal suture', 'Santa Catalina', 'Diablo', false, false),
- ('fo1', 'IKYukrzIy', 'Felike O'' Liddy', 20, '1977-03-25', true, 'fo1@wikia.com', 'Wenzhou University', 'PT Cruiser', false, 'Anterior chamber op NEC', 'Qianhong', 'Avalon', false, false),
- ('gwhilder2', 'RHgQE5FU', 'Ginny Whilder', 23, '1972-09-13', true, 'gwhilder2@technorati.com', 'Hirosaki University', 'Yukon XL 1500', true, 'Lacrimal punctum probe', 'Cipatujah', 'Rondo', true, false),
+ ('fo1', 'IKYukrzIy', 'Felike O'' Liddy', 20, '1977-03-25', false, 'fo1@wikia.com', 'Wenzhou University', 'PT Cruiser', false, 'Anterior chamber op NEC', 'Qianhong', 'Avalon', false, false),
+ ('gwhilder2', 'RHgQE5FU', 'Ginny Whilder', 23, '1972-09-13', false, 'gwhilder2@technorati.com', 'Hirosaki University', 'Yukon XL 1500', true, 'Lacrimal punctum probe', 'Cipatujah', 'Rondo', true, false),
  ('nratt3', 'OWZlLLjIz', 'Nedda Ratt', 24, '1983-07-05', true, 'nratt3@weebly.com', 'Hogeschool Rotterdam', 'Pathfinder', false, 'Opn rep umb hrn-grft NEC', 'Asprángeloi', 'Fox', false, false),
  ('aroache4', 'HKBpHqT5', 'Alano Roache', 25, '1998-09-27', true, 'aroache4@redcross.org', 'Pacific College of Oriental Medicine', 'Z8', true, 'Lap bi dr/ind ing hrn-gr', 'Muaralembu', 'Sequoia', false, true),
  ('svidineev5', 'JodahnBzO9', 'Stephannie Vidineev', 26, '1973-10-12', false, 'svidineev5@pbs.org', 'Korea University', 'Grand Prix', true, 'Colostomy NOS', 'Saransk', 'Lumina', false, false),

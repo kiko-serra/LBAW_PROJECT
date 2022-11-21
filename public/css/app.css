@@ -581,7 +581,6 @@ video {
 [hidden] {
   display: none;
 }
-<<<<<<< HEAD
 
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
@@ -872,7 +871,6 @@ video {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
-<<<<<<< HEAD
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -880,11 +878,10 @@ video {
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
-=======
+}
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
->>>>>>> 8c49f7f (public profile changes and private profiles hidden to not connected users)
 }
 
 body,html {
@@ -1026,7 +1023,6 @@ section#profile > #user_identity_info{
   padding: 0px 20px 5px 20px
   
 }
-<<<<<<< HEAD
 section#profile > #follow_button{
   grid-area: follow;
   background-color:  cornflowerblue;
@@ -1038,7 +1034,7 @@ section#profile > #follow_button{
   
 }
 section#profile > #user_bio{
-=======
+}
 
 section#profile > #user_identity_info > #name, section#private_profile #name{
   font-size: 1.3em; 
@@ -1060,7 +1056,6 @@ section#profile > #follow_button, section#private_profile > #follow_button{
 }
 
 section#profile > #user_bio_section{
->>>>>>> 8c49f7f (public profile changes and private profiles hidden to not connected users)
   grid-area: bio;
   height: 100%;
   padding: 10px 20px 10px 20px;
@@ -1217,7 +1212,7 @@ input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus {
   border-color: #9b4dca;
-=======
+}
 *, ::before, ::after{
   --tw-border-spacing-x:0;
   --tw-border-spacing-y:0;
@@ -1386,6 +1381,5 @@ body,html{
 }
 *{
   box-sizing:border-box
->>>>>>> 683840f (public profile changes and private profiles hidden to not connected users)
 }
 
