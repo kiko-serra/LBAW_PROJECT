@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 class AdminController extends Controller
 {
     /**
@@ -12,7 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.index', compact('users'));
+        return view('pages.adminShow', ['users'=>$users]);
     }
 
     /**
@@ -22,7 +27,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        return view('adminCreate');
     }
 
     /**
@@ -62,7 +67,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    /*public function show($id)
     {
         $user = User::find($id);
         return view('admin.show', compact('user'));
@@ -73,12 +78,13 @@ class AdminController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     
     public function edit($id)
     {
         $user = User::find($id);
         return view('admin.edit', compact('user'));
     }
+    */
 
     /**
      * Update the specified resource in storage.
