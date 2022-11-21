@@ -1,1 +1,1 @@
-<a href="/user/{{$userId}}" class="bg-blue-300 w-7 h-7 rounded-full relative -left-{{$number*2}}"><div></div></a> <!-- TODO: Replace with photo -->
+<div class="bg-blue-300 w-7 h-7 rounded-full relative -left-{{$number*2}}"><div></div></div> <!-- TODO: Replace with photo -->

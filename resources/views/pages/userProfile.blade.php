@@ -39,22 +39,26 @@
     <a href="" id="follow_button" class="rounded-full">Connect</a>
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
-      <div>{{ count($friendships) }} connections</div>
+      <div id="userProfileConnections" class="cursor-pointer select-none">{{ count($friendships) }} connections</div>
       <!-- <div>X, Y and Z and H other friends in common</div> -->
-      <div class="flex flex-row"> 
+      <div id="userProfileFriendConnections" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
         <?php
           if ($user->id_account != Auth::user()->id_account) {
             $i = 0;
             foreach ($commonFriendships as $friend) {
-              echo view('partials.UserProfile.commonFriend', ['number'=> $i, 'userId' => $friend->id_account]); 
+              echo view('partials.UserProfile.commonFriend', ['number'=> $i]); 
               $i++;
-              if ($i > 3) break;
+              if ($i > 2) break;
             }
+            echo '<p class="text-2xl mr-2"></p>';
             $i = 0;
             foreach ($commonFriendships as $friend) {
               echo $friend->name;
               $i++;
-              if ($i > 3 || $i == count($commonFriendships)) break;
+              if ($i == count($commonFriendships)-1) {
+                echo ' and';
+                continue;
+              } else if ($i > 2 || $i == count($commonFriendships)) break;
               else {
                 echo ', ';
               }
@@ -67,6 +71,7 @@
             } else {
               echo ' in common.';
             }
+            echo '</p>';
           }
         ?>
       </div>

@@ -7,7 +7,6 @@
   \************************************/
 /***/ (() => {
 
-
 /**
  * First, we will load all of this project's Javascript utilities and other
  * dependencies. Then, we will be ready to develop a robust and powerful
@@ -15,6 +14,21 @@
  */
 
 //require('./bootstrap');
+
+var openFriendModal = function openFriendModal(type) {
+  console.log('tried to open with', type);
+};
+function addEventListeners() {
+  var userProfileConnectionButton = document.querySelector('#userProfileConnections');
+  if (userProfileConnectionButton != null) userProfileConnectionButton.addEventListener('click', function () {
+    return openFriendModal(1);
+  });
+  var userProfileFriendConnectionButton = document.querySelector('#userProfileFriendConnections');
+  if (userProfileFriendConnectionButton != null) userProfileFriendConnectionButton.addEventListener('click', function () {
+    return openFriendModal(0);
+  });
+}
+addEventListeners();
 
 /***/ }),
 
