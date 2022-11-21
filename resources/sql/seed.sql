@@ -381,7 +381,11 @@ VALUES
 INSERT INTO friendship (account1_id, account2_id)
 VALUES
    (1, 4),
-   (5, 4),
+   (1, 2),
+   (1, 3),
+   (1, 5),
+   (4, 5),
+   (4, 6),
    (6, 8);
 -- CREATE INDEX user_work ON "user" USING btree (id);
 -- CLUSTER "user" USING user_work;

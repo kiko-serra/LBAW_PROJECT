@@ -38,15 +38,44 @@
     <a href="" id="follow_button" class="rounded-full">Connect</a>
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
-      <div>X connections</div>
-      <div>X, Y and Z and H other friends in common</div>
+      <div>{{ count($friendships) }} connections</div>
+      <!-- <div>X, Y and Z and H other friends in common</div> -->
+      <div class="flex flex-row"> 
+        <?php
+          if ($user->id_account != Auth::user()->id_account) {
+            $i = 0;
+            foreach ($friendships as $friend) {
+              echo view('partials.UserProfile.commonFriend', ['number'=> $i, 'userId' => $friend->id_account]); 
+              $i++;
+              if ($i > 3) break;
+            }
+            $i = 0;
+            foreach ($friendships as $friend) {
+              echo $friend->name;
+              $i++;
+              if ($i > 3 || $i == count($friendships)) break;
+              else {
+                echo ', ';
+              }
+            }
+
+            if ($i > 3) {
+              echo ' and ' . count($friendships) - $i . ' other connections in common.';
+            } else if ($i == 0) {
+              echo 'No friends in common.';
+            } else {
+              echo ' in common.';
+            }
+          }
+        ?>
+      </div>
     </div>
-    <div id="filters" class="flex flex-row justify-between">
-      <a href="">All</a>
-      <a href="">Posts</a>
-      <a href="">Promotions</a>
-      <a href="">Reactions</a>
-      <a href="">Responses</a>
+    <div id="filters" class="grid grid-cols-5 gap-x-4 mx-4 h-fit">
+      <a class="profile-page-filter-button profile-page-filter-button-selected"> All</a>
+      <a class="profile-page-filter-button">Posts</a>
+      <a class="profile-page-filter-button">Promotions</a>
+      <a class="profile-page-filter-button">Reactions</a>
+      <a class="profile-page-filter-button">Responses</a>
     </div>
   </section>
 
