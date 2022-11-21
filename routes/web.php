@@ -17,7 +17,8 @@ Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
 // ----------------User Profile--------------------
 Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
-Route::post('endregistration', 'UserProfileController@endRegister');
+Route::post('endregistration', 'UserProfileController@endRegister')->name('endregister');
+Route::post('/user/{id}', 'UserProfileController@edit')->name('profile.edit');
 
 // Search  
 Route::get('/user_search', 'SearchController@show_user');
@@ -34,6 +35,7 @@ Route::delete('api/posts/{card_id}', 'PostController@delete');
 Route::put('api/posts/{card_id}/', 'ItemController@create');
 Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
+Route::get('api/friendships/{id}', 'FriendshipController@relationships');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -85,4 +87,8 @@ Route::get('debug/user/{user_id}/posts/{post_id}', function($user_id, $post_id) 
     $post = \App\Models\User::find($user_id)->posts()->find($post_id);
     echo $post->id_post . " " . $post->description . "<br>";
     dump($post);
+});
+
+Route::get('debug/friendships/{id}', function($id) {
+    return \App\Models\Friendship::where('account1_id', $id)->orWhere('account2_id', $id)->get();
 });
