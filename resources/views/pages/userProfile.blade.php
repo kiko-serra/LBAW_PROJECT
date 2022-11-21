@@ -4,9 +4,8 @@
 
 @section('content')
 
-<section class="sidepanel" id="left"> 
-    
-</section>
+<?php echo view('partials.leftPanel.panel'); ?>
+
 <section id="timeline">
 
 @if (!$user->is_private || $isFriend)

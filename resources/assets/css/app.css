@@ -12,6 +12,27 @@
   .profile-page-filter-button-selected {
     @apply rounded-t-lg;
   }
+
+  /** LeftPanel */
+  .left-panel-button {
+    @apply flex flex-row justify-start items-center text-2xl p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg;
+  }
+
+  .left-panel-button-selected {
+    @apply bg-blue-300;
+  }
+
+  .left-panel-button-counter {
+    @apply bg-slate-400 px-3 rounded-lg;
+  }
+
+  .sidepanel {
+    @apply flex flex-col bg-white rounded-2xl w-[30rem] h-fit p-4;
+  }
+
+  .left-sidepanel {
+    @apply gap-y-4;
+  }
 }
 
 
@@ -58,12 +79,6 @@ section#content{
   flex-direction:row;
   justify-content:space-evenly;
   align-items:flex-start
-}
-section.sidepanel{
-  background:#fff;
-  border-radius:20px;
-  width:300px;
-  height:50vh
 }
 section#timeline{
   background:#fff;

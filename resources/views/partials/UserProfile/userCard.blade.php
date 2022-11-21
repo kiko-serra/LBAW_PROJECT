@@ -7,7 +7,6 @@
                 {{$user->name}}
             </p>
             <p class="text-xl"> 
-                
                 {{'@' . $user->account_tag}}
             </p>
         </div>
