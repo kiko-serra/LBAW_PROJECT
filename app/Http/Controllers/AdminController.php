@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::all()->sortBy("name");
         return view('pages.adminShow', ['users'=>$users]);
     }
 
@@ -106,18 +106,20 @@ class AdminController extends Controller
         $user->save();
     }
 
-    public function block(Request $request, $id)
+    public function block(Request $request)
     {
+        $id = $request->get('id_user');
         $user = User::find($id);
-        $user->blocked = 1;
+        $user->is_blocked = true;
         $user->save();
         return redirect('/users')->with('success', 'User has been blocked');
     }
 
-    public function unblock(Request $request, $id)
-    {
+    public function unblock(Request $request)
+    {   
+        $id = $request->get('id_user');
         $user = User::find($id);
-        $user->blocked = 0;
+        $user->is_blocked = false;
         $user->save();
         return redirect('/users')->with('success', 'User has been unblocked');
     }

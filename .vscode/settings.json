@@ -47,6 +47,10 @@
         {
             "filePath": "routes/web.php",
             "group": "Default"
+        },
+        {
+            "filePath": "resources/assets/js",
+            "group": "Default"
         }
     ],
     "favorites.sortOrder": "ASC"
