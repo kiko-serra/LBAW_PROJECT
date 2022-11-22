@@ -19,11 +19,11 @@
         </span>
     @endif
 
-    <label>
-        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+    <label class="hidden">
+        <input type="checkbox" name="remember" {{old('remember') ? 'checked' : ''}}> Remember Me
     </label>
 
-    <button type="submit">
+    <button type="submit" class="mt-4">
         Login
     </button>
     <a class="button button-outline" href="{{ route('register') }}">Register</a>
