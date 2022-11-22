@@ -330,11 +330,6 @@ article #postCardInfo > a .arrows {
   margin: 0;
 }
 
-section.content .card-header{
-  font-size: 2em;
-  color: white;
-}
-
 section.content .card-collection{
   background-color: var(--bg_color2);
   padding: 10px;
