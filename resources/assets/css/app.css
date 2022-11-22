@@ -295,9 +295,78 @@ article #postCardInfo > a .arrows {
 #content>form input{
   background-color:white
 }
-@media(max-width:70em){
-  #posts{
-      grid-template-columns:repeat(2,1fr)
+#posts article.post header:hover a.delete {
+  display: inline;
+}
+#posts article.post li {
+  list-style-type: none;
+}
+#posts article.post li label {
+  display: flex;
+  align-items: baseline;
+}
+#posts article.post li label span {
+  margin-left: .5em;
+  flex-grow: 1;
+}
+#posts article.post li label a {
+  display: none;
+}
+#posts article.post li label:hover a {
+  display: inline;
+}
+#posts article.post input:checked + span {
+  -webkit-text-decoration: var(--primary-color) solid line-through;
+          text-decoration: var(--primary-color) solid line-through;
+}
+#posts article.post ul {
+  margin: 0;
+}
+#posts article.post form {
+  margin: 0;
+}
+#posts article.post input[type=text] {
+  background-color: white;
+  margin: 0;
+}
+
+section.content .card-header{
+  font-size: 2em;
+  color: white;
+}
+
+section.content .card-collection{
+  background-color: var(--bg_color2);
+  padding: 10px;
+}
+section.content .card-body{
+  background-color: #ffffff;
+  border: 2px solid var(--primary-color);
+  padding: 10px;
+}
+section.content .card-body > *{
+  width: 14%;
+}
+/* --------------------------------------- */
+#content label {
+  font-weight: normal;
+}
+#content > form {
+  margin: 0 auto;
+  padding: 1em;
+  max-width: 20em;
+  border: 1px solid #d2afe7;
+}
+#content > form .error {
+  font-weight: bold;
+  color: #ff3333;
+}
+#content > form input {
+  background-color: white;
+}
+@media (max-width: 70em) {
+  #posts {
+    grid-template-columns: repeat(2, 1fr);
   }
   main>header{
       display:grid;
