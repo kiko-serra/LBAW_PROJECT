@@ -147,6 +147,7 @@ CREATE TABLE friendship (
 );
 
 
+
 --Triggers
 
 --Add tsvector column to post 
@@ -303,10 +304,10 @@ CREATE INDEX tsv_idx ON post USING GIN(tsvectors);
 
 INSERT INTO account (account_tag, password, name, age, birthday, is_private, email, university, course, is_verified, description, location, pronouns, is_admin, is_blocked)
 VALUES
- ('AvilaAndre', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W', 'André Ávila', 20, '2002-07-01', false, 'up202006767@edu.fe.up.pt', 'Faculdade de Engenharia da Universidade do Porto', 'Engenharia Informática e Computação', true, 'Olá, bem-vindo à minha página!', 'Porto', 'He/Him', true, false),
- ('rspencock0', '3MYlqie', 'Rickert Spencock', 16, '1983-06-03', false, 'rspencock0@java.com', 'Tarim University', 'Dakota', false, 'Peritoneal suture', 'Santa Catalina', 'Diablo', false, false),
- ('fo1', 'IKYukrzIy', 'Felike O'' Liddy', 20, '1977-03-25', true, 'fo1@wikia.com', 'Wenzhou University', 'PT Cruiser', false, 'Anterior chamber op NEC', 'Qianhong', 'Avalon', false, false),
- ('gwhilder2', 'RHgQE5FU', 'Ginny Whilder', 23, '1972-09-13', true, 'gwhilder2@technorati.com', 'Hirosaki University', 'Yukon XL 1500', true, 'Lacrimal punctum probe', 'Cipatujah', 'Rondo', true, false),
+ ('Admin', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W', 'Conta Admin', 20, '2002-07-01', false, 'conta@admin.pt', 'Faculdade de Engenharia da Universidade do Porto', 'Engenharia Informática e Computação', true, 'Olá, bem-vindo à minha página!', 'Porto', 'He/Him', true, false),
+ ('Utilizador', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W', 'Jorge Silva', 16, '1983-06-03', false, 'jorge@mail.pt', 'Tarim University', 'Dakota', false, 'Peritoneal suture', 'Santa Catalina', 'He/Him', false, false),
+ ('fo1', 'IKYukrzIy', 'Felike O'' Liddy', 20, '1977-03-25', false, 'fo1@wikia.com', 'Wenzhou University', 'PT Cruiser', false, 'Anterior chamber op NEC', 'Qianhong', 'Avalon', false, false),
+ ('gwhilder2', 'RHgQE5FU', 'Ginny Whilder', 23, '1972-09-13', false, 'gwhilder2@technorati.com', 'Hirosaki University', 'Yukon XL 1500', true, 'Lacrimal punctum probe', 'Cipatujah', 'Rondo', true, false),
  ('nratt3', 'OWZlLLjIz', 'Nedda Ratt', 24, '1983-07-05', true, 'nratt3@weebly.com', 'Hogeschool Rotterdam', 'Pathfinder', false, 'Opn rep umb hrn-grft NEC', 'Asprángeloi', 'Fox', false, false),
  ('aroache4', 'HKBpHqT5', 'Alano Roache', 25, '1998-09-27', true, 'aroache4@redcross.org', 'Pacific College of Oriental Medicine', 'Z8', true, 'Lap bi dr/ind ing hrn-gr', 'Muaralembu', 'Sequoia', false, true),
  ('svidineev5', 'JodahnBzO9', 'Stephannie Vidineev', 26, '1973-10-12', false, 'svidineev5@pbs.org', 'Korea University', 'Grand Prix', true, 'Colostomy NOS', 'Saransk', 'Lumina', false, false),
@@ -328,7 +329,7 @@ VALUES
   (2, null, 1, null, 'Nondisp Maisonneuve''s fx r leg, subs for clos fx w nonunion', true, '2021-12-13', '2022-09-24', 0, false),
   (3, 1, 1, 1, 'Corrosion of third degree of back of left hand, sequela', false, '2021-07-01', '2022-01-25', 0, true),
   (4, null, 6, null, 'Lobar pneumonia, unspecified organism', false, '2022-06-01', '2022-09-22', 0, false);
-
+SELECT pg_catalog.setval(pg_get_serial_sequence('post', 'id_post'), (SELECT MAX(id_post) FROM post)+1);
 
 INSERT INTO account_report (reason, description, id_account_reporting, id_account_reported)
 VALUES
@@ -381,7 +382,11 @@ VALUES
 INSERT INTO friendship (account1_id, account2_id)
 VALUES
    (1, 4),
-   (5, 4),
+   (1, 2),
+   (1, 3),
+   (1, 5),
+   (4, 5),
+   (4, 6),
    (6, 8);
 -- CREATE INDEX user_work ON "user" USING btree (id);
 -- CLUSTER "user" USING user_work;
