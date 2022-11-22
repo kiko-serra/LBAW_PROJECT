@@ -222,6 +222,24 @@ section#profile > #filters > a{
   background-color: white;
   margin: 0;
 }
+
+section.content .card-header{
+  font-size: 2em;
+  color: white;
+}
+
+section.content .card-collection{
+  background-color: var(--bg_color2);
+  padding: 10px;
+}
+section.content .card-body{
+  background-color: #ffffff;
+  border: 2px solid var(--primary-color);
+  padding: 10px;
+}
+section.content .card-body > *{
+  width: 14%;
+}
 /* --------------------------------------- */
 #content label {
   font-weight: normal;
