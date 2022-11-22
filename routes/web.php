@@ -36,6 +36,9 @@ Route::put('posts', 'PostController@create');
 Route::delete('posts/{post_id}', 'PostController@delete');
 Route::get('friendships/{user_id}', 'FriendshipController@relationships');
 
+Route::post('api/friendship/new', 'FriendshipController@create');
+Route::post('api/friendship/delete', 'FriendshipController@delete');
+
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

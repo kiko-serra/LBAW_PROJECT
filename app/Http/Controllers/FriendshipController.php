@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use \App\Models\Friendship;
 
+use App\Http\Requests\Friends\FriendCreateRequest;
+use App\Http\Requests\Friends\FriendDeleteRequest;
+
 class FriendshipController extends Controller
 {
     public function relationships($id) {
@@ -14,4 +17,12 @@ class FriendshipController extends Controller
         $friendships = $friendships1->merge($friendships2);
         return $friendships;
     }
+
+    public function create(FriendCreateRequest $request) {
+
+    }
+
+    public function delete(FriendDeleteRequest $request) {
+
+    } 
 }
