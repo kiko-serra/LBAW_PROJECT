@@ -20,7 +20,7 @@
     @endif
 
     <label class="hidden">
-        <input type="checkbox" name="remember" {{old('remember') ? 'checked' : ''}}> Remember Me
+        <input type="checkbox" name="remember2" {{old('remember3') ? 'checked' : ''}}> Remember Me
     </label>
 
     <button type="submit" class="mt-4">
