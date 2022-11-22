@@ -15,20 +15,29 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UserProfileController extends Controller
 {
+
+
+    public function redirect($id) {
+      $user = User::find($id);
+      if (!$user) return "No user found";
+      return redirect()->route('profile.tag', ["account_tag" => $user->account_tag]);
+    }
+
     /**
      * Shows all posts.
      *
      * @return Response
      */
-    public function show($id)
+    public function show($account_tag)
     {
       if (!Auth::check()) return redirect('/login');
       //$this->authorize('list', Post::class); //TODO: discover what this is
-      $user = User::find($id);
+      $user = User::where('account_tag', '=', $account_tag)->first();
+      if (!$user) return "No user found";
       $posts = $user->posts()->orderBy('publication_date')->get();
 
-      $friendships1 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->get();
-      $friendships2 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->get();
+      $friendships1 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $user->id_account)->get();
+      $friendships2 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $user->id_account)->get();
       $friendships = $friendships1->merge($friendships2);
 
       $strangerFriendIDs = [];

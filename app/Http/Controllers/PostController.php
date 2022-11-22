@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Post;
+use App\Http\Requests\PostCreationRequest;
 
-// TODO: I see no use for this class. Ass: Avila
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -43,8 +43,10 @@ class PostController extends Controller
      *
      * @return Post The post created.
      */
-    public function create(Request $request)
+    public function create(PostCreationRequest $request)
     {
+      $validated = $request->validated();
+
       $post = new Post();
 
       $this->authorize('create', $post);

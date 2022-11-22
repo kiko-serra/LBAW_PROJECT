@@ -7,7 +7,7 @@
     <!-- Obligatory -->
     <label for="accounttag">Account Tag</label>
     <input id="accounttag" type="text" name="accounttag" value="{{ old('accounttag') }}" required>
-    @if ($errors->has('name'))
+    @if ($errors->has('accounttag'))
       <span class="error">
           {{ $errors->first('accounttag') }} {{-- Need to create validator --}}
       </span>
