@@ -34,7 +34,7 @@
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="profile_image" class="m-auto rounded-full">
             
             <div class="user_identity_info" class="m-auto flex flex-col">
-                <a href="/{{$acc['account_tag']}}"><div class="tag"> {{$acc['account_tag']}}</div></a>
+                <a href="/user/{{$acc['account_tag']}}"><div class="tag"> {{$acc['account_tag']}}</div></a>
                 <div class="university text-gray-400">{{$acc['university']}}</div>  
             </div>
         </div>
