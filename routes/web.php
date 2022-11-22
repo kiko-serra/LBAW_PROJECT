@@ -16,7 +16,8 @@ Route::get('/', function() {
 Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
 // ----------------User Profile--------------------
-Route::get('/user/{id}', 'UserProfileController@show')->name('profile');
+Route::get('/user/{id}', 'UserProfileController@redirect')->where('id', '[0-9]+')->name('profile');
+Route::get('/user/{account_tag}', 'UserProfileController@show')->name('profile.tag');
 Route::post('endregistration', 'UserProfileController@endRegister')->name('endregister');
 Route::post('/user/{id}', 'UserProfileController@edit')->name('profile.edit');
 
