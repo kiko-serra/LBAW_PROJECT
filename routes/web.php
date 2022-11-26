@@ -34,10 +34,13 @@ Route::post('post/new', 'PostController@create')->name('newpost');
 // API
 Route::put('posts', 'PostController@create');
 Route::delete('posts/{post_id}', 'PostController@delete');
-Route::get('friendships/{user_id}', 'FriendshipController@relationships');
 
-Route::post('api/friendship/new', 'FriendshipController@create');
-Route::post('api/friendship/delete', 'FriendshipController@delete');
+// -- Friendships
+Route::get('friendships/{user_id}', 'FriendshipController@relationships');
+Route::post('api/friendship', 'FriendshipController@create')->name('friendship.new');
+Route::delete('api/friendship', 'FriendshipController@delete')->name('friendship.remove');
+Route::patch('api/friendship/request', 'FriendshipController@accept')->name('friendship.accept');
+Route::delete('api/friendship/request', 'FriendshipController@delete')->name('friendship.decline');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

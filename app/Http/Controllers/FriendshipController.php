@@ -18,6 +18,14 @@ class FriendshipController extends Controller
         return $friendships;
     }
 
+    public function accept(Request $request) {
+
+    }
+
+    public function decline(Request $request) {
+        
+    }
+
     public function create(FriendCreateRequest $request) {
 
     }
