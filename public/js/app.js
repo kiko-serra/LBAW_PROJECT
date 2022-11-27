@@ -32,23 +32,75 @@ var closeProfileEditdModal = function closeProfileEditdModal() {
   modal.classList.add('hidden');
   console.log('close');
 };
-var followUser = function followUser() {
-  console.log("to be implemented");
+var connectUser = function connectUser(event) {
+  var receiver_id = event.target.getAttribute("data-id");
+  if (receiver_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  receiver_id = parseInt(receiver_id);
+  sendAjaxRequest('post', '/api/friendship', {
+    id: receiver_id
+  }, connectHandler);
   // TODO: send ajax request
 };
 
+function connectHandler() {
+  // console.log("Status: ", this.status, this.responseText);
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  // let item = JSON.parse(this.responseText);
+  // console.log(item);
+  window.location = "";
+}
+var deleteUserLink = function deleteUserLink(event) {
+  var receiver_id = event.target.getAttribute("data-id");
+  if (receiver_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  receiver_id = parseInt(receiver_id);
+  sendAjaxRequest('delete', '/api/friendship', {
+    id: receiver_id
+  }, deleteLinkHandler);
+};
+function deleteLinkHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  window.location = "";
+}
+function encodeForAjax(data) {
+  if (data == null) return null;
+  return Object.keys(data).map(function (k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+  }).join('&');
+}
+function sendAjaxRequest(method, url, data, handler) {
+  var request = new XMLHttpRequest();
+  request.open(method, url, true);
+  request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.addEventListener('load', handler);
+  request.send(encodeForAjax(data));
+}
 function addEventListeners() {
   var userProfileConnectionButton = document.querySelector('#userProfileConnections');
   var editUserModalBack = document.querySelector('#editUserModalBack');
   if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
     return closeProfileEditdModal();
   });
-  var followButton = document.querySelector("#follow_button");
-  if (followButton != null) {
-    if (followButton.getAttribute("data-method") == "edit") followButton.addEventListener('click', function () {
+  var connectButton = document.querySelector("#connect_button");
+  if (connectButton != null) {
+    if (connectButton.getAttribute("data-method") == "edit") connectButton.addEventListener('click', function () {
       return openProfileEditModal();
-    });else if (followButton.getAttribute("data-method") == "connect") followButton.addEventListener('click', function () {
-      return followUser();
+    });else if (connectButton.getAttribute("data-method") == "connect") connectButton.addEventListener('click', function (e) {
+      return connectUser(e);
+    });else if (connectButton.getAttribute("data-method") == "delete") connectButton.addEventListener('click', function (e) {
+      return deleteUserLink(e);
     });
   }
 }

@@ -37,8 +37,10 @@
     </div>
     @if ($user->id_account == Auth::user()->id_account)
       <span id="connect_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
+    @elseif ($isFriend)
+      <span id="connect_button" data-method="delete" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Unlink</span>
     @else
-      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Connect</span>
+      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-red-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Link</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>

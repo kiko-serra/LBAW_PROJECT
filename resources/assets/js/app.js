@@ -39,13 +39,33 @@ const connectUser = function(event) {
 }
 
 function connectHandler() {
-    console.log("Status: ", this.status, this.responseText);
+    // console.log("Status: ", this.status, this.responseText);
     if (this.status != 200) {
         console.log("Action failed.");
         return;
     }
     // let item = JSON.parse(this.responseText);
     // console.log(item);
+    window.location = "";
+}
+
+const deleteUserLink = function(event) {
+        let receiver_id = event.target.getAttribute("data-id");
+        if (receiver_id === null) {
+            console.log("An error has occurred.");
+            return;
+        } 
+        receiver_id = parseInt(receiver_id);
+        sendAjaxRequest('delete', '/api/friendship', {id: receiver_id}, deleteLinkHandler);
+}
+
+
+function deleteLinkHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    window.location = "";
 }
   
 
@@ -78,6 +98,9 @@ function addEventListeners() {
             connectButton.addEventListener('click', () => openProfileEditModal());
         else if (connectButton.getAttribute("data-method") == "connect")
             connectButton.addEventListener('click', (e) => connectUser(e));
-    }}  
+        else if (connectButton.getAttribute("data-method") == "delete")
+            connectButton.addEventListener('click', (e) => deleteUserLink(e));
+    }
+}  
 
 addEventListeners();

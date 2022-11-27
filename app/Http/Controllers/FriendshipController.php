@@ -35,7 +35,7 @@ class FriendshipController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(null, 400);
+            return response()->json("Something wrong happened", 400);
         }
 
         $sender = Auth::user()->id_account;
@@ -76,6 +76,33 @@ class FriendshipController extends Controller
     }
 
     public function delete(Request $request) {
+        if (!Auth::check()) return response(null, 401);
+        $validator = Validator::make($request->all(), [ 
+            'id' => 'integer|required'
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json("Something wrong happened", 400);
+        }
+
+        $sender = Auth::user()->id_account;
+        $target = $request['id'];
+
+        $friendships1 = \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
+        $friendships2 = \App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
+        $friendships_count = count($friendships1) + count($friendships2);
+        
+        if ($friendships_count) {
+            if (count($friendships1)) {
+                \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->delete();
+                return response("Unlink completed", 200);
+            } else {
+                App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->delete();
+                return response("Unlink completed", 200);
+            }
+        }
+
+
+        return response("Failed to unlink", 400);
     } 
 }
