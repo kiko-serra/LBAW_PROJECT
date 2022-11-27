@@ -36,9 +36,9 @@
       </div>
     </div>
     @if ($user->id_account == Auth::user()->id_account)
-      <span id="follow_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
+      <span id="connect_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
     @else
-      <span id="follow_button" data-method="connect" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Connect</span>
+      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Connect</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
@@ -111,7 +111,7 @@
       <span>This profile is private</span><br>
       <span>Connect with {{$user->name}} to see it </span>
     </div>
-    <a href="" id="follow_button" class="rounded-full">Connect</a>
+    <a href="" id="connect_button" class="rounded-full">Connect</a>
   </section>
   
   @endif

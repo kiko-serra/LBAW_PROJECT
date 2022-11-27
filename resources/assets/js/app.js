@@ -27,10 +27,27 @@ const closeProfileEditdModal = function() {
     console.log('close')
 }
 
-const followUser = function() {
-    console.log("to be implemented");
+const connectUser = function(event) {
+    let receiver_id = event.target.getAttribute("data-id");
+    if (receiver_id === null) {
+        console.log("An error has occurred.");
+        return;
+    } 
+    receiver_id = parseInt(receiver_id);
+    sendAjaxRequest('post', '/api/friendship', {id: receiver_id}, connectHandler);
     // TODO: send ajax request
 }
+
+function connectHandler() {
+    console.log("Status: ", this.status, this.responseText);
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    // let item = JSON.parse(this.responseText);
+    // console.log(item);
+}
+  
 
 function encodeForAjax(data) {
     if (data == null) return null;
@@ -55,12 +72,12 @@ function addEventListeners() {
     let editUserModalBack = document.querySelector('#editUserModalBack');
     if (editUserModalBack != null)
         editUserModalBack.addEventListener('click', () => closeProfileEditdModal());
-    let followButton = document.querySelector("#follow_button");
-    if (followButton != null) {
-        if (followButton.getAttribute("data-method") == "edit")
-            followButton.addEventListener('click', () => openProfileEditModal());
-        else if (followButton.getAttribute("data-method") == "connect")
-            followButton.addEventListener('click', () => followUser());
+    let connectButton = document.querySelector("#connect_button");
+    if (connectButton != null) {
+        if (connectButton.getAttribute("data-method") == "edit")
+            connectButton.addEventListener('click', () => openProfileEditModal());
+        else if (connectButton.getAttribute("data-method") == "connect")
+            connectButton.addEventListener('click', (e) => connectUser(e));
     }}  
 
 addEventListeners();
