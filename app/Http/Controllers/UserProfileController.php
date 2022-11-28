@@ -58,9 +58,24 @@ class UserProfileController extends Controller
       }
       $commonFriendships = \App\Models\User::find(array_intersect($strangerFriendIDs, $userFriendIDs));
 
+      $linkStatus = "unlinked";
+
       $isFriend = !($user->friendships()->find(Auth::user()->id_account) === null);
 
-      return view('pages.userProfile', ['posts' => $posts, 'user' => $user, 'friendships' => $friendships, 'commonFriendships' => $commonFriendships, 'isFriend' => $isFriend]);
+      if (!$isFriend) {
+        $friendships1 = \App\Models\FriendRequest::where('id_sender', Auth::user()->id_account)->where('id_receiver', $user->id_account)->get();
+        $friendships2 = \App\Models\FriendRequest::where('id_sender', $user->id_account)->where('id_receiver', Auth::user()->id_account)->get();
+        if (count($friendships1)) {
+          $linkStatus = "pending";
+        } else if (count($friendships2)) {
+          $linkStatus = "received";
+        }
+        
+      } else {
+        $linkStatus = "linked";
+      }
+
+      return view('pages.userProfile', ['posts' => $posts, 'user' => $user, 'friendships' => $friendships, 'commonFriendships' => $commonFriendships, 'linkStatus' => $linkStatus]);
     }
 
     public function endRegister(EndRegisterRequest $request) {

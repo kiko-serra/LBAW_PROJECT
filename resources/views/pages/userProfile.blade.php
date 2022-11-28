@@ -8,7 +8,9 @@
 
 <section id="timeline">
 
-@if (!$user->is_private || $isFriend || $user->id_account == Auth::user()->id_account)
+{{ $linkStatus }}
+
+@if (!$user->is_private || ($linkStatus != "unlinked") || $user->id_account == Auth::user()->id_account)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
@@ -36,11 +38,27 @@
       </div>
     </div>
     @if ($user->id_account == Auth::user()->id_account)
-      <span id="connect_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
-    @elseif ($isFriend)
-      <span id="connect_button" data-method="delete" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Unlink</span>
+      <span id="connect_button" data-method="edit" class="bg-cyan-400 action-button">Edit</span>
+    @elseif ($linkStatus == "linked")
+      <span id="connect_button" data-method="delete" data-id={{ $user->id_account }} class="bg-cyan-400 action-button">Unlink</span>
+    @elseif ($linkStatus == "received")
+      <div class="flex flex-col w-fit h-fit relative group">
+        <span id="connect_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
+          <p class="flex-shrink-0">Link Received</p> 
+        </span>
+        <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
+          <span id="connect_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
+            <p>Accept</p>
+            <img src="/icons/accept_white.svg" alt="" height=24 width=24>
+          </span>
+          <span id="connect_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
+            <p>Refuse</p>
+            <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
+          </span>
+        </div>
+      </div>
     @else
-      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-red-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Link</span>
+      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>

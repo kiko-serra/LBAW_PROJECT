@@ -27,6 +27,8 @@ const closeProfileEditdModal = function() {
     console.log('close')
 }
 
+//LINK REQUESTS
+
 const connectUser = function(event) {
     let receiver_id = event.target.getAttribute("data-id");
     if (receiver_id === null) {
@@ -38,6 +40,41 @@ const connectUser = function(event) {
     // TODO: send ajax request
 }
 
+
+const deleteUserLink = function(event) {
+    let receiver_id = event.target.getAttribute("data-id");
+    if (receiver_id === null) {
+        console.log("An error has occurred.");
+        return;
+    } 
+    receiver_id = parseInt(receiver_id);
+    sendAjaxRequest('delete', '/api/friendship', {id: receiver_id}, deleteLinkHandler);
+}
+
+const acceptLinkRequest = function(event) {
+    console.log("accept")
+    let receiver_id = event.getAttribute("data-id");
+    if (receiver_id === null) {
+        console.log("An error has occurred.");
+        return;
+    } 
+    receiver_id = parseInt(receiver_id);
+    sendAjaxRequest('put', '/api/friendship/request', {id: receiver_id}, acceptRequestHandler);
+}
+
+const declineLinkRequest = function(event) {
+    console.log("refuse")
+    let receiver_id = event.getAttribute("data-id");
+    if (receiver_id === null) {
+        console.log("An error has occurred.");
+        return;
+    } 
+    receiver_id = parseInt(receiver_id);
+    sendAjaxRequest('delete', '/api/friendship/request', {id: receiver_id}, declineRequestHandler);
+}
+
+
+//LINK HANDLERS
 function connectHandler() {
     // console.log("Status: ", this.status, this.responseText);
     if (this.status != 200) {
@@ -48,18 +85,6 @@ function connectHandler() {
     // console.log(item);
     window.location = "";
 }
-
-const deleteUserLink = function(event) {
-        let receiver_id = event.target.getAttribute("data-id");
-        if (receiver_id === null) {
-            console.log("An error has occurred.");
-            return;
-        } 
-        receiver_id = parseInt(receiver_id);
-        sendAjaxRequest('delete', '/api/friendship', {id: receiver_id}, deleteLinkHandler);
-}
-
-
 function deleteLinkHandler() {
     if (this.status != 200) {
         console.log("Action failed.");
@@ -67,14 +92,30 @@ function deleteLinkHandler() {
     }
     window.location = "";
 }
-  
+
+function acceptRequestHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    window.location = "";
+}
+
+function declineRequestHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    window.location = "";
+}
 
 function encodeForAjax(data) {
     if (data == null) return null;
     return Object.keys(data).map(function(k){
       return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
-}  
+}
+
 
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
@@ -86,6 +127,7 @@ function sendAjaxRequest(method, url, data, handler) {
     request.send(encodeForAjax(data));
 }  
 
+//EVENT LISTENERS
 
 function addEventListeners() {
     let userProfileConnectionButton = document.querySelector('#userProfileConnections');
@@ -93,6 +135,8 @@ function addEventListeners() {
     if (editUserModalBack != null)
         editUserModalBack.addEventListener('click', () => closeProfileEditdModal());
     let connectButton = document.querySelector("#connect_button");
+    let connectButtonAccept = document.querySelector("#connect_button_accept");
+    let connectButtonDecline = document.querySelector("#connect_button_decline");
     if (connectButton != null) {
         if (connectButton.getAttribute("data-method") == "edit")
             connectButton.addEventListener('click', () => openProfileEditModal());
@@ -101,6 +145,10 @@ function addEventListeners() {
         else if (connectButton.getAttribute("data-method") == "delete")
             connectButton.addEventListener('click', (e) => deleteUserLink(e));
     }
+    if (connectButtonAccept != null)
+        connectButtonAccept.addEventListener('click', (e) => acceptLinkRequest(connectButtonAccept));
+    if (connectButtonDecline != null)
+        connectButtonDecline.addEventListener('click', (e) => declineLinkRequest(connectButtonDecline));
 }  
 
 addEventListeners();

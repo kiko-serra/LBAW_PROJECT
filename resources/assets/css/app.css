@@ -13,6 +13,10 @@
     @apply rounded-t-lg;
   }
 
+  .action-button {
+    @apply text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-3xl;
+  }
+
   /** LeftPanel */
   .left-panel-button {
     @apply flex flex-row justify-start items-center text-2xl p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg;

@@ -32,6 +32,9 @@ var closeProfileEditdModal = function closeProfileEditdModal() {
   modal.classList.add('hidden');
   console.log('close');
 };
+
+//LINK REQUESTS
+
 var connectUser = function connectUser(event) {
   var receiver_id = event.target.getAttribute("data-id");
   if (receiver_id === null) {
@@ -45,16 +48,6 @@ var connectUser = function connectUser(event) {
   // TODO: send ajax request
 };
 
-function connectHandler() {
-  // console.log("Status: ", this.status, this.responseText);
-  if (this.status != 200) {
-    console.log("Action failed.");
-    return;
-  }
-  // let item = JSON.parse(this.responseText);
-  // console.log(item);
-  window.location = "";
-}
 var deleteUserLink = function deleteUserLink(event) {
   var receiver_id = event.target.getAttribute("data-id");
   if (receiver_id === null) {
@@ -66,7 +59,57 @@ var deleteUserLink = function deleteUserLink(event) {
     id: receiver_id
   }, deleteLinkHandler);
 };
+var acceptLinkRequest = function acceptLinkRequest(event) {
+  console.log("accept");
+  var receiver_id = event.getAttribute("data-id");
+  if (receiver_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  receiver_id = parseInt(receiver_id);
+  sendAjaxRequest('put', '/api/friendship/request', {
+    id: receiver_id
+  }, acceptRequestHandler);
+};
+var declineLinkRequest = function declineLinkRequest(event) {
+  console.log("refuse");
+  var receiver_id = event.getAttribute("data-id");
+  if (receiver_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  receiver_id = parseInt(receiver_id);
+  sendAjaxRequest('delete', '/api/friendship/request', {
+    id: receiver_id
+  }, declineRequestHandler);
+};
+
+//LINK HANDLERS
+function connectHandler() {
+  // console.log("Status: ", this.status, this.responseText);
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  // let item = JSON.parse(this.responseText);
+  // console.log(item);
+  window.location = "";
+}
 function deleteLinkHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  window.location = "";
+}
+function acceptRequestHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  window.location = "";
+}
+function declineRequestHandler() {
   if (this.status != 200) {
     console.log("Action failed.");
     return;
@@ -87,6 +130,9 @@ function sendAjaxRequest(method, url, data, handler) {
   request.addEventListener('load', handler);
   request.send(encodeForAjax(data));
 }
+
+//EVENT LISTENERS
+
 function addEventListeners() {
   var userProfileConnectionButton = document.querySelector('#userProfileConnections');
   var editUserModalBack = document.querySelector('#editUserModalBack');
@@ -94,6 +140,8 @@ function addEventListeners() {
     return closeProfileEditdModal();
   });
   var connectButton = document.querySelector("#connect_button");
+  var connectButtonAccept = document.querySelector("#connect_button_accept");
+  var connectButtonDecline = document.querySelector("#connect_button_decline");
   if (connectButton != null) {
     if (connectButton.getAttribute("data-method") == "edit") connectButton.addEventListener('click', function () {
       return openProfileEditModal();
@@ -103,6 +151,12 @@ function addEventListeners() {
       return deleteUserLink(e);
     });
   }
+  if (connectButtonAccept != null) connectButtonAccept.addEventListener('click', function (e) {
+    return acceptLinkRequest(connectButtonAccept);
+  });
+  if (connectButtonDecline != null) connectButtonDecline.addEventListener('click', function (e) {
+    return declineLinkRequest(connectButtonDecline);
+  });
 }
 addEventListeners();
 
