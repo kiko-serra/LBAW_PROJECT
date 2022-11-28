@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap);
 /*
 ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com
 *//*
@@ -542,6 +543,8 @@ video {
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .sidepanel {
   display: flex;
@@ -556,6 +559,12 @@ video {
 }
 .left-sidepanel {
   row-gap: 1rem;
+}
+.left_panel_list {
+  display: flex;
+  flex-direction: column;
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 .fixed {
   position: fixed;
@@ -885,7 +894,8 @@ body{
   background:var(--bg_color2);
   height:98vh;
   color:var(--text_color);
-  font-family: "Helvetica";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
 }
 area#background_color_1{
   position:absolute;

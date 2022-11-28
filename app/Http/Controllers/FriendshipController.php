@@ -7,15 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 use Validator;
 
-use \App\Models\Friendship;
+use App\Models\User;
+use App\Models\Friendship;
 use App\Models\FriendRequest;
 
 
 class FriendshipController extends Controller
 {
     public function relationships($id) {
-        $friendships1 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->get();
-        $friendships2 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->get();
+        $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->get();
+        $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->get();
         $friendships = $friendships1->merge($friendships2);
         return $friendships;
     }
@@ -33,15 +34,15 @@ class FriendshipController extends Controller
         $sender = Auth::user()->id_account;
         $target = $request['id'];
         
-        if (count(\App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get()) == 0) return response("No request found", 400);
+        if (count(FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get()) == 0) return response("No request found", 400);
         
-        $friendships1 = \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
-        $friendships2 = \App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
+        $friendships1 = Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
+        $friendships2 = Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
         $friendships_count = count($friendships1) + count($friendships2);
 
         if ($friendships_count) return response("Already linked", 400);
         
-        \App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
+        FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
         
         $newFriendship = new Friendship();
         $newFriendship->account1_id = $sender;
@@ -65,15 +66,15 @@ class FriendshipController extends Controller
         $sender = Auth::user()->id_account;
         $target = $request['id'];
         
-        if (count(\App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get()) == 0) return response("No request found", 400);
+        if (count(FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get()) == 0) return response("No request found", 400);
         
-        $friendships1 = \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
-        $friendships2 = \App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
+        $friendships1 = Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
+        $friendships2 = Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
         $friendships_count = count($friendships1) + count($friendships2);
 
         if ($friendships_count) return response("Already linked", 400);
         
-        \App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
+        FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
 
         return response("Request declined", 200);
     }
@@ -93,16 +94,16 @@ class FriendshipController extends Controller
 
         // check if they are already friends
 
-        $friendships1 = \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
-        $friendships2 = \App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
+        $friendships1 = Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
+        $friendships2 = Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
         $friendships_count = count($friendships1) + count($friendships2);
 
         if ($friendships_count) return response("Already linked", 400);
         
         // check if a request has already been sent
         
-        $friend_requests1 = \App\Models\FriendRequest::where('id_sender', $sender)->where('id_receiver', $target)->get();
-        $friend_requests2 = \App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get();
+        $friend_requests1 = FriendRequest::where('id_sender', $sender)->where('id_receiver', $target)->get();
+        $friend_requests2 = FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get();
         $friend_requests_count = count($friend_requests1) + count($friend_requests2);
         
         if ($friend_requests_count) {
@@ -110,7 +111,7 @@ class FriendshipController extends Controller
                 $newFriendship = new Friendship();
                 $newFriendship->account1_id = $sender;
                 $newFriendship->account2_id = $target;
-                \App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
+                FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
                 $newFriendship->save();
                 return response("Link complete", 200);
             } else return response("Request already sent", 400);
@@ -138,16 +139,16 @@ class FriendshipController extends Controller
         $sender = Auth::user()->id_account;
         $target = $request['id'];
 
-        $friendships1 = \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
-        $friendships2 = \App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
+        $friendships1 = Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
+        $friendships2 = Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
         $friendships_count = count($friendships1) + count($friendships2);
         
         if ($friendships_count) {
             if (count($friendships1)) {
-                \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->delete();
+                Friendship::where('account1_id', $sender)->where('account2_id', $target)->delete();
                 return response("Unlink completed", 200);
             } else {
-                App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->delete();
+                Friendship::where('account2_id', $sender)->where('account1_id', $target)->delete();
                 return response("Unlink completed", 200);
             }
         }

@@ -27,7 +27,7 @@ var openProfileEditModal = function openProfileEditModal() {
   locationField.value = locationField.getAttribute('data-default-location');
   descriptionField.value = descriptionField.getAttribute('data-default-description');
 };
-var closeProfileEditdModal = function closeProfileEditdModal() {
+var closeProfileEditModal = function closeProfileEditModal() {
   var modal = document.querySelector('#editUserModal');
   modal.classList.add('hidden');
   console.log('close');
@@ -155,13 +155,45 @@ function declineRequestHandler() {
   window.location = "";
 }
 function leftPanelRequestHandler() {
-  // console.log("Status: ", this.status, this.responseText);
   if (this.status != 200) {
     console.log("Action failed.");
     return;
   }
   var data = JSON.parse(this.responseText);
+  document.querySelector('#left_panel_notifications_list').innerHTML = '';
+  var counter = document.querySelector('#left_panel_notification_counter');
+  if (data.notifications.length > 0) {
+    counter.classList.remove('hidden');
+    counter.innerHTML = data.notifications.length;
+    data.notifications.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      newElement.addEventListener('click', function (ev) {
+        return readNotification(newElement.getAttribute('data-id'));
+      });
+      document.querySelector('#left_panel_notifications_list').appendChild(newElement);
+    });
+  } else {
+    counter.classList.remove('hidden');
+  }
+}
+function notificationReadHandler() {
+  if (this.status != 200) {
+    console.log("action failed");
+    return;
+  }
+  var data = JSON.parse(this.responseText);
   console.log(data);
+  window.location = data['url'];
+}
+var readNotification = function readNotification(id) {
+  sendAjaxRequest('post', '/api/notification', {
+    id: id
+  }, notificationReadHandler);
+};
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+  return div.firstChild;
 }
 function encodeForAjax(data) {
   if (data == null) return null;
@@ -183,9 +215,6 @@ function sendAjaxRequest(method, url, data, handler) {
 function addEventListeners() {
   var userProfileConnectionButton = document.querySelector('#userProfileConnections');
   var editUserModalBack = document.querySelector('#editUserModalBack');
-  if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
-    return closeProfileEditdModal();
-  });
   var connectButton = document.querySelector("#connect_button");
   var connectButtonAccept = document.querySelector("#connect_button_accept");
   var connectButtonDecline = document.querySelector("#connect_button_decline");
@@ -193,6 +222,9 @@ function addEventListeners() {
   var leftPanelLinksButton = document.querySelector("#left_panel_link_button");
   var leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
   var leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
+  if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
+    return closeProfileEditModal();
+  });
   if (connectButton != null) {
     if (connectButton.getAttribute("data-method") == "edit") connectButton.addEventListener('click', function () {
       return openProfileEditModal();

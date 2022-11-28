@@ -21,7 +21,7 @@ const openProfileEditModal = function() {
     descriptionField.value = descriptionField.getAttribute('data-default-description');
 }
 
-const closeProfileEditdModal = function() {
+const closeProfileEditModal = function() {
     let modal = document.querySelector('#editUserModal');
     modal.classList.add('hidden');
     console.log('close')
@@ -127,6 +127,7 @@ function connectHandler() {
     // console.log(item);
     window.location = "";
 }
+
 function deleteLinkHandler() {
     if (this.status != 200) {
         console.log("Action failed.");
@@ -152,13 +153,46 @@ function declineRequestHandler() {
 }
 
 function leftPanelRequestHandler() {
-    // console.log("Status: ", this.status, this.responseText);
     if (this.status != 200) {
         console.log("Action failed.");
         return;
     }
     let data = JSON.parse(this.responseText);
-    console.log(data);
+    document.querySelector('#left_panel_notifications_list').innerHTML = '';
+    let counter = document.querySelector('#left_panel_notification_counter')
+    if (data.notifications.length > 0) {
+        
+        counter.classList.remove('hidden');
+        counter.innerHTML = data.notifications.length;
+        data.notifications.forEach(element => {
+            var newElement = createElementFromHTML(element);
+            newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
+            document.querySelector('#left_panel_notifications_list').appendChild(newElement)
+        });
+    } else {
+        counter.classList.remove('hidden');
+    }
+}
+
+function notificationReadHandler() {
+    if (this.status != 200) {
+        console.log("action failed");
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    console.log(data)
+    window.location = data['url'];
+}
+
+const readNotification = function(id) {
+    sendAjaxRequest('post', '/api/notification', {id: id}, notificationReadHandler);
+}
+
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+    
+    return div.firstChild;
 }
 
 function encodeForAjax(data) {
@@ -184,8 +218,6 @@ function sendAjaxRequest(method, url, data, handler) {
 function addEventListeners() {
     let userProfileConnectionButton = document.querySelector('#userProfileConnections');
     let editUserModalBack = document.querySelector('#editUserModalBack');
-    if (editUserModalBack != null)
-        editUserModalBack.addEventListener('click', () => closeProfileEditdModal());
     let connectButton = document.querySelector("#connect_button");
     let connectButtonAccept = document.querySelector("#connect_button_accept");
     let connectButtonDecline = document.querySelector("#connect_button_decline");
@@ -193,9 +225,12 @@ function addEventListeners() {
     let leftPanelLinksButton = document.querySelector("#left_panel_link_button");
     let leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
     let leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
+
+    if (editUserModalBack != null)
+        editUserModalBack.addEventListener('click', () => closeProfileEditModal());
     if (connectButton != null) {
         if (connectButton.getAttribute("data-method") == "edit")
-            connectButton.addEventListener('click', () => openProfileEditModal());
+        connectButton.addEventListener('click', () => openProfileEditModal());
         else if (connectButton.getAttribute("data-method") == "connect")
             connectButton.addEventListener('click', (e) => connectUser(e));
         else if (connectButton.getAttribute("data-method") == "delete")

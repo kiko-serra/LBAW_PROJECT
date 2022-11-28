@@ -1,3 +1,3 @@
-<li>
-    Notification
-</li>
+<div data-id="{{$id}}">
+    {{$description}}
+</div>

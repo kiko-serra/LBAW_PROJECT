@@ -10,32 +10,29 @@
     <div id="left_panel_link_button" class="left-panel-button">
             <img src={{ asset('icons/group.svg') }} alt="links icon" width=28" height=28">
             <p>LINKS</p>
-            <span id="left_panel_link_counter" class="left-panel-button-counter">5</span>
+            <span id="left_panel_link_counter" class="left-panel-button-counter hidden">0</span>
         </div>
-        <ul id="left_panel_links_list" class="hidden">
-            <p>refresh</p>
-            <?php echo view('partials.leftPanel.notification') ?>
+        <ul id="left_panel_links_list" class="left_panel_list hidden">
+            No notifications to show.
         </ul>
     </div>
     <div id="left_panel_group_button" class="left-panel-button">
             <img src={{ asset('icons/groups.svg') }} alt="links icon" width=28" height=28">
             <p>GROUPS</p>
-            <span id="left_panel_group_counter" class="left-panel-button-counter">5</span>
+            <span id="left_panel_group_counter" class="left-panel-button-counter hidden">0</span>
         </div>
-        <ul id="left_panel_groups_list" class="hidden">
-            <p>refresh</p>
-            <?php echo view('partials.leftPanel.notification') ?>
+        <ul id="left_panel_groups_list" class="left_panel_list hidden">
+            No notifications to show.
         </ul>
     </div>
     <div>
         <div id="left_panel_notification_button" class="left-panel-button">
             <img src={{ asset('icons/notifications.svg') }} alt="notifications icon" width=28" height=28">
             <p>NOTIFICATIONS</p>
-            <span id="left_panel_notification_counter" class="left-panel-button-counter">5</span>
+            <span id="left_panel_notification_counter" class="left-panel-button-counter hidden">0</span>
         </div>
-        <ul id="left_panel_notifications_list" class="hidden">
-            <p>refresh</p>
-            <?php echo view('partials.leftPanel.notification') ?>
+        <ul id="left_panel_notifications_list" class="left_panel_list hidden">
+            No notifications to show.
         </ul>
     </div>
 </section>
