@@ -528,6 +528,10 @@ video {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+.left-panel-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+}
 .left-panel-button-selected {
   --tw-bg-opacity: 1;
   background-color: rgb(147 197 253 / var(--tw-bg-opacity));

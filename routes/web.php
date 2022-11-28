@@ -41,6 +41,7 @@ Route::post('api/friendship', 'FriendshipController@create')->name('friendship.n
 Route::delete('api/friendship', 'FriendshipController@delete')->name('friendship.remove');
 Route::put('api/friendship/request', 'FriendshipController@accept')->name('friendship.accept');
 Route::delete('api/friendship/request', 'FriendshipController@decline')->name('friendship.decline');
+Route::get('api/leftpanel', 'UserDataController@getdata')->name('leftpanel.get');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

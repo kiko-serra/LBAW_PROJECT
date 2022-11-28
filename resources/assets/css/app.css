@@ -19,7 +19,7 @@
 
   /** LeftPanel */
   .left-panel-button {
-    @apply flex flex-row justify-start items-center text-2xl p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg;
+    @apply flex flex-row justify-start items-center text-2xl p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg hover:bg-slate-300;
   }
 
   .left-panel-button-selected {

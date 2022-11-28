@@ -32,9 +32,47 @@ var closeProfileEditdModal = function closeProfileEditdModal() {
   modal.classList.add('hidden');
   console.log('close');
 };
+var openLeftPanelTab = function openLeftPanelTab(number) {
+  var leftPanelLinksList = document.querySelector("#left_panel_links_list");
+  var leftPanelGroupsList = document.querySelector("#left_panel_groups_list");
+  var leftPanelNotificationsList = document.querySelector("#left_panel_notifications_list");
+  switch (number) {
+    case 0:
+      {
+        leftPanelGroupsList.classList.add("hidden");
+        leftPanelNotificationsList.classList.add("hidden");
+        if (leftPanelLinksList != null) {
+          leftPanelLinksList.classList.toggle("hidden");
+        }
+        break;
+      }
+    case 1:
+      {
+        leftPanelLinksList.classList.add("hidden");
+        leftPanelNotificationsList.classList.add("hidden");
+        if (leftPanelGroupsList != null) {
+          leftPanelGroupsList.classList.toggle("hidden");
+        }
+        break;
+      }
+    case 2:
+      {
+        leftPanelLinksList.classList.add("hidden");
+        leftPanelGroupsList.classList.add("hidden");
+        if (leftPanelNotificationsList != null) {
+          leftPanelNotificationsList.classList.toggle("hidden");
+        }
+        break;
+      }
+  }
+};
 
 //LINK REQUESTS
 
+var leftPanelGetData = function leftPanelGetData() {
+  console.log("leftPanel data fetch");
+  sendAjaxRequest('get', '/api/leftpanel', null, leftPanelRequestHandler);
+};
 var connectUser = function connectUser(event) {
   var receiver_id = event.target.getAttribute("data-id");
   if (receiver_id === null) {
@@ -116,6 +154,15 @@ function declineRequestHandler() {
   }
   window.location = "";
 }
+function leftPanelRequestHandler() {
+  // console.log("Status: ", this.status, this.responseText);
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  console.log(data);
+}
 function encodeForAjax(data) {
   if (data == null) return null;
   return Object.keys(data).map(function (k) {
@@ -142,6 +189,10 @@ function addEventListeners() {
   var connectButton = document.querySelector("#connect_button");
   var connectButtonAccept = document.querySelector("#connect_button_accept");
   var connectButtonDecline = document.querySelector("#connect_button_decline");
+  var leftPanel = document.querySelector('#leftPanel');
+  var leftPanelLinksButton = document.querySelector("#left_panel_link_button");
+  var leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
+  var leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
   if (connectButton != null) {
     if (connectButton.getAttribute("data-method") == "edit") connectButton.addEventListener('click', function () {
       return openProfileEditModal();
@@ -156,6 +207,16 @@ function addEventListeners() {
   });
   if (connectButtonDecline != null) connectButtonDecline.addEventListener('click', function (e) {
     return declineLinkRequest(connectButtonDecline);
+  });
+  if (leftPanel != null) leftPanelGetData();
+  if (leftPanelLinksButton != null) leftPanelLinksButton.addEventListener('click', function (e) {
+    return openLeftPanelTab(0);
+  });
+  if (leftPanelGroupsButton != null) leftPanelGroupsButton.addEventListener('click', function (e) {
+    return openLeftPanelTab(1);
+  });
+  if (leftPanelNotificationsButton != null) leftPanelNotificationsButton.addEventListener('click', function (e) {
+    return openLeftPanelTab(2);
   });
 }
 addEventListeners();

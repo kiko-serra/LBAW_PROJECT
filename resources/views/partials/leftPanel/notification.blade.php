@@ -1,3 +1,3 @@
-<div>
+<li>
     Notification
-</div>
+</li>

@@ -27,7 +27,49 @@ const closeProfileEditdModal = function() {
     console.log('close')
 }
 
+
+const openLeftPanelTab = function(number) {
+    let leftPanelLinksList = document.querySelector("#left_panel_links_list");
+    let leftPanelGroupsList = document.querySelector("#left_panel_groups_list");
+    let leftPanelNotificationsList = document.querySelector("#left_panel_notifications_list");
+
+
+    switch (number) {
+        case 0: {
+            leftPanelGroupsList.classList.add("hidden");
+            leftPanelNotificationsList.classList.add("hidden");
+            if (leftPanelLinksList != null) {
+                leftPanelLinksList.classList.toggle("hidden");
+            }
+            break;
+        }
+        case 1: {
+            leftPanelLinksList.classList.add("hidden");
+            leftPanelNotificationsList.classList.add("hidden");
+            if (leftPanelGroupsList != null) {
+                leftPanelGroupsList.classList.toggle("hidden");
+            }
+            break;
+        }
+        case 2: {
+            leftPanelLinksList.classList.add("hidden");
+            leftPanelGroupsList.classList.add("hidden");
+            if (leftPanelNotificationsList != null) {
+                leftPanelNotificationsList.classList.toggle("hidden");
+            }
+            break;
+        }
+    }
+}
+
 //LINK REQUESTS
+
+const leftPanelGetData = function () {
+    console.log("leftPanel data fetch");
+
+    sendAjaxRequest('get', '/api/leftpanel', null, leftPanelRequestHandler);
+
+}
 
 const connectUser = function(event) {
     let receiver_id = event.target.getAttribute("data-id");
@@ -109,6 +151,16 @@ function declineRequestHandler() {
     window.location = "";
 }
 
+function leftPanelRequestHandler() {
+    // console.log("Status: ", this.status, this.responseText);
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    console.log(data);
+}
+
 function encodeForAjax(data) {
     if (data == null) return null;
     return Object.keys(data).map(function(k){
@@ -137,6 +189,10 @@ function addEventListeners() {
     let connectButton = document.querySelector("#connect_button");
     let connectButtonAccept = document.querySelector("#connect_button_accept");
     let connectButtonDecline = document.querySelector("#connect_button_decline");
+    let leftPanel = document.querySelector('#leftPanel');
+    let leftPanelLinksButton = document.querySelector("#left_panel_link_button");
+    let leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
+    let leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
     if (connectButton != null) {
         if (connectButton.getAttribute("data-method") == "edit")
             connectButton.addEventListener('click', () => openProfileEditModal());
@@ -149,6 +205,14 @@ function addEventListeners() {
         connectButtonAccept.addEventListener('click', (e) => acceptLinkRequest(connectButtonAccept));
     if (connectButtonDecline != null)
         connectButtonDecline.addEventListener('click', (e) => declineLinkRequest(connectButtonDecline));
+    if (leftPanel != null)
+        leftPanelGetData();
+    if (leftPanelLinksButton != null)
+        leftPanelLinksButton.addEventListener('click', (e) => openLeftPanelTab(0));
+    if (leftPanelGroupsButton != null)
+        leftPanelGroupsButton.addEventListener('click', (e) => openLeftPanelTab(1));
+    if (leftPanelNotificationsButton != null)
+        leftPanelNotificationsButton.addEventListener('click', (e) => openLeftPanelTab(2));
 }  
 
 addEventListeners();
