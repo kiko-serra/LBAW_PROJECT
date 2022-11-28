@@ -61,9 +61,21 @@ class FriendshipController extends Controller
         if ($validator->fails()) {
             return response()->json("Something wrong happened", 400);
         }
-
+        
         $sender = Auth::user()->id_account;
         $target = $request['id'];
+        
+        if (count(\App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->get()) == 0) return response("No request found", 400);
+        
+        $friendships1 = \App\Models\Friendship::where('account1_id', $sender)->where('account2_id', $target)->get();
+        $friendships2 = \App\Models\Friendship::where('account2_id', $sender)->where('account1_id', $target)->get();
+        $friendships_count = count($friendships1) + count($friendships2);
+
+        if ($friendships_count) return response("Already linked", 400);
+        
+        \App\Models\FriendRequest::where('id_sender', $target)->where('id_receiver', $sender)->delete();
+
+        return response("Request declined", 200);
     }
 
     public function create(Request $request) {

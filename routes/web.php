@@ -40,7 +40,7 @@ Route::get('friendships/{user_id}', 'FriendshipController@relationships');
 Route::post('api/friendship', 'FriendshipController@create')->name('friendship.new');
 Route::delete('api/friendship', 'FriendshipController@delete')->name('friendship.remove');
 Route::put('api/friendship/request', 'FriendshipController@accept')->name('friendship.accept');
-Route::delete('api/friendship/request', 'FriendshipController@delete')->name('friendship.decline');
+Route::delete('api/friendship/request', 'FriendshipController@decline')->name('friendship.decline');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
