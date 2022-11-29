@@ -189,27 +189,15 @@ function leftPanelRequestHandler() {
     document.querySelector('#left_panel_notifications_list').innerHTML = '';
     let counter = document.querySelector('#left_panel_notification_counter')
     let notifications_list = document.querySelector('#left_panel_notifications_list');
-    if (data.notifications_not_read.length + data.notifications_read.length > 0) {
+    if (data.notifications.length > 0) {
         counter.classList.remove('hidden');
-        counter.innerHTML = data.notifications_not_read.length;
-        data.notifications_not_read.forEach(element => {
+        counter.innerHTML = data.new_notis;
+        data.notifications.forEach(element => {
             var newElement = createElementFromHTML(element);
             newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
             notifications_list.appendChild(newElement)
         });
 
-        var div = document.createElement('div');
-
-        div.innerHTML = "Not Read";
-
-        notifications_list.append(div);
-
-
-        data.notifications_read.forEach(element => {
-            var newElement = createElementFromHTML(element);
-            newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
-            notifications_list.appendChild(newElement)
-        });
     } else {
         counter.classList.add('hidden');
         document.querySelector('#left_panel_notifications_list').innerHTML = "No notifications to show"
