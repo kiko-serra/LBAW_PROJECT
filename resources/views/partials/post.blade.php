@@ -5,9 +5,9 @@
   <div id="postCardRightBar" class="flex flex-row justify-between w-full">
     <div id="postCardInfo" class="flex flex-col ml-2">
       <header class="flex flex-row gap-x-2 mb-2 items-center">
-        <a class="text-3xl" href="/user/{{ $post->owner_id }}">{{ $post->name }}</a>
-        <a class="text-2xl" href="/user/{{ $post->owner_id }}"><span>@</span>{{ $post->account_tag}}</a>
-        <a class="text-2xl" href="/post/{{ $post->id_post }}">{{ $post->edited_date }}</a>
+        <a class="text-lg" href="/user/{{ $post->owner_id }}">{{ $post->name }}</a>
+        <a class="text-base" href="/user/{{ $post->owner_id }}"><span>@</span>{{ $post->account_tag}}</a>
+        <a class="text-base" href="/post/{{ $post->id_post }}">{{ $post->edited_date }}</a>
       </header>
       <p class="mb-2"> {{$post->description}} </p>
       <div class="flex flex-row justify-between mt-2">

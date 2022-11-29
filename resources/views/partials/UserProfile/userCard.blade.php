@@ -3,7 +3,7 @@
         <div class="w-24 h-24 bg-blue-500 rounded-full">
         </div>
         <div class="flex flex-col justify-start ml-3">
-            <p class="text-2xl">
+            <p class="text-base">
                 {{$user->name}}
             </p>
             <p class="text-xl"> 

@@ -14,15 +14,15 @@
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
       <div class="user_school flex flex-row" >
         <i class="fa-solid fa-graduation-cap"></i>
-        <span class="text-2xl">{{$user->course}}</span>
+        <span class="text-base">{{$user->course}}</span>
       </div>
       <div class="user_school flex flex-row" >
         <i class="fa-solid fa-school"></i>
-        <span class="text-2xl">{{$user->university}}</span>
+        <span class="text-base">{{$user->university}}</span>
       </div>
       <div class="user_school flex flex-row" >
         <i class="fa-sharp fa-solid fa-location-dot"></i>
-        <span class="text-2xl">{{$user->location}}</span>
+        <span class="text-base">{{$user->location}}</span>
       </div>
     </div>
     <div id="user_identity_info" class="flex flex-col">
@@ -71,7 +71,7 @@
               $i++;
               if ($i > 2) break;
             }
-            echo '<p class="text-2xl mr-2"></p>';
+            echo '<p class="text-base mr-2"></p>';
             $i = 0;
             foreach ($commonFriendships as $friend) {
               echo $friend->name;

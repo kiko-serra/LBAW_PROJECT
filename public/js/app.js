@@ -173,7 +173,8 @@ function leftPanelRequestHandler() {
       document.querySelector('#left_panel_notifications_list').appendChild(newElement);
     });
   } else {
-    counter.classList.remove('hidden');
+    counter.classList.add('hidden');
+    document.querySelector('#left_panel_notifications_list').innerHTML = "No notifications to show";
   }
 }
 function notificationReadHandler() {
