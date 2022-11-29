@@ -7,41 +7,44 @@
         <img src={{ asset('icons/person.svg') }} alt="person icon" width=28" height=28" class="h-7 w-7">
         <p>PROFILE</p>
     </a>
-    <div id="left_panel_link_button" class="left-panel-button">
+    <div>
+        <div id="left_panel_link_button" class="left-panel-button">
             <img src={{ asset('icons/group.svg') }} alt="links icon" width=28" height=28" class="h-7 w-7">
             <p>LINKS</p>
             <span id="left_panel_link_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_links_list" class="left_panel_list hidden">
-            No notifications to show.
+            No links to show.
         </ul>
     </div>
-    <div id="left_panel_link_add_button" class="left-panel-button">
+    <div>
+        <div id="left_panel_link_add_button" class="left-panel-button">
             <img src={{ asset('icons/group_add.svg') }} alt="link add icon" width=28" height=28" class="h-7 w-7">
             <p>LINK REQUESTS</p>
             <span id="left_panel_link_add_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_links_add_list" class="left_panel_list hidden">
-            No notifications to show.
+            No link requests to show.
         </ul>
     </div>
-    <div id="left_panel_group_button" class="left-panel-button">
+    <div>
+        <div id="left_panel_group_button" class="left-panel-button">
             <img src={{ asset('icons/groups.svg') }} alt="groups icon" width=28" height=28" class="h-7 w-7">
             <p>GROUPS</p>
             <span id="left_panel_group_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_groups_list" class="left_panel_list hidden">
-            No notifications to show.
+            No groups to show.
         </ul>
     </div>
-    <div id="left_panel_group_add_button" class="left-panel-button">
+    <div>
+        <div id="left_panel_group_add_button" class="left-panel-button">
             <img src={{ asset('icons/groups_add.svg') }} alt="groups add icon" width=28" height=28" class="h-7 w-7">
             <p>GROUP REQUESTS</p>
             <span id="left_panel_group_add_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_groups_add_list" class="left_panel_list hidden">
-            No notifications to show.
-            
+            No group requests to show.
         </ul>
     </div>
     <div>
@@ -50,9 +53,9 @@
             <p>NOTIFICATIONS</p>
             <span id="left_panel_notification_counter" class="left-panel-button-counter hidden">0</span>
         </div>
-        <ul id="left_panel_notifications_list" class="left_panel_list items-center max-h-80 overflow-y-scroll hidden">
+        <ul id="left_panel_notifications_list" class="left_panel_list hidden">
             No notifications to show.
-            <img src={{ asset('icons/refresh.svg') }} alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2">
+            <img src={{ asset('icons/refresh.svg') }} alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">
         </ul>
     </div>
 </section>

@@ -39,7 +39,7 @@
   }
 
   .left_panel_list {
-    @apply flex flex-col bg-slate-100;
+    @apply flex flex-col bg-slate-100 items-center max-h-80 overflow-y-scroll;
   }
 }
 

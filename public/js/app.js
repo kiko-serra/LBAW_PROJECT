@@ -205,7 +205,7 @@ function leftPanelRequestHandler() {
       });
       notifications_list.appendChild(newElement);
     });
-    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2">');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
     notifications_list.appendChild(refreshButton);
     refreshButton.addEventListener('click', function () {
       notificationsGetMoreData(notifications_list.childElementCount - 1);
@@ -216,7 +216,7 @@ function leftPanelRequestHandler() {
     document.querySelector('#left_panel_notifications_list').innerHTML = "No notifications to show";
   }
 
-  //FRIEND REQUESTS
+  // LINK REQUESTS
 
   var link_counter = document.querySelector('#left_panel_link_add_counter');
   var link_list = document.querySelector('#left_panel_links_add_list');
@@ -234,7 +234,7 @@ function leftPanelRequestHandler() {
       });
       link_list.appendChild(newElement);
     });
-    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2">');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
     link_list.appendChild(refreshButton);
     refreshButton.addEventListener('click', function () {
       linkGetMoreData(link_list.childElementCount - 1);
@@ -244,12 +244,15 @@ function leftPanelRequestHandler() {
     link_counter.classList.add('hidden');
     document.querySelector('#left_panel_link_list').innerHTML = "No link requests to show";
   }
+
+  // TODO: getMoreData User link requests
 }
+
 function notificationsGetMoreDataHandler() {
   if (this.status != 200) {
     console.log("Action failed.");
     var _notifications_list = document.querySelector('#left_panel_notifications_list');
-    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2">');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
     _notifications_list.appendChild(refreshButton);
     refreshButton.addEventListener('click', function () {
       notificationsGetMoreData(_notifications_list.childElementCount - 1);
@@ -272,7 +275,7 @@ function notificationsGetMoreDataHandler() {
       notifications_list.appendChild(newElement);
     });
     if (data.more_data) {
-      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2">');
+      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer cursor-pointer">');
       notifications_list.appendChild(refreshButton);
       refreshButton.addEventListener('click', function () {
         notificationsGetMoreData(notifications_list.childElementCount - 1);
