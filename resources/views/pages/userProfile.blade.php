@@ -38,7 +38,7 @@
     @if ($user->id_account == Auth::user()->id_account)
       <span id="connect_button" data-method="edit" class="bg-cyan-400 action-button">Edit</span>
     @elseif ($linkStatus == "linked")
-      <span id="connect_button" data-method="delete" data-id={{ $user->id_account }} class="bg-cyan-400 action-button">Unlink</span>
+      <span id="connect_button" data-method="delete" data-id={{ $user->id_account }} class="bg-red-400 action-button">Unlink</span>
     @elseif ($linkStatus == "received")
       <div class="flex flex-col w-fit h-fit relative group">
         <span id="connect_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
@@ -56,7 +56,7 @@
         </div>
       </div>
     @else
-      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
+      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-blue-400 action-button">Link</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
