@@ -206,7 +206,7 @@ function leftPanelRequestHandler() {
       });
       notifications_list.appendChild(newElement);
     });
-    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7">');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7 m-2">');
     notifications_list.appendChild(refreshButton);
     refreshButton.addEventListener('click', function () {
       notificationsGetMoreData(notifications_list.childElementCount - 1);
@@ -221,7 +221,7 @@ function notificationsGetMoreDataHandler() {
   if (this.status != 200) {
     console.log("Action failed.");
     var _notifications_list = document.querySelector('#left_panel_notifications_list');
-    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7">');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7 m-2">');
     _notifications_list.appendChild(refreshButton);
     refreshButton.addEventListener('click', function () {
       notificationsGetMoreData(_notifications_list.childElementCount - 1);
@@ -244,7 +244,7 @@ function notificationsGetMoreDataHandler() {
       notifications_list.appendChild(newElement);
     });
     if (data.more_data) {
-      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7">');
+      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7 m-2">');
       notifications_list.appendChild(refreshButton);
       refreshButton.addEventListener('click', function () {
         notificationsGetMoreData(notifications_list.childElementCount - 1);

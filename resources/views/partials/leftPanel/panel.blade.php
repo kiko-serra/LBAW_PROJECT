@@ -51,6 +51,7 @@
         </div>
         <ul id="left_panel_notifications_list" class="left_panel_list items-center max-h-80 overflow-y-scroll hidden">
             No notifications to show.
+            <img src={{ asset('icons/refresh.svg') }} alt="notifications icon" width=28" height=28" class="h-7 w-7 m-2">
         </ul>
     </div>
 </section>
