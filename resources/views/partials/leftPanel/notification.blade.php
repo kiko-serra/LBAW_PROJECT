@@ -1,4 +1,4 @@
-<div data-id="{{$id}}" class="flex flex-row justify-between items-center gap-x-4 p-2 mx-2 my-1 cursor-pointer rounded-md <?php if ($read) echo "bg-slate-200"; else echo "bg-blue-100"; ?>">
+<div data-id="{{$id}}" class="flex flex-row justify-between items-center w-full gap-x-4 p-2 my-1 cursor-pointer rounded-md <?php if ($read) echo "bg-slate-200"; else echo "bg-blue-100"; ?>">
     <p>
         {{$description}}
     </p>

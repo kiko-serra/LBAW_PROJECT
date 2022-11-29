@@ -100,8 +100,11 @@ var openLeftPanelTab = function openLeftPanelTab(number) {
 //LINK REQUESTS
 
 var leftPanelGetData = function leftPanelGetData() {
-  console.log("leftPanel data fetch");
   sendAjaxRequest('get', '/api/leftpanel', null, leftPanelRequestHandler);
+};
+var notificationsGetMoreData = function notificationsGetMoreData(offset) {
+  console.log("pofsser", offset);
+  sendAjaxRequest('get', '/api/leftpanel/notifications/' + offset, null, notificationsGetMoreDataHandler);
 };
 var connectUser = function connectUser(event) {
   var receiver_id = event.target.getAttribute("data-id");
@@ -190,9 +193,9 @@ function leftPanelRequestHandler() {
     return;
   }
   var data = JSON.parse(this.responseText);
-  document.querySelector('#left_panel_notifications_list').innerHTML = '';
   var counter = document.querySelector('#left_panel_notification_counter');
   var notifications_list = document.querySelector('#left_panel_notifications_list');
+  notifications_list.innerHTML = '';
   if (data.notifications.length > 0) {
     counter.classList.remove('hidden');
     counter.innerHTML = data.new_notis;
@@ -203,9 +206,51 @@ function leftPanelRequestHandler() {
       });
       notifications_list.appendChild(newElement);
     });
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7">');
+    notifications_list.appendChild(refreshButton);
+    refreshButton.addEventListener('click', function () {
+      notificationsGetMoreData(notifications_list.childElementCount - 1);
+      notifications_list.removeChild(refreshButton);
+    });
   } else {
     counter.classList.add('hidden');
     document.querySelector('#left_panel_notifications_list').innerHTML = "No notifications to show";
+  }
+}
+function notificationsGetMoreDataHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    var _notifications_list = document.querySelector('#left_panel_notifications_list');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7">');
+    _notifications_list.appendChild(refreshButton);
+    refreshButton.addEventListener('click', function () {
+      notificationsGetMoreData(_notifications_list.childElementCount - 1);
+      _notifications_list.removeChild(refreshButton);
+    });
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  console.log(data);
+  var counter = document.querySelector('#left_panel_notification_counter');
+  var notifications_list = document.querySelector('#left_panel_notifications_list');
+  notifications_list.innerHTML = '';
+  if (data.notifications.length > 0) {
+    counter.innerHTML = data.new_notis;
+    data.notifications.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      newElement.addEventListener('click', function (ev) {
+        return readNotification(newElement.getAttribute('data-id'));
+      });
+      notifications_list.appendChild(newElement);
+    });
+    if (data.more_data) {
+      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="notifications icon" width=28" height=28" class="h-7 w-7">');
+      notifications_list.appendChild(refreshButton);
+      refreshButton.addEventListener('click', function () {
+        notificationsGetMoreData(notifications_list.childElementCount - 1);
+        notifications_list.removeChild(refreshButton);
+      });
+    }
   }
 }
 function notificationReadHandler() {

@@ -49,7 +49,7 @@
             <p>NOTIFICATIONS</p>
             <span id="left_panel_notification_counter" class="left-panel-button-counter hidden">0</span>
         </div>
-        <ul id="left_panel_notifications_list" class="left_panel_list max-h-40 overflow-y-scroll hidden">
+        <ul id="left_panel_notifications_list" class="left_panel_list items-center max-h-80 overflow-y-scroll hidden">
             No notifications to show.
         </ul>
     </div>

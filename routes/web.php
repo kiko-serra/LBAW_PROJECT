@@ -42,6 +42,7 @@ Route::delete('api/friendship', 'FriendshipController@delete')->name('friendship
 Route::put('api/friendship/request', 'FriendshipController@accept')->name('friendship.accept');
 Route::delete('api/friendship/request', 'FriendshipController@decline')->name('friendship.decline');
 Route::get('api/leftpanel', 'UserDataController@getdata')->name('leftpanel.get');
+Route::get('api/leftpanel/notifications/{offset}', 'UserDataController@getmorenotifications')->name('leftpanel.notifications');
 Route::post('api/notification', 'UserDataController@readnotification')->name('notification.read');
 
 // ----------------Authentication--------------------
