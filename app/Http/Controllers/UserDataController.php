@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 use Validator;
 
+use \App\Models\User;
 use \App\Models\Friendship;
-use App\Models\FriendRequest;
+use \App\Models\FriendRequest;
 use \App\Models\Notification;
 
 
@@ -17,8 +18,17 @@ class UserDataController extends Controller
     public function getdata(Request $request) {
         if (!Auth::check()) return response(null, 401);
 
-        $friends = Friendship::where('account1_id', '=', Auth::user()->id_account)->get();
-        $friend_requests = FriendRequest::where('id_receiver', '=', Auth::user()->id_account)->get();
+        $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
+        $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
+        $friendships = $friendships1->merge($friendships2);
+
+        $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->get();
+
+        foreach ($friendRequests as $friendRequest) {
+            $friendRequestViews[] = view('partials.leftPanel.linkRequest', ['name' => $friendRequest->name, 'id' => $friendRequest->id_sender])->render();
+        }
+
+
 
         $limit = 15;
 
@@ -45,8 +55,8 @@ class UserDataController extends Controller
         // }
 
         return response()->json([
-            'friends' => $friends,
-            'friend_requests' => $friend_requests,
+            'friends' => $friendships,
+            'link_requests' => $friendRequestViews,
             'notifications' => $notificationViews,
             'new_notis' => $notificationsCount,
             'more_data' => true

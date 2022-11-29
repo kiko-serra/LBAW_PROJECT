@@ -41,6 +41,7 @@
         </div>
         <ul id="left_panel_groups_add_list" class="left_panel_list hidden">
             No notifications to show.
+            
         </ul>
     </div>
     <div>
@@ -51,7 +52,7 @@
         </div>
         <ul id="left_panel_notifications_list" class="left_panel_list items-center max-h-80 overflow-y-scroll hidden">
             No notifications to show.
-            <img src={{ asset('icons/refresh.svg') }} alt="notifications icon" width=28" height=28" class="h-7 w-7 m-2">
+            <img src={{ asset('icons/refresh.svg') }} alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2">
         </ul>
     </div>
 </section>
