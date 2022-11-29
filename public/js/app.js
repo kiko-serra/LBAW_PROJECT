@@ -34,12 +34,16 @@ var closeProfileEditModal = function closeProfileEditModal() {
 };
 var openLeftPanelTab = function openLeftPanelTab(number) {
   var leftPanelLinksList = document.querySelector("#left_panel_links_list");
+  var leftPanelLinksAddList = document.querySelector("#left_panel_links_add_list");
   var leftPanelGroupsList = document.querySelector("#left_panel_groups_list");
+  var leftPanelGroupsAddList = document.querySelector("#left_panel_groups_add_list");
   var leftPanelNotificationsList = document.querySelector("#left_panel_notifications_list");
   switch (number) {
     case 0:
       {
+        leftPanelLinksAddList.classList.add("hidden");
         leftPanelGroupsList.classList.add("hidden");
+        leftPanelGroupsAddList.classList.add("hidden");
         leftPanelNotificationsList.classList.add("hidden");
         if (leftPanelLinksList != null) {
           leftPanelLinksList.classList.toggle("hidden");
@@ -49,16 +53,42 @@ var openLeftPanelTab = function openLeftPanelTab(number) {
     case 1:
       {
         leftPanelLinksList.classList.add("hidden");
+        leftPanelGroupsList.classList.add("hidden");
+        leftPanelGroupsAddList.classList.add("hidden");
         leftPanelNotificationsList.classList.add("hidden");
-        if (leftPanelGroupsList != null) {
-          leftPanelGroupsList.classList.toggle("hidden");
+        if (leftPanelLinksAddList != null) {
+          leftPanelLinksAddList.classList.toggle("hidden");
         }
         break;
       }
     case 2:
       {
         leftPanelLinksList.classList.add("hidden");
+        leftPanelLinksAddList.classList.add("hidden");
+        leftPanelGroupsAddList.classList.add("hidden");
+        leftPanelNotificationsList.classList.add("hidden");
+        if (leftPanelGroupsList != null) {
+          leftPanelGroupsList.classList.toggle("hidden");
+        }
+        break;
+      }
+    case 3:
+      {
+        leftPanelLinksList.classList.add("hidden");
+        leftPanelLinksAddList.classList.add("hidden");
         leftPanelGroupsList.classList.add("hidden");
+        leftPanelNotificationsList.classList.add("hidden");
+        if (leftPanelGroupsAddList != null) {
+          leftPanelGroupsAddList.classList.toggle("hidden");
+        }
+        break;
+      }
+    case 4:
+      {
+        leftPanelLinksList.classList.add("hidden");
+        leftPanelLinksAddList.classList.add("hidden");
+        leftPanelGroupsList.classList.add("hidden");
+        leftPanelGroupsAddList.classList.add("hidden");
         if (leftPanelNotificationsList != null) {
           leftPanelNotificationsList.classList.toggle("hidden");
         }
@@ -162,15 +192,26 @@ function leftPanelRequestHandler() {
   var data = JSON.parse(this.responseText);
   document.querySelector('#left_panel_notifications_list').innerHTML = '';
   var counter = document.querySelector('#left_panel_notification_counter');
-  if (data.notifications.length > 0) {
+  var notifications_list = document.querySelector('#left_panel_notifications_list');
+  if (data.notifications_not_read.length + data.notifications_read.length > 0) {
     counter.classList.remove('hidden');
-    counter.innerHTML = data.notifications.length;
-    data.notifications.forEach(function (element) {
+    counter.innerHTML = data.notifications_not_read.length;
+    data.notifications_not_read.forEach(function (element) {
       var newElement = createElementFromHTML(element);
       newElement.addEventListener('click', function (ev) {
         return readNotification(newElement.getAttribute('data-id'));
       });
-      document.querySelector('#left_panel_notifications_list').appendChild(newElement);
+      notifications_list.appendChild(newElement);
+    });
+    var div = document.createElement('div');
+    div.innerHTML = "Not Read";
+    notifications_list.append(div);
+    data.notifications_read.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      newElement.addEventListener('click', function (ev) {
+        return readNotification(newElement.getAttribute('data-id'));
+      });
+      notifications_list.appendChild(newElement);
     });
   } else {
     counter.classList.add('hidden');
@@ -221,8 +262,10 @@ function addEventListeners() {
   var connectButtonDecline = document.querySelector("#connect_button_decline");
   var leftPanel = document.querySelector('#leftPanel');
   var leftPanelLinksButton = document.querySelector("#left_panel_link_button");
+  var leftPanelLinksAddButton = document.querySelector("#left_panel_link_add_button");
   var leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
   var leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
+  var leftPanelGroupsAddButton = document.querySelector("#left_panel_group_add_button");
   if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
     return closeProfileEditModal();
   });
@@ -245,11 +288,17 @@ function addEventListeners() {
   if (leftPanelLinksButton != null) leftPanelLinksButton.addEventListener('click', function (e) {
     return openLeftPanelTab(0);
   });
-  if (leftPanelGroupsButton != null) leftPanelGroupsButton.addEventListener('click', function (e) {
+  if (leftPanelLinksAddButton != null) leftPanelLinksAddButton.addEventListener('click', function (e) {
     return openLeftPanelTab(1);
   });
-  if (leftPanelNotificationsButton != null) leftPanelNotificationsButton.addEventListener('click', function (e) {
+  if (leftPanelGroupsButton != null) leftPanelGroupsButton.addEventListener('click', function (e) {
     return openLeftPanelTab(2);
+  });
+  if (leftPanelGroupsAddButton != null) leftPanelGroupsAddButton.addEventListener('click', function (e) {
+    return openLeftPanelTab(3);
+  });
+  if (leftPanelNotificationsButton != null) leftPanelNotificationsButton.addEventListener('click', function (e) {
+    return openLeftPanelTab(4);
   });
 }
 addEventListeners();

@@ -30,13 +30,17 @@ const closeProfileEditModal = function() {
 
 const openLeftPanelTab = function(number) {
     let leftPanelLinksList = document.querySelector("#left_panel_links_list");
+    let leftPanelLinksAddList = document.querySelector("#left_panel_links_add_list");
     let leftPanelGroupsList = document.querySelector("#left_panel_groups_list");
+    let leftPanelGroupsAddList = document.querySelector("#left_panel_groups_add_list");
     let leftPanelNotificationsList = document.querySelector("#left_panel_notifications_list");
 
 
     switch (number) {
         case 0: {
+            leftPanelLinksAddList.classList.add("hidden");
             leftPanelGroupsList.classList.add("hidden");
+            leftPanelGroupsAddList.classList.add("hidden");
             leftPanelNotificationsList.classList.add("hidden");
             if (leftPanelLinksList != null) {
                 leftPanelLinksList.classList.toggle("hidden");
@@ -45,15 +49,39 @@ const openLeftPanelTab = function(number) {
         }
         case 1: {
             leftPanelLinksList.classList.add("hidden");
+            leftPanelGroupsList.classList.add("hidden");
+            leftPanelGroupsAddList.classList.add("hidden");
+            leftPanelNotificationsList.classList.add("hidden");
+            if (leftPanelLinksAddList != null) {
+                leftPanelLinksAddList.classList.toggle("hidden");
+            }
+            break;
+        }
+        case 2: {
+            leftPanelLinksList.classList.add("hidden");
+            leftPanelLinksAddList.classList.add("hidden");
+            leftPanelGroupsAddList.classList.add("hidden");
             leftPanelNotificationsList.classList.add("hidden");
             if (leftPanelGroupsList != null) {
                 leftPanelGroupsList.classList.toggle("hidden");
             }
             break;
         }
-        case 2: {
+        case 3: {
             leftPanelLinksList.classList.add("hidden");
+            leftPanelLinksAddList.classList.add("hidden");
             leftPanelGroupsList.classList.add("hidden");
+            leftPanelNotificationsList.classList.add("hidden");
+            if (leftPanelGroupsAddList != null) {
+                leftPanelGroupsAddList.classList.toggle("hidden");
+            }
+            break;
+        }
+        case 4: {
+            leftPanelLinksList.classList.add("hidden");
+            leftPanelLinksAddList.classList.add("hidden");
+            leftPanelGroupsList.classList.add("hidden");
+            leftPanelGroupsAddList.classList.add("hidden");
             if (leftPanelNotificationsList != null) {
                 leftPanelNotificationsList.classList.toggle("hidden");
             }
@@ -160,14 +188,27 @@ function leftPanelRequestHandler() {
     let data = JSON.parse(this.responseText);
     document.querySelector('#left_panel_notifications_list').innerHTML = '';
     let counter = document.querySelector('#left_panel_notification_counter')
-    if (data.notifications.length > 0) {
-        
+    let notifications_list = document.querySelector('#left_panel_notifications_list');
+    if (data.notifications_not_read.length + data.notifications_read.length > 0) {
         counter.classList.remove('hidden');
-        counter.innerHTML = data.notifications.length;
-        data.notifications.forEach(element => {
+        counter.innerHTML = data.notifications_not_read.length;
+        data.notifications_not_read.forEach(element => {
             var newElement = createElementFromHTML(element);
             newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
-            document.querySelector('#left_panel_notifications_list').appendChild(newElement)
+            notifications_list.appendChild(newElement)
+        });
+
+        var div = document.createElement('div');
+
+        div.innerHTML = "Not Read";
+
+        notifications_list.append(div);
+
+
+        data.notifications_read.forEach(element => {
+            var newElement = createElementFromHTML(element);
+            newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
+            notifications_list.appendChild(newElement)
         });
     } else {
         counter.classList.add('hidden');
@@ -224,9 +265,10 @@ function addEventListeners() {
     let connectButtonDecline = document.querySelector("#connect_button_decline");
     let leftPanel = document.querySelector('#leftPanel');
     let leftPanelLinksButton = document.querySelector("#left_panel_link_button");
+    let leftPanelLinksAddButton = document.querySelector("#left_panel_link_add_button");
     let leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
     let leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
-
+    let leftPanelGroupsAddButton = document.querySelector("#left_panel_group_add_button");
     if (editUserModalBack != null)
         editUserModalBack.addEventListener('click', () => closeProfileEditModal());
     if (connectButton != null) {
@@ -245,10 +287,14 @@ function addEventListeners() {
         leftPanelGetData();
     if (leftPanelLinksButton != null)
         leftPanelLinksButton.addEventListener('click', (e) => openLeftPanelTab(0));
+    if (leftPanelLinksAddButton != null)
+        leftPanelLinksAddButton.addEventListener('click', (e) => openLeftPanelTab(1));
     if (leftPanelGroupsButton != null)
-        leftPanelGroupsButton.addEventListener('click', (e) => openLeftPanelTab(1));
+        leftPanelGroupsButton.addEventListener('click', (e) => openLeftPanelTab(2));
+    if (leftPanelGroupsAddButton != null)
+        leftPanelGroupsAddButton.addEventListener('click', (e) => openLeftPanelTab(3));
     if (leftPanelNotificationsButton != null)
-        leftPanelNotificationsButton.addEventListener('click', (e) => openLeftPanelTab(2));
+        leftPanelNotificationsButton.addEventListener('click', (e) => openLeftPanelTab(4));
 }  
 
 addEventListeners();

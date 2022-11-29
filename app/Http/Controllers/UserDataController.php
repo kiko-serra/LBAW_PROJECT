@@ -22,22 +22,24 @@ class UserDataController extends Controller
         $limit = 15;
 
         $notifications = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', false)->orderByDesc('notification_date')->limit($limit)->get();
-        $notificationsread = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', true)->orderByDesc('notification_date')->limit($limit - count($notifications))->get();
+        $notifications2 = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', true)->orderByDesc('notification_date')->limit($limit - count($notifications))->get();
         
 
-        $notifications2show = [];
+        $notificationsNotRead = [];
+        $notificationsRead = [];
 
         foreach ($notifications as $notification) {
-            $notifications2show[] = view('partials.leftPanel.notification', ['read' => false, 'description' => $notification->description, 'id' => $notification->id_notification])->render();
+            $notificationsNotRead[] = view('partials.leftPanel.notification', ['read' => false, 'description' => $notification->description, 'id' => $notification->id_notification])->render();
         }
-        foreach ($notificationsread as $notification) {
-            $notifications2show[] = view('partials.leftPanel.notification', ['read' => true, 'description' => $notification->description, 'id' => $notification->id_notification])->render();
+        foreach ($notifications2 as $notification) {
+            $notificationsRead[] = view('partials.leftPanel.notification', ['read' => true, 'description' => $notification->description, 'id' => $notification->id_notification])->render();
         }
 
         return response()->json([
             'friends' => $friends,
             'friend_requests' => $friend_requests,
-            'notifications' => $notifications2show
+            'notifications_not_read' => $notificationsNotRead,
+            'notifications_read' => $notificationsRead
         ]);
     }
 
