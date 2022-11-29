@@ -21,8 +21,8 @@ class UserDataController extends Controller
 
         $limit = 15;
 
-        $notifications = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', false)->limit($limit)->get()->sortByDesc('notification_date');
-        $notificationsread = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', true)->limit($limit - count($notifications))->get()->sortByDesc('notification_date');
+        $notifications = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', false)->orderByDesc('notification_date')->limit($limit)->get();
+        $notificationsread = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', true)->orderByDesc('notification_date')->limit($limit - count($notifications))->get();
         
 
         $notifications2show = [];

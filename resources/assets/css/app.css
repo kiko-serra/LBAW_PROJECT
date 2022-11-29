@@ -29,11 +29,7 @@
   .left-panel-button-counter {
     @apply bg-slate-400 px-3 py-1 rounded-lg;
   }
-
-  .notification-card {
-    @apply p-2 m-2 cursor-pointer rounded-md;
-  }
-
+  
   .sidepanel {
     @apply flex flex-col bg-white rounded-lg w-96 h-fit p-4;
   }

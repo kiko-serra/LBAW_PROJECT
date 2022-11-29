@@ -27,11 +27,11 @@
     </div>
     <div>
         <div id="left_panel_notification_button" class="left-panel-button">
-            <img src={{ asset('icons/notifications.svg') }} alt="notifications icon" width=28" height=28">
+            <img src={{ asset('icons/notifications.svg') }} alt="notifications icon" width=28" height=28" class="h-4 w-4">
             <p>NOTIFICATIONS</p>
             <span id="left_panel_notification_counter" class="left-panel-button-counter hidden">0</span>
         </div>
-        <ul id="left_panel_notifications_list" class="left_panel_list hidden">
+        <ul id="left_panel_notifications_list" class="left_panel_list max-h-40 overflow-y-scroll hidden">
             No notifications to show.
         </ul>
     </div>
