@@ -44,18 +44,18 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('endregistration', function() {
     return view('pages.registerExtra');
-})->name('endregister');
+})->name('endregister.show');
 
 //User
 //Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
 
 //------------------Admin-------------------
 Route::middleware('admin')->group(function () {
-    Route::get('/users', 'AdminController@index')->name('admin');
-    Route::get('/users/create', 'AdminController@create')->name('admin');
-    Route::get('users/{id}', 'AdminController@edit')->name('admin');
-    Route::post('users/block', 'AdminController@block')->name('admin');
-    Route::post('users/unblock', 'AdminController@unblock')->name('admin');
+    Route::get('/users', 'AdminController@index')->name('admin.show');
+    Route::get('/users/create', 'AdminController@create')->name('admin.create');
+    Route::get('users/{id}', 'AdminController@edit')->name('admin.edit');
+    Route::post('users/block', 'AdminController@block')->name('admin.block');
+    Route::post('users/unblock', 'AdminController@unblock')->name('admin.unblock');
 });
 
 
