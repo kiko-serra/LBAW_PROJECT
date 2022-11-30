@@ -196,8 +196,12 @@ function leftPanelRequestHandler() {
   var notifications_list = document.querySelector('#left_panel_notifications_list');
   notifications_list.innerHTML = '';
   if (data.notifications.length > 0) {
-    notifications_counter.classList.remove('hidden');
-    notifications_counter.innerHTML = data.new_notis;
+    if (data.new_notis > 0) {
+      notifications_counter.classList.remove('hidden');
+      notifications_counter.innerHTML = data.new_notis;
+    } else {
+      notifications_counter.classList.add('hidden');
+    }
     data.notifications.forEach(function (element) {
       var newElement = createElementFromHTML(element);
       newElement.addEventListener('click', function (ev) {
@@ -242,7 +246,7 @@ function leftPanelRequestHandler() {
     });
   } else {
     link_counter.classList.add('hidden');
-    document.querySelector('#left_panel_links_list').innerHTML = "No link requests to show";
+    document.querySelector('#left_panel_links_add_list').innerHTML = "No link requests to show";
   }
 }
 function linkRequestsGetMoreDataHandler() {

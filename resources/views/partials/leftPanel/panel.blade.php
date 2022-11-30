@@ -3,7 +3,7 @@
         <img src={{ asset('icons/home.svg') }} alt="house icon" width=28" height=28" class="h-7 w-7">
         <p>FEED</p>
     </a>
-    <a href="/user/{{ Auth::user()->id_account }}" class="left-panel-button <?php if ($_SERVER['REQUEST_URI'] == "/user/" . Auth::user()->id_account) echo "left-panel-button-selected"; ?>">
+    <a href="/user/{{ Auth::user()->account_tag }}" class="left-panel-button <?php if ($_SERVER['REQUEST_URI'] == "/user/" . Auth::user()->account_tag) echo "left-panel-button-selected"; ?>">
         <img src={{ asset('icons/person.svg') }} alt="person icon" width=28" height=28" class="h-7 w-7">
         <p>PROFILE</p>
     </a>

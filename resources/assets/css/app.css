@@ -23,7 +23,7 @@
   }
 
   .left-panel-button-selected {
-    @apply bg-blue-300;
+    @apply bg-blue-300 hover:bg-blue-400;
   }
 
   .left-panel-button-counter {
