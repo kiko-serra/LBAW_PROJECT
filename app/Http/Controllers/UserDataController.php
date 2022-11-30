@@ -24,6 +24,8 @@ class UserDataController extends Controller
 
         $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->get();
 
+        $friendRequestViews = [];
+
         foreach ($friendRequests as $friendRequest) {
             $friendRequestViews[] = view('partials.leftPanel.linkRequest', ['name' => $friendRequest->name, 'id' => $friendRequest->id_sender])->render();
         }
@@ -99,6 +101,8 @@ class UserDataController extends Controller
 
 
         $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->limit($limit)->get();
+
+        $friendRequestViews = [];
 
         foreach ($friendRequests as $friendRequest) {
             $friendRequestViews[] = view('partials.leftPanel.linkRequest', ['name' => $friendRequest->name, 'id' => $friendRequest->id_sender])->render();

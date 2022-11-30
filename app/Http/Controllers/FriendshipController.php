@@ -10,6 +10,7 @@ use Validator;
 use App\Models\User;
 use App\Models\Friendship;
 use App\Models\FriendRequest;
+use App\Models\Notification;
 
 
 class FriendshipController extends Controller
@@ -49,7 +50,18 @@ class FriendshipController extends Controller
         $newFriendship->account2_id = $target;
         $newFriendship->save();
 
+        $notified = User::find($sender);
 
+        if ($notified) {
+            $newNotification = new Notification();
+            $newNotification->id_receiver = $target;
+            $newNotification->url = "/user/" . $notified->account_tag;
+            $newNotification->notification_date = now();
+            $newNotification->description = $notified->name . " accepted your link request.";
+            $newNotification->is_read = false;
+            $newNotification->save();
+        }
+        
         return response("Request accepted", 200);
     }
 

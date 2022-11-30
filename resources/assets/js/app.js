@@ -235,10 +235,8 @@ function leftPanelRequestHandler() {
         });
     } else {
         link_counter.classList.add('hidden');
-        document.querySelector('#left_panel_link_list').innerHTML = "No link requests to show"
+        document.querySelector('#left_panel_links_list').innerHTML = "No link requests to show"
     }
-
-    // TODO: getMoreData User link requests
 }
 
 function linkRequestsGetMoreDataHandler() {
