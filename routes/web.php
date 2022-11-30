@@ -41,9 +41,10 @@ Route::post('api/friendship', 'FriendshipController@create')->name('friendship.n
 Route::delete('api/friendship', 'FriendshipController@delete')->name('friendship.remove');
 Route::put('api/friendship/request', 'FriendshipController@accept')->name('friendship.accept');
 Route::delete('api/friendship/request', 'FriendshipController@decline')->name('friendship.decline');
-Route::get('api/leftpanel', 'UserDataController@getdata')->name('leftpanel.get');
-Route::get('api/leftpanel/notifications/{offset}', 'UserDataController@getmorenotifications')->name('leftpanel.notifications');
-Route::post('api/notification', 'UserDataController@readnotification')->name('notification.read');
+Route::get('api/leftpanel', 'UserDataController@getData')->name('leftpanel.get');
+Route::get('api/leftpanel/notifications/{offset}', 'UserDataController@getMoreNotifications')->name('leftpanel.notifications');
+Route::get('api/leftpanel/friendship-request/{offset}', 'UserDataController@getMoreLinkRequests')->name('leftpanel.link-requests');
+Route::post('api/notification', 'UserDataController@readNotification')->name('notification.read');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -96,8 +96,11 @@ const leftPanelGetData = function () {
     sendAjaxRequest('get', '/api/leftpanel', null, leftPanelRequestHandler);
 }
 
+const linkRequestsGetMoreData = function (offset) {
+    sendAjaxRequest('get', '/api/leftpanel/friendship-request/' + offset, null, linkRequestsGetMoreDataHandler);
+}
+
 const notificationsGetMoreData = function (offset) {
-    console.log("pofsser", offset)
     sendAjaxRequest('get', '/api/leftpanel/notifications/' + offset, null, notificationsGetMoreDataHandler);
 }
 
@@ -109,7 +112,6 @@ const connectUser = function(event) {
     } 
     receiver_id = parseInt(receiver_id);
     sendAjaxRequest('post', '/api/friendship', {id: receiver_id}, connectHandler);
-    // TODO: send ajax request
 }
 
 
@@ -228,7 +230,7 @@ function leftPanelRequestHandler() {
         var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">')
         link_list.appendChild(refreshButton);
         refreshButton.addEventListener('click', () => {
-            linkGetMoreData(link_list.childElementCount-1);
+            linkRequestsGetMoreData(link_list.childElementCount-1);
             link_list.removeChild(refreshButton);
         });
     } else {
@@ -238,6 +240,43 @@ function leftPanelRequestHandler() {
 
     // TODO: getMoreData User link requests
 }
+
+function linkRequestsGetMoreDataHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        let link_add_list = document.querySelector('#left_panel_links_add_list');
+        var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">')
+        link_add_list.appendChild(refreshButton);
+        refreshButton.addEventListener('click', () => {
+            linkRequestsGetMoreData(link_add_list.childElementCount-1);
+            link_add_list.removeChild(refreshButton);
+        })
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let counter = document.querySelector('#left_panel_link_add_counter')
+    let link_add_list = document.querySelector('#left_panel_links_add_list');
+    link_add_list.innerHTML = '';
+    if (data.link_requests.length > 0) {
+        counter.innerHTML = data.link_requests.length;
+        data.link_requests.forEach(element => {
+            var newElement = createElementFromHTML(element);
+            newElement.querySelector('.link-request-accept').addEventListener('click', (ev) => acceptLinkRequest(newElement))
+            newElement.querySelector('.link-request-refuse').addEventListener('click', (ev) => declineLinkRequest(newElement))
+            link_add_list.appendChild(newElement)
+        });
+
+        if (data.more_data) {
+            var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer cursor-pointer">')
+            link_add_list.appendChild(refreshButton);
+            refreshButton.addEventListener('click', () => {
+                linkRequestsGetMoreData(link_add_list.childElementCount-1);
+                link_add_list.removeChild(refreshButton);
+            })
+        }
+    }
+}
+
 
 function notificationsGetMoreDataHandler() {
     if (this.status != 200) {
@@ -252,7 +291,6 @@ function notificationsGetMoreDataHandler() {
         return;
     }
     let data = JSON.parse(this.responseText);
-    console.log(data);
     let counter = document.querySelector('#left_panel_notification_counter')
     let notifications_list = document.querySelector('#left_panel_notifications_list');
     notifications_list.innerHTML = '';

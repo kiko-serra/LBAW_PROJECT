@@ -15,7 +15,7 @@ use \App\Models\Notification;
 
 class UserDataController extends Controller
 {
-    public function getdata(Request $request) {
+    public function getData(Request $request) {
         if (!Auth::check()) return response(null, 401);
 
         $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
@@ -63,7 +63,7 @@ class UserDataController extends Controller
         ]);
     }
 
-    public function getmorenotifications($offset, Request $request) {
+    public function getMoreNotifications($offset, Request $request) {
         if (!Auth::check()) return response(null, 401);
 
         $limit = 15 + $offset;
@@ -91,7 +91,26 @@ class UserDataController extends Controller
         ]);
     }
 
-    public function readnotification(Request $request) {
+    public function getMoreLinkRequests($offset, Request $request) {
+        if (!Auth::check()) return response(null, 401);
+
+        $limit = 15 + $offset;
+
+
+
+        $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->limit($limit)->get();
+
+        foreach ($friendRequests as $friendRequest) {
+            $friendRequestViews[] = view('partials.leftPanel.linkRequest', ['name' => $friendRequest->name, 'id' => $friendRequest->id_sender])->render();
+        }
+
+        return response()->json([
+            'link_requests' => $friendRequestViews,
+            'more_data' => count($friendRequests) >= $limit
+        ]);
+    }
+
+    public function readNotification(Request $request) {
         if (!Auth::check()) return response(null, 401);
 
 

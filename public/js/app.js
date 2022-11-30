@@ -102,8 +102,10 @@ var openLeftPanelTab = function openLeftPanelTab(number) {
 var leftPanelGetData = function leftPanelGetData() {
   sendAjaxRequest('get', '/api/leftpanel', null, leftPanelRequestHandler);
 };
+var linkRequestsGetMoreData = function linkRequestsGetMoreData(offset) {
+  sendAjaxRequest('get', '/api/leftpanel/friendship-request/' + offset, null, linkRequestsGetMoreDataHandler);
+};
 var notificationsGetMoreData = function notificationsGetMoreData(offset) {
-  console.log("pofsser", offset);
   sendAjaxRequest('get', '/api/leftpanel/notifications/' + offset, null, notificationsGetMoreDataHandler);
 };
 var connectUser = function connectUser(event) {
@@ -116,9 +118,7 @@ var connectUser = function connectUser(event) {
   sendAjaxRequest('post', '/api/friendship', {
     id: receiver_id
   }, connectHandler);
-  // TODO: send ajax request
 };
-
 var deleteUserLink = function deleteUserLink(event) {
   var receiver_id = event.target.getAttribute("data-id");
   if (receiver_id === null) {
@@ -237,7 +237,7 @@ function leftPanelRequestHandler() {
     var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
     link_list.appendChild(refreshButton);
     refreshButton.addEventListener('click', function () {
-      linkGetMoreData(link_list.childElementCount - 1);
+      linkRequestsGetMoreData(link_list.childElementCount - 1);
       link_list.removeChild(refreshButton);
     });
   } else {
@@ -248,6 +248,44 @@ function leftPanelRequestHandler() {
   // TODO: getMoreData User link requests
 }
 
+function linkRequestsGetMoreDataHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    var _link_add_list = document.querySelector('#left_panel_links_add_list');
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
+    _link_add_list.appendChild(refreshButton);
+    refreshButton.addEventListener('click', function () {
+      linkRequestsGetMoreData(_link_add_list.childElementCount - 1);
+      _link_add_list.removeChild(refreshButton);
+    });
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  var counter = document.querySelector('#left_panel_link_add_counter');
+  var link_add_list = document.querySelector('#left_panel_links_add_list');
+  link_add_list.innerHTML = '';
+  if (data.link_requests.length > 0) {
+    counter.innerHTML = data.link_requests.length;
+    data.link_requests.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      newElement.querySelector('.link-request-accept').addEventListener('click', function (ev) {
+        return acceptLinkRequest(newElement);
+      });
+      newElement.querySelector('.link-request-refuse').addEventListener('click', function (ev) {
+        return declineLinkRequest(newElement);
+      });
+      link_add_list.appendChild(newElement);
+    });
+    if (data.more_data) {
+      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer cursor-pointer">');
+      link_add_list.appendChild(refreshButton);
+      refreshButton.addEventListener('click', function () {
+        linkRequestsGetMoreData(link_add_list.childElementCount - 1);
+        link_add_list.removeChild(refreshButton);
+      });
+    }
+  }
+}
 function notificationsGetMoreDataHandler() {
   if (this.status != 200) {
     console.log("Action failed.");
@@ -261,7 +299,6 @@ function notificationsGetMoreDataHandler() {
     return;
   }
   var data = JSON.parse(this.responseText);
-  console.log(data);
   var counter = document.querySelector('#left_panel_notification_counter');
   var notifications_list = document.querySelector('#left_panel_notifications_list');
   notifications_list.innerHTML = '';
