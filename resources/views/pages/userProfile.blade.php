@@ -36,33 +36,33 @@
       </div>
     </div>
     @if ($user->id_account == Auth::user()->id_account)
-      <span id="connect_button" data-method="edit" class="bg-cyan-400 action-button">Edit</span>
+      <span id="link_button" data-method="edit" class="bg-cyan-400 action-button">Edit</span>
     @elseif ($linkStatus == "linked")
-      <span id="connect_button" data-method="delete" data-id={{ $user->id_account }} class="bg-red-400 action-button">Unlink</span>
+      <span id="link_button" data-method="delete" data-id={{ $user->id_account }} class="bg-red-400 action-button">Unlink</span>
     @elseif ($linkStatus == "received")
       <div class="flex flex-col w-fit h-fit relative group">
-        <span id="connect_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
+        <span id="link_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
           <p class="flex-shrink-0">Link Received</p> 
         </span>
         <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
-          <span id="connect_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
+          <span id="link_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
             <p>Accept</p>
             <img src="/icons/accept_white.svg" alt="" height=24 width=24>
           </span>
-          <span id="connect_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
+          <span id="link_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
             <p>Refuse</p>
             <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
           </span>
         </div>
       </div>
     @else
-      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-blue-400 action-button">Link</span>
+      <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-blue-400 action-button">Link</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
-      <div id="userProfileConnections" class="cursor-pointer select-none">{{ count($friendships) }} connections</div>
+      <div id="userProfilelinkions" class="cursor-pointer select-none">{{ count($friendships) }} linkions</div>
       <!-- <div>X, Y and Z and H other friends in common</div> -->
-      <div id="userProfileFriendConnections" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
+      <div id="userProfileFriendlinkions" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
         <?php
           if ($user->id_account != Auth::user()->id_account) {
             $i = 0;
@@ -71,7 +71,7 @@
               $i++;
               if ($i > 2) break;
             }
-            echo '<p class="text-base mr-2"></p>';
+            echo '<p class="text-base mr-2 ml-4"></p>';
             $i = 0;
             foreach ($commonFriendships as $friend) {
               echo $friend->name;
@@ -79,14 +79,14 @@
               if ($i == count($commonFriendships)-1) {
                 echo ' and';
                 continue;
-              } else if ($i > 2 || $i == count($commonFriendships)) break;
+              } else if ($i > 1 || $i == count($commonFriendships)) break;
               else {
                 echo ', ';
               }
             }
 
-            if ($i > 3) {
-              echo ' and ' . count($friendships) - $i . ' other connections in common.';
+            if ($i > 1) {
+              echo ' and ' . count($friendships) - $i . ' other links in common.';
             } else if ($i == 0) {
               echo 'No friends in common.';
             } else {
@@ -127,26 +127,26 @@
     </div>
     <div id="warning_private_profile">
       <span>This profile is private</span><br>
-      <span>Connect with {{$user->name}} to see it </span>
+      <span>Link with {{$user->name}} to see it </span>
     </div>
     @if ($linkStatus == "received")
       <div class="flex flex-col w-fit h-fit relative group">
-        <span id="connect_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
+        <span id="link_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
           <p class="flex-shrink-0">Link Received</p> 
         </span>
         <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
-          <span id="connect_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
+          <span id="link_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
             <p>Accept</p>
             <img src="/icons/accept_white.svg" alt="" height=24 width=24>
           </span>
-          <span id="connect_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
+          <span id="link_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
             <p>Refuse</p>
             <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
           </span>
         </div>
       </div>
     @else
-      <span id="connect_button" data-method="connect" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
+      <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
     @endif
   </section>
   

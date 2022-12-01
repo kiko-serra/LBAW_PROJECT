@@ -108,7 +108,7 @@ var linkRequestsGetMoreData = function linkRequestsGetMoreData(offset) {
 var notificationsGetMoreData = function notificationsGetMoreData(offset) {
   sendAjaxRequest('get', '/api/leftpanel/notifications/' + offset, null, notificationsGetMoreDataHandler);
 };
-var connectUser = function connectUser(event) {
+var linkUser = function linkUser(event) {
   var receiver_id = event.target.getAttribute("data-id");
   if (receiver_id === null) {
     console.log("An error has occurred.");
@@ -117,7 +117,7 @@ var connectUser = function connectUser(event) {
   receiver_id = parseInt(receiver_id);
   sendAjaxRequest('post', '/api/friendship', {
     id: receiver_id
-  }, connectHandler);
+  }, linkHandler);
 };
 var deleteUserLink = function deleteUserLink(event) {
   var receiver_id = event.target.getAttribute("data-id");
@@ -154,7 +154,7 @@ var declineLinkRequest = function declineLinkRequest(event) {
 };
 
 //LINK HANDLERS
-function connectHandler() {
+function linkHandler() {
   // console.log("Status: ", this.status, this.responseText);
   if (this.status != 200) {
     console.log("Action failed.");
@@ -335,6 +335,7 @@ function notificationReadHandler() {
     console.log("action failed");
     return;
   }
+  var data = JSON.parse(this.responseText);
   window.location = data['url'];
 }
 function notificationDeleteHandler() {
@@ -382,11 +383,11 @@ function sendAjaxRequest(method, url, data, handler) {
 //EVENT LISTENERS
 
 function addEventListeners() {
-  var userProfileConnectionButton = document.querySelector('#userProfileConnections');
+  var userProfileLinkionButton = document.querySelector('#userProfileLinkions');
   var editUserModalBack = document.querySelector('#editUserModalBack');
-  var connectButton = document.querySelector("#connect_button");
-  var connectButtonAccept = document.querySelector("#connect_button_accept");
-  var connectButtonDecline = document.querySelector("#connect_button_decline");
+  var linkButton = document.querySelector("#link_button");
+  var linkButtonAccept = document.querySelector("#link_button_accept");
+  var linkButtonDecline = document.querySelector("#link_button_decline");
   var leftPanel = document.querySelector('#leftPanel');
   var leftPanelLinksButton = document.querySelector("#left_panel_link_button");
   var leftPanelLinksAddButton = document.querySelector("#left_panel_link_add_button");
@@ -396,20 +397,20 @@ function addEventListeners() {
   if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
     return closeProfileEditModal();
   });
-  if (connectButton != null) {
-    if (connectButton.getAttribute("data-method") == "edit") connectButton.addEventListener('click', function () {
+  if (linkButton != null) {
+    if (linkButton.getAttribute("data-method") == "edit") linkButton.addEventListener('click', function () {
       return openProfileEditModal();
-    });else if (connectButton.getAttribute("data-method") == "connect") connectButton.addEventListener('click', function (e) {
-      return connectUser(e);
-    });else if (connectButton.getAttribute("data-method") == "delete") connectButton.addEventListener('click', function (e) {
+    });else if (linkButton.getAttribute("data-method") == "link") linkButton.addEventListener('click', function (e) {
+      return linkUser(e);
+    });else if (linkButton.getAttribute("data-method") == "delete") linkButton.addEventListener('click', function (e) {
       return deleteUserLink(e);
     });
   }
-  if (connectButtonAccept != null) connectButtonAccept.addEventListener('click', function (e) {
-    return acceptLinkRequest(connectButtonAccept);
+  if (linkButtonAccept != null) linkButtonAccept.addEventListener('click', function (e) {
+    return acceptLinkRequest(linkButtonAccept);
   });
-  if (connectButtonDecline != null) connectButtonDecline.addEventListener('click', function (e) {
-    return declineLinkRequest(connectButtonDecline);
+  if (linkButtonDecline != null) linkButtonDecline.addEventListener('click', function (e) {
+    return declineLinkRequest(linkButtonDecline);
   });
   if (leftPanel != null) leftPanelGetData();
   if (leftPanelLinksButton != null) leftPanelLinksButton.addEventListener('click', function (e) {

@@ -104,14 +104,14 @@ const notificationsGetMoreData = function (offset) {
     sendAjaxRequest('get', '/api/leftpanel/notifications/' + offset, null, notificationsGetMoreDataHandler);
 }
 
-const connectUser = function(event) {
+const linkUser = function(event) {
     let receiver_id = event.target.getAttribute("data-id");
     if (receiver_id === null) {
         console.log("An error has occurred.");
         return;
     } 
     receiver_id = parseInt(receiver_id);
-    sendAjaxRequest('post', '/api/friendship', {id: receiver_id}, connectHandler);
+    sendAjaxRequest('post', '/api/friendship', {id: receiver_id}, linkHandler);
 }
 
 
@@ -147,7 +147,7 @@ const declineLinkRequest = function(event) {
 
 
 //LINK HANDLERS
-function connectHandler() {
+function linkHandler() {
     // console.log("Status: ", this.status, this.responseText);
     if (this.status != 200) {
         console.log("Action failed.");
@@ -328,6 +328,7 @@ function notificationReadHandler() {
         console.log("action failed");
         return;
     }
+    let data = JSON.parse(this.responseText);
     window.location = data['url'];
 }
 
@@ -380,11 +381,11 @@ function sendAjaxRequest(method, url, data, handler) {
 //EVENT LISTENERS
 
 function addEventListeners() {
-    let userProfileConnectionButton = document.querySelector('#userProfileConnections');
+    let userProfileLinkionButton = document.querySelector('#userProfileLinkions');
     let editUserModalBack = document.querySelector('#editUserModalBack');
-    let connectButton = document.querySelector("#connect_button");
-    let connectButtonAccept = document.querySelector("#connect_button_accept");
-    let connectButtonDecline = document.querySelector("#connect_button_decline");
+    let linkButton = document.querySelector("#link_button");
+    let linkButtonAccept = document.querySelector("#link_button_accept");
+    let linkButtonDecline = document.querySelector("#link_button_decline");
     let leftPanel = document.querySelector('#leftPanel');
     let leftPanelLinksButton = document.querySelector("#left_panel_link_button");
     let leftPanelLinksAddButton = document.querySelector("#left_panel_link_add_button");
@@ -393,18 +394,18 @@ function addEventListeners() {
     let leftPanelGroupsAddButton = document.querySelector("#left_panel_group_add_button");
     if (editUserModalBack != null)
         editUserModalBack.addEventListener('click', () => closeProfileEditModal());
-    if (connectButton != null) {
-        if (connectButton.getAttribute("data-method") == "edit")
-        connectButton.addEventListener('click', () => openProfileEditModal());
-        else if (connectButton.getAttribute("data-method") == "connect")
-            connectButton.addEventListener('click', (e) => connectUser(e));
-        else if (connectButton.getAttribute("data-method") == "delete")
-            connectButton.addEventListener('click', (e) => deleteUserLink(e));
+    if (linkButton != null) {
+        if (linkButton.getAttribute("data-method") == "edit")
+        linkButton.addEventListener('click', () => openProfileEditModal());
+        else if (linkButton.getAttribute("data-method") == "link")
+            linkButton.addEventListener('click', (e) => linkUser(e));
+        else if (linkButton.getAttribute("data-method") == "delete")
+            linkButton.addEventListener('click', (e) => deleteUserLink(e));
     }
-    if (connectButtonAccept != null)
-        connectButtonAccept.addEventListener('click', (e) => acceptLinkRequest(connectButtonAccept));
-    if (connectButtonDecline != null)
-        connectButtonDecline.addEventListener('click', (e) => declineLinkRequest(connectButtonDecline));
+    if (linkButtonAccept != null)
+        linkButtonAccept.addEventListener('click', (e) => acceptLinkRequest(linkButtonAccept));
+    if (linkButtonDecline != null)
+        linkButtonDecline.addEventListener('click', (e) => declineLinkRequest(linkButtonDecline));
     if (leftPanel != null)
         leftPanelGetData();
     if (leftPanelLinksButton != null)
