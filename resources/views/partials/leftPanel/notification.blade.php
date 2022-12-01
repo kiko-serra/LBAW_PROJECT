@@ -2,7 +2,7 @@
     <p>
         {{$description}}
     </p>
-    <div class="p-1 bg-red-500 rounded-md flex-shrink-0">
+    <div class="notification-delete p-1 bg-red-500 rounded-md flex-shrink-0 active:bg-red-700">
         <img src="/icons/delete.svg" alt="delete icon" width=18 height=18 class="w-6 h-6">
     </div>
 </div>

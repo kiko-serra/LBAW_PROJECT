@@ -202,6 +202,10 @@ function leftPanelRequestHandler() {
         data.notifications.forEach(element => {
             var newElement = createElementFromHTML(element);
             newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
+            newElement.querySelector('.notification-delete').addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                deleteNotification(newElement.getAttribute('data-id'), newElement);
+            })
             notifications_list.appendChild(newElement)
         });
 
@@ -301,6 +305,10 @@ function notificationsGetMoreDataHandler() {
         data.notifications.forEach(element => {
             var newElement = createElementFromHTML(element);
             newElement.addEventListener('click', (ev) => readNotification(newElement.getAttribute('data-id')))
+            newElement.querySelector('.notification-delete').addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                deleteNotification(newElement.getAttribute('data-id'), newElement);
+            })
             notifications_list.appendChild(newElement)
         });
 
@@ -320,13 +328,28 @@ function notificationReadHandler() {
         console.log("action failed");
         return;
     }
-    let data = JSON.parse(this.responseText);
-    console.log(data)
     window.location = data['url'];
+}
+
+function notificationDeleteHandler() {
+    if (this.status != 200) {
+        console.log("action failed");
+        return;
+    }
 }
 
 const readNotification = function(id) {
     sendAjaxRequest('post', '/api/notification', {id: id}, notificationReadHandler);
+}
+
+const deleteNotification = function(id, newElement) {
+    sendAjaxRequest('delete', '/api/notification', {id: id}, notificationDeleteHandler);
+    if (newElement.classList.contains('bg-blue-100')) {
+        var counter = document.querySelector('#left_panel_notification_counter');
+        counter.innerHTML = parseInt(counter.innerHTML) - 1;
+        if (parseInt(counter.innerHTML) === 0) counter.classList.add('hidden');
+    }
+    newElement.remove();
 }
 
 function createElementFromHTML(htmlString) {

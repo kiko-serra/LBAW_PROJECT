@@ -207,6 +207,10 @@ function leftPanelRequestHandler() {
       newElement.addEventListener('click', function (ev) {
         return readNotification(newElement.getAttribute('data-id'));
       });
+      newElement.querySelector('.notification-delete').addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        deleteNotification(newElement.getAttribute('data-id'), newElement);
+      });
       notifications_list.appendChild(newElement);
     });
     var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
@@ -310,6 +314,10 @@ function notificationsGetMoreDataHandler() {
       newElement.addEventListener('click', function (ev) {
         return readNotification(newElement.getAttribute('data-id'));
       });
+      newElement.querySelector('.notification-delete').addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        deleteNotification(newElement.getAttribute('data-id'), newElement);
+      });
       notifications_list.appendChild(newElement);
     });
     if (data.more_data) {
@@ -327,14 +335,29 @@ function notificationReadHandler() {
     console.log("action failed");
     return;
   }
-  var data = JSON.parse(this.responseText);
-  console.log(data);
   window.location = data['url'];
+}
+function notificationDeleteHandler() {
+  if (this.status != 200) {
+    console.log("action failed");
+    return;
+  }
 }
 var readNotification = function readNotification(id) {
   sendAjaxRequest('post', '/api/notification', {
     id: id
   }, notificationReadHandler);
+};
+var deleteNotification = function deleteNotification(id, newElement) {
+  sendAjaxRequest('delete', '/api/notification', {
+    id: id
+  }, notificationDeleteHandler);
+  if (newElement.classList.contains('bg-blue-100')) {
+    var counter = document.querySelector('#left_panel_notification_counter');
+    counter.innerHTML = parseInt(counter.innerHTML) - 1;
+    if (parseInt(counter.innerHTML) === 0) counter.classList.add('hidden');
+  }
+  newElement.remove();
 };
 function createElementFromHTML(htmlString) {
   var div = document.createElement('div');

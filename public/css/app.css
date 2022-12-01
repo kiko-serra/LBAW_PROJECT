@@ -1314,6 +1314,14 @@ section.content .card-body > *{
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
+.active\:bg-red-600:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+.active\:bg-red-700:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
 .group:hover .group-hover\:block {
   display: block;
 }

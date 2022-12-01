@@ -128,4 +128,17 @@ class UserDataController extends Controller
 
         return response($obj, 200);
     }
+
+    public function deleteNotification(Request $request) {
+        if (!Auth::check()) return response(null, 401);
+
+
+        if (!(count(Notification::where('id_notification', '=', $request['id'])->get()) > 0)) {
+            return response("No notification found", 300);
+        }
+
+        Notification::where('id_notification', '=', $request['id'])->delete();
+
+        return response(null, 200);
+    }
 }
