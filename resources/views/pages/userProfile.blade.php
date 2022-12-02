@@ -7,7 +7,7 @@
 <?php echo view('partials.leftPanel.panel'); ?>
 
 <section id="timeline">
-
+  
 @if (!$user->is_private || ($linkStatus == "linked") || $user->id_account == Auth::user()->id_account)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
@@ -55,14 +55,16 @@
           </span>
         </div>
       </div>
+    @elseif ($linkStatus == "pending")
+      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button">Pending</span>
     @else
       <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-blue-400 action-button">Link</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
-      <div id="userProfilelinkions" class="cursor-pointer select-none">{{ count($friendships) }} linkions</div>
+      <div id="userProfilelinks" class="cursor-pointer select-none">{{ count($friendships) }} links</div>
       <!-- <div>X, Y and Z and H other friends in common</div> -->
-      <div id="userProfileFriendlinkions" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
+      <div id="userProfileFriendlinks" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
         <?php
           if ($user->id_account != Auth::user()->id_account) {
             $i = 0;
@@ -145,6 +147,8 @@
           </span>
         </div>
       </div>
+    @elseif ($linkStatus == "pending")
+      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button">Pending</span>
     @else
       <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
     @endif

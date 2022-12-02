@@ -34,7 +34,7 @@ class UserProfileController extends Controller
       //$this->authorize('list', Post::class); //TODO: discover what this is
       $user = User::where('account_tag', '=', $account_tag)->first();
       if (!$user) return "No user found";
-      $posts = $user->posts()->orderBy('publication_date')->get();
+      $posts = $user->posts()->orderByDesc('publication_date')->get();
 
       $friendships1 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $user->id_account)->get();
       $friendships2 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $user->id_account)->get();
@@ -46,8 +46,6 @@ class UserProfileController extends Controller
           array_push($strangerFriendIDs, $friend->id_account);
       }
 
-      
-      
       $friendships3 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
       $friendships4 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
       $userFriendships = $friendships3->merge($friendships4);

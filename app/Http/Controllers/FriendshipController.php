@@ -138,6 +138,30 @@ class FriendshipController extends Controller
         return response("Request sent", 200);
     }
 
+    public function cancel(Request $request) {
+        if (!Auth::check()) return response(null, 401);
+        $validator = Validator::make($request->all(), [ 
+            'id' => 'integer|required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json("Something wrong happened", 400);
+        }
+
+        $sender = Auth::user()->id_account;
+        $target = $request['id'];
+
+        $friend_requests = FriendRequest::where('id_sender', $sender)->where('id_receiver', $target)->get();
+        
+        if ($friend_requests) {
+            FriendRequest::where('id_sender', $sender)->where('id_receiver', $target)->delete();
+            return response("Link request canceled", 200);
+        }
+
+
+        return response("Failed to cancel link request", 400);
+    } 
+
     public function delete(Request $request) {
         if (!Auth::check()) return response(null, 401);
         $validator = Validator::make($request->all(), [ 

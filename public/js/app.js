@@ -117,7 +117,19 @@ var linkUser = function linkUser(event) {
   receiver_id = parseInt(receiver_id);
   sendAjaxRequest('post', '/api/friendship', {
     id: receiver_id
-  }, linkHandler);
+  }, reloadIfSuccessful);
+};
+var cancelUserLink = function cancelUserLink(event) {
+  var receiver_id = event.target.getAttribute("data-id");
+  console.log("receiver, ", receiver_id);
+  if (receiver_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  receiver_id = parseInt(receiver_id);
+  sendAjaxRequest('put', '/api/friendship', {
+    id: receiver_id
+  }, reloadIfSuccessful);
 };
 var deleteUserLink = function deleteUserLink(event) {
   var receiver_id = event.target.getAttribute("data-id");
@@ -128,7 +140,7 @@ var deleteUserLink = function deleteUserLink(event) {
   receiver_id = parseInt(receiver_id);
   sendAjaxRequest('delete', '/api/friendship', {
     id: receiver_id
-  }, deleteLinkHandler);
+  }, reloadIfSuccessful);
 };
 var acceptLinkRequest = function acceptLinkRequest(event) {
   var receiver_id = event.getAttribute("data-id");
@@ -139,7 +151,7 @@ var acceptLinkRequest = function acceptLinkRequest(event) {
   receiver_id = parseInt(receiver_id);
   sendAjaxRequest('put', '/api/friendship/request', {
     id: receiver_id
-  }, acceptRequestHandler);
+  }, reloadIfSuccessful);
 };
 var declineLinkRequest = function declineLinkRequest(event) {
   var receiver_id = event.getAttribute("data-id");
@@ -150,35 +162,13 @@ var declineLinkRequest = function declineLinkRequest(event) {
   receiver_id = parseInt(receiver_id);
   sendAjaxRequest('delete', '/api/friendship/request', {
     id: receiver_id
-  }, declineRequestHandler);
+  }, reloadIfSuccessful);
 };
 
 //LINK HANDLERS
-function linkHandler() {
-  // console.log("Status: ", this.status, this.responseText);
-  if (this.status != 200) {
-    console.log("Action failed.");
-    return;
-  }
-  // let item = JSON.parse(this.responseText);
-  // console.log(item);
-  window.location = "";
-}
-function deleteLinkHandler() {
-  if (this.status != 200) {
-    console.log("Action failed.");
-    return;
-  }
-  window.location = "";
-}
-function acceptRequestHandler() {
-  if (this.status != 200) {
-    console.log("Action failed.");
-    return;
-  }
-  window.location = "";
-}
-function declineRequestHandler() {
+
+function reloadIfSuccessful() {
+  console.log(this.responseText);
   if (this.status != 200) {
     console.log("Action failed.");
     return;
@@ -402,6 +392,8 @@ function addEventListeners() {
       return openProfileEditModal();
     });else if (linkButton.getAttribute("data-method") == "link") linkButton.addEventListener('click', function (e) {
       return linkUser(e);
+    });else if (linkButton.getAttribute("data-method") == "cancel") linkButton.addEventListener('click', function (e) {
+      return cancelUserLink(e);
     });else if (linkButton.getAttribute("data-method") == "delete") linkButton.addEventListener('click', function (e) {
       return deleteUserLink(e);
     });
