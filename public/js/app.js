@@ -396,7 +396,6 @@ function sendAjaxRequest(method, url, data, handler) {
 //EVENT LISTENERS
 
 function addEventListeners() {
-  var userProfileLinkionButton = document.querySelector("#userProfileLinkions");
   var editUserModalBack = document.querySelector("#editUserModalBack");
   var linkButton = document.querySelector("#link_button");
   var linkButtonAccept = document.querySelector("#link_button_accept");
@@ -409,6 +408,8 @@ function addEventListeners() {
   var leftPanelGroupsAddButton = document.querySelector("#left_panel_group_add_button");
   var commonLinkFilter = document.querySelector("#right-panel-common-link-filter");
   var linkFilter = document.querySelector("#linksfilter");
+  var userProfileFriendLinks = document.querySelector("#userProfileFriendlinks");
+  var userProfileLinks = document.querySelector("#userProfilelinks");
   if (editUserModalBack != null) editUserModalBack.addEventListener("click", function () {
     return closeProfileEditModal();
   });
@@ -452,6 +453,20 @@ function addEventListeners() {
   if (linkFilter != null && document.querySelector("#right-panel-common-link-filter > p") != null) {
     linkFilter.addEventListener("keyup", function (ev) {
       filterLinks(ev.target, commonLinkFilter.classList.contains("common-link-filter-selected"));
+    });
+  }
+  if (userProfileFriendLinks != null && linkFilter != null) {
+    userProfileFriendLinks.addEventListener("click", function (ev) {
+      if (commonLinkFilter != null) commonLinkFilter.classList.add("common-link-filter-selected");
+      linkFilter.value = "";
+      filterLinks(linkFilter, true);
+    });
+  }
+  if (userProfileLinks != null && linkFilter != null) {
+    userProfileLinks.addEventListener("click", function (ev) {
+      if (commonLinkFilter != null) commonLinkFilter.classList.remove("common-link-filter-selected");
+      linkFilter.value = "";
+      filterLinks(linkFilter, false);
     });
   }
 }

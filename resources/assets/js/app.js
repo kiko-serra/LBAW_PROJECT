@@ -509,9 +509,6 @@ function sendAjaxRequest(method, url, data, handler) {
 //EVENT LISTENERS
 
 function addEventListeners() {
-    let userProfileLinkionButton = document.querySelector(
-        "#userProfileLinkions"
-    );
     let editUserModalBack = document.querySelector("#editUserModalBack");
     let linkButton = document.querySelector("#link_button");
     let linkButtonAccept = document.querySelector("#link_button_accept");
@@ -536,6 +533,10 @@ function addEventListeners() {
         "#right-panel-common-link-filter"
     );
     let linkFilter = document.querySelector("#linksfilter");
+    let userProfileFriendLinks = document.querySelector(
+        "#userProfileFriendlinks"
+    );
+    let userProfileLinks = document.querySelector("#userProfilelinks");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -601,6 +602,26 @@ function addEventListeners() {
                     "common-link-filter-selected"
                 )
             );
+        });
+    }
+
+    if (userProfileFriendLinks != null && linkFilter != null) {
+        userProfileFriendLinks.addEventListener("click", (ev) => {
+            if (commonLinkFilter != null)
+                commonLinkFilter.classList.add("common-link-filter-selected");
+            linkFilter.value = "";
+            filterLinks(linkFilter, true);
+        });
+    }
+
+    if (userProfileLinks != null && linkFilter != null) {
+        userProfileLinks.addEventListener("click", (ev) => {
+            if (commonLinkFilter != null)
+                commonLinkFilter.classList.remove(
+                    "common-link-filter-selected"
+                );
+            linkFilter.value = "";
+            filterLinks(linkFilter, false);
         });
     }
 }
