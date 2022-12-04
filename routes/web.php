@@ -21,6 +21,7 @@ Route::get('/user/{id}', 'UserProfileController@redirect')->where('id', '[0-9]+'
 Route::get('/user/{account_tag}', 'UserProfileController@show')->name('profile.tag');
 Route::post('endregistration', 'UserProfileController@endRegister')->name('endregister');
 Route::post('/user/{id}', 'UserProfileController@edit')->name('profile.edit');
+Route::post('api/user/search', 'UserProfileController@search')->name('profile.search');
 
 // Search  
 Route::get('/user_search', 'SearchController@show_user');
@@ -34,7 +35,24 @@ Route::post('post/new', 'PostController@create')->name('newpost');
 // API
 Route::put('posts', 'PostController@create');
 Route::delete('posts/{post_id}', 'PostController@delete');
+
+// -- Friendships
 Route::get('friendships/{user_id}', 'FriendshipController@relationships');
+Route::post('api/friendship', 'FriendshipController@create')->name('friendship.new');
+Route::put('api/friendship', 'FriendshipController@cancel')->name('friendship.cancel');
+Route::delete('api/friendship', 'FriendshipController@delete')->name('friendship.remove');
+Route::put('api/friendship/request', 'FriendshipController@accept')->name('friendship.accept');
+Route::delete('api/friendship/request', 'FriendshipController@decline')->name('friendship.decline');
+
+// -- Notifications
+Route::post('api/notification', 'UserDataController@readNotification')->name('notification.read');
+Route::delete('api/notification', 'UserDataController@deleteNotification')->name('notification.delete');
+
+
+// -- Leftpanel
+Route::get('api/leftpanel', 'UserDataController@getData')->name('leftpanel.get');
+Route::get('api/leftpanel/notifications/{offset}', 'UserDataController@getMoreNotifications')->name('leftpanel.notifications');
+Route::get('api/leftpanel/friendship-request/{offset}', 'UserDataController@getMoreLinkRequests')->name('leftpanel.link-requests');
 
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
