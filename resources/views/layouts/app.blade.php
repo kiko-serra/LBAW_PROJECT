@@ -15,9 +15,11 @@
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug
     </script>
+
+
     <script src="https://kit.fontawesome.com/343294b271.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src={{ asset('js/app.js') }} defer>
-</script>
+    <script type="text/javascript" src={{ asset('js/app.js') }} defer> </script>
+
   </head>
   <body>
     <main>

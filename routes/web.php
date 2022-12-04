@@ -72,6 +72,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/users', 'AdminController@index')->name('admin.show');
     Route::get('/users/create', 'AdminController@create')->name('admin.create');
     Route::get('users/{id}', 'AdminController@edit')->name('admin.edit');
+    Route::post('users/block', 'AdminController@block')->name('admin.block');
+    Route::post('users/unblock', 'AdminController@unblock')->name('admin.unblock');
 });
 
 
