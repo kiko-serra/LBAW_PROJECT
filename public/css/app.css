@@ -1363,6 +1363,18 @@ section.content .card-body > *{
       border-bottom:1px solid rgba(96,108,118,0.4)
   }
 }
+.before\:content-\[\"Cancel\"\]::before {
+  --tw-content: "Cancel";
+  content: var(--tw-content);
+}
+.before\:content-\[\'Cancel\'\]::before {
+  --tw-content: 'Cancel';
+  content: var(--tw-content);
+}
+.before\:content-\[\'Pending\'\]::before {
+  --tw-content: 'Pending';
+  content: var(--tw-content);
+}
 .hover\:bg-green-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
@@ -1371,8 +1383,20 @@ section.content .card-body > *{
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
+.hover\:bg-orange-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 88 12 / var(--tw-bg-opacity));
+}
+.hover\:bg-orange-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
+}
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+.hover\:before\:content-\[\'Cancel\'\]:hover::before {
+  --tw-content: 'Cancel';
+  content: var(--tw-content);
 }
 .active\:common-link-filter-active:active {
   --tw-bg-opacity: 1;
@@ -1383,6 +1407,10 @@ section.content .card-body > *{
 .active\:bg-red-700:active {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+.active\:before\:content-\[\'Cancel\'\]:active::before {
+  --tw-content: 'Cancel';
+  content: var(--tw-content);
 }
 .group:hover .group-hover\:block {
   display: block;

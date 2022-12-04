@@ -148,7 +148,7 @@
         </div>
       </div>
     @elseif ($linkStatus == "pending")
-      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button">Pending</span>
+      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button before:content-['Pending'] hover:bg-orange-400 hover:before:content-['Cancel']"></span>
     @else
       <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
     @endif
