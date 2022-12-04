@@ -125,7 +125,8 @@ class UserProfileController extends Controller
 
     $validator = Validator::make($request->all(), [ 
         'id' => 'integer|required',
-        'text' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/'
+        'text' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+        'common' => 'required'
     ]);
 
 
@@ -135,7 +136,56 @@ class UserProfileController extends Controller
 
     $id = $request['id'];
     $text = $request['text'];
+    $inCommon = $request['common'];
 
+    if ($inCommon === "true") {
+      $friendships2 = \App\Models\User::join('friendship as p1', 'account.id_account', '=', 'p1.account2_id')
+                                      ->where('p1.account1_id', $id)
+                                      ->where('account.account_tag', 'ilike', $text . '%')
+                                      ->join('friendship as p2', 'account.id_account', '=', 'p2.account2_id')
+                                      ->where('p2.account1_id', Auth::user()->id_account)
+                                      ->get();
+      $friendships3 = \App\Models\User::join('friendship as p1', 'account.id_account', '=', 'p1.account2_id')
+                                      ->where('p1.account1_id', $id)
+                                      ->where('account.account_tag', 'ilike', $text . '%')
+                                      ->join('friendship as p2', 'account.id_account', '=', 'p2.account1_id')
+                                      ->where('p2.account2_id', Auth::user()->id_account)
+                                      ->get();
+      
+      $userFriendships1 = $friendships2->merge($friendships3);
+                                      
+      $friendships5 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')
+                                      ->where('friendship.account2_id', $id)
+                                      ->where('account.account_tag', 'ilike', $text . '%')
+                                      ->join('friendship as p2', 'account.id_account', '=', 'p2.account2_id')
+                                      ->where('p2.account1_id', Auth::user()->id_account)
+                                      ->get();
+
+      $friendships6 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')
+                                      ->where('friendship.account2_id', $id)
+                                      ->where('account.account_tag', 'ilike', $text . '%')
+                                      ->join('friendship as p2', 'account.id_account', '=', 'p2.account1_id')
+                                      ->where('p2.account2_id', Auth::user()->id_account)
+                                      ->get();
+      
+      
+      $userFriendships2 = $friendships5->merge($friendships6);
+
+      $userFriendships = $userFriendships1->merge($userFriendships2);
+
+      $friendshipViews = [];
+
+      foreach ($userFriendships as $friend) {
+        $friendshipViews[] = view('partials.rightPanel.friend', ['user' => $friend])->render();
+      }
+      
+      return response()->json([
+        'results' => $friendshipViews,
+      ]);
+    }
+                                      
+                                      
+    
     $friendships3 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
     $friendships4 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
     $userFriendships = $friendships3->merge($friendships4);
