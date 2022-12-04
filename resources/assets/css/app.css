@@ -41,6 +41,15 @@
   .left_panel_list {
     @apply flex flex-col bg-slate-100 items-center max-h-80 overflow-y-scroll;
   }
+
+  /** Right Panel */
+  .common-link-filter-selected {
+    @apply bg-blue-600 text-white;
+  }
+
+  .common-link-filter-active {
+    @apply bg-blue-500 text-white;
+  }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');

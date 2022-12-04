@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
 use App\Models\Post;
 use App\Models\User;
 
@@ -115,5 +117,37 @@ class UserProfileController extends Controller
     $user->save();
 
     return redirect('/user/' . Auth::user()->id_account);
+  }
+
+
+  public function search(Request $request) {
+    if (!Auth::check()) return response(null, 401);
+
+    $validator = Validator::make($request->all(), [ 
+        'id' => 'integer|required',
+        'text' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/'
+    ]);
+
+
+    if ($validator->fails()) {
+      return response()->json("Something wrong happened", 400);
+    }
+
+    $id = $request['id'];
+    $text = $request['text'];
+
+    $friendships3 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
+    $friendships4 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
+    $userFriendships = $friendships3->merge($friendships4);
+
+    $friendshipViews = [];
+
+    foreach ($userFriendships as $friend) {
+      $friendshipViews[] = view('partials.rightPanel.friend', ['user' => $friend])->render();
+    }
+
+    return response()->json([
+        'results' => $friendshipViews,
+    ]);
   }
 }

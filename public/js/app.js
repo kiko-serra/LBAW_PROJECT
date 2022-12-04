@@ -30,7 +30,6 @@ var openProfileEditModal = function openProfileEditModal() {
 var closeProfileEditModal = function closeProfileEditModal() {
   var modal = document.querySelector('#editUserModal');
   modal.classList.add('hidden');
-  console.log('close');
 };
 var openLeftPanelTab = function openLeftPanelTab(number) {
   var leftPanelLinksList = document.querySelector("#left_panel_links_list");
@@ -121,7 +120,6 @@ var linkUser = function linkUser(event) {
 };
 var cancelUserLink = function cancelUserLink(event) {
   var receiver_id = event.target.getAttribute("data-id");
-  console.log("receiver, ", receiver_id);
   if (receiver_id === null) {
     console.log("An error has occurred.");
     return;
@@ -164,11 +162,35 @@ var declineLinkRequest = function declineLinkRequest(event) {
     id: receiver_id
   }, reloadIfSuccessful);
 };
+var filterLinks = function filterLinks(input, common) {
+  var receiver_id = input.getAttribute("data-id");
+  if (receiver_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  sendAjaxRequest('post', '/api/user/search', {
+    id: receiver_id,
+    text: input.value
+  }, linksFiltered);
+};
 
 //LINK HANDLERS
 
+function linksFiltered() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  var list = document.querySelector('#right-panel-links');
+  list.innerHTML = "";
+  data.results.forEach(function (element) {
+    var newElement = createElementFromHTML(element);
+    list.appendChild(newElement);
+  });
+}
 function reloadIfSuccessful() {
-  console.log(this.responseText);
+  //console.log(this.responseText)
   if (this.status != 200) {
     console.log("Action failed.");
     return;
@@ -384,6 +406,8 @@ function addEventListeners() {
   var leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
   var leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
   var leftPanelGroupsAddButton = document.querySelector("#left_panel_group_add_button");
+  var commonLinkFilter = document.querySelector('#right-panel-common-link-filter');
+  var linkFilter = document.querySelector('#linksfilter');
   if (editUserModalBack != null) editUserModalBack.addEventListener('click', function () {
     return closeProfileEditModal();
   });
@@ -420,6 +444,15 @@ function addEventListeners() {
   if (leftPanelNotificationsButton != null) leftPanelNotificationsButton.addEventListener('click', function (e) {
     return openLeftPanelTab(4);
   });
+  if (commonLinkFilter != null && linkFilter != null) commonLinkFilter.addEventListener('click', function (e) {
+    commonLinkFilter.classList.toggle('common-link-filter-selected');
+    filterLinks(linkFilter, commonLinkFilter.classList.contains('common-link-filter-selected'));
+  });
+  if (linkFilter != null && document.querySelector('#right-panel-common-link-filter > p') != null) {
+    linkFilter.addEventListener('keyup', function (ev) {
+      filterLinks(ev.target, commonLinkFilter.classList.contains('common-link-filter-selected'));
+    });
+  }
 }
 addEventListeners();
 

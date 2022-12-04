@@ -21,6 +21,7 @@ Route::get('/user/{id}', 'UserProfileController@redirect')->where('id', '[0-9]+'
 Route::get('/user/{account_tag}', 'UserProfileController@show')->name('profile.tag');
 Route::post('endregistration', 'UserProfileController@endRegister')->name('endregister');
 Route::post('/user/{id}', 'UserProfileController@edit')->name('profile.edit');
+Route::post('api/user/search', 'UserProfileController@search')->name('profile.search');
 
 // Search  
 Route::get('/user_search', 'SearchController@show_user');

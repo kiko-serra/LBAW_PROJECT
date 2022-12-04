@@ -24,7 +24,6 @@ const openProfileEditModal = function() {
 const closeProfileEditModal = function() {
     let modal = document.querySelector('#editUserModal');
     modal.classList.add('hidden');
-    console.log('close')
 }
 
 
@@ -116,7 +115,6 @@ const linkUser = function(event) {
 
 const cancelUserLink = function(event) {
     let receiver_id = event.target.getAttribute("data-id");
-    console.log("receiver, ", receiver_id)
     if (receiver_id === null) {
         console.log("An error has occurred.");
         return;
@@ -156,11 +154,33 @@ const declineLinkRequest = function(event) {
     sendAjaxRequest('delete', '/api/friendship/request', {id: receiver_id}, reloadIfSuccessful);
 }
 
+const filterLinks = function(input, common) {
+    let receiver_id = input.getAttribute("data-id");
+    if (receiver_id === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    sendAjaxRequest('post', '/api/user/search', {id: receiver_id, text: input.value}, linksFiltered);
+}
 
 //LINK HANDLERS
 
+function linksFiltered() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let list = document.querySelector('#right-panel-links');
+    list.innerHTML = "";
+    data.results.forEach(element => {
+        var newElement = createElementFromHTML(element);
+        list.appendChild(newElement);
+    });
+}
+
 function reloadIfSuccessful() {
-    console.log(this.responseText)
+    //console.log(this.responseText)
     if (this.status != 200) {
         console.log("Action failed.");
         return;
@@ -378,6 +398,9 @@ function addEventListeners() {
     let leftPanelGroupsButton = document.querySelector("#left_panel_group_button");
     let leftPanelNotificationsButton = document.querySelector("#left_panel_notification_button");
     let leftPanelGroupsAddButton = document.querySelector("#left_panel_group_add_button");
+    let commonLinkFilter = document.querySelector('#right-panel-common-link-filter');
+    let linkFilter = document.querySelector('#linksfilter');
+    
     if (editUserModalBack != null)
         editUserModalBack.addEventListener('click', () => closeProfileEditModal());
     if (linkButton != null) {
@@ -406,6 +429,16 @@ function addEventListeners() {
         leftPanelGroupsAddButton.addEventListener('click', (e) => openLeftPanelTab(3));
     if (leftPanelNotificationsButton != null)
         leftPanelNotificationsButton.addEventListener('click', (e) => openLeftPanelTab(4));
-}  
+    if (commonLinkFilter != null && linkFilter != null)
+        commonLinkFilter.addEventListener('click', (e) => {
+            commonLinkFilter.classList.toggle('common-link-filter-selected');
+            filterLinks(linkFilter, commonLinkFilter.classList.contains('common-link-filter-selected'));
+        });
+    if (linkFilter != null && document.querySelector('#right-panel-common-link-filter > p') != null) {
+        linkFilter.addEventListener('keyup', (ev) => {
+            filterLinks(ev.target, commonLinkFilter.classList.contains('common-link-filter-selected'));
+        });
+    }
+}
 
 addEventListeners();

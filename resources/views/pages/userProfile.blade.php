@@ -79,7 +79,7 @@
               echo $friend->name;
               $i++;
               if ($i == count($commonFriendships)-1) {
-                echo ' and';
+                echo ' and ';
                 continue;
               } else if ($i > 1 || $i == count($commonFriendships)) break;
               else {
@@ -87,7 +87,7 @@
               }
             }
 
-            if ($i > 1) {
+            if ($i > 2) {
               echo ' and ' . count($friendships) - $i . ' other links in common.';
             } else if ($i == 0) {
               echo 'No friends in common.';
@@ -157,7 +157,7 @@
   @endif
 </section>
 
-<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships]); ?>
+<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account]); ?>
 
 @endsection
 
