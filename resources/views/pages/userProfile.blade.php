@@ -8,7 +8,7 @@
 
 <section id="timeline">
 
-@if (!$user->is_private || $isFriend || $user->id_account == Auth::user()->id_account)
+@if ((!$user->is_private || $isFriend || $user->id_account == Auth::user()->id_account) && !$user->is_blocked)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
@@ -35,7 +35,7 @@
         <div id="age">{{$user->age}} years old</div>
       </div>
     </div>
-    @if ($user->id_account == Auth::user()->id_account)
+    @if (($user->id_account == Auth::user()->id_account) && (Auth::user()->is_admin ==true))
       <span id="follow_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
     @else
       <span id="follow_button" data-method="connect" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Connect</span>
@@ -97,24 +97,38 @@
     @each('partials.post', $posts, 'post')
   </div>
 
-  @else 
-
-  <section id="private_profile">
-    <div id="private_profile_info" class="flex flex-col">
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
-      <div id="user_identity_info" class="m-auto flex flex-col">
-        <div id="name">{{$user->name}}</div>
-        <div id="username"> {{'@'.$user->account_tag}}</div>  
-      </div>
+@elseif($user->is_private && !$user->is_blocked)
+<section id="private_profile">
+  <div id="private_profile_info" class="flex flex-col">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
+    <div id="user_identity_info" class="m-auto flex flex-col">
+      <div id="name">{{$user->name}}</div>
+      <div id="username"> {{'@'.$user->account_tag}}</div>  
     </div>
-    <div id="warning_private_profile">
-      <span>This profile is private</span><br>
-      <span>Connect with {{$user->name}} to see it </span>
+  </div>
+  <div id="warning_private_profile">
+    <span>This profile is private</span><br>
+    <span>Connect with {{$user->name}} to see it </span>
+  </div>
+  <a href="" id="follow_button" class="rounded-full">Connect</a>
+</section>
+@elseif($user->is_blocked)
+<section id="private_profile">
+  <div id="private_profile_info" class="flex flex-col">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
+    <div id="user_identity_info" class="m-auto flex flex-col">
+      <div id="name">{{$user->name}}</div>
+      <div id="username"> {{'@'.$user->account_tag}}</div>  
     </div>
-    <a href="" id="follow_button" class="rounded-full">Connect</a>
-  </section>
-  
+  </div>
+  <div id="warning_private_profile">
+    <span>This profile is blocked</span><br>
+    <span>Unblock {{$user->name}} to see it </span>
+  </div>
+  @if(Auth::user()->is_admin === true)
+  <input class="bg-green-400 hover:bg-green-700 rounded py-2 px-9 cursor-pointer text-center" type="button" value="Unblock" href="/users/unblock/{{$user->id}}">
   @endif
+@endif
 </section>
 
 <?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships]); ?>
