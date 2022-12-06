@@ -351,7 +351,7 @@ VALUES
 
 INSERT INTO recovery_code (id_account, code, valid_until)
 VALUES
-   (8, 'hfKJsdjHJASas', '2022-11-29 21:50:50');
+   (8, 'hfKJsdjHJASas', '2023-11-29 21:50:50');
 
 INSERT INTO post_report (id_post, reason, description)
 VALUES

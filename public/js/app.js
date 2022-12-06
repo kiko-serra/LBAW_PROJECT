@@ -412,32 +412,24 @@ function sendAjaxRequest(method, url, data, handler) {
 window.block = function (element) {
   if (element.value == "Block") {
     element.value = "Unblock";
+    element.classList.remove('bg-red-400', 'hover:bg-red-700');
+    element.classList.add('bg-green-400', 'hover:bg-green-700');
     element = element.parentNode;
     var id = element.id;
-    console.log(element);
     sendAjaxRequest("POST", "/users/block", {
       id_user: id
     }, function (response) {
-      console.log("BLOCKED");
     });
-
-    //
-    var is_blocked = element.getElementsByClassName('is_blocked');
-    is_blocked[0].innerHTML = 1;
   } else {
     element.value = "Block";
+    element.classList.remove('bg-green-400', 'hover:bg-green-700');
+    element.classList.add('bg-red-400', 'hover:bg-red-700');
     element = element.parentNode;
     var id = element.id;
-    console.log(element);
     sendAjaxRequest("POST", "/users/unblock", {
       id_user: id
     }, function (response) {
-      console.log("UNBLOCKED");
     });
-
-    //
-    var is_blocked = element.getElementsByClassName('is_blocked');
-    is_blocked[0].innerHTML = "";
   }
 };
 function addEventListeners() {

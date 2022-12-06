@@ -34,6 +34,9 @@
             <input id="account_tag" type="text" name="account_tag" required>
           </form>
         </div>
+        @if(Auth::user()->is_admin === true)
+        <a href="{{ url('/users') }}">Users</a>
+        @endif
         <a class="logout_button" href="{{ url('/logout') }}"> Logout </a>
         <a href="{{ route('profile', Auth::user()->id_account) }}">{{ Auth::user()->name }}</a>
         @endif

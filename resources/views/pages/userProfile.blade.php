@@ -117,15 +117,13 @@
     @each('partials.post', $posts, 'post')
   </div>
 
-  @else 
-
-  <section id="private_profile">
-    <div id="private_profile_info" class="flex flex-col">
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
-      <div id="user_identity_info" class="m-auto flex flex-col">
-        <div id="name">{{$user->name}}</div>
-        <div id="username"> {{'@'.$user->account_tag}}</div>  
-      </div>
+@elseif($user->is_private && !$user->is_blocked)
+<section id="private_profile">
+  <div id="private_profile_info" class="flex flex-col">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
+    <div id="user_identity_info" class="m-auto flex flex-col">
+      <div id="name">{{$user->name}}</div>
+      <div id="username"> {{'@'.$user->account_tag}}</div>  
     </div>
     <div id="warning_private_profile">
       <span>This profile is private</span><br>
@@ -155,6 +153,7 @@
   </section>
   
   @endif
+@endif
 </section>
 
 <?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account]); ?>
