@@ -106,19 +106,17 @@ class AdminController extends Controller
         $user->save();
     }
 
-    public function block(Request $request)
+    public function block($id_user)
     {
-        $id = $request->get('id_user');
-        $user = User::find($id);
+        $user = User::find($id_user);
         $user->is_blocked = true;
         $user->save();
         return redirect('/users')->with('success', 'User has been blocked');
     }
 
-    public function unblock(Request $request)
+    public function unblock($id_user)
     {   
-        $id = $request->get('id_user');
-        $user = User::find($id);
+        $user = User::find($id_user);
         $user->is_blocked = false;
         $user->save();
         return redirect('/users')->with('success', 'User has been unblocked');

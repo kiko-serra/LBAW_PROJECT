@@ -25,7 +25,7 @@
                 <input id="editUserPrivacyPublic" type="radio" name="privacy" value="public" id="profilePrivacy" <?php if (!$user->is_private) echo 'checked'; ?>>
                 <label for="privacy">Public</label>
             </div>
-
+            <input id="editUserExit" type="button" class="bg-red-400 hover:bg-red-700 action-button" value="Exit" onclick="closeProfileEditModal();">
             <label for="pronouns">Pronouns</label>
             <input id="editUserPronouns" <?php echo 'data-default-pronouns="' . $user->pronouns . '"'; ?> value={{ $user->pronouns }} type="text" name="pronouns" id="pronouns" maxlength="20">
             @if ($errors->has('pronouns'))

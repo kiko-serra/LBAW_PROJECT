@@ -27,10 +27,11 @@ var openProfileEditModal = function openProfileEditModal() {
   locationField.value = locationField.getAttribute("data-default-location");
   descriptionField.value = descriptionField.getAttribute("data-default-description");
 };
-var closeProfileEditModal = function closeProfileEditModal() {
+function closeProfileEditModal() {
   var modal = document.querySelector("#editUserModal");
   modal.classList.add("hidden");
-};
+}
+;
 var openLeftPanelTab = function openLeftPanelTab(number) {
   var leftPanelLinksList = document.querySelector("#left_panel_links_list");
   var leftPanelLinksAddList = document.querySelector("#left_panel_links_add_list");
@@ -97,7 +98,23 @@ var openLeftPanelTab = function openLeftPanelTab(number) {
 };
 
 //LINK REQUESTS
-
+window.block = function (element) {
+  if (element.value == "Block") {
+    element.value = "Unblock";
+    element.classList.remove('bg-red-400', 'hover:bg-red-700');
+    element.classList.add('bg-green-400', 'hover:bg-green-700');
+    element = element.parentNode;
+    var id = element.id;
+    sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
+  } else {
+    element.value = "Block";
+    element.classList.remove('bg-green-400', 'hover:bg-green-700');
+    element.classList.add('bg-red-400', 'hover:bg-red-700');
+    element = element.parentNode;
+    var id = element.id;
+    sendAjaxRequest("GET", "/users/unblock/" + id, null, reloadIfSuccessful);
+  }
+};
 var leftPanelGetData = function leftPanelGetData() {
   sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
 };
@@ -395,43 +412,6 @@ function sendAjaxRequest(method, url, data, handler) {
 
 //EVENT LISTENERS
 
-function encodeForAjax(data) {
-  if (data == null) return null;
-  return Object.keys(data).map(function (k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-  }).join('&');
-}
-function sendAjaxRequest(method, url, data, handler) {
-  var request = new XMLHttpRequest();
-  request.open(method, url, true);
-  request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.addEventListener('load', handler);
-  request.send(encodeForAjax(data));
-}
-window.block = function (element) {
-  if (element.value == "Block") {
-    element.value = "Unblock";
-    element.classList.remove('bg-red-400', 'hover:bg-red-700');
-    element.classList.add('bg-green-400', 'hover:bg-green-700');
-    element = element.parentNode;
-    var id = element.id;
-    sendAjaxRequest("POST", "/users/block", {
-      id_user: id
-    }, function (response) {
-    });
-  } else {
-    element.value = "Block";
-    element.classList.remove('bg-green-400', 'hover:bg-green-700');
-    element.classList.add('bg-red-400', 'hover:bg-red-700');
-    element = element.parentNode;
-    var id = element.id;
-    sendAjaxRequest("POST", "/users/unblock", {
-      id_user: id
-    }, function (response) {
-    });
-  }
-};
 function addEventListeners() {
   var editUserModalBack = document.querySelector("#editUserModalBack");
   var linkButton = document.querySelector("#link_button");
