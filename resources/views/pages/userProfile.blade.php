@@ -7,8 +7,8 @@
 <?php echo view('partials.leftPanel.panel'); ?>
 
 <section id="timeline">
-  
-@if (!$user->is_private || ($linkStatus == "linked") || $user->id_account == Auth::user()->id_account)
+
+@if ((!$user->is_private || ($linkStatus == "linked") || $user->id_account == Auth::user()->id_account || Auth::user()->is_admin==true) && !$user->is_blocked)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
@@ -35,7 +35,7 @@
         <div id="age">{{$user->age}} years old</div>
       </div>
     </div>
-    @if ($user->id_account == Auth::user()->id_account)
+    @if (($user->id_account == Auth::user()->id_account) || Auth::user()->is_admin===true)
       <span id="link_button" data-method="edit" class="bg-cyan-400 action-button">Edit</span>
     @elseif ($linkStatus == "linked")
       <span id="link_button" data-method="delete" data-id={{ $user->id_account }} class="bg-red-400 action-button">Unlink</span>
@@ -109,7 +109,7 @@
   </section>
 
 
-  @if ($user->id_account == Auth::user()->id_account)
+  @if (($user->id_account == Auth::user()->id_account) || Auth::user()->is_admin===true)
   <?php echo view('partials.UserProfile.editModal', ['user' => $user])?>
   @endif
 
@@ -151,8 +151,21 @@
       <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
     @endif
   </section>
-  
-  @endif
+@elseif($user->is_blocked)
+<section id="private_profile">
+  <div id="private_profile_info" class="flex flex-col">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
+    <div id="user_identity_info" class="m-auto flex flex-col">
+      <div id="name">{{$user->name}}</div>
+      <div id="username"> {{'@'.$user->account_tag}}</div>  
+    </div>
+    <div id="warning_private_profile">
+      <span>This profile is blocked</span><br>
+      @if(Auth::user()->is_admin)
+      <a class="bg-red-400 hover:bg-red-700 action-button" href={{"/users/unblock/" . $user->id_account}}>Unblock</a>
+      @endif
+    </div>
+  </section>
 @endif
 </section>
 

@@ -22,7 +22,7 @@ const openProfileEditModal = function () {
     );
 };
 
-const closeProfileEditModal = function () {
+function closeProfileEditModal () {
     let modal = document.querySelector("#editUserModal");
     modal.classList.add("hidden");
 };
@@ -95,6 +95,23 @@ const openLeftPanelTab = function (number) {
 };
 
 //LINK REQUESTS
+  window.block = function (element) {
+    if (element.value == "Block") {
+      element.value = "Unblock";
+      element.classList.remove('bg-red-400', 'hover:bg-red-700');
+      element.classList.add('bg-green-400', 'hover:bg-green-700');
+      element = element.parentNode;
+      var id = element.id;
+      sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
+    } else {
+      element.value = "Block";
+      element.classList.remove('bg-green-400', 'hover:bg-green-700');
+      element.classList.add('bg-red-400', 'hover:bg-red-700');
+      element = element.parentNode;
+      var id = element.id;
+      sendAjaxRequest("GET", "/users/unblock/" + id, null, reloadIfSuccessful);
+    }
+  };
 
 const leftPanelGetData = function () {
     sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
