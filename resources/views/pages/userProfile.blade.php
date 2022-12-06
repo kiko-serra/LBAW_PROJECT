@@ -7,22 +7,22 @@
 <?php echo view('partials.leftPanel.panel'); ?>
 
 <section id="timeline">
-
-@if ((!$user->is_private || $isFriend || $user->id_account == Auth::user()->id_account) && !$user->is_blocked)
+  
+@if (!$user->is_private || ($linkStatus == "linked") || $user->id_account == Auth::user()->id_account)
   <section id="profile">
     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
     <div id="user_life_info_container" class="m-auto flex flex-col justify-between ">
       <div class="user_school flex flex-row" >
         <i class="fa-solid fa-graduation-cap"></i>
-        <span class="text-2xl">{{$user->course}}</span>
+        <span class="text-base">{{$user->course}}</span>
       </div>
       <div class="user_school flex flex-row" >
         <i class="fa-solid fa-school"></i>
-        <span class="text-2xl">{{$user->university}}</span>
+        <span class="text-base">{{$user->university}}</span>
       </div>
       <div class="user_school flex flex-row" >
         <i class="fa-sharp fa-solid fa-location-dot"></i>
-        <span class="text-2xl">{{$user->location}}</span>
+        <span class="text-base">{{$user->location}}</span>
       </div>
     </div>
     <div id="user_identity_info" class="flex flex-col">
@@ -35,16 +35,36 @@
         <div id="age">{{$user->age}} years old</div>
       </div>
     </div>
-    @if (($user->id_account == Auth::user()->id_account) && (Auth::user()->is_admin ==true))
-      <span id="follow_button" data-method="edit" class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Edit</span>
+    @if ($user->id_account == Auth::user()->id_account)
+      <span id="link_button" data-method="edit" class="bg-cyan-400 action-button">Edit</span>
+    @elseif ($linkStatus == "linked")
+      <span id="link_button" data-method="delete" data-id={{ $user->id_account }} class="bg-red-400 action-button">Unlink</span>
+    @elseif ($linkStatus == "received")
+      <div class="flex flex-col w-fit h-fit relative group">
+        <span id="link_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
+          <p class="flex-shrink-0">Link Received</p> 
+        </span>
+        <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
+          <span id="link_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
+            <p>Accept</p>
+            <img src="/icons/accept_white.svg" alt="" height=24 width=24>
+          </span>
+          <span id="link_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
+            <p>Refuse</p>
+            <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
+          </span>
+        </div>
+      </div>
+    @elseif ($linkStatus == "pending")
+      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button">Pending</span>
     @else
-      <span id="follow_button" data-method="connect" data-id={{ $user->id_account }} class="bg-cyan-400 text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-full">Connect</span>
+      <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-blue-400 action-button">Link</span>
     @endif
     <div id="user_bio_section" class="flex flex-col">
       <div id="bio">{{ $user->description }}</div>
-      <div id="userProfileConnections" class="cursor-pointer select-none">{{ count($friendships) }} connections</div>
+      <div id="userProfilelinks" class="cursor-pointer select-none">{{ count($friendships) }} links</div>
       <!-- <div>X, Y and Z and H other friends in common</div> -->
-      <div id="userProfileFriendConnections" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
+      <div id="userProfileFriendlinks" class="flex flex-row items-center cursor-pointer select-none hover:underline"> 
         <?php
           if ($user->id_account != Auth::user()->id_account) {
             $i = 0;
@@ -53,22 +73,22 @@
               $i++;
               if ($i > 2) break;
             }
-            echo '<p class="text-2xl mr-2"></p>';
+            echo '<p class="text-base mr-2 ml-4"></p>';
             $i = 0;
             foreach ($commonFriendships as $friend) {
               echo $friend->name;
               $i++;
               if ($i == count($commonFriendships)-1) {
-                echo ' and';
+                echo ' and ';
                 continue;
-              } else if ($i > 2 || $i == count($commonFriendships)) break;
+              } else if ($i > 1 || $i == count($commonFriendships)) break;
               else {
                 echo ', ';
               }
             }
 
-            if ($i > 3) {
-              echo ' and ' . count($friendships) - $i . ' other connections in common.';
+            if ($i > 2) {
+              echo ' and ' . count($friendships) - $i . ' other links in common.';
             } else if ($i == 0) {
               echo 'No friends in common.';
             } else {
@@ -105,33 +125,38 @@
       <div id="name">{{$user->name}}</div>
       <div id="username"> {{'@'.$user->account_tag}}</div>  
     </div>
-  </div>
-  <div id="warning_private_profile">
-    <span>This profile is private</span><br>
-    <span>Connect with {{$user->name}} to see it </span>
-  </div>
-  <a href="" id="follow_button" class="rounded-full">Connect</a>
-</section>
-@elseif($user->is_blocked)
-<section id="private_profile">
-  <div id="private_profile_info" class="flex flex-col">
-    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="profile_image" class="m-auto rounded-full">
-    <div id="user_identity_info" class="m-auto flex flex-col">
-      <div id="name">{{$user->name}}</div>
-      <div id="username"> {{'@'.$user->account_tag}}</div>  
+    <div id="warning_private_profile">
+      <span>This profile is private</span><br>
+      <span>Link with {{$user->name}} to see it </span>
     </div>
-  </div>
-  <div id="warning_private_profile">
-    <span>This profile is blocked</span><br>
-    <span>Unblock {{$user->name}} to see it </span>
-  </div>
-  @if(Auth::user()->is_admin === true)
-  <input class="bg-green-400 hover:bg-green-700 rounded py-2 px-9 cursor-pointer text-center" type="button" value="Unblock" href="/users/unblock/{{$user->id}}">
+    @if ($linkStatus == "received")
+      <div class="flex flex-col w-fit h-fit relative group">
+        <span id="link_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
+          <p class="flex-shrink-0">Link Received</p> 
+        </span>
+        <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
+          <span id="link_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
+            <p>Accept</p>
+            <img src="/icons/accept_white.svg" alt="" height=24 width=24>
+          </span>
+          <span id="link_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
+            <p>Refuse</p>
+            <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
+          </span>
+        </div>
+      </div>
+    @elseif ($linkStatus == "pending")
+      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button before:content-['Pending'] hover:bg-orange-400 hover:before:content-['Cancel']"></span>
+    @else
+      <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
+    @endif
+  </section>
+  
   @endif
 @endif
 </section>
 
-<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships]); ?>
+<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account]); ?>
 
 @endsection
 

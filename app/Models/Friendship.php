@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friendship extends Model
 {
+    public $timestamps  = false;
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *

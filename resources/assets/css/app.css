@@ -6,34 +6,53 @@
 @layer components {
   /** UserProfile */
   .profile-page-filter-button {
-    @apply text-center bg-gray-200 rounded-md cursor-pointer text-gray-800 text-2xl p-1 hover:text-gray-800;
+    @apply text-center bg-gray-200 rounded-md cursor-pointer text-gray-800 text-base p-1 hover:text-gray-800;
   }
 
   .profile-page-filter-button-selected {
     @apply rounded-t-lg;
   }
 
+  .action-button {
+    @apply text-white py-2 px-8 text-center h-fit w-fit cursor-pointer select-none rounded-3xl;
+  }
+
   /** LeftPanel */
   .left-panel-button {
-    @apply flex flex-row justify-start items-center text-2xl p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg;
+    @apply flex flex-row justify-start items-center text-base p-2 px-4 bg-slate-200 gap-x-4 select-none cursor-pointer rounded-lg hover:bg-slate-300;
   }
 
   .left-panel-button-selected {
-    @apply bg-blue-300;
+    @apply bg-blue-300 hover:bg-blue-400;
   }
 
   .left-panel-button-counter {
-    @apply bg-slate-400 px-3 rounded-lg;
+    @apply bg-slate-400 px-3 py-1 rounded-lg;
   }
-
+  
   .sidepanel {
-    @apply flex flex-col bg-white rounded-2xl w-[30rem] h-fit p-4;
+    @apply flex flex-col bg-white rounded-lg w-96 h-fit p-4;
   }
 
   .left-sidepanel {
     @apply gap-y-4;
   }
+
+  .left_panel_list {
+    @apply flex flex-col bg-slate-100 items-center max-h-80 overflow-y-scroll;
+  }
+
+  /** Right Panel */
+  .common-link-filter-selected {
+    @apply bg-blue-600 text-white;
+  }
+
+  .common-link-filter-active {
+    @apply bg-blue-500 text-white;
+  }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
 :root{
@@ -47,7 +66,8 @@ body{
   background:var(--bg_color2);
   height:98vh;
   color:var(--text_color);
-  font-family: "Helvetica";
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
 }
 area#background_color_1{
   position:absolute;
