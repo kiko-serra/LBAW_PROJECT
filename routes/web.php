@@ -32,6 +32,10 @@ Route::get('posts', 'PostController@list');
 Route::get('posts/{post_id}', 'PostController@show');
 Route::post('post/new', 'PostController@create')->name('newpost');
 
+// Groups
+
+Route::get('group/{id}', 'CommunityController@show');
+
 // API
 Route::put('posts', 'PostController@create');
 Route::delete('posts/{post_id}', 'PostController@delete');

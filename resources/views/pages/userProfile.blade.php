@@ -151,9 +151,7 @@
       <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
     @endif
   </section>
-  
   @endif
-@endif
 </section>
 
 <?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account]); ?>

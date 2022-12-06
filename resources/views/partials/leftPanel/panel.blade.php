@@ -34,7 +34,12 @@
             <span id="left_panel_group_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_groups_list" class="left_panel_list hidden">
-            No groups to show.
+            <div id="left_panel_groups_create" class="left-panel-button m-2">
+                Create new group
+            </div>
+            <div>
+                No groups to show.
+            </div>
         </ul>
     </div>
     <div>
