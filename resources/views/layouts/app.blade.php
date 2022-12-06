@@ -34,11 +34,13 @@
             <input id="account_tag" type="text" name="account_tag" required>
           </form>
         </div>
+        <div class="flex flex-row justify-evenly">
         @if(Auth::user()->is_admin === true)
-        <a href="{{ url('/users') }}">Users</a>
+        <a href="{{ url('/users') }}" class="justify-self-center">Users</a>
         @endif
         <a class="logout_button" href="{{ url('/logout') }}"> Logout </a>
-        <a href="{{ route('profile', Auth::user()->id_account) }}">{{ Auth::user()->name }}</a>
+        <a href="{{ route('profile', Auth::user()->id_account) }}" class="whitespace-nowrap">{{ Auth::user()->name }}</a>
+        </div>
         @endif
       </header>
       <section id="content">
