@@ -125,32 +125,33 @@
       <div id="name">{{$user->name}}</div>
       <div id="username"> {{'@'.$user->account_tag}}</div>  
     </div>
-    <div id="warning_private_profile">
-      <span>This profile is private</span><br>
-      <span>Link with {{$user->name}} to see it </span>
-    </div>
-    @if ($linkStatus == "received")
-      <div class="flex flex-col w-fit h-fit relative group">
-        <span id="link_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
-          <p class="flex-shrink-0">Link Received</p> 
+  </div>
+  <div id="warning_private_profile">
+    <span>This profile is private</span><br>
+    <span>Link with {{$user->name}} to see it </span>
+  </div>
+  @if ($linkStatus == "received")
+    <div class="flex flex-col w-fit h-fit relative group">
+      <span id="link_button" data-method="expand" data-id={{ $user->id_account }} class="bg-blue-400 action-button flex flex-row"> 
+        <p class="flex-shrink-0">Link Received</p> 
+      </span>
+      <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
+        <span id="link_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
+          <p>Accept</p>
+          <img src="/icons/accept_white.svg" alt="" height=24 width=24>
         </span>
-        <div class="hidden group-hover:block bg-blue-400 w-fit p-2 rounded-xl absolute right-0 translate-x-full">
-          <span id="link_button_accept" data-method="accept" data-id={{ $user->id_account }} class="hover:bg-green-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row">
-            <p>Accept</p>
-            <img src="/icons/accept_white.svg" alt="" height=24 width=24>
-          </span>
-          <span id="link_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
-            <p>Refuse</p>
-            <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
-          </span>
-        </div>
+        <span id="link_button_decline" data-method="decline" data-id={{ $user->id_account }} class="hover:bg-red-600 action-button px-4 gap-x-4 rounded-xl w-full flex flex-row"> 
+          <p>Refuse</p>
+          <img src="/icons/cancel_white.svg" alt="" height=24 width=24>
+        </span>
       </div>
-    @elseif ($linkStatus == "pending")
-      <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button before:content-['Pending'] hover:bg-orange-400 hover:before:content-['Cancel']"></span>
-    @else
-      <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
-    @endif
-  </section>
+    </div>
+  @elseif ($linkStatus == "pending")
+    <span id="link_button" data-method="cancel" data-id={{ $user->id_account }} class="bg-yellow-400 action-button before:content-['Pending'] hover:bg-orange-400 hover:before:content-['Cancel']"></span>
+  @else
+    <span id="link_button" data-method="link" data-id={{ $user->id_account }} class="bg-red-400 action-button">Link</span>
+  @endif
+</section>
 @elseif($user->is_blocked)
 <section id="private_profile">
   <div id="private_profile_info" class="flex flex-col">
@@ -159,12 +160,13 @@
       <div id="name">{{$user->name}}</div>
       <div id="username"> {{'@'.$user->account_tag}}</div>  
     </div>
+  </div>
     <div id="warning_private_profile">
       <span>This profile is blocked</span><br>
-      @if(Auth::user()->is_admin)
-      <a class="bg-red-400 hover:bg-red-700 action-button" href={{"/users/unblock/" . $user->id_account}}>Unblock</a>
-      @endif
     </div>
+    @if(Auth::user()->is_admin)
+      <a class="bg-red-400 hover:bg-red-700 action-button" id="unblock_button" href={{"/users/unblock/" . $user->id_account}}>Unblock</a>
+    @endif
   </section>
 @endif
 </section>
