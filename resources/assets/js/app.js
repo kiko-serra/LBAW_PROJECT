@@ -537,6 +537,7 @@ function addEventListeners() {
         "#userProfileFriendlinks"
     );
     let userProfileLinks = document.querySelector("#userProfilelinks");
+    let createGroupButton = document.querySelector("#left_panel_groups_create");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -623,6 +624,11 @@ function addEventListeners() {
             linkFilter.value = "";
             filterLinks(linkFilter, false);
         });
+    }
+    if (createGroupButton != null) {
+        createGroupButton.addEventListener("click", (ev) =>
+            alert("open Modal")
+        );
     }
 }
 
