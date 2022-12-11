@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Community;
 
+use Validator;
+
 class CommunityController extends Controller
 {
     /**
@@ -21,5 +23,38 @@ class CommunityController extends Controller
       $post = Community::find($id);
       //$this->authorize('show', $post);
       return view('pages.group', ['posts' => []]);
+    }
+
+    public function create(Request $request) {
+      
+      $validator = Validator::make($request->all(), [ 
+        'groupname' => 'string|required|max:32|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+        'groupdesc' => 'string|max:255|nullable',
+      ]);
+
+      if (!Auth::check()) return response(null, 401);
+
+      if ($validator->fails()) {
+        return response()->json("Something wrong happened", 400);
+      }
+
+      $group = new Community();
+
+      $this->authorize('create', $group);
+
+
+      $group->name = $request['groupname'];
+      $group->description = $request['groupdesc'];
+      if ($request['groupprivate'] === "on") {
+        $group->is_public = true;
+      }
+
+      $group->is_public = false;
+
+      if ($group->save()) {
+        return redirect(route('group.show', ['id' => $group->id_community]));
+      }
+
+      return back();
     }
 }

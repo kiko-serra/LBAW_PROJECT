@@ -395,43 +395,6 @@ function sendAjaxRequest(method, url, data, handler) {
 
 //EVENT LISTENERS
 
-function encodeForAjax(data) {
-  if (data == null) return null;
-  return Object.keys(data).map(function (k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-  }).join('&');
-}
-function sendAjaxRequest(method, url, data, handler) {
-  var request = new XMLHttpRequest();
-  request.open(method, url, true);
-  request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.addEventListener('load', handler);
-  request.send(encodeForAjax(data));
-}
-window.block = function (element) {
-  if (element.value == "Block") {
-    element.value = "Unblock";
-    element.classList.remove('bg-red-400', 'hover:bg-red-700');
-    element.classList.add('bg-green-400', 'hover:bg-green-700');
-    element = element.parentNode;
-    var id = element.id;
-    sendAjaxRequest("POST", "/users/block", {
-      id_user: id
-    }, function (response) {
-    });
-  } else {
-    element.value = "Block";
-    element.classList.remove('bg-green-400', 'hover:bg-green-700');
-    element.classList.add('bg-red-400', 'hover:bg-red-700');
-    element = element.parentNode;
-    var id = element.id;
-    sendAjaxRequest("POST", "/users/unblock", {
-      id_user: id
-    }, function (response) {
-    });
-  }
-};
 function addEventListeners() {
   var editUserModalBack = document.querySelector("#editUserModalBack");
   var linkButton = document.querySelector("#link_button");
@@ -447,6 +410,7 @@ function addEventListeners() {
   var linkFilter = document.querySelector("#linksfilter");
   var userProfileFriendLinks = document.querySelector("#userProfileFriendlinks");
   var userProfileLinks = document.querySelector("#userProfilelinks");
+  var createGroupButton = document.querySelector("#left_panel_groups_create");
   if (editUserModalBack != null) editUserModalBack.addEventListener("click", function () {
     return closeProfileEditModal();
   });
@@ -504,6 +468,11 @@ function addEventListeners() {
       if (commonLinkFilter != null) commonLinkFilter.classList.remove("common-link-filter-selected");
       linkFilter.value = "";
       filterLinks(linkFilter, false);
+    });
+  }
+  if (createGroupButton != null) {
+    createGroupButton.addEventListener("click", function (ev) {
+      return alert("open Modal");
     });
   }
 }
