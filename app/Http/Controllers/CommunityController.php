@@ -28,14 +28,15 @@ class CommunityController extends Controller
     public function create(Request $request) {
       
       $validator = Validator::make($request->all(), [ 
-        'groupname' => 'string|required|max:32|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+        'groupname' => 'string|required|min:2|max:32|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
         'groupdesc' => 'string|max:255|nullable',
       ]);
 
       if (!Auth::check()) return response(null, 401);
 
       if ($validator->fails()) {
-        return response()->json("Something wrong happened", 400);
+        return back();
+        // return response()->json("Something wrong happened", 400);
       }
 
       $group = new Community();
