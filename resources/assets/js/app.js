@@ -22,6 +22,12 @@ const openProfileEditModal = function () {
     );
 };
 
+const toggleCreateGroupModal = function () {
+    document
+        .querySelector("#leftPanelCreateGroupModal")
+        .classList.toggle("hidden");
+};
+
 const closeProfileEditModal = function () {
     let modal = document.querySelector("#editUserModal");
     modal.classList.add("hidden");
@@ -627,8 +633,12 @@ function addEventListeners() {
     }
     if (createGroupButton != null) {
         createGroupButton.addEventListener("click", (ev) =>
-            alert("open Modal")
+            toggleCreateGroupModal()
         );
+        if (document.querySelector("#toggleCreateGroupModalClose"))
+            document
+                .querySelector("#toggleCreateGroupModalClose")
+                .addEventListener("click", (ev) => toggleCreateGroupModal());
     }
 }
 
