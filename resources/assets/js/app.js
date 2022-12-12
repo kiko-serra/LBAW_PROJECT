@@ -124,6 +124,15 @@ const notificationsGetMoreData = function (offset) {
     );
 };
 
+const groupsGetMoreData = function (offset) {
+    sendAjaxRequest(
+        "get",
+        "/api/leftpanel/groups/" + offset,
+        null,
+        groupsGetMoreDataHandler
+    );
+};
+
 const linkUser = function (event) {
     let receiver_id = event.target.getAttribute("data-id");
     if (receiver_id === null) {
@@ -330,6 +339,28 @@ function leftPanelRequestHandler() {
         document.querySelector("#left_panel_links_add_list").innerHTML =
             "No link requests to show";
     }
+
+    // GROUPS
+    let group_list = document.querySelector("#left_panel_groups_list_content");
+    group_list.innerHTML = "";
+    if (data.groups.length > 0) {
+        data.groups.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            group_list.appendChild(newElement);
+        });
+
+        var refreshButton = createElementFromHTML(
+            '<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+        );
+        group_list.appendChild(refreshButton);
+        refreshButton.addEventListener("click", () => {
+            groupsGetMoreData(group_list.childElementCount - 1);
+            group_list.removeChild(refreshButton);
+        });
+    } else {
+        document.querySelector("#left_panel_groups_list_content").innerHTML =
+            "No groups to show";
+    }
 }
 
 function linkRequestsGetMoreDataHandler() {
@@ -435,6 +466,46 @@ function notificationsGetMoreDataHandler() {
                 notifications_list.removeChild(refreshButton);
             });
         }
+    }
+}
+
+function groupsGetMoreDataHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        let notifications_list = document.querySelector(
+            "#left_panel_groups_list_content"
+        );
+        var refreshButton = createElementFromHTML(
+            '<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+        );
+        notifications_list.appendChild(refreshButton);
+        refreshButton.addEventListener("click", () => {
+            groupsGetMoreData(notifications_list.childElementCount - 1);
+            notifications_list.removeChild(refreshButton);
+        });
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let group_list = document.querySelector("#left_panel_groups_list_content");
+    group_list.innerHTML = "";
+    if (data.groups.length > 0) {
+        data.groups.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            group_list.appendChild(newElement);
+        });
+        if (data.more_data) {
+            var refreshButton = createElementFromHTML(
+                '<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+            );
+            group_list.appendChild(refreshButton);
+            refreshButton.addEventListener("click", () => {
+                groupsGetMoreData(group_list.childElementCount - 1);
+                group_list.removeChild(refreshButton);
+            });
+        }
+    } else {
+        document.querySelector("#left_panel_groups_list_content").innerHTML =
+            "No groups to show";
     }
 }
 

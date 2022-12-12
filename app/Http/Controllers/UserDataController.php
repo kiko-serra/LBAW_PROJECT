@@ -11,6 +11,8 @@ use \App\Models\User;
 use \App\Models\Friendship;
 use \App\Models\FriendRequest;
 use \App\Models\Notification;
+use \App\Models\Community;
+use \App\Models\Relationship;
 
 
 class UserDataController extends Controller
@@ -29,8 +31,6 @@ class UserDataController extends Controller
         foreach ($friendRequests as $friendRequest) {
             $friendRequestViews[] = view('partials.leftPanel.linkRequest', ['name' => $friendRequest->name, 'id' => $friendRequest->id_sender])->render();
         }
-
-
 
         $limit = 15;
 
@@ -56,10 +56,23 @@ class UserDataController extends Controller
         //     $notificationsRead[] = view('partials.leftPanel.notification', ['read' => true, 'description' => $notification->description, 'id' => $notification->id_notification])->render();
         // }
 
+
+        $groupViews = [];
+
+        $groups = Relationship::join('community', 'community.id_community', '=', 'relationship.id_community')
+                                        ->where('id_account', '=', Auth::user()->id_account)
+                                        ->limit($limit)
+                                        ->get();
+        
+        foreach ($groups as $group) {
+            $groupViews[] = view('partials.leftPanel.groups', ['id' => $group->id_community, 'name' => $group->name])->render();
+        }
+
         return response()->json([
             'friends' => $friendships,
             'link_requests' => $friendRequestViews,
             'notifications' => $notificationViews,
+            'groups' => $groupViews,
             'new_notis' => $notificationsCount,
             'more_data' => true
         ]);
@@ -111,6 +124,30 @@ class UserDataController extends Controller
         return response()->json([
             'link_requests' => $friendRequestViews,
             'more_data' => count($friendRequests) >= $limit
+        ]);
+    }
+
+    public function getMoreGroups($offset, Request $request) {
+        if (!Auth::check()) return response(null, 401);
+
+        $limit = 15 + $offset;
+
+
+
+        $groupViews = [];
+
+        $groups = Relationship::join('community', 'community.id_community', '=', 'relationship.id_community')
+                                        ->where('id_account', '=', Auth::user()->id_account)
+                                        ->limit($limit)
+                                        ->get();
+        
+        foreach ($groups as $group) {
+            $groupViews[] = view('partials.leftPanel.groups', ['id' => $group->id_community, 'name' => $group->name])->render();
+        }
+
+        return response()->json([
+            'groups' => $groupViews,
+            'more_data' => count($groups) >= $limit
         ]);
     }
 

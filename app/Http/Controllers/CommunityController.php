@@ -41,16 +41,13 @@ class CommunityController extends Controller
 
       $group = new Community();
 
-      $this->authorize('create', $group);
-
-
       $group->name = $request['groupname'];
       $group->description = $request['groupdesc'];
       if ($request['groupprivate'] === "on") {
-        $group->is_public = true;
+        $group->is_public = false;
       }
 
-      $group->is_public = false;
+      $group->is_public = true;
 
       if ($group->save()) {
         return redirect(route('group.show', ['id' => $group->id_community]));
