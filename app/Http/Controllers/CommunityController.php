@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Community;
+use App\Models\Relationship;
 
 use Validator;
 
@@ -21,14 +22,14 @@ class CommunityController extends Controller
     public function show($id)
     {
       $post = Community::find($id);
-      //$this->authorize('show', $post);
+      //$this->authorize('show', $post); //TODO: show only if authenticated
       return view('pages.group', ['posts' => []]);
     }
 
     public function create(Request $request) {
       
       $validator = Validator::make($request->all(), [ 
-        'groupname' => 'string|required|min:2|max:32|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+        'groupname' => 'string|required|min:2|max:32|regex:/^[a-zA-Z][a-zA-Z0-9- ]+[a-zA-Z0-9]*$/',
         'groupdesc' => 'string|max:255|nullable',
       ]);
 
@@ -50,6 +51,11 @@ class CommunityController extends Controller
       $group->is_public = true;
 
       if ($group->save()) {
+        $new_admin = new Relationship();
+        $new_admin->id_community = $group->id_community;
+        $new_admin->id_account = Auth::user()->id_account;
+        $new_admin->status = 'admin';
+        $new_admin->save();
         return redirect(route('group.show', ['id' => $group->id_community]));
       }
 
