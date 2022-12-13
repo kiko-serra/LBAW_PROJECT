@@ -3,7 +3,7 @@
 @section('content')
 <form method="POST" action="{{ route('register') }}" class = "rounded-2xl bg-white flex flex-col justify-between">
     {{ csrf_field() }} 
-    <p class="font-medium text-lg" id="register-title"> Register </p>
+    <p class="font-medium text-2xl" id="register-title"> Register </p>
 
     <!-- Obligatory -->
     <label for="accounttag" class="mt-4">Account Tag</label>

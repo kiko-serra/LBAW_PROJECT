@@ -643,6 +643,12 @@ video {
 .mt-2 {
   margin-top: 0.5rem;
 }
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-8 {
+  margin-top: 2rem;
+}
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -684,6 +690,9 @@ video {
 }
 .h-28 {
   height: 7rem;
+}
+.h-36 {
+  height: 9rem;
 }
 .h-24 {
   height: 6rem;
@@ -749,6 +758,9 @@ video {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+.resize-none {
+  resize: none;
 }
 .grid-cols-5 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -958,21 +970,25 @@ video {
 .text-center {
   text-align: center;
 }
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
 }
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .text-xl {
   font-size: 1.25rem;
@@ -984,6 +1000,9 @@ video {
 }
 .font-medium {
   font-weight: 500;
+}
+.font-normal {
+  font-weight: 400;
 }
 .text-black {
   --tw-text-opacity: 1;
@@ -1286,6 +1305,9 @@ article #postCardInfo > a .arrows {
           text-decoration: solid;
   color: var(--primary-color);
 }
+#content > form > p{
+  margin: auto;
+}
 #content > form > select{
   border: solid 1px var(--primary-color);
 }
@@ -1308,6 +1330,9 @@ article #postCardInfo > a .arrows {
 #content>form input:focus{
   outline: none !important;
   box-shadow:0 1px 0 var(--primary-color);
+}
+#content>form textarea{
+  border: 1px solid var(--primary-color);
 }
 #posts article.post header:hover a.delete {
   display: inline;

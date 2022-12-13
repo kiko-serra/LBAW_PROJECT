@@ -328,6 +328,9 @@ article #postCardInfo > a .arrows {
   text-decoration: solid;
   color: var(--primary-color);
 }
+#content > form > p{
+  margin: auto;
+}
 #content > form > select{
   border: solid 1px var(--primary-color);
 }
@@ -350,6 +353,9 @@ article #postCardInfo > a .arrows {
 #content>form input:focus{
   outline: none !important;
   box-shadow:0 1px 0 var(--primary-color);
+}
+#content>form textarea{
+  border: 1px solid var(--primary-color);
 }
 #posts article.post header:hover a.delete {
   display: inline;
