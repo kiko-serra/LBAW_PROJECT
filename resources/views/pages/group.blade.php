@@ -33,8 +33,7 @@
 
 </section>
 
-<section class="sidepanel" id="right"> 
-    
-</section>
+<?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members]); ?>
+
 
 @endsection

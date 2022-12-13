@@ -25,8 +25,21 @@ class CommunityController extends Controller
     {
       $community_id = Community::find($id);
       //$this->authorize('show', $post); //TODO: show only if authenticated
-      $posts = Post::where('group_id', '=', $id)->get()->sortByDesc('edited_date'); //TODO: Show interesting posts
-      return view('pages.group', ['posts' => $posts]);
+      $posts = Post::where('group_id', '=', $id)->get()->sortByDesc('edited_date');
+      
+      $admins = User::join('relationship', 'relationship.id_account', '=', 'account.id_account')
+                      ->where('relationship.id_community', '=', $id)
+                      ->where('relationship.status', '=', 'admin')
+                      ->get();
+
+      $members = User::join('relationship', 'relationship.id_account', '=', 'account.id_account')
+                      ->where('relationship.id_community', '=', $id)
+                      ->where('relationship.status', '=', 'member')
+                      ->get();
+
+      $members = $admins->merge($members);
+
+      return view('pages.group', ['posts' => $posts, 'members' => $members]);
     }
 
     public function create(Request $request) {
