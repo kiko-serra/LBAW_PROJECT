@@ -15,13 +15,11 @@
       </div>
       <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" class="w-full">
     </div>
-    <div class="flex flex-row justify-between mt-4">
-      <select name="group" id="newpostvisibility" class="w-fit">
-        <option disabled> Show to everyone </option>
-        <option for="group" value="0">Friends</option>
-        <option for="group" value="1">FSI 22/23</option> <!--The user's groups -->
+    <div class="flex flex-row justify-end mt-4">
+      <select name="group" id="newpostvisibility" class="w-fit hidden">
+        <option for="group" value="{{ $group->id_community}} ">Friends</option>
       </select>
-      <button class="px-4"> Publish </button>
+      <button class="px-4 btn"> Publish </button>
     </div>
   </form>
 

@@ -23,7 +23,8 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
-      $community_id = Community::find($id);
+      $community = Community::find($id);
+      if (!$community) return redirect(route('timeline'));
       //$this->authorize('show', $post); //TODO: show only if authenticated
       $posts = Post::where('group_id', '=', $id)->get()->sortByDesc('edited_date');
       
@@ -39,7 +40,7 @@ class CommunityController extends Controller
 
       $members = $admins->merge($members);
 
-      return view('pages.group', ['posts' => $posts, 'members' => $members]);
+      return view('pages.group', ['posts' => $posts, 'members' => $members, 'group' => $community]);
     }
 
     public function create(Request $request) {
