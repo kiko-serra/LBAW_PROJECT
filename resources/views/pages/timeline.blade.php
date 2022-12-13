@@ -27,7 +27,6 @@
     </div>
   </form>
 
-  <span class="my-4"></span>
     
   <div id="posts" class="bg-white rounded-2xl">
     @each('partials.post', $posts, 'post')
