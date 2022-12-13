@@ -32,7 +32,7 @@
       <div id="newPostCardLeftBar" class="flex flex-col">
         <div class="w-24 h-24 bg-blue-500 rounded-full"></div>
       </div>
-      <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" class="w-full">
+      <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" required autocomplete=off class="w-full">
     </div>
     <div class="flex flex-row justify-end mt-4">
       <select name="group" id="newpostvisibility" class="w-fit hidden">

@@ -42,7 +42,7 @@
     @endif
 
     <label for="description">Description</label>
-    <textarea name="description" id="description" cols="30" rows="10" maxlength="255"></textarea>
+    <textarea name="description" id="description" autocomplete=off cols="30" rows="10" maxlength="255"></textarea>
     @if ($errors->has('description'))
       <span class="error">
           {{ $errors->first('description') }} {{-- Need to create validator --}}

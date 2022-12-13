@@ -15,11 +15,11 @@
             <section class="gap-y-4"">
                 <div class="flex flex-col gap-y-1">
                     <label for="groupdesc" class="mt-2">Group name:</label>
-                    <input type="text" placeholder="Type Here" class="text-input" name="groupname" minlength="2" maxlength="32" required id="left_panel_groups_create_groupname">
+                    <input type="text" placeholder="Type Here" autocomplete=off class="text-input" name="groupname" minlength="2" maxlength="32" required id="left_panel_groups_create_groupname">
                 </div>
                 <div class="flex flex-col gap-y-1">
                     <label for="groupdesc" class="mt-2">Group description:</label>
-                    <textarea name="groupdesc" placeholder="Type Here" class="textarea-input" id="left_panel_groups_create_groupdesc" cols="30" rows="3" maxlength="255"></textarea>
+                    <textarea name="groupdesc" placeholder="Type Here" autocomplete=off class="textarea-input" id="left_panel_groups_create_groupdesc" cols="30" rows="3" maxlength="255"></textarea>
                 </div>
                 <div class="w-full flex justify-start gap-x-2 mt-2 items-center">
                     <input type="checkbox" name="groupprivate" class="w-5 h-5" id="left_panel_groups_create_groupprivate">
