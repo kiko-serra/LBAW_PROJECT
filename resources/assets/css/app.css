@@ -316,13 +316,23 @@ article #postCardInfo > a .arrows {
 }
 #content>form{
   margin:0 auto;
-  padding:40px;
+  padding:25px 40px;
   width: 350px;
   background-color:white;
   border-radius: 20px;
 }
 #content > form > label{
   font-family:'Inter';
+}
+#content > form > a{
+  text-decoration: solid;
+  color: var(--primary-color);
+}
+#content > form > select{
+  border: solid 1px var(--primary-color);
+}
+#content > form > #register-title{
+  color: var(--primary-color);
 }
 #content>form button, #content>form .button{
   background-color: var(--primary-color);
