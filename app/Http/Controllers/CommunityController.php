@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Community;
 use App\Models\Relationship;
+use App\Models\User;
+use App\Models\Post;
 
 use Validator;
 
@@ -21,9 +23,10 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
-      $post = Community::find($id);
+      $community_id = Community::find($id);
       //$this->authorize('show', $post); //TODO: show only if authenticated
-      return view('pages.group', ['posts' => []]);
+      $posts = Post::where('group_id', '=', $id)->get()->sortByDesc('edited_date'); //TODO: Show interesting posts
+      return view('pages.group', ['posts' => $posts]);
     }
 
     public function create(Request $request) {
