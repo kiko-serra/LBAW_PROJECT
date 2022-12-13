@@ -5,7 +5,10 @@
 @section('content')
 <section class="content">
     <div class="text-center text-black text-6xl">User Profiles</div>
-    <div class="flex flex-col mt-5">
+    <div class="text-center mt-5">
+        <a class="text-violet-700" href="{{ url('users/register') }}">Create new user</a>
+    </div>
+    <div class="flex flex-col mt-4">
         @foreach ($users as $user)
             <div id={{$user->id_account}} class="card-body flex flex-row m-6 text-center items-center h-28 break-words">
                 <img src="{{ asset('storage/' . $user->profile_picture) }}" class="img-thumbnail" alt="">

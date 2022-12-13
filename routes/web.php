@@ -74,6 +74,7 @@ Route::middleware('admin')->group(function () {
     Route::get('users/{id}', 'AdminController@edit')->name('admin.edit');
     Route::get('users/block/{id_user}', 'AdminController@block')->name('admin.block');
     Route::get('users/unblock/{id_user}', 'AdminController@unblock')->name('admin.unblock');
+    Route::get('users/register', 'AdminController@register')->name('admin.register');
 });
 
 

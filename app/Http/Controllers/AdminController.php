@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all()->sortBy("name");
-        return view('pages.adminShow', ['users'=>$users]);
+        return view('admin.adminShow', ['users'=>$users]);
     }
 
     /**
@@ -27,7 +27,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('adminCreate');
+        return view('admin.create');
     }
 
     /**
@@ -106,6 +106,9 @@ class AdminController extends Controller
         $user->save();
     }
 
+    public function register(){
+        return view('admin.adminRegister');
+    }
     public function block($id_user)
     {
         $user = User::find($id_user);
