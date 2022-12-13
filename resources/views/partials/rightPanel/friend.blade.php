@@ -6,6 +6,11 @@
             <span></span>
         </div>
         <p class="text-gray-600 text-sm">{{ "@" . $user->account_tag }}</p>
+        @if(isset($user->status))
+            @if($user->status == 'admin')
+             <p class="text-green-600 text-sm">Group Admin</p>
+            @endif
+        @endif
     </div>
     <a href="/user/{{$user->account_tag}}" class="text-black self-center">
         VIEW
