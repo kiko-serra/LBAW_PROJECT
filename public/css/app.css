@@ -940,6 +940,10 @@ video {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
 .pl-4 {
   padding-left: 1rem;
 }
@@ -1340,7 +1344,12 @@ section.content .card-body{
   padding: 10px;
 }
 section.content .card-body > *{
-  width: 14%;
+  width: 140px;
+}
+section.content .card-body > input{
+  margin: 0 10px;
+  width: 120px;
+  text-align: center;
 }
 /* --------------------------------------- */
 #content label {

@@ -386,7 +386,12 @@ section.content .card-body{
   padding: 10px;
 }
 section.content .card-body > *{
-  width: 14%;
+  width: 140px;
+}
+section.content .card-body > input{
+  margin: 0 10px;
+  width: 120px;
+  text-align: center;
 }
 /* --------------------------------------- */
 #content label {
