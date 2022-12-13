@@ -36,6 +36,7 @@ Route::post('post/new', 'PostController@create')->name('newpost');
 
 Route::get('group/{id}', 'CommunityController@show')->name('group.show');
 Route::post('group', 'CommunityController@create')->name('group.create');
+Route::post('grou/leave', 'CommunityController@leave')->name('group.leave');
 
 // API
 Route::put('posts', 'PostController@create');
