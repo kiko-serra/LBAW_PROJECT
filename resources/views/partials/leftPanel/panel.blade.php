@@ -31,10 +31,14 @@
         <div id="left_panel_group_button" class="left-panel-button">
             <img src={{ asset('icons/groups.svg') }} alt="groups icon" width=28" height=28" class="h-7 w-7">
             <p>GROUPS</p>
-            <span id="left_panel_group_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_groups_list" class="left_panel_list hidden">
-            No groups to show.
+            <div id="left_panel_groups_create" class="left-panel-button m-2">
+                Create new group
+            </div>
+            <div id="left_panel_groups_list_content" class="w-full flex flex-col items-center">
+                No groups to show.
+            </div>
         </ul>
     </div>
     <div>
@@ -59,3 +63,5 @@
         </ul>
     </div>
 </section>
+
+<?php echo view('partials.createGroup'); ?>

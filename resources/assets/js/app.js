@@ -22,7 +22,13 @@ const openProfileEditModal = function () {
     );
 };
 
-function closeProfileEditModal () {
+const toggleCreateGroupModal = function () {
+    document
+        .querySelector("#leftPanelCreateGroupModal")
+        .classList.toggle("hidden");
+};
+
+const closeProfileEditModal = function () {
     let modal = document.querySelector("#editUserModal");
     modal.classList.add("hidden");
 };
@@ -132,6 +138,15 @@ const notificationsGetMoreData = function (offset) {
         "/api/leftpanel/notifications/" + offset,
         null,
         notificationsGetMoreDataHandler
+    );
+};
+
+const groupsGetMoreData = function (offset) {
+    sendAjaxRequest(
+        "get",
+        "/api/leftpanel/groups/" + offset,
+        null,
+        groupsGetMoreDataHandler
     );
 };
 
@@ -341,6 +356,28 @@ function leftPanelRequestHandler() {
         document.querySelector("#left_panel_links_add_list").innerHTML =
             "No link requests to show";
     }
+
+    // GROUPS
+    let group_list = document.querySelector("#left_panel_groups_list_content");
+    group_list.innerHTML = "";
+    if (data.groups.length > 0) {
+        data.groups.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            group_list.appendChild(newElement);
+        });
+
+        var refreshButton = createElementFromHTML(
+            '<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+        );
+        group_list.appendChild(refreshButton);
+        refreshButton.addEventListener("click", () => {
+            groupsGetMoreData(group_list.childElementCount - 1);
+            group_list.removeChild(refreshButton);
+        });
+    } else {
+        document.querySelector("#left_panel_groups_list_content").innerHTML =
+            "No groups to show";
+    }
 }
 
 function linkRequestsGetMoreDataHandler() {
@@ -449,6 +486,46 @@ function notificationsGetMoreDataHandler() {
     }
 }
 
+function groupsGetMoreDataHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        let notifications_list = document.querySelector(
+            "#left_panel_groups_list_content"
+        );
+        var refreshButton = createElementFromHTML(
+            '<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+        );
+        notifications_list.appendChild(refreshButton);
+        refreshButton.addEventListener("click", () => {
+            groupsGetMoreData(notifications_list.childElementCount - 1);
+            notifications_list.removeChild(refreshButton);
+        });
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let group_list = document.querySelector("#left_panel_groups_list_content");
+    group_list.innerHTML = "";
+    if (data.groups.length > 0) {
+        data.groups.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            group_list.appendChild(newElement);
+        });
+        if (data.more_data) {
+            var refreshButton = createElementFromHTML(
+                '<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+            );
+            group_list.appendChild(refreshButton);
+            refreshButton.addEventListener("click", () => {
+                groupsGetMoreData(group_list.childElementCount - 1);
+                group_list.removeChild(refreshButton);
+            });
+        }
+    } else {
+        document.querySelector("#left_panel_groups_list_content").innerHTML =
+            "No groups to show";
+    }
+}
+
 function notificationReadHandler() {
     if (this.status != 200) {
         console.log("action failed");
@@ -554,6 +631,7 @@ function addEventListeners() {
         "#userProfileFriendlinks"
     );
     let userProfileLinks = document.querySelector("#userProfilelinks");
+    let createGroupButton = document.querySelector("#left_panel_groups_create");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -640,6 +718,15 @@ function addEventListeners() {
             linkFilter.value = "";
             filterLinks(linkFilter, false);
         });
+    }
+    if (createGroupButton != null) {
+        createGroupButton.addEventListener("click", (ev) =>
+            toggleCreateGroupModal()
+        );
+        if (document.querySelector("#toggleCreateGroupModalClose"))
+            document
+                .querySelector("#toggleCreateGroupModalClose")
+                .addEventListener("click", (ev) => toggleCreateGroupModal());
     }
 }
 

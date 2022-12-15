@@ -427,6 +427,7 @@ function addEventListeners() {
   var linkFilter = document.querySelector("#linksfilter");
   var userProfileFriendLinks = document.querySelector("#userProfileFriendlinks");
   var userProfileLinks = document.querySelector("#userProfilelinks");
+  var createGroupButton = document.querySelector("#left_panel_groups_create");
   if (editUserModalBack != null) editUserModalBack.addEventListener("click", function () {
     return closeProfileEditModal();
   });
@@ -484,6 +485,11 @@ function addEventListeners() {
       if (commonLinkFilter != null) commonLinkFilter.classList.remove("common-link-filter-selected");
       linkFilter.value = "";
       filterLinks(linkFilter, false);
+    });
+  }
+  if (createGroupButton != null) {
+    createGroupButton.addEventListener("click", function (ev) {
+      return alert("open Modal");
     });
   }
 }

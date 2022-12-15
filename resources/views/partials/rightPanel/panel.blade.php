@@ -14,7 +14,15 @@
         <div id="right-panel-links" class="flex flex-col gap-4 max-h-96 overflow-y-scroll">
             @each('partials.rightPanel.friend', $friends, 'user')
         </div>
-    @elseif($type="timeline")
+    @elseif($type=="timeline")
+    @elseif($type=="group")
+    <div class="flex flex-row w-full mb-2">
+            <h2 class="text-lg text-center w-full border-b-2 border-b-black" >Members</h2>
+            <h2 class="text-lg text-center w-full border-b-2 border-b-gray-400" >Options</h2>
+        </div>
+        <div id="right-panel-links" class="flex flex-col gap-4 max-h-96 overflow-y-scroll">
+            @each('partials.rightPanel.friend', $members, 'user')
+        </div>
     @else
     @endif
 </section>
