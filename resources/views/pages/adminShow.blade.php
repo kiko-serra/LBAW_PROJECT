@@ -17,9 +17,9 @@
                 <p class="col-auto">{{ $user->course }}</p>
                 
                 @if ($user->is_blocked == true)
-                    <input class="bg-green-400 hover:bg-green-700 rounded py-2 px-9 cursor-pointer text-center" type="button" value="Unblock" onclick="block(this);">
+                    <input class="bg-green-400 hover:bg-green-700 rounded py-2 px-3 cursor-pointer text-center" type="button" value="Unblock" onclick="block(this);">
                 @else
-                    <input class="bg-red-400 hover:bg-red-700 rounded py-2 px-9 cursor-pointer text-center" type="button" value="Block" onclick="block(this);">
+                    <input class="bg-red-400 hover:bg-red-700 rounded py-2 px-3 cursor-pointer text-center" type="button" value="Block" onclick="block(this);">
                 @endif
             </div>
         @endforeach 

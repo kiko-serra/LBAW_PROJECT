@@ -580,67 +580,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.btn {
-  height: -moz-fit-content;
-  height: fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  border-radius: 0.375rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  text-align: center;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-.btn:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-.btn:active {
-  --tw-scale-x: .95;
-  --tw-scale-y: .95;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.text-input {
-  border-radius: 0.375rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-  padding-left: 0.5rem;
-  outline-width: 2px;
-  outline-offset: 1px;
-}
-.text-input:focus {
-  outline-color: #475569;
-}
-.textarea-input {
-  border-radius: 0.375rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-  padding-left: 0.5rem;
-  outline-offset: 1px;
-}
-.textarea-input:focus {
-  outline-width: 2px;
-  outline-color: #475569;
-}
-.group-square {
-  border-radius: 1.5rem;
-}
 .fixed {
   position: fixed;
 }
@@ -689,11 +628,26 @@ video {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
-.mt-4 {
-  margin-top: 1rem;
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 .mt-5 {
   margin-top: 1.25rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-8 {
+  margin-top: 2rem;
 }
 .mr-2 {
   margin-right: 0.5rem;
@@ -703,12 +657,6 @@ video {
 }
 .ml-2 {
   margin-left: 0.5rem;
-}
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-.mt-2 {
-  margin-top: 0.5rem;
 }
 .-mr-4 {
   margin-right: -1rem;
@@ -745,6 +693,9 @@ video {
 }
 .h-28 {
   height: 7rem;
+}
+.h-36 {
+  height: 9rem;
 }
 .h-24 {
   height: 6rem;
@@ -829,6 +780,9 @@ video {
      -moz-user-select: none;
           user-select: none;
 }
+.resize-none {
+  resize: none;
+}
 .grid-cols-5 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
@@ -880,18 +834,11 @@ video {
   -moz-column-gap: 3rem;
        column-gap: 3rem;
 }
-.gap-y-1 {
-  row-gap: 0.25rem;
-}
-.gap-x-1 {
-  -moz-column-gap: 0.25rem;
-       column-gap: 0.25rem;
-}
 .self-center {
   align-self: center;
 }
-.overflow-hidden {
-  overflow: hidden;
+.justify-self-center {
+  justify-self: center;
 }
 .overflow-y-auto {
   overflow-y: auto;
@@ -944,6 +891,14 @@ video {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
 .bg-blue-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(219 234 254 / var(--tw-bg-opacity));
@@ -951,14 +906,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.bg-green-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
-}
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 .bg-blue-500 {
   --tw-bg-opacity: 1;
@@ -1013,9 +960,9 @@ video {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
-.px-9 {
-  padding-left: 2.25rem;
-  padding-right: 2.25rem;
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -1047,13 +994,13 @@ video {
 .text-center {
   text-align: center;
 }
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
-}
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 .text-base {
   font-size: 1rem;
@@ -1062,6 +1009,10 @@ video {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .text-xl {
   font-size: 1.25rem;
@@ -1075,11 +1026,11 @@ video {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
-.font-semibold {
-  font-weight: 600;
+.font-medium {
+  font-weight: 500;
 }
-.font-bold {
-  font-weight: 700;
+.font-normal {
+  font-weight: 400;
 }
 .text-black {
   --tw-text-opacity: 1;
@@ -1107,56 +1058,63 @@ video {
   opacity: 1;
 }
 
-:root {
-    --bg_color1: #8ce5fe;
-    --bg_color2: #f8f8f8;
-    --text_color: #4e4e4e;
-    --primary-color: #6495ed;
-    --search-bar-background-color: #ececec;
+
+:root{
+  --bg_color1:#8ce5fe;
+  --bg_color2:#f8f8f8;
+  --text_color:#4e4e4e;
+  --primary-color: #6495ED;
+  --search-bar-background-color: #ececec;
 }
-body {
-    background: var(--bg_color2);
-    height: 98vh;
-    color: var(--text_color);
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
+body,html {
+  margin: 0;
+  padding: 0;
 }
-area#background_color_1 {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    width: 100%;
-    height: 55vh;
-    background: var(--bg_color1);
+* {
+  box-sizing: border-box;
 }
-main > header {
-    display: grid;
-    grid-template-columns: 2fr 6fr 1fr 1fr;
-    align-items: center;
-    background-color: #d2afe7;
-    padding: 1em;
-    background-color: #ffffff;
-    padding: 10px 40px;
-    margin-bottom: 2em;
+body{
+  background:var(--bg_color2);
+  height:98vh;
+  color:var(--text_color);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
 }
-main > header h1 {
-    margin: 0;
-    font-size: 2em;
-    color: var(--primary-color);
-    text-decoration: none;
+area#background_color_1{
+  position:absolute;
+  top:0;
+  bottom:0;
+  z-index:-1;
+  width:100%;
+  height:55vh;
+  background:var(--bg_color1);
 }
-main > header a {
-    font-size: 1.2em;
+main>header{
+  display:grid;
+  grid-template-columns: 6fr 10fr 6fr;
+  align-items:center;
+  background-color:#d2afe7;
+  padding:1em;
+  background-color: #ffffff;
+  padding: 10px 40px;
+  margin-bottom: 2em;
 }
-main > header span {
-    margin: 1em;
-    justify-self: center;
+main>header h1{
+  margin:0;
+  font-size: 2em;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+main > header a{
+  font-size: 1.2em;
+}
+main>header span{
+  margin:1em;
+  justify-self:center
 }
 main > header a.logout_button {
-    justify-self: center;
-    color: var(--primary-color);
-    margin-right: 30px;
+  justify-self: center;
+  color: var(--primary-color);
 }
 main > header > .search_bar {
     margin: auto;
@@ -1176,138 +1134,205 @@ main > header > .search_bar > form {
     border-bottom: var(--primary-color);
 }
 main > header > .search_bar > i {
-    color: var(--primary-color);
-    font-size: 1.3em;
+  color: var(--primary-color);
+  font-size: 1.3em;
 }
-main > header > .search_bar > form > input,
-.search_bar > form > input:focus {
-    border: 0px;
-    border-radius: 0;
-    border-bottom: 2px solid var(--primary-color);
-    height: 20px;
+main > header > .search_bar > form > input, .search_bar > form > input:focus{
+  border: 0px;
+  border-radius: 0;
+  border-bottom: 2px solid var(--primary-color);
+  height: 20px;
 }
-section#content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: flex-start;
+section#content{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+  align-items:flex-start
 }
-section#timeline {
-    background: #fff;
-    border-radius: 20px;
-    width: 600px;
-    min-height: 200px;
+section#content #home-container {
+  width: 800px;
+  height: 400px;
+  background-color: white;
+  position: absolute;
+  top: 50%;  
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  display:grid;
+  grid-template-areas:"title image" "buttons image";
+  grid-template-rows:1fr 1fr;
+  grid-template-columns:6fr 3fr;
+  padding:40px 30px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.10), 0 3px 6px rgba(0,0,0,0.10);
 }
-section#private_profile {
-    width: 100%;
-    height: 300px;
-    display: grid;
-    grid-template-areas: "profile private_warning" "profile follow";
-    grid-template-rows: 2fr 1fr;
-    grid-template-columns: 40% 60%;
-    padding: 40px 30px;
+
+section#content #home-container h3{
+  grid-area: title;
+  font-size: 30px;
+  width: 350px;
+  line-height: 33px;
+  font-weight: 800;
+  font-family: 'Inter';
+  position: absolute;
+  top: 65%;  
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  color: #88aff6;
 }
-section#private_profile > #private_profile_info {
-    grid-area: profile;
-    width: 100%;
+
+section#content #home-container img{
+  grid-area: image;
+  margin: auto;
+  height: 250px;
 }
-section#private_profile > #private_profile_info > #profile_image {
-    background-color: lightgreen;
-    width: 60%;
+section#content #home-container #buttons{
+  grid-area: buttons;
+  margin: 40px auto;
+  width: 350px;
 }
-section#private_profile > #private_profile_info > #user_identity_info {
-    margin-top: 10px;
-    text-align: center;
+section#content #home-container #buttons :first-child{
+  text-align: center;
+  font-size: 20px;
+  width: 150px;
+  height: 40px;
+  line-height: 36px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
+  border: 2px solid white;
 }
-section#private_profile > #warning_private_profile {
-    grid-area: private_warning;
-    margin: auto;
-    text-align: center;
+section#content #home-container #buttons :nth-child(2){
+  text-align: center;
+  font-size: 20px;
+  width: 150px;
+  height: 40px;
+  line-height: 34px;
+  background-color: inherit;
+  color: var(--primary-color);
+  font-weight: 500;
+  border-radius: 5px;
+  border: 3px solid var(--primary-color);
 }
-section#profile {
-    width: 100%;
-    height: 310px;
-    display: grid;
-    grid-template-areas: "profile_img info info" "identity identity follow" "bio bio bio" "filters filters filters";
-    grid-template-rows: 120px 60px 105px 30px;
-    grid-template-columns: 25% 50% 25%;
+
+section#timeline{
+  background:#fff;
+  border-radius:20px;
+  width:600px;
+  min-height:200px
 }
-section#profile > #profile_image {
-    grid-area: profile_img;
-    background-color: lightgreen;
-    height: 80%;
+section#private_profile{
+  width:100%;
+  height:300px;
+  display:grid;
+  grid-template-areas:"profile private_warning" "profile follow";
+  grid-template-rows:2fr 1fr;
+  grid-template-columns:40% 60%;
+  padding:40px 30px
 }
-section#profile > #user_life_info_container {
-    grid-area: info;
-    height: 70%;
-    width: 100%;
+section#private_profile>#private_profile_info{
+  grid-area:profile;
+  width:100%
 }
-section#profile > #user_life_info_container i {
-    min-width: 30px;
-    text-align: center;
+
+section#private_profile>#private_profile_info>#profile_image{
+  background-color:lightgreen;
+  width:60%
 }
-section#profile > #user_identity_info {
-    grid-area: identity;
-    height: 100%;
-    width: 80%;
-    padding: 0 20px 5px 20px;
+section#private_profile>#private_profile_info>#user_identity_info{
+  margin-top:10px;
+  text-align:center
 }
-section#profile > #user_identity_info > #name,
-section#private_profile #name {
-    font-size: 1.3em;
-    color: black;
+section#private_profile>#warning_private_profile{
+  grid-area:private_warning;
+  margin:auto;
+  text-align:center
 }
-section#profile > #user_identity_info i {
-    font-size: 5px;
-    align-self: center;
+section#profile{
+  width:100%;
+  height:310px;
+  display:grid;
+  grid-template-areas:"profile_img info info" "identity identity follow" "bio bio bio" "filters filters filters";
+  grid-template-rows:120px 60px 105px 30px;
+  grid-template-columns:25% 50% 25%
 }
-section#profile > #follow_button,
-section#private_profile > #follow_button {
-    grid-area: follow;
+section#profile>#profile_image{
+  grid-area:profile_img;
+  background-color:lightgreen;
+  height:80%
 }
-section#profile > #user_bio_section {
-    grid-area: bio;
-    height: 100%;
-    padding: 10px 20px 10px 20px;
+section#profile>#user_life_info_container{
+  grid-area:info;
+  height:70%;
+  width:100%
 }
-section#profile > #user_bio_section > #bio {
-    font-size: 1.1em;
-    padding-bottom: 10px;
+section#profile>#user_life_info_container i{
+  min-width:30px;
+  text-align:center
 }
-section#profile > #user_bio_section > :nth-last-child(2) {
-    font-size: 0.9em;
-    text-decoration: underline;
+section#profile>#user_identity_info{
+  grid-area:identity;
+  height:100%;
+  width:80%;
+  padding:0 20px 5px 20px
 }
-section#profile > #user_bio_section > :nth-last-child(1) {
-    font-size: 0.9em;
+section#profile>#user_identity_info>#name,section#private_profile #name{
+  font-size:1.3em;
+  color:black
 }
-section#profile > #filters {
-    grid-area: filters;
+section#profile>#user_identity_info i{
+  font-size:5px;
+  align-self:center
 }
-#posts {
-    display: flex;
-    flex-direction: column;
+section#profile>#link_button,section#private_profile>#link_button, #unblock_button{
+  grid-area:follow;
+  margin: auto;
+  margin-bottom: 50px;
 }
-#posts article.post {
-    display: flex;
-    flex-direction: column;
-    background-color: #d3edc3;
-    padding: 1em;
-    margin: 1em;
+section#profile>#user_bio_section{
+  grid-area:bio;
+  height:100%;
+  padding:10px 20px 10px 20px
 }
-#posts article.post header {
-    display: flex;
-    align-items: center;
+section#profile>#user_bio_section>#bio{
+  font-size:1.1em;
+  padding-bottom:10px
 }
-#posts article.post header h2 {
-    flex-grow: 1;
+section#profile>#user_bio_section>:nth-last-child(2){
+  font-size:.9em;
+  text-decoration:underline
 }
-#posts article.post header a.delete {
-    display: none;
-    font-size: 2.6rem;
-    margin-top: 0.5rem;
-    margin-bottom: 2.5rem;
-    line-height: 1.25;
+section#profile>#user_bio_section>:nth-last-child(1){
+  font-size:.9em
+}
+section#profile>#filters{
+  grid-area:filters;
+}
+
+
+
+#posts{
+  display:flex;
+  flex-direction:column
+}
+#posts article.post{
+  display:flex;
+  flex-direction:column;
+  background-color:#d3edc3;
+  padding:1em;
+  margin:1em
+}
+#posts article.post header{
+  display:flex;
+  align-items:center
+}
+#posts article.post header h2{
+  flex-grow:1
+}
+#posts article.post header a.delete{
+  display:none;
+  font-size:2.6rem;
+  margin-top:.5rem;
+  margin-bottom:2.5rem;
+  line-height:1.25
 }
 #posts article.post header:hover a.delete {
     display: inline;
@@ -1357,18 +1382,49 @@ article #postCardInfo > a .arrows {
 #content label {
     font-weight: normal;
 }
-#content > form {
-    margin: 0 auto;
-    padding: 1em;
-    max-width: 20em;
-    border: 1px solid #d2afe7;
+#content>form{
+  margin:0 auto;
+  padding:25px 40px;
+  width: 350px;
+  background-color:white;
+  border-radius: 20px;
+}
+#content > form > label{
+  font-family:'Inter';
+}
+#content > form > a{
+  -webkit-text-decoration: solid;
+          text-decoration: solid;
+  color: var(--primary-color);
+}
+#content > form > p{
+  margin: auto;
+}
+#content > form > select{
+  border: solid 1px var(--primary-color);
+}
+#content > form > #register-title{
+  color: var(--primary-color);
+}
+#content>form button, #content>form .button{
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
 }
 #content > form .error {
     font-weight: bold;
     color: #f33;
 }
-#content > form input {
-    background-color: white;
+#content>form input{
+  background-color:#f3f3f3f3;
+  border: solid 1px var(--primary-color);
+}
+#content>form input:focus{
+  outline: none !important;
+  box-shadow:0 1px 0 var(--primary-color);
+}
+#content>form textarea{
+  border: 1px solid var(--primary-color);
 }
 #posts article.post header:hover a.delete {
     display: inline;
@@ -1414,18 +1470,17 @@ section.content .card-body {
     border: 2px solid var(--primary-color);
     padding: 10px;
 }
-section.content .card-body > * {
-    width: 14%;
+section.content .card-body > *{
+  width: 140px;
+}
+section.content .card-body > input{
+  margin: 0 10px;
+  width: 120px;
+  text-align: center;
 }
 /* --------------------------------------- */
 #content label {
     font-weight: normal;
-}
-#content > form {
-    margin: 0 auto;
-    padding: 1em;
-    max-width: 20em;
-    border: 1px solid #d2afe7;
 }
 #content > form .error {
     font-weight: bold;
@@ -1434,6 +1489,26 @@ section.content .card-body > * {
 #content > form input {
     background-color: white;
 }
+
+#content > form button, .button {
+  background-color: var(--primary-color);
+  border: solid 2px var(--primary-color);
+  padding: 1px 15px;
+  color: white
+}
+
+#content > form button:hover, #content > form .button:hover{
+  transition: all 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+input:checked, input:focus{
+  outline: none !important;
+}
+
+
 @media (max-width: 70em) {
     #posts {
         grid-template-columns: repeat(2, 1fr);
@@ -1475,13 +1550,29 @@ section.content .card-body > * {
   --tw-content: 'Pending';
   content: var(--tw-content);
 }
-.hover\:bg-green-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+.before\:content-\[\'Pending\'\]::before {
+  --tw-content: 'Pending';
+  content: var(--tw-content);
 }
 .hover\:bg-red-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+}
+.hover\:bg-green-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+.hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+.hover\:bg-orange-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
 }
 .hover\:bg-green-600:hover {
   --tw-bg-opacity: 1;
@@ -1518,4 +1609,3 @@ section.content .card-body > * {
 .group:hover .group-hover\:block {
   display: block;
 }
-
