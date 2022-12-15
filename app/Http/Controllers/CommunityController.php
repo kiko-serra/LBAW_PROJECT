@@ -37,10 +37,20 @@ class CommunityController extends Controller
                       ->where('relationship.id_community', '=', $id)
                       ->where('relationship.status', '=', 'member')
                       ->get();
+      
+      $status = Relationship::where('id_account', '=', Auth::user()->id_account)
+                              ->where('id_community', '=', $id)
+                              ->first();
+
+      if (!$status) {
+        $status = "visitor";
+      } else {
+        $status = $status->status;
+      }
 
       $members = $admins->merge($members);
 
-      return view('pages.group', ['posts' => $posts, 'members' => $members, 'group' => $community]);
+      return view('pages.group', ['posts' => $posts, 'members' => $members, 'group' => $community, 'status' => $status]);
     }
 
     public function create(Request $request) {

@@ -12,7 +12,13 @@
     <div class="flex flex-row justify-between">
       <div class="group-square w-24 h-24 bg-blue-300 overflow-hidden hover:backdrop-saturate-125"></div>
       <div class="flex flex-col justify-evenly">
+        @if ($status == "admin" || ($status == "member" && $group->is_public))
         <div class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
+        @elseif ($status == "visitor" && $group->is_public)
+        <div class="btn bg-orange-500 hover:bg-orange-600">Join</div>
+        @elseif ($status == "visitor" && !$group->is_public)
+         PRIVATE GROUP
+        @endif
       </div>
     </div>
     <h3 class="text-2xl mt-2">{{ $group->name }}</h3>
