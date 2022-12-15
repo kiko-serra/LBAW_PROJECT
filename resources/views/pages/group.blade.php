@@ -13,7 +13,8 @@
       <div class="group-square w-24 h-24 bg-blue-300 overflow-hidden hover:backdrop-saturate-125"></div>
       <div class="flex flex-col justify-evenly">
         @if ($status == "admin" || ($status == "member" && $group->is_public))
-        <div class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
+        <div id="groupInviteModalButton" class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
+        <?php echo view('partials.groupInvite'); ?>
         @elseif ($status == "visitor" && $group->is_public)
         <div class="btn bg-orange-500 hover:bg-orange-600">Join</div>
         @elseif ($status == "visitor" && !$group->is_public)

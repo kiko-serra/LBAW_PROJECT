@@ -35,6 +35,10 @@ const openProfileEditModal = function () {
     );
 };
 
+const toggleGroupInviteModal = function () {
+    document.querySelector("#groupInviteModal").classList.toggle("hidden");
+};
+
 const toggleCreateGroupModal = function () {
     document
         .querySelector("#leftPanelCreateGroupModal")
@@ -114,23 +118,28 @@ const openLeftPanelTab = function (number) {
 };
 
 //LINK REQUESTS
-  window.block = function (element) {
+window.block = function (element) {
     if (element.value == "Block") {
-      element.value = "Unblock";
-      element.classList.remove('bg-red-400', 'hover:bg-red-700');
-      element.classList.add('bg-green-400', 'hover:bg-green-700');
-      element = element.parentNode;
-      var id = element.id;
-      sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
+        element.value = "Unblock";
+        element.classList.remove("bg-red-400", "hover:bg-red-700");
+        element.classList.add("bg-green-400", "hover:bg-green-700");
+        element = element.parentNode;
+        var id = element.id;
+        sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
     } else {
-      element.value = "Block";
-      element.classList.remove('bg-green-400', 'hover:bg-green-700');
-      element.classList.add('bg-red-400', 'hover:bg-red-700');
-      element = element.parentNode;
-      var id = element.id;
-      sendAjaxRequest("GET", "/users/unblock/" + id, null, reloadIfSuccessful);
+        element.value = "Block";
+        element.classList.remove("bg-green-400", "hover:bg-green-700");
+        element.classList.add("bg-red-400", "hover:bg-red-700");
+        element = element.parentNode;
+        var id = element.id;
+        sendAjaxRequest(
+            "GET",
+            "/users/unblock/" + id,
+            null,
+            reloadIfSuccessful
+        );
     }
-  };
+};
 
 const leftPanelGetData = function () {
     sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
@@ -645,7 +654,7 @@ function addEventListeners() {
     );
     let userProfileLinks = document.querySelector("#userProfilelinks");
     let createGroupButton = document.querySelector("#left_panel_groups_create");
-
+    let groupInviteButton = document.querySelector("#groupInviteModalButton");
     let rightSidepanelRightTabButton = document.querySelector(
         "#right-sidepanel-right-tab-button"
     );
@@ -751,6 +760,16 @@ function addEventListeners() {
             document
                 .querySelector("#toggleCreateGroupModalClose")
                 .addEventListener("click", (ev) => toggleCreateGroupModal());
+    }
+
+    if (groupInviteButton != null) {
+        groupInviteButton.addEventListener("click", (ev) =>
+            toggleGroupInviteModal()
+        );
+        if (document.querySelector("#toggleGroupInviteModalClose"))
+            document
+                .querySelector("#toggleGroupInviteModalClose")
+                .addEventListener("click", (ev) => toggleGroupInviteModal());
     }
 
     if (
