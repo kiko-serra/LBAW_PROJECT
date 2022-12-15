@@ -1,4 +1,4 @@
-<article class="grid grid-cols-[auto_1fr_auto] bg-gray-200 p-2">
+<article class="grid grid-cols-[auto_1fr_auto] right-sidepanel-tab-item-size bg-gray-200 p-2">
     <div class="bg-blue-500 rounded-full w-16 h-16 items-center"></div>
     <div class="ml-1">
         <div class="flex flex-row justify-start">

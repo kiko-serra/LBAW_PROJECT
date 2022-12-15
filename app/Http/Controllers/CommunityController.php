@@ -78,4 +78,9 @@ class CommunityController extends Controller
 
       return back();
     }
+
+
+    public function leave(Request $request) {
+      return $request;
+    }
 }

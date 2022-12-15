@@ -6,6 +6,19 @@
 
 //require('./bootstrap');
 
+const rightPanelChangeTab = function (tab, element, leftTab, rightTab) {
+    console.log(tab);
+    if (tab) {
+        element.classList.add("right-sidepanel-tab-closed");
+        leftTab.classList.remove("right-sidepanel-tab-button-selected");
+        rightTab.classList.add("right-sidepanel-tab-button-selected");
+    } else {
+        element.classList.remove("right-sidepanel-tab-closed");
+        leftTab.classList.add("right-sidepanel-tab-button-selected");
+        rightTab.classList.remove("right-sidepanel-tab-button-selected");
+    }
+};
+
 const openProfileEditModal = function () {
     let modal = document.querySelector("#editUserModal");
     modal.classList.remove("hidden");
@@ -251,7 +264,7 @@ function linksFiltered() {
         return;
     }
     let data = JSON.parse(this.responseText);
-    let list = document.querySelector("#right-panel-links");
+    let list = document.querySelector("#right-panel-left-tab");
     list.innerHTML = "";
     data.results.forEach((element) => {
         var newElement = createElementFromHTML(element);
@@ -633,6 +646,17 @@ function addEventListeners() {
     let userProfileLinks = document.querySelector("#userProfilelinks");
     let createGroupButton = document.querySelector("#left_panel_groups_create");
 
+    let rightSidepanelRightTabButton = document.querySelector(
+        "#right-sidepanel-right-tab-button"
+    );
+    let rightSidepanelLeftTabButton = document.querySelector(
+        "#right-sidepanel-left-tab-button"
+    );
+
+    let rightSidepanelLeftTab = document.querySelector(
+        "#right-sidepanel-left-tab"
+    );
+
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
             closeProfileEditModal()
@@ -727,6 +751,29 @@ function addEventListeners() {
             document
                 .querySelector("#toggleCreateGroupModalClose")
                 .addEventListener("click", (ev) => toggleCreateGroupModal());
+    }
+
+    if (
+        rightSidepanelLeftTabButton != null &&
+        rightSidepanelRightTabButton != null &&
+        rightSidepanelLeftTab != null
+    ) {
+        rightSidepanelLeftTabButton.addEventListener("click", (ev) =>
+            rightPanelChangeTab(
+                0,
+                rightSidepanelLeftTab,
+                rightSidepanelLeftTabButton,
+                rightSidepanelRightTabButton
+            )
+        );
+        rightSidepanelRightTabButton.addEventListener("click", (ev) =>
+            rightPanelChangeTab(
+                1,
+                rightSidepanelLeftTab,
+                rightSidepanelLeftTabButton,
+                rightSidepanelRightTabButton
+            )
+        );
     }
 }
 

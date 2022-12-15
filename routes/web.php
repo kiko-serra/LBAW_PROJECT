@@ -29,13 +29,14 @@ Route::get('/post_content_search', 'SearchController@show_posts');
 
 // Posts
 Route::get('posts', 'PostController@list');
-Route::get('posts/{post_id}', 'PostController@show');
+Route::get('posts/{post_id}', 'PostController@show')->where('post_id', '[0-9]+');
 Route::post('post/new', 'PostController@create')->name('newpost');
 
 // Groups
 
-Route::get('group/{id}', 'CommunityController@show')->name('group.show');
+Route::get('group/{id}', 'CommunityController@show')->where('id', '[0-9]+')->name('group.show');
 Route::post('group', 'CommunityController@create')->name('group.create');
+Route::post('group/leave', 'CommunityController@leave')->name('group.leave');
 
 // API
 Route::put('posts', 'PostController@create');

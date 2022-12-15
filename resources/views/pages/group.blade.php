@@ -12,9 +12,6 @@
     <div class="flex flex-row justify-between">
       <div class="group-square w-24 h-24 bg-blue-300 overflow-hidden hover:backdrop-saturate-125"></div>
       <div class="flex flex-col justify-evenly">
-        <form action="" method="post">
-          <button type="submit" class="btn bg-red-500 hover:bg-red-600">Leave</button>
-        </form>
         <div class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
       </div>
     </div>
@@ -50,7 +47,7 @@
 
 </section>
 
-<?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members]); ?>
+<?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members, 'group' => $group]); ?>
 
 
 @endsection
