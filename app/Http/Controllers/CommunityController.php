@@ -81,6 +81,6 @@ class CommunityController extends Controller
 
 
     public function leave(Request $request) {
-
+      return $request;
     }
 }

@@ -33,6 +33,32 @@
         @apply flex flex-col bg-white rounded-lg w-96 h-fit p-4;
     }
 
+    .right-sidepanel-tab-button {
+        @apply text-lg text-center w-full border-b-2 border-b-gray-400 py-1 select-none cursor-pointer transition-all duration-500;
+    }
+
+    .right-sidepanel-tab-button-selected {
+        @apply border-b-black bg-blue-300 rounded-t-lg;
+    }
+
+    .sidepanel-tab-size {
+        @apply w-[22rem];
+    }
+    .right-sidepanel-tab-item-size {
+        @apply w-[21rem];
+    }
+
+    .right-sidepanel-tab {
+        @apply w-[22rem] flex-shrink-0 transition-all duration-500 flex flex-col gap-4 max-h-96 overflow-x-hidden overflow-y-scroll;
+    }
+
+    .right-sidepanel-tab-closed {
+        @apply w-0;
+    }
+
+    .sidepanel-right-tab {
+    }
+
     .left-sidepanel {
         @apply gap-y-4;
     }
