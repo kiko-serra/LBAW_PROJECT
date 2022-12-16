@@ -107,7 +107,26 @@ class CommunityController extends Controller
      * @param  int  $offset
      * @return Response
      */
-    public function friendSuggestions($group, $offset) {
+    public function friendSuggestions(Request $request) {
+      
+
+      $validator = Validator::make($request->all(), [ 
+        'group' => 'integer|required',
+        'offset' => 'integer|required',
+        'query' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/'
+      ]);
+
+
+      if ($validator->fails()) {
+        return response()->json("Something wrong happened", 400);
+      }
+
+      $group = $request['group'];
+      $offset = $request['offset'];
+      $query = $request['query'];
+
+      
+
       if (!Auth::check()) return response("Not logged in", 401);
       $user =  Auth::user();
 
@@ -115,9 +134,11 @@ class CommunityController extends Controller
       
       $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')
                             ->where('friendship.account1_id', $user->id_account)
+                            ->where('account.account_tag', 'ilike', $query . '%')
                             ->get();
       $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')
                             ->where('friendship.account2_id', $user->id_account)
+                            ->where('account.account_tag', 'ilike', $query . '%')
                             ->get();
                             
       $friends = [];

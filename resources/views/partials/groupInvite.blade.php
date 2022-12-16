@@ -4,13 +4,13 @@
         @csrf
         <h3 class="text-2xl -mb-3 font-semibold">Invite to Group</h3>
         <div class="flex flex-col w-80 h-80">
-                <div class="bg-slate-200 flex flex-col h-20 w-full items-center rounded-t-lg justify-evenly border-b-2 border-black">
-                    <p class="text-black text-lg text-center">Friends</p>
-                    <input type="text" name="query" id="inviteGroupQuery" class="text-input w-72">
-                </div>
-                <div id="groupInviteModalContent" class="flex flex-col gap-y-1 p-2 w-full overflow-y-scroll ">
-                    Loading friends...
-                </div>
+            <div class="bg-slate-200 flex flex-col h-20 w-full items-center rounded-t-lg justify-evenly border-b-2 border-black">
+                <p class="text-black text-lg text-center">Friends</p>
+                <input type="text" name="query" id="inviteGroupQuery" class="text-input w-72" placeholder="Search">
+            </div>
+            <div id="groupInviteModalContent" class="flex flex-col gap-y-1 p-2 w-full overflow-y-scroll ">
+                Loading friends...
+            </div>
         </div>
         <div class="flex flex-row w-full justify-evenly">
             <button type="submit" class="btn font-bold" disabled>INVITE</button>

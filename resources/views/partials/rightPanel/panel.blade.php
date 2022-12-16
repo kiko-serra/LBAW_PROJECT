@@ -13,7 +13,7 @@
                         <p class="mr-7">Common links</p>
                     </span>
                 </div>
-                <div id="right-sidepanel-left-tab" class="right-sidepanel-tab">
+                <div id="right-sidepanel-left-tab-content" class="right-sidepanel-tab">
                     @each('partials.rightPanel.friend', $friends, 'user')
                 </div>
             </div>
