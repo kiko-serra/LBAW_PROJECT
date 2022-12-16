@@ -90,6 +90,10 @@
         @apply border border-black pl-2 rounded-md focus:outline-2 outline-offset-1 focus:outline-slate-600;
     }
 
+    .checkbox {
+        @apply w-6 h-6 accent-slate-700 transition active:scale-95;
+    }
+
     .group-square {
         @apply rounded-3xl;
     }

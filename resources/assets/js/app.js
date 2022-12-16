@@ -53,6 +53,7 @@ const toggleGroupInviteModal = function () {
             groupInviteModalHandler
         );
     }
+    document.querySelector("#groupInviteModalInvitedContent").innerHTML = "";
 };
 
 const toggleCreateGroupModal = function () {

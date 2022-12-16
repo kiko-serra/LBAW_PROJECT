@@ -3,9 +3,14 @@
     <form action={{ route('group.create') }} method="post" enctype="multipart/form-data" id="left_panel_groups_create_modal" class="relative w-fit h-fit bg-white opacity-100 flex flex-col justify-start items-center p-4 rounded-lg mt-4 gap-y-4">
         @csrf
         <h3 class="text-2xl -mb-3 font-semibold">Invite to Group</h3>
-        <input type="text" name="query" id="inviteGroupQuery" class="text-input">
-        <div id="groupInviteModalContent">
-            Loading friends...
+        <div class="flex flex-col w-80 h-80">
+                <div class="bg-slate-200 flex flex-col h-20 w-full items-center rounded-t-lg justify-evenly border-b-2 border-black">
+                    <p class="text-black text-lg text-center">Friends</p>
+                    <input type="text" name="query" id="inviteGroupQuery" class="text-input w-72">
+                </div>
+                <div id="groupInviteModalContent" class="flex flex-col gap-y-1 p-2 w-full overflow-y-scroll ">
+                    Loading friends...
+                </div>
         </div>
         <div class="flex flex-row w-full justify-evenly">
             <button type="submit" class="btn font-bold" disabled>INVITE</button>

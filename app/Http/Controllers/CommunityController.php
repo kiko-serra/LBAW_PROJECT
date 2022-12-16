@@ -146,7 +146,7 @@ class CommunityController extends Controller
 
 
       foreach ($friends as $friend) {
-          $friendsViews[] = view('partials.inviteUser')->render();
+          $friendsViews[] = view('partials.inviteGroupModal.inviteUser', ['name' => $friend->name, 'account_tag' => $friend->account_tag, 'id' => $friend->id_account])->render();
       }
       
 
