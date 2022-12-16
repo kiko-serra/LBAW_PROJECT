@@ -109,6 +109,8 @@ class CommunityController extends Controller
      */
     public function friendSuggestions(Request $request) {
       
+      if (!Auth::check()) return response("Not logged in", 401);
+      $user =  Auth::user();
 
       $validator = Validator::make($request->all(), [ 
         'group' => 'integer|required',
@@ -127,8 +129,6 @@ class CommunityController extends Controller
 
       
 
-      if (!Auth::check()) return response("Not logged in", 401);
-      $user =  Auth::user();
 
       $limit = 10;
       
@@ -147,17 +147,26 @@ class CommunityController extends Controller
         $membershipCheck = User::join('relationship', 'relationship.id_account', 'account.id_account')
                             ->where('relationship.id_community', '=', $group)
                             ->where('account.id_account', '=', $friend->id_account)
-                            ->exists();
-        if (!$membershipCheck)
+                            ->first();
+        if (!$membershipCheck) {
           array_push($friends, $friend);
+        }
+        else if ($membershipCheck->status = "pending") {
+          $friend->status = "pending";
+          array_push($friends, $friend);
+        }
       }
 
       foreach($friendships2 as $friend) {
         $membershipCheck = User::join('relationship', 'relationship.id_account', 'account.id_account')
                             ->where('relationship.id_community', '=', $group)
                             ->where('account.id_account', '=', $friend->id_account)
-                            ->exists();
-        if (!$membershipCheck)
+                            ->first();
+        if (!$membershipCheck) {
+          $friend->status = "none";
+          array_push($friends, $friend);
+        }
+        else if ($membershipCheck->status = "pending")
           array_push($friends, $friend);
       }
 
@@ -167,7 +176,7 @@ class CommunityController extends Controller
 
 
       foreach ($friends as $friend) {
-          $friendsViews[] = view('partials.inviteGroupModal.inviteUser', ['name' => $friend->name, 'account_tag' => $friend->account_tag, 'id' => $friend->id_account])->render();
+          $friendsViews[] = view('partials.inviteGroupModal.inviteUser', ['name' => $friend->name, 'account_tag' => $friend->account_tag, 'id' => $friend->id_account, 'status' => $friend->status])->render();
       }
       
 
@@ -179,5 +188,39 @@ class CommunityController extends Controller
 
     public function leave(Request $request) {
       return $request;
+    }
+
+    public function invite(Request $request) {
+      if (!Auth::check()) return response("Not logged in", 401);
+      $user =  Auth::user();
+
+      $validator = Validator::make($request->all(), [ 
+        'group' => 'integer|required',
+        'invitee' => 'integer|required'
+      ]);
+
+      $group = $request['group'];
+      $invitee = $request['invitee'];
+
+      if ($validator->fails()) {
+        return response("Something wrong happened", 400);
+      }
+
+      $existing = Relationship::where('id_community', '=', $group)
+                    ->where('id_account', '=', $invitee)
+                    ->first();
+      
+      if ($existing) return response("User has a relation with the group", 301);
+
+      $relationship = new Relationship();
+
+      $relationship->id_community = $group;
+      $relationship->id_account = $invitee;
+      $relationship->status = "pending";
+
+      if ($relationship->save())
+        return response($invitee, 200);
+      else 
+        return response("Something wrong happened", 400);
     }
 }

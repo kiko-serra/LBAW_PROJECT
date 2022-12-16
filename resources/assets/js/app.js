@@ -55,6 +55,15 @@ const toggleGroupInviteModal = function () {
     document.querySelector("#groupInviteModalContent").innerHTML = "";
 };
 
+const inviteToGroup = function (group, id) {
+    sendAjaxRequest(
+        "POST",
+        "/api/group/invite",
+        { group: group, invitee: id },
+        inviteRequestHandler
+    );
+};
+
 const queryInviteUser = function () {
     let groupInviteModal = document.querySelector("#groupInviteModal");
     if (!groupInviteModal) return;
@@ -449,6 +458,19 @@ function groupInviteModalHandler() {
         data.results.forEach((element) => {
             var newElement = createElementFromHTML(element);
             invite_list.appendChild(newElement);
+            var button = newElement.querySelector(".invite-button");
+            var group = document.querySelector("#groupInviteModal");
+            if (
+                button != null &&
+                group != null &&
+                group.getAttribute("data-id") != null
+            )
+                button.addEventListener("click", (ev) =>
+                    inviteToGroup(
+                        group.getAttribute("data-id"),
+                        newElement.getAttribute("data-id")
+                    )
+                );
         });
     }
 }
@@ -557,6 +579,14 @@ function notificationsGetMoreDataHandler() {
             });
         }
     }
+}
+
+function inviteRequestHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+    }
+
+    console.log(this.responseText);
 }
 
 function groupsGetMoreDataHandler() {

@@ -37,7 +37,8 @@ Route::post('post/new', 'PostController@create')->name('newpost');
 Route::get('group/{id}', 'CommunityController@show')->where('id', '[0-9]+')->name('group.show');
 Route::post('group', 'CommunityController@create')->name('group.create');
 Route::post('group/leave', 'CommunityController@leave')->name('group.leave');
-Route::post('api/group/friends/search/', 'CommunityController@friendSuggestions')->where(['group' => '[0-9]+', 'offset' => '[0-9]+'])->name('group.friendSuggestions');
+Route::post('api/group/invite', 'CommunityController@invite')->name('group.invite');
+Route::post('api/group/friends/search/', 'CommunityController@friendSuggestions')->name('group.friendSuggestions');
 
 // API
 Route::put('posts', 'PostController@create');
