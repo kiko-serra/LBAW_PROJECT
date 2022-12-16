@@ -36,7 +36,23 @@ const openProfileEditModal = function () {
 };
 
 const toggleGroupInviteModal = function () {
-    document.querySelector("#groupInviteModal").classList.toggle("hidden");
+    let groupInviteModal = document.querySelector("#groupInviteModal");
+    if (!groupInviteModal) return;
+    groupInviteModal.classList.toggle("hidden");
+    var offset = document.getElementById(
+        "groupInviteModalContent"
+    ).childElementCount;
+    if (!groupInviteModal.classList.contains("hidden")) {
+        sendAjaxRequest(
+            "GET",
+            "/api/group/" +
+                groupInviteModal.getAttribute("data-id") +
+                "/suggestions/" +
+                offset,
+            null,
+            groupInviteModalHandler
+        );
+    }
 };
 
 const toggleCreateGroupModal = function () {
@@ -399,6 +415,24 @@ function leftPanelRequestHandler() {
     } else {
         document.querySelector("#left_panel_groups_list_content").innerHTML =
             "No groups to show";
+    }
+}
+
+function groupInviteModalHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        document.getElementById("groupInviteModalContent").innerHTML =
+            "Failed to load";
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let invite_list = document.getElementById("groupInviteModalContent");
+    if (invite_list.childElementCount == 0) invite_list.innerHTML = "";
+    if (data.results.length > 0) {
+        data.results.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            invite_list.appendChild(newElement);
+        });
     }
 }
 

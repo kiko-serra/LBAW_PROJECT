@@ -38,21 +38,33 @@ class CommunityController extends Controller
                       ->where('relationship.status', '=', 'member')
                       ->get();
       
-      $status = Relationship::where('id_account', '=', Auth::user()->id_account)
-                              ->where('id_community', '=', $id)
-                              ->first();
+      $status = "visitor";
 
-      if (!$status) {
-        $status = "visitor";
-      } else {
-        $status = $status->status;
+      if (Auth::check()) {
+        $status = Relationship::where('id_account', '=', Auth::user()->id_account)
+                                ->where('id_community', '=', $id)
+                                ->first();
+  
+        if (!$status) {
+          $status = "visitor";
+        } else {
+          $status = $status->status;
+        }
+
       }
+      
 
       $members = $admins->merge($members);
 
       return view('pages.group', ['posts' => $posts, 'members' => $members, 'group' => $community, 'status' => $status]);
     }
 
+    /**
+     * Creates a group.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function create(Request $request) {
       
       $validator = Validator::make($request->all(), [ 
@@ -87,6 +99,60 @@ class CommunityController extends Controller
       }
 
       return back();
+    }
+
+    /**
+     * Gets an user's friends so he can invite them.
+     *
+     * @param  int  $offset
+     * @return Response
+     */
+    public function friendSuggestions($group, $offset) {
+      if (!Auth::check()) return response("Not logged in", 401);
+      $user =  Auth::user();
+
+      $limit = 10;
+      
+      $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')
+                            ->where('friendship.account1_id', $user->id_account)
+                            ->get();
+      $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')
+                            ->where('friendship.account2_id', $user->id_account)
+                            ->get();
+                            
+      $friends = [];
+
+      foreach($friendships1 as $friend) {
+        $membershipCheck = User::join('relationship', 'relationship.id_account', 'account.id_account')
+                            ->where('relationship.id_community', '=', $group)
+                            ->where('account.id_account', '=', $friend->id_account)
+                            ->exists();
+        if (!$membershipCheck)
+          array_push($friends, $friend);
+      }
+
+      foreach($friendships2 as $friend) {
+        $membershipCheck = User::join('relationship', 'relationship.id_account', 'account.id_account')
+                            ->where('relationship.id_community', '=', $group)
+                            ->where('account.id_account', '=', $friend->id_account)
+                            ->exists();
+        if (!$membershipCheck)
+          array_push($friends, $friend);
+      }
+
+      $friends = array_splice($friends, $offset, $limit);
+      $friendsViews = [];
+
+
+
+      foreach ($friends as $friend) {
+          $friendsViews[] = view('partials.inviteUser')->render();
+      }
+      
+
+      return response()->json([
+        'results' => $friendsViews,
+      ]);
     }
 
 
