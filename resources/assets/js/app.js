@@ -259,6 +259,36 @@ const deleteUserLink = function (event) {
     );
 };
 
+const acceptGroupRequest = function (element) {
+    let group_id = element.getAttribute("data-id");
+    if (group_id === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    group_id = parseInt(group_id);
+    sendAjaxRequest(
+        "put",
+        "/api/group/invite",
+        { group_id: group_id },
+        reloadIfSuccessful
+    );
+};
+
+const declineGroupRequest = function (element) {
+    let group_id = element.getAttribute("data-id");
+    if (group_id === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    group_id = parseInt(group_id);
+    sendAjaxRequest(
+        "delete",
+        "/api/group/invite",
+        { group_id: group_id },
+        reloadIfSuccessful
+    );
+};
+
 const acceptLinkRequest = function (event) {
     let receiver_id = event.getAttribute("data-id");
     if (receiver_id === null) {
@@ -459,12 +489,12 @@ function leftPanelRequestHandler() {
             newElement
                 .querySelector(".group-request-accept")
                 .addEventListener("click", (ev) =>
-                    acceptgroupRequest(newElement)
+                    acceptGroupRequest(newElement)
                 );
             newElement
                 .querySelector(".group-request-refuse")
                 .addEventListener("click", (ev) =>
-                    declinegroupRequest(newElement)
+                    declineGroupRequest(newElement)
                 );
             group_request_list.appendChild(newElement);
         });

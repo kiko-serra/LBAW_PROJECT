@@ -225,10 +225,36 @@ class CommunityController extends Controller
     }
 
     public function accept(Request $request) {
+      if (!Auth::check()) return response("Not logged in", 401);
+      $user =  Auth::user();
 
+      $validator = Validator::make($request->all(), [ 
+        'group_id' => 'integer|required',
+      ]);
+
+      $group_id = $request['group_id'];
+
+      if ($validator->fails()) {
+        return response("Something wrong happened", 400);
+      }
+
+      return response("Action sucessful", 200);
     }
 
     public function decline(Request $request) {
-      
+      if (!Auth::check()) return response("Not logged in", 401);
+      $user =  Auth::user();
+
+      $validator = Validator::make($request->all(), [ 
+        'group_id' => 'integer|required',
+      ]);
+
+      $group_id = $request['group_id'];
+
+      if ($validator->fails()) {
+        return response("Something wrong happened", 400);
+      }
+
+      return response("Action sucessful", 200);
     }
 }
