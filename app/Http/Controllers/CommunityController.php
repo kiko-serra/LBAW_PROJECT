@@ -223,4 +223,12 @@ class CommunityController extends Controller
       else 
         return response("Something wrong happened", 400);
     }
+
+    public function accept(Request $request) {
+
+    }
+
+    public function decline(Request $request) {
+      
+    }
 }

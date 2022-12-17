@@ -442,6 +442,46 @@ function leftPanelRequestHandler() {
         document.querySelector("#left_panel_groups_list_content").innerHTML =
             "No groups to show";
     }
+
+    // GROUP REQUESTS
+
+    let group_counter = document.querySelector("#left_panel_group_add_counter");
+    let group_request_list = document.querySelector(
+        "#left_panel_groups_add_list"
+    );
+    group_request_list.innerHTML = "";
+    if (data.group_requests.length > 0) {
+        group_counter.classList.remove("hidden");
+        group_counter.innerHTML = data.group_requests.length;
+        data.group_requests.forEach((element) => {
+            console.log(element);
+            var newElement = createElementFromHTML(element);
+            newElement
+                .querySelector(".group-request-accept")
+                .addEventListener("click", (ev) =>
+                    acceptgroupRequest(newElement)
+                );
+            newElement
+                .querySelector(".group-request-refuse")
+                .addEventListener("click", (ev) =>
+                    declinegroupRequest(newElement)
+                );
+            group_request_list.appendChild(newElement);
+        });
+
+        var refreshButton = createElementFromHTML(
+            '<img src=\'/icons/refresh.svg\') alt="group icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+        );
+        group_request_list.appendChild(refreshButton);
+        refreshButton.addEventListener("click", () => {
+            groupRequestsGetMoreData(group_list.childElementCount - 1);
+            group_list.removeChild(refreshButton);
+        });
+    } else {
+        group_counter.classList.add("hidden");
+        document.querySelector("#left_panel_groups_add_list").innerHTML =
+            "No group requests to show";
+    }
 }
 
 function groupInviteModalHandler() {
@@ -585,8 +625,6 @@ function inviteRequestHandler() {
     if (this.status != 200) {
         console.log("Action failed.");
     }
-
-    console.log(this.responseText);
 
     let buttons = document.querySelectorAll(
         "#groupInviteModalContent > article"
