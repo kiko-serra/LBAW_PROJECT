@@ -238,6 +238,20 @@ class CommunityController extends Controller
         return response("Something wrong happened", 400);
       }
 
+      $relationship = Relationship::where("id_account", "=", $user->id_account)
+                                    ->where("id_community", "=", $group_id)
+                                    ->where("status", "=", "pending")
+                                    ->first();
+      if (!$relationship) return response()->json([
+        "user" => $user->id_account,
+        "id_community" => $group_id
+      ], 301);
+      
+      Relationship::where("id_account", "=", $user->id_account)
+                                    ->where("id_community", "=", $group_id)
+                                    ->where("status", "=", "pending")
+                                    ->update(["status" => "member"]);
+
       return response("Action sucessful", 200);
     }
 
