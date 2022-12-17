@@ -587,6 +587,17 @@ function inviteRequestHandler() {
     }
 
     console.log(this.responseText);
+
+    let buttons = document.querySelectorAll(
+        "#groupInviteModalContent > article"
+    );
+    buttons.forEach((element) => {
+        if (element.getAttribute("data-id") == this.responseText) {
+            var button = element.querySelector("button");
+            button.setAttribute("disabled", "disabled");
+            button.textContent = "INVITED";
+        }
+    });
 }
 
 function groupsGetMoreDataHandler() {
