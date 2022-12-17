@@ -73,6 +73,7 @@ class UserDataController extends Controller
         
         $groupRequests = Community::join('relationship', 'community.id_community', '=', 'relationship.id_community')
                                     ->where('relationship.id_account', Auth::user()->id_account)
+                                    ->where('relationship.status', "pending")
                                     ->limit($limit)
                                     ->get();
         
