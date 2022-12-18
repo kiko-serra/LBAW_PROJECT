@@ -33,7 +33,7 @@
             <p>GROUPS</p>
         </div>
         <ul id="left_panel_groups_list" class="left_panel_list hidden">
-            <div id="left_panel_groups_create" class="left-panel-button m-2">
+            <div id="left_panel_groups_create" class="left-panel-button my-2">
                 Create new group
             </div>
             <div id="left_panel_groups_list_content" class="w-full flex flex-col items-center">
