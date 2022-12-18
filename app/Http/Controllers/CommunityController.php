@@ -85,9 +85,10 @@ class CommunityController extends Controller
       $group->description = $request['groupdesc'];
       if ($request['groupprivate'] === "on") {
         $group->is_public = false;
+      } else {
+        $group->is_public = true;
       }
 
-      $group->is_public = true;
 
       if ($group->save()) {
         $new_admin = new Relationship();
