@@ -975,6 +975,13 @@ function addEventListeners() {
             let cmd = element.getAttribute("data-function");
             if (cmd == "openModalCreateGroup") {
                 toggleCreateGroupModal();
+            } else if (cmd == "showEditInformation") {
+                rightPanelChangeTab(
+                    1,
+                    rightSidepanelLeftTab,
+                    rightSidepanelLeftTabButton,
+                    rightSidepanelRightTabButton
+                );
             }
         });
 }

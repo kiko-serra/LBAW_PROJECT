@@ -137,7 +137,7 @@ class CommunityController extends Controller
 
 
       if ($validator->fails()) {
-        return back()->withErrors($validator)->withInput()->with('redirectCommand', 'openModalCreateGroup');
+        return back()->withErrors($validator)->withInput()->with('redirectCommand', 'showEditInformation');
         // return response()->json("Something wrong happened", 400);
       }
 
