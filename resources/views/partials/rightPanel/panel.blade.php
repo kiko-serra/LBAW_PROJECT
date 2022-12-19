@@ -32,10 +32,33 @@
                 @each('partials.rightPanel.friend', $members, 'user')
             </div>
             <div id="right-sidepanel-right-tab" class="right-sidepanel-tab">
+                @if ($status == "member")
                 <form action="/group/leave" method="post">
-                {{ csrf_field() }}
-                <input type="number" name="group_id" value="{{ $group->id_community }}" class="hidden">
-                <button type="submit" class="btn bg-red-500 hover:bg-red-600">Leave</button>
+                    {{ csrf_field() }}
+                    <input type="number" name="group_id" value="{{ $group->id_community }}" class="hidden">
+                    <button type="submit" class="btn bg-red-500 hover:bg-red-600">Leave</button>
+                </form>
+                @endif
+                <form action="/group/edit" method="post" class="flex flex-col">
+                    {{ csrf_field() }}
+                    <input type="number" name="groupid" value="{{ $group->id_community; }}" class="hidden">
+                    <div class="flex flex-col gap-y-1">
+                        <label for="groupdesc" class="mt-2">Group name:</label>
+                        <input type="text" placeholder="Type Here" value="{{ $group->name; }}" autocomplete=off class="text-input" name="groupname" minlength="2" maxlength="32" required id="left_panel_groups_create_groupname">
+                        <span class="text-red-500 text-sm">
+                            {{ $errors->first('groupname'); }}
+                        </span>
+                    </div>
+                    <div class="flex flex-col gap-y-1">
+                        <label for="groupdesc" class="mt-2">Group description:</label>
+                        <textarea name="groupdesc" placeholder="Type Here" autocomplete=off class="textarea-input" id="left_panel_groups_create_groupdesc" cols="30" rows="3" maxlength="255">{{ $group->description; }}</textarea>
+                        {{ $errors->first('groupdesc'); }}
+                    </div>
+                    <div class="w-full flex justify-start gap-x-2 mt-2 items-center">
+                        <input type="checkbox" name="groupprivate" class="w-5 h-5" id="left_panel_groups_create_groupprivate">
+                        <label for="groupprivate">Private group</label>
+                    </div>
+                    <button type="submit" class="btn bg-red-500 hover:bg-red-600 self-center px-3 mt-3">SAVE CHANGES</button>
                 </form>
             </div>
         </div>

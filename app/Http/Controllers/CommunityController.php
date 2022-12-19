@@ -112,6 +112,61 @@ class CommunityController extends Controller
     }
 
     /**
+     * Edits a group.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function edit(Request $request) {
+      
+      $validator = Validator::make($request->all(), [ 
+          'groupid' => 'integer|required',
+          'groupname' => 'string|required|min:2|max:32|regex:/^[a-zA-Z][a-zA-Z0-9- ]+[a-zA-Z0-9]*$/',
+          'groupdesc' => 'string|max:255|nullable',
+        ],
+        [
+          'groupname.required'=> 'Your group should have a name',
+          'groupname.min'=> 'Your group\'s name should have at least 2 characters',
+          'groupname.max'=> 'Your group\'s name should have 32 or less characters',
+          'groupname.regex'=> 'Your group\'s name should not have any special character',
+          'groupdesc.max'=> 'Your group\'s description should have 255 or less characters'
+        ]
+      );
+
+      if (!Auth::check()) return response(null, 401);
+
+
+      if ($validator->fails()) {
+        return back()->withErrors($validator)->withInput()->with('redirectCommand', 'showEditInformation');
+        // return response()->json("Something wrong happened", 400);
+      }
+
+      $public = false;
+      if ($request['groupprivate'] === "on") {
+        $public = true;
+      }
+
+      $user = Auth::user();
+
+      $admin = Relationship::where("id_account", "=", $user->id_account)
+                                    ->where("id_community", "=", $request["groupid"])
+                                    ->where("status", "=", "admin")
+                                    ->exists();
+      
+      if (!$admin) return response(null, 401);
+
+      Community::where('id_community', '=', $request["groupid"])
+                  ->update(
+                    [
+                      "name" => $request["groupname"],
+                      "description" => $request["groupdesc"],
+                      "is_public" => $public
+                    ]);
+
+      return back();
+    }
+
+    /**
      * Gets an user's friends so he can invite them.
      *
      * @param  int  $offset
