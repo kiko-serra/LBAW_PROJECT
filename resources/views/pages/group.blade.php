@@ -55,7 +55,7 @@
 </section>
 
 
-<?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members, 'group' => $group]); ?>
+<?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members, 'group' => $group, 'status' => $status]); ?>
 
 
 @if (session('redirectCommand'))

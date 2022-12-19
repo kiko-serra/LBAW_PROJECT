@@ -36,6 +36,7 @@ Route::post('post/new', 'PostController@create')->name('newpost');
 
 Route::get('group/{id}', 'CommunityController@show')->where('id', '[0-9]+')->name('group.show');
 Route::post('group', 'CommunityController@create')->name('group.create');
+Route::post('group/edit', 'CommunityController@edit')->name('group.edit');
 Route::post('group/leave', 'CommunityController@leave')->name('group.leave');
 Route::post('api/group/invite', 'CommunityController@invite')->name('group.invite');
 Route::put('api/group/invite', 'CommunityController@accept')->name('group.accept');
