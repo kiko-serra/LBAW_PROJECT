@@ -33,12 +33,17 @@
             </div>
             <div id="right-sidepanel-right-tab" class="right-sidepanel-tab">
                 @if ($status == "member")
-                <form action="/group/leave" method="post">
+                <form action="/group/leave" method="post" class="flex flex-col h-full justify-evenly items-center">
                     {{ csrf_field() }}
-                    <input type="number" name="group_id" value="{{ $group->id_community }}" class="hidden">
-                    <button type="submit" class="btn bg-red-500 hover:bg-red-600">Leave</button>
+                    @if ($group->is_public)
+                        This group is public.
+                    @else
+                        This group is private.
+                    @endif
+                    <input type="number" name="groupid" value="{{ $group->id_community }}" class="hidden">
+                    <button type="submit" class="btn bg-red-500 hover:bg-red-600">LEAVE</button>
                 </form>
-                @endif
+                @elseif ($status == "admin")
                 <form action="/group/edit" method="post" class="flex flex-col">
                     {{ csrf_field() }}
                     <input type="number" name="groupid" value="{{ $group->id_community; }}" class="hidden">
@@ -60,8 +65,15 @@
                     </div>
                     <button type="submit" class="btn bg-red-500 hover:bg-red-600 self-center px-3 mt-3">SAVE CHANGES</button>
                 </form>
+                @else
+                    @if ($group->is_public)
+                        This group is public.
+                    @else
+                        This group is private.
+                    @endif
+                @endif
             </div>
         </div>
-    @else
+        @else
     @endif
 </section>

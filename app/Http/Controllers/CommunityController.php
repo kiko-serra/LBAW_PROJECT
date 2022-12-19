@@ -252,7 +252,33 @@ class CommunityController extends Controller
 
 
     public function leave(Request $request) {
-      return $request;
+      $validator = Validator::make($request->all(), [ 
+          'groupid' => 'integer|required',
+        ]
+      );
+
+      if (!Auth::check()) return response(null, 401);
+
+
+      if ($validator->fails()) {
+        return response()->json("Something wrong happened", 400);
+      }
+
+      $user = Auth::user();
+
+      $member = Relationship::where("id_account", "=", $user->id_account)
+                                    ->where("id_community", "=", $request["groupid"])
+                                    ->where("status", "=", "member")
+                                    ->exists();
+      
+      if (!$member) return response(null, 401);
+
+      Relationship::where("id_account", "=", $user->id_account)
+                                    ->where("id_community", "=", $request["groupid"])
+                                    ->where("status", "=", "member")
+                                    ->delete();
+
+      return back();
     }
 
     public function invite(Request $request) {
