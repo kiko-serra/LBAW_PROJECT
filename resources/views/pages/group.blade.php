@@ -59,8 +59,7 @@
 
 
 @if (session('redirectCommand'))
-  <span data-function="{{ session('redirectCommand'); }}" class="redirect-cmd" ></span>
+  <span data-function="{{ session('redirectCommand'); }}" class="redirect-cmd hidden" ></span>
 @endif
-{{ session('openModal'); }}
 
 @endsection
