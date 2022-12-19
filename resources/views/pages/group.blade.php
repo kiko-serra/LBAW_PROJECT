@@ -12,7 +12,14 @@
     <div class="flex flex-row justify-between">
       <div class="group-square w-24 h-24 bg-blue-300 overflow-hidden hover:backdrop-saturate-125"></div>
       <div class="flex flex-col justify-evenly">
-        <div class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
+        @if ($status == "admin" || ($status == "member" && $group->is_public))
+        <div id="groupInviteModalButton" class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
+        <?php echo view('partials.groupInvite', ['id' => $group->id_community]); ?>
+        @elseif ($status == "visitor" && $group->is_public)
+        <div class="btn bg-orange-500 hover:bg-orange-600">Join</div>
+        @elseif ($status == "visitor" && !$group->is_public)
+         PRIVATE GROUP
+        @endif
       </div>
     </div>
     <h3 class="text-2xl mt-2">{{ $group->name }}</h3>
@@ -47,7 +54,12 @@
 
 </section>
 
+
 <?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members, 'group' => $group]); ?>
 
+
+@if (session('redirectCommand'))
+  <span data-function="{{ session('redirectCommand'); }}" class="redirect-cmd hidden" ></span>
+@endif
 
 @endsection

@@ -24,6 +24,8 @@ class UserDataController extends Controller
         $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
         $friendships = $friendships1->merge($friendships2);
 
+        $limit = 15;
+
         $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->get();
 
         $friendRequestViews = [];
@@ -32,7 +34,6 @@ class UserDataController extends Controller
             $friendRequestViews[] = view('partials.leftPanel.linkRequest', ['name' => $friendRequest->name, 'id' => $friendRequest->id_sender])->render();
         }
 
-        $limit = 15;
 
         $notifications = Notification::where('id_receiver', '=', Auth::user()->id_account)->orderByDesc('notification_date')->limit($limit)->get();
         //$notifications2 = Notification::where('id_receiver', '=', Auth::user()->id_account)->where('is_read', '=', true)->orderByDesc('notification_date')->limit($limit - count($notifications))->get();
@@ -68,11 +69,27 @@ class UserDataController extends Controller
             $groupViews[] = view('partials.leftPanel.groups', ['id' => $group->id_community, 'name' => $group->name])->render();
         }
 
+
+        
+        $groupRequests = Community::join('relationship', 'community.id_community', '=', 'relationship.id_community')
+                                    ->where('relationship.id_account', Auth::user()->id_account)
+                                    ->where('relationship.status', "pending")
+                                    ->limit($limit)
+                                    ->get();
+        
+        $groupRequestViews = [];
+
+        foreach ($groupRequests as $groupRequest) {
+            $groupRequestViews[] = view('partials.leftPanel.groupRequest', ['name' => $groupRequest->name, 'id' => $groupRequest->id_community])->render();
+        }
+
+
         return response()->json([
             'friends' => $friendships,
             'link_requests' => $friendRequestViews,
             'notifications' => $notificationViews,
             'groups' => $groupViews,
+            'group_requests' => $groupRequestViews,
             'new_notis' => $notificationsCount,
             'more_data' => true
         ]);

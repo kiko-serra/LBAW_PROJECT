@@ -35,6 +35,52 @@ const openProfileEditModal = function () {
     );
 };
 
+const toggleGroupInviteModal = function () {
+    let groupInviteModal = document.querySelector("#groupInviteModal");
+    if (!groupInviteModal) return;
+    groupInviteModal.classList.toggle("hidden");
+    var offset = document.getElementById(
+        "groupInviteModalContent"
+    ).childElementCount;
+    var id = groupInviteModal.getAttribute("data-id");
+    query = document.getElementById("inviteGroupQuery").value;
+    if (!groupInviteModal.classList.contains("hidden")) {
+        sendAjaxRequest(
+            "POST",
+            "/api/group/friends/search/",
+            { group: id, offset: offset, query: query },
+            groupInviteModalHandler
+        );
+    }
+    document.querySelector("#groupInviteModalContent").innerHTML = "";
+};
+
+const inviteToGroup = function (group, id) {
+    sendAjaxRequest(
+        "POST",
+        "/api/group/invite",
+        { group: group, invitee: id },
+        inviteRequestHandler
+    );
+};
+
+const queryInviteUser = function () {
+    let groupInviteModal = document.querySelector("#groupInviteModal");
+    if (!groupInviteModal) return;
+    var offset = 0;
+    var id = groupInviteModal.getAttribute("data-id");
+    query = document.getElementById("inviteGroupQuery").value;
+    if (!groupInviteModal.classList.contains("hidden")) {
+        sendAjaxRequest(
+            "POST",
+            "/api/group/friends/search/",
+            { group: id, offset: offset, query: query },
+            groupInviteModalHandler
+        );
+    }
+    document.querySelector("#groupInviteModalContent").innerHTML = "";
+};
+
 const toggleCreateGroupModal = function () {
     document
         .querySelector("#leftPanelCreateGroupModal")
@@ -114,23 +160,28 @@ const openLeftPanelTab = function (number) {
 };
 
 //LINK REQUESTS
-  window.block = function (element) {
+window.block = function (element) {
     if (element.value == "Block") {
-      element.value = "Unblock";
-      element.classList.remove('bg-red-400', 'hover:bg-red-700');
-      element.classList.add('bg-green-400', 'hover:bg-green-700');
-      element = element.parentNode;
-      var id = element.id;
-      sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
+        element.value = "Unblock";
+        element.classList.remove("bg-red-400", "hover:bg-red-700");
+        element.classList.add("bg-green-400", "hover:bg-green-700");
+        element = element.parentNode;
+        var id = element.id;
+        sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
     } else {
-      element.value = "Block";
-      element.classList.remove('bg-green-400', 'hover:bg-green-700');
-      element.classList.add('bg-red-400', 'hover:bg-red-700');
-      element = element.parentNode;
-      var id = element.id;
-      sendAjaxRequest("GET", "/users/unblock/" + id, null, reloadIfSuccessful);
+        element.value = "Block";
+        element.classList.remove("bg-green-400", "hover:bg-green-700");
+        element.classList.add("bg-red-400", "hover:bg-red-700");
+        element = element.parentNode;
+        var id = element.id;
+        sendAjaxRequest(
+            "GET",
+            "/users/unblock/" + id,
+            null,
+            reloadIfSuccessful
+        );
     }
-  };
+};
 
 const leftPanelGetData = function () {
     sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
@@ -208,6 +259,36 @@ const deleteUserLink = function (event) {
     );
 };
 
+const acceptGroupRequest = function (element) {
+    let group_id = element.getAttribute("data-id");
+    if (group_id === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    group_id = parseInt(group_id);
+    sendAjaxRequest(
+        "put",
+        "/api/group/invite",
+        { group_id: group_id },
+        reloadIfSuccessful
+    );
+};
+
+const declineGroupRequest = function (element) {
+    let group_id = element.getAttribute("data-id");
+    if (group_id === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    group_id = parseInt(group_id);
+    sendAjaxRequest(
+        "delete",
+        "/api/group/invite",
+        { group_id: group_id },
+        reloadIfSuccessful
+    );
+};
+
 const acceptLinkRequest = function (event) {
     let receiver_id = event.getAttribute("data-id");
     if (receiver_id === null) {
@@ -264,7 +345,7 @@ function linksFiltered() {
         return;
     }
     let data = JSON.parse(this.responseText);
-    let list = document.querySelector("#right-panel-left-tab");
+    let list = document.querySelector("#right-sidepanel-left-tab-content");
     list.innerHTML = "";
     data.results.forEach((element) => {
         var newElement = createElementFromHTML(element);
@@ -391,6 +472,77 @@ function leftPanelRequestHandler() {
         document.querySelector("#left_panel_groups_list_content").innerHTML =
             "No groups to show";
     }
+
+    // GROUP REQUESTS
+
+    let group_counter = document.querySelector("#left_panel_group_add_counter");
+    let group_request_list = document.querySelector(
+        "#left_panel_groups_add_list"
+    );
+    group_request_list.innerHTML = "";
+    if (data.group_requests.length > 0) {
+        group_counter.classList.remove("hidden");
+        group_counter.innerHTML = data.group_requests.length;
+        data.group_requests.forEach((element) => {
+            console.log(element);
+            var newElement = createElementFromHTML(element);
+            newElement
+                .querySelector(".group-request-accept")
+                .addEventListener("click", (ev) =>
+                    acceptGroupRequest(newElement)
+                );
+            newElement
+                .querySelector(".group-request-refuse")
+                .addEventListener("click", (ev) =>
+                    declineGroupRequest(newElement)
+                );
+            group_request_list.appendChild(newElement);
+        });
+
+        var refreshButton = createElementFromHTML(
+            '<img src=\'/icons/refresh.svg\') alt="group icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
+        );
+        group_request_list.appendChild(refreshButton);
+        refreshButton.addEventListener("click", () => {
+            groupRequestsGetMoreData(group_list.childElementCount - 1);
+            group_list.removeChild(refreshButton);
+        });
+    } else {
+        group_counter.classList.add("hidden");
+        document.querySelector("#left_panel_groups_add_list").innerHTML =
+            "No group requests to show";
+    }
+}
+
+function groupInviteModalHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        document.getElementById("groupInviteModalContent").innerHTML =
+            "Failed to load";
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let invite_list = document.getElementById("groupInviteModalContent");
+    if (invite_list.childElementCount == 0) invite_list.innerHTML = "";
+    if (data.results.length > 0) {
+        data.results.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            invite_list.appendChild(newElement);
+            var button = newElement.querySelector(".invite-button");
+            var group = document.querySelector("#groupInviteModal");
+            if (
+                button != null &&
+                group != null &&
+                group.getAttribute("data-id") != null
+            )
+                button.addEventListener("click", (ev) =>
+                    inviteToGroup(
+                        group.getAttribute("data-id"),
+                        newElement.getAttribute("data-id")
+                    )
+                );
+        });
+    }
 }
 
 function linkRequestsGetMoreDataHandler() {
@@ -497,6 +649,23 @@ function notificationsGetMoreDataHandler() {
             });
         }
     }
+}
+
+function inviteRequestHandler() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+    }
+
+    let buttons = document.querySelectorAll(
+        "#groupInviteModalContent > article"
+    );
+    buttons.forEach((element) => {
+        if (element.getAttribute("data-id") == this.responseText) {
+            var button = element.querySelector("button");
+            button.setAttribute("disabled", "disabled");
+            button.textContent = "INVITED";
+        }
+    });
 }
 
 function groupsGetMoreDataHandler() {
@@ -645,7 +814,7 @@ function addEventListeners() {
     );
     let userProfileLinks = document.querySelector("#userProfilelinks");
     let createGroupButton = document.querySelector("#left_panel_groups_create");
-
+    let groupInviteButton = document.querySelector("#groupInviteModalButton");
     let rightSidepanelRightTabButton = document.querySelector(
         "#right-sidepanel-right-tab-button"
     );
@@ -656,6 +825,8 @@ function addEventListeners() {
     let rightSidepanelLeftTab = document.querySelector(
         "#right-sidepanel-left-tab"
     );
+    let inviteGroupQuery = document.querySelector("#inviteGroupQuery");
+    let redirectCommands = document.querySelectorAll(".redirect-cmd");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -753,6 +924,16 @@ function addEventListeners() {
                 .addEventListener("click", (ev) => toggleCreateGroupModal());
     }
 
+    if (groupInviteButton != null) {
+        groupInviteButton.addEventListener("click", (ev) =>
+            toggleGroupInviteModal()
+        );
+        if (document.querySelector("#toggleGroupInviteModalClose"))
+            document
+                .querySelector("#toggleGroupInviteModalClose")
+                .addEventListener("click", (ev) => toggleGroupInviteModal());
+    }
+
     if (
         rightSidepanelLeftTabButton != null &&
         rightSidepanelRightTabButton != null &&
@@ -775,6 +956,27 @@ function addEventListeners() {
             )
         );
     }
+
+    if (inviteGroupQuery != null) {
+        inviteGroupQuery.addEventListener("keyup", (ev) => {
+            if (
+                inviteGroupQuery.value !=
+                inviteGroupQuery.getAttribute("data-last-query")
+            )
+                queryInviteUser();
+            inviteGroupQuery.setAttribute(
+                "data-last-query",
+                inviteGroupQuery.value
+            );
+        });
+    }
+    if (redirectCommands != null)
+        redirectCommands.forEach((element) => {
+            let cmd = element.getAttribute("data-function");
+            if (cmd == "openModalCreateGroup") {
+                toggleCreateGroupModal();
+            }
+        });
 }
 
 addEventListeners();
