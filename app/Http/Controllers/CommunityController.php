@@ -68,14 +68,23 @@ class CommunityController extends Controller
     public function create(Request $request) {
       
       $validator = Validator::make($request->all(), [ 
-        'groupname' => 'string|required|min:2|max:32|regex:/^[a-zA-Z][a-zA-Z0-9- ]+[a-zA-Z0-9]*$/',
-        'groupdesc' => 'string|max:255|nullable',
-      ]);
+          'groupname' => 'string|required|min:2|max:32|regex:/^[a-zA-Z][a-zA-Z0-9- ]+[a-zA-Z0-9]*$/',
+          'groupdesc' => 'string|max:255|nullable',
+        ],
+        [
+          'groupname.required'=> 'Your group should have a name',
+          'groupname.min'=> 'Your group\'s name should have at least 2 characters',
+          'groupname.max'=> 'Your group\'s name should have 32 or less characters',
+          'groupname.regex'=> 'Your group\'s name should not have any special character',
+          'groupdesc.max'=> 'Your group\'s description should have 255 or less characters'
+        ]
+      );
+
 
       if (!Auth::check()) return response(null, 401);
 
       if ($validator->fails()) {
-        return back();
+        return back()->withErrors($validator)->withInput()->with('redirectCommand', 'openModalCreateGroup');
         // return response()->json("Something wrong happened", 400);
       }
 

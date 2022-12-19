@@ -826,6 +826,7 @@ function addEventListeners() {
         "#right-sidepanel-left-tab"
     );
     let inviteGroupQuery = document.querySelector("#inviteGroupQuery");
+    let redirectCommands = document.querySelectorAll(".redirect-cmd");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -969,6 +970,13 @@ function addEventListeners() {
             );
         });
     }
+    if (redirectCommands != null)
+        redirectCommands.forEach((element) => {
+            let cmd = element.getAttribute("data-function");
+            if (cmd == "openModalCreateGroup") {
+                toggleCreateGroupModal();
+            }
+        });
 }
 
 addEventListeners();

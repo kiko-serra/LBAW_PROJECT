@@ -54,7 +54,13 @@
 
 </section>
 
+
 <?php echo view('partials.rightPanel.panel', ['type' => 'group', 'members' => $members, 'group' => $group]); ?>
 
+
+@if (session('redirectCommand'))
+  <span data-function="{{ session('redirectCommand'); }}" class="redirect-cmd" ></span>
+@endif
+{{ session('openModal'); }}
 
 @endsection
