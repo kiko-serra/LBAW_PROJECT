@@ -31,7 +31,7 @@
             <div id="right-sidepanel-left-tab" class="right-sidepanel-tab">
                 @each('partials.rightPanel.friend', $members, 'user')
             </div>
-            <div id="right-sidepanel-right-tab" class="right-sidepanel-tab">
+            <div id="right-sidepanel-right-tab" class="right-sidepanel-tab gap-0">
                 @if ($status == "member")
                 <form action="/group/leave" method="post" class="flex flex-col h-full justify-evenly items-center">
                     {{ csrf_field() }}
@@ -44,6 +44,7 @@
                     <button type="submit" class="btn bg-red-500 hover:bg-red-600">LEAVE</button>
                 </form>
                 @elseif ($status == "admin")
+                <h3 class="text-lg font-semibold">Edit Group Information</h3>
                 <form action="/group/edit" method="post" class="flex flex-col">
                     {{ csrf_field() }}
                     <input type="number" name="groupid" value="{{ $group->id_community; }}" class="hidden">
@@ -74,6 +75,6 @@
                 @endif
             </div>
         </div>
-        @else
+    @else
     @endif
 </section>
