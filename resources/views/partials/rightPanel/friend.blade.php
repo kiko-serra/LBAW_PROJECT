@@ -12,7 +12,7 @@
             @endif
         @endif
     </div>
-    <a href="/user/{{$user->account_tag}}" class="text-black self-center">
+    <a href="/user/{{$user->account_tag}}" class="btn m-0 py-1 px-2 bg-transparent hover:bg-slate-400 text-black self-center">
         VIEW
     </a>
 </article>
