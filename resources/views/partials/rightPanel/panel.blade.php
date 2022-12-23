@@ -29,7 +29,12 @@
         </div>
         <div class="flex overflow-x-hidden">
             <div id="right-sidepanel-left-tab" class="right-sidepanel-tab">
-                @each('partials.rightPanel.friend', $members, 'user')
+                <div class="flex flex-row h-9 w-full gap-x-1">
+                    <input type="text" name="usersearch" data-id="{{ $group->id_community }}" id="membersfilter" placeholder="Search" class="rounded-lg border-blue-400 border-2 w-full">
+                </div>
+                <div id="right-sidepanel-left-tab-content" class="right-sidepanel-tab">
+                    @each('partials.rightPanel.friend', $members, 'user')
+                </div>
             </div>
             <div id="right-sidepanel-right-tab" class="right-sidepanel-tab gap-0">
                 @if ($status == "member")

@@ -250,6 +250,64 @@ class CommunityController extends Controller
       ]);
     }
 
+    public function searchMember(Request $request) {
+      if (!Auth::check()) return response(null, 401);
+  
+      $validator = Validator::make($request->all(), [ 
+          'id' => 'integer|required',
+          'text' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+      ]);
+  
+  
+      if ($validator->fails()) {
+        return response()->json(
+          [
+          'results' => [],
+          ]
+        );
+      }
+
+      $user = Auth::user();
+      $id = $request['id'];
+      $text = $request['text'];
+
+      $admins = User::join('relationship', 'account.id_account', 'relationship.id_account')
+                        ->where('relationship.id_community', '=', $id)
+                        ->where('relationship.status', '=', 'admin')
+                        ->where('account.account_tag', 'ilike', $text . '%')
+                        ->get();
+  
+      $members = User::join('relationship', 'account.id_account', 'relationship.id_account')
+                        ->where('relationship.id_community', '=', $id)
+                        ->where('relationship.status', '=', 'member')
+                        ->where('account.account_tag', 'ilike', $text . '%')
+                        ->get();
+      
+      $members = $admins->merge($members);
+
+      
+      $admin = Relationship::where("id_account", "=", $user->id_account)
+                            ->where("id_community", "=", $id)
+                            ->where("status", "=", "admin")
+                            ->exists();
+      
+      $membersViews = [];
+
+      if ($admin) {
+        foreach ($members as $friend) {
+          $membersViews[] = view('partials.rightPanel.member', ['user' => $friend])->render();
+        }
+      } else { 
+        foreach ($members as $friend) {
+          $membersViews[] = view('partials.rightPanel.friend', ['user' => $friend])->render();
+        }
+      }
+  
+      return response()->json([
+          'results' => $membersViews,
+      ]);
+    }
+
 
     public function leave(Request $request) {
       $validator = Validator::make($request->all(), [ 

@@ -337,7 +337,38 @@ const filterLinks = function (input, common) {
     );
 };
 
+const filterMembers = function (input) {
+    let community = input.getAttribute("data-id");
+    if (community === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    sendAjaxRequest(
+        "post",
+        "/api/group/members/search",
+        {
+            id: community,
+            text: input.value,
+        },
+        membersFiltered
+    );
+};
+
 //LINK HANDLERS
+
+function membersFiltered() {
+    if (this.status != 200) {
+        console.log("Action failed");
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let list = document.querySelector("#right-sidepanel-left-tab-content");
+    list.innerHTML = "";
+    data.results.forEach((element) => {
+        var newElement = createElementFromHTML(element);
+        list.appendChild(newElement);
+    });
+}
 
 function linksFiltered() {
     if (this.status != 200) {
@@ -827,6 +858,7 @@ function addEventListeners() {
     );
     let inviteGroupQuery = document.querySelector("#inviteGroupQuery");
     let redirectCommands = document.querySelectorAll(".redirect-cmd");
+    let membersFilter = document.querySelector("#membersfilter");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -892,6 +924,11 @@ function addEventListeners() {
                     "common-link-filter-selected"
                 )
             );
+        });
+    }
+    if (membersFilter != null) {
+        membersFilter.addEventListener("keyup", (ev) => {
+            filterMembers(ev.target);
         });
     }
 

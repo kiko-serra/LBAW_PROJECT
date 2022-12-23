@@ -42,6 +42,7 @@ Route::post('api/group/invite', 'CommunityController@invite')->name('group.invit
 Route::put('api/group/invite', 'CommunityController@accept')->name('group.accept');
 Route::delete('api/group/invite', 'CommunityController@decline')->name('group.decline');
 Route::post('api/group/friends/search/', 'CommunityController@friendSuggestions')->name('group.friendSuggestions');
+Route::post('api/group/members/search/', 'CommunityController@searchMember')->name('group.searchMember');
 
 // API
 Route::put('posts', 'PostController@create');
