@@ -57,7 +57,14 @@ const toggleGroupInviteModal = function () {
 
 const kickUserFromGroup = function (ev) {
     let user_id = ev.target.getAttribute("data-id");
-    console.log("kick: ", user_id);
+    let group_id = ev.target.getAttribute("data-group");
+    if (user_id != null && group_id != null)
+        sendAjaxRequest(
+            "DELETE",
+            "/api/group/",
+            { userid: user_id, groupid: group_id },
+            reloadIfSuccessful
+        );
 };
 
 const inviteToGroup = function (group, id) {

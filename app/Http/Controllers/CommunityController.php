@@ -37,6 +37,10 @@ class CommunityController extends Controller
                       ->where('relationship.id_community', '=', $id)
                       ->where('relationship.status', '=', 'member')
                       ->get();
+
+      foreach ($members as $friend) {
+        $friend->group = $id;
+      }
       
       $status = "visitor";
 
@@ -308,7 +312,12 @@ class CommunityController extends Controller
       ]);
     }
 
-
+    /**
+     * Removes the authenticated user from a group
+     *
+     * @param  int  $offset
+     * @return Response
+     */
     public function leave(Request $request) {
       $validator = Validator::make($request->all(), [ 
           'groupid' => 'integer|required',
@@ -337,6 +346,44 @@ class CommunityController extends Controller
                                     ->delete();
 
       return back();
+    }
+
+    /**
+     * Removes an user from the group if the authenticated user is an admin
+     *
+     * @return Response
+     */
+    public function kick(Request $request) {
+      $validator = Validator::make($request->all(), [ 
+          'userid' => 'integer|required',
+          'groupid' => 'integer|required'
+        ]
+      );
+
+      if (!Auth::check()) return response(null, 401);
+
+
+      if ($validator->fails()) {
+        return response()->json("Something wrong happened", 400);
+      }
+
+      $target_user = $request["userid"];
+      $group = $request["groupid"];
+      $user = Auth::user();
+
+      $admin = Relationship::where("id_account", "=", $user->id_account)
+                                    ->where("id_community", "=", $group)
+                                    ->where("status", "=", "admin")
+                                    ->exists();
+      
+      if (!$admin) return response(null, 401);
+
+      Relationship::where("id_account", "=", $target_user)
+                                    ->where("id_community", "=", $group)
+                                    ->where("status", "=", "member")
+                                    ->delete();
+
+      return response("", 200);
     }
 
     public function invite(Request $request) {
