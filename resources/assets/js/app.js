@@ -7,7 +7,6 @@
 //require('./bootstrap');
 
 const rightPanelChangeTab = function (tab, element, leftTab, rightTab) {
-    console.log(tab);
     if (tab) {
         element.classList.add("right-sidepanel-tab-closed");
         leftTab.classList.remove("right-sidepanel-tab-button-selected");
@@ -527,7 +526,6 @@ function leftPanelRequestHandler() {
         group_counter.classList.remove("hidden");
         group_counter.innerHTML = data.group_requests.length;
         data.group_requests.forEach((element) => {
-            console.log(element);
             var newElement = createElementFromHTML(element);
             newElement
                 .querySelector(".group-request-accept")

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Community;
+use App\Models\Notification;
 use App\Models\Relationship;
 use App\Models\User;
 use App\Models\Post;
@@ -382,6 +383,16 @@ class CommunityController extends Controller
                                     ->where("id_community", "=", $group)
                                     ->where("status", "=", "member")
                                     ->delete();
+
+      $group_name = Community::find($group)->name;
+
+      $newNotification = new Notification();
+      $newNotification->id_receiver = $target_user;
+      $newNotification->url = "/group/" . $group;
+      $newNotification->notification_date = now();
+      $newNotification->description = "You were kicked from " . $group_name;
+      $newNotification->is_read = false;
+      $newNotification->save();
 
       return response("", 200);
     }
