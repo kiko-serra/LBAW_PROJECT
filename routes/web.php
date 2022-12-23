@@ -36,12 +36,14 @@ Route::post('post/new', 'PostController@create')->name('newpost');
 
 Route::get('group/{id}', 'CommunityController@show')->where('id', '[0-9]+')->name('group.show');
 Route::post('group', 'CommunityController@create')->name('group.create');
+Route::delete('api/group', 'CommunityController@kick')->name('group.kick');
 Route::post('group/edit', 'CommunityController@edit')->name('group.edit');
 Route::post('group/leave', 'CommunityController@leave')->name('group.leave');
 Route::post('api/group/invite', 'CommunityController@invite')->name('group.invite');
 Route::put('api/group/invite', 'CommunityController@accept')->name('group.accept');
 Route::delete('api/group/invite', 'CommunityController@decline')->name('group.decline');
 Route::post('api/group/friends/search/', 'CommunityController@friendSuggestions')->name('group.friendSuggestions');
+Route::post('api/group/members/search/', 'CommunityController@searchMember')->name('group.searchMember');
 
 // API
 Route::put('posts', 'PostController@create');

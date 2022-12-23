@@ -7,7 +7,6 @@
 //require('./bootstrap');
 
 const rightPanelChangeTab = function (tab, element, leftTab, rightTab) {
-    console.log(tab);
     if (tab) {
         element.classList.add("right-sidepanel-tab-closed");
         leftTab.classList.remove("right-sidepanel-tab-button-selected");
@@ -53,6 +52,18 @@ const toggleGroupInviteModal = function () {
         );
     }
     document.querySelector("#groupInviteModalContent").innerHTML = "";
+};
+
+const kickUserFromGroup = function (ev) {
+    let user_id = ev.target.getAttribute("data-id");
+    let group_id = ev.target.getAttribute("data-group");
+    if (user_id != null && group_id != null)
+        sendAjaxRequest(
+            "DELETE",
+            "/api/group/",
+            { userid: user_id, groupid: group_id },
+            reloadIfSuccessful
+        );
 };
 
 const inviteToGroup = function (group, id) {
@@ -337,7 +348,38 @@ const filterLinks = function (input, common) {
     );
 };
 
+const filterMembers = function (input) {
+    let community = input.getAttribute("data-id");
+    if (community === null) {
+        console.log("An error has occurred.");
+        return;
+    }
+    sendAjaxRequest(
+        "post",
+        "/api/group/members/search",
+        {
+            id: community,
+            text: input.value,
+        },
+        membersFiltered
+    );
+};
+
 //LINK HANDLERS
+
+function membersFiltered() {
+    if (this.status != 200) {
+        console.log("Action failed");
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let list = document.querySelector("#right-sidepanel-left-tab-content");
+    list.innerHTML = "";
+    data.results.forEach((element) => {
+        var newElement = createElementFromHTML(element);
+        list.appendChild(newElement);
+    });
+}
 
 function linksFiltered() {
     if (this.status != 200) {
@@ -484,7 +526,6 @@ function leftPanelRequestHandler() {
         group_counter.classList.remove("hidden");
         group_counter.innerHTML = data.group_requests.length;
         data.group_requests.forEach((element) => {
-            console.log(element);
             var newElement = createElementFromHTML(element);
             newElement
                 .querySelector(".group-request-accept")
@@ -827,6 +868,9 @@ function addEventListeners() {
     );
     let inviteGroupQuery = document.querySelector("#inviteGroupQuery");
     let redirectCommands = document.querySelectorAll(".redirect-cmd");
+    let membersFilter = document.querySelector("#membersfilter");
+    let groupKickButtons = document.querySelectorAll(".group-kick-button");
+    let groupJoinButton = document.querySelector("#group-join-button");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -892,6 +936,11 @@ function addEventListeners() {
                     "common-link-filter-selected"
                 )
             );
+        });
+    }
+    if (membersFilter != null) {
+        membersFilter.addEventListener("keyup", (ev) => {
+            filterMembers(ev.target);
         });
     }
 
@@ -984,6 +1033,16 @@ function addEventListeners() {
                 );
             }
         });
+
+    if (groupKickButtons != null)
+        groupKickButtons.forEach((element) => {
+            element.addEventListener("click", (ev) => kickUserFromGroup(ev));
+        });
+
+    if (groupJoinButton != null)
+        groupJoinButton.addEventListener("click", (ev) =>
+            acceptGroupRequest(ev.target)
+        );
 }
 
 addEventListeners();
