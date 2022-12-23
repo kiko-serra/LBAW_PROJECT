@@ -16,9 +16,11 @@
         <div id="groupInviteModalButton" class="btn bg-orange-500 hover:bg-orange-600">Invite</div>
         <?php echo view('partials.groupInvite', ['id' => $group->id_community]); ?>
         @elseif ($status == "visitor" && $group->is_public)
-        <div class="btn bg-orange-500 hover:bg-orange-600">Join</div>
+          PUBLIC GROUP
         @elseif ($status == "visitor" && !$group->is_public)
-         PRIVATE GROUP
+          PRIVATE GROUP
+        @elseif ($status == "pending")
+          <div id="group-join-button" class="btn bg-orange-500 hover:bg-orange-600" data-id="{{ $group->id_community; }}">Join</div>
         @endif
       </div>
     </div>

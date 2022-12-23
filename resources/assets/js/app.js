@@ -870,6 +870,7 @@ function addEventListeners() {
     let redirectCommands = document.querySelectorAll(".redirect-cmd");
     let membersFilter = document.querySelector("#membersfilter");
     let groupKickButtons = document.querySelectorAll(".group-kick-button");
+    let groupJoinButton = document.querySelector("#group-join-button");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -1037,6 +1038,11 @@ function addEventListeners() {
         groupKickButtons.forEach((element) => {
             element.addEventListener("click", (ev) => kickUserFromGroup(ev));
         });
+
+    if (groupJoinButton != null)
+        groupJoinButton.addEventListener("click", (ev) =>
+            acceptGroupRequest(ev.target)
+        );
 }
 
 addEventListeners();
