@@ -13,9 +13,11 @@
         @endif
     </div>
     <div class="flex flex-col justify-evenly">
-        <div class="btn m-0 py-1 px-2 bg-red-200 hover:bg-red-500 text-black self-center w-full">
-            KICK
-        </div>
+        @if(!(isset($user->status) && $user->status == 'admin'))
+            <div class="group-kick-button btn m-0 py-1 px-2 bg-red-200 hover:bg-red-500 text-black self-center w-full" data-id="{{ $user->id_account; }}">
+                KICK
+            </div>
+        @endif
         <a href="/user/{{$user->account_tag}}" class="btn m-0 py-1 px-2 bg-transparent hover:bg-slate-400 text-black self-center">
             VIEW
         </a>

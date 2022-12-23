@@ -55,6 +55,11 @@ const toggleGroupInviteModal = function () {
     document.querySelector("#groupInviteModalContent").innerHTML = "";
 };
 
+const kickUserFromGroup = function (ev) {
+    let user_id = ev.target.getAttribute("data-id");
+    console.log("kick: ", user_id);
+};
+
 const inviteToGroup = function (group, id) {
     sendAjaxRequest(
         "POST",
@@ -859,6 +864,7 @@ function addEventListeners() {
     let inviteGroupQuery = document.querySelector("#inviteGroupQuery");
     let redirectCommands = document.querySelectorAll(".redirect-cmd");
     let membersFilter = document.querySelector("#membersfilter");
+    let groupKickButtons = document.querySelectorAll(".group-kick-button");
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
@@ -1020,6 +1026,11 @@ function addEventListeners() {
                     rightSidepanelRightTabButton
                 );
             }
+        });
+
+    if (groupKickButtons != null)
+        groupKickButtons.forEach((element) => {
+            element.addEventListener("click", (ev) => kickUserFromGroup(ev));
         });
 }
 
