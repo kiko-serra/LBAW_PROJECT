@@ -14,7 +14,12 @@
             <span id="left_panel_link_counter" class="left-panel-button-counter hidden">0</span>
         </div>
         <ul id="left_panel_links_list" class="left_panel_list hidden">
-            No links to show.
+            <div class="flex flex-row h-9 w-full gap-x-1">
+                <input type="text" name="usersearch" id="leftpanellinksfilter" placeholder="Search" class="rounded-lg border-blue-400 border-2 w-full">
+            </div>                
+            <div id="left_panel_links_list_content" class="w-full flex flex-col items-center">
+                No links to show.
+            </div>
         </ul>
     </div>
     <div>

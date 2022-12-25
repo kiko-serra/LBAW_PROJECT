@@ -20,10 +20,6 @@ class UserDataController extends Controller
     public function getData(Request $request) {
         if (!Auth::check()) return response(null, 401);
 
-        $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
-        $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
-        $friendships = $friendships1->merge($friendships2);
-
         $limit = 15;
 
         $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->get();
@@ -70,6 +66,17 @@ class UserDataController extends Controller
         }
 
 
+        $linkViews = [];
+
+        $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
+        $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
+        $friendships = $friendships1->merge($friendships2);
+        
+        foreach ($friendships as $link) {
+            $linkViews[] = view('partials.leftPanel.links', ['id' => $link->id_account, 'name' => $link->name, 'tag' => $link->account_tag])->render();
+        }
+
+
         
         $groupRequests = Community::join('relationship', 'community.id_community', '=', 'relationship.id_community')
                                     ->where('relationship.id_account', Auth::user()->id_account)
@@ -86,6 +93,7 @@ class UserDataController extends Controller
 
         return response()->json([
             'friends' => $friendships,
+            'links' => $linkViews,
             'link_requests' => $friendRequestViews,
             'notifications' => $notificationViews,
             'groups' => $groupViews,
@@ -120,6 +128,36 @@ class UserDataController extends Controller
             'notifications' => $notificationViews,
             'new_notis' => $notificationsCount,
             'more_data' => count($notifications) >= $limit
+        ]);
+    }
+
+    public function searchLinks(Request $request) {
+        if (!Auth::check()) return response(null, 401);
+    
+        $validator = Validator::make($request->all(), [ 
+            'text' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+        ]);
+    
+    
+        if ($validator->fails()) {
+          return response()->json("Something wrong happened", 400);
+        }
+    
+        $id = Auth::user()->id_account;
+        $text = $request['text'];                                  
+        
+        $friendships3 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
+        $friendships4 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
+        $userFriendships = $friendships3->merge($friendships4);
+    
+        $linkViews = [];
+    
+        foreach ($userFriendships as $link) {
+            $linkViews[] = view('partials.leftPanel.links', ['id' => $link->id_account, 'name' => $link->name, 'tag' => $link->account_tag])->render();
+        }
+    
+        return response()->json([
+            'results' => $linkViews,
         ]);
     }
 

@@ -348,6 +348,17 @@ const filterLinks = function (input, common) {
     );
 };
 
+const leftPanelFilterLinks = function (input) {
+    sendAjaxRequest(
+        "post",
+        "/api/leftpanel/links",
+        {
+            text: input.value,
+        },
+        leftPanelLinksFiltered
+    );
+};
+
 const filterMembers = function (input) {
     let community = input.getAttribute("data-id");
     if (community === null) {
@@ -393,6 +404,21 @@ function linksFiltered() {
         var newElement = createElementFromHTML(element);
         list.appendChild(newElement);
     });
+}
+
+function leftPanelLinksFiltered() {
+    if (this.status != 200) {
+        console.log("Action failed.");
+        return;
+    }
+    let data = JSON.parse(this.responseText);
+    let list = document.querySelector("#left_panel_links_list_content");
+    list.innerHTML = "";
+    data.results.forEach((element) => {
+        var newElement = createElementFromHTML(element);
+        list.appendChild(newElement);
+    });
+    if (data.results.length === 0) list.innerHTML = "No links found";
 }
 
 function reloadIfSuccessful() {
@@ -456,14 +482,34 @@ function leftPanelRequestHandler() {
             "No notifications to show";
     }
 
+    // LINKS
+
+    let link_counter = document.querySelector("#left_panel_link_counter");
+    let link_list = document.querySelector("#left_panel_links_list_content");
+    link_list.innerHTML = "";
+    if (data.links.length > 0) {
+        link_counter.classList.remove("hidden");
+        link_counter.innerHTML = data.links.length;
+        data.links.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            link_list.appendChild(newElement);
+        });
+    } else {
+        link_counter.classList.add("hidden");
+        document.querySelector("#left_panel_links_list_content").innerHTML =
+            "No links to show";
+    }
+
     // LINK REQUESTS
 
-    let link_counter = document.querySelector("#left_panel_link_add_counter");
-    let link_list = document.querySelector("#left_panel_links_add_list");
-    link_list.innerHTML = "";
+    let link_req_counter = document.querySelector(
+        "#left_panel_link_add_counter"
+    );
+    let link_req_list = document.querySelector("#left_panel_links_add_list");
+    link_req_list.innerHTML = "";
     if (data.link_requests.length > 0) {
-        link_counter.classList.remove("hidden");
-        link_counter.innerHTML = data.link_requests.length;
+        link_req_counter.classList.remove("hidden");
+        link_req_counter.innerHTML = data.link_requests.length;
         data.link_requests.forEach((element) => {
             var newElement = createElementFromHTML(element);
             newElement
@@ -476,19 +522,19 @@ function leftPanelRequestHandler() {
                 .addEventListener("click", (ev) =>
                     declineLinkRequest(newElement)
                 );
-            link_list.appendChild(newElement);
+            link_req_list.appendChild(newElement);
         });
 
         var refreshButton = createElementFromHTML(
             '<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
         );
-        link_list.appendChild(refreshButton);
+        link_req_list.appendChild(refreshButton);
         refreshButton.addEventListener("click", () => {
-            linkRequestsGetMoreData(link_list.childElementCount - 1);
-            link_list.removeChild(refreshButton);
+            linkRequestsGetMoreData(link_req_list.childElementCount - 1);
+            link_req_list.removeChild(refreshButton);
         });
     } else {
-        link_counter.classList.add("hidden");
+        link_req_counter.classList.add("hidden");
         document.querySelector("#left_panel_links_add_list").innerHTML =
             "No link requests to show";
     }
@@ -869,6 +915,9 @@ function addEventListeners() {
     let inviteGroupQuery = document.querySelector("#inviteGroupQuery");
     let redirectCommands = document.querySelectorAll(".redirect-cmd");
     let membersFilter = document.querySelector("#membersfilter");
+    let leftPanelFilterLinksInput = document.querySelector(
+        "#leftpanellinksfilter"
+    );
     let groupKickButtons = document.querySelectorAll(".group-kick-button");
     let groupJoinButton = document.querySelector("#group-join-button");
 
@@ -943,6 +992,10 @@ function addEventListeners() {
             filterMembers(ev.target);
         });
     }
+    if (leftPanelFilterLinksInput != null)
+        leftPanelFilterLinksInput.addEventListener("keyup", (ev) => {
+            leftPanelFilterLinks(leftPanelFilterLinksInput);
+        });
 
     if (userProfileFriendLinks != null && linkFilter != null) {
         userProfileFriendLinks.addEventListener("click", (ev) => {
