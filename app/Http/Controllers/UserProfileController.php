@@ -10,6 +10,7 @@ use Validator;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Relationship;
 
 use App\Http\Requests\EndRegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -75,7 +76,11 @@ class UserProfileController extends Controller
         $linkStatus = "linked";
       }
 
-      return view('pages.userProfile', ['posts' => $posts, 'user' => $user, 'friendships' => $friendships, 'commonFriendships' => $commonFriendships, 'linkStatus' => $linkStatus]);
+      $groups = Relationship::join('community', 'community.id_community', '=', 'relationship.id_community')
+                                        ->where('id_account', '=', $user->id_account)
+                                        ->get();
+
+      return view('pages.userProfile', ['posts' => $posts, 'user' => $user, 'friendships' => $friendships, 'commonFriendships' => $commonFriendships, 'linkStatus' => $linkStatus, 'groups' => $groups]);
     }
 
     public function endRegister(EndRegisterRequest $request) {
