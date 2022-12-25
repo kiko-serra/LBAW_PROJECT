@@ -171,7 +171,7 @@
 @endif
 </section>
 
-<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account]); ?>
+<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account, 'groups' => $groups]); ?>
 
 @endsection
 

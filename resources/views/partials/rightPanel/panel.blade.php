@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div id="right-sidepanel-right-tab" class="right-sidepanel-tab">
-                TBD
+                @each('partials.rightPanel.group', $groups, 'group')
             </div>
         </div>
     @elseif($type=="timeline")
