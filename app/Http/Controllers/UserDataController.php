@@ -73,7 +73,7 @@ class UserDataController extends Controller
         $friendships = $friendships1->merge($friendships2);
         
         foreach ($friendships as $link) {
-            $linkViews[] = view('partials.leftPanel.links', ['id' => $link->id_account, 'name' => $link->name])->render();
+            $linkViews[] = view('partials.leftPanel.links', ['id' => $link->id_account, 'name' => $link->name, 'tag' => $link->account_tag])->render();
         }
 
 
@@ -128,6 +128,36 @@ class UserDataController extends Controller
             'notifications' => $notificationViews,
             'new_notis' => $notificationsCount,
             'more_data' => count($notifications) >= $limit
+        ]);
+    }
+
+    public function searchLinks(Request $request) {
+        if (!Auth::check()) return response(null, 401);
+    
+        $validator = Validator::make($request->all(), [ 
+            'text' => 'string|nullable|regex:/^[a-zA-Z][a-zA-Z0-9-]*$/',
+        ]);
+    
+    
+        if ($validator->fails()) {
+          return response()->json("Something wrong happened", 400);
+        }
+    
+        $id = Auth::user()->id_account;
+        $text = $request['text'];                                  
+        
+        $friendships3 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
+        $friendships4 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $id)->where('account.account_tag', 'ilike', $text . '%')->get();
+        $userFriendships = $friendships3->merge($friendships4);
+    
+        $linkViews = [];
+    
+        foreach ($userFriendships as $link) {
+            $linkViews[] = view('partials.leftPanel.links', ['id' => $link->id_account, 'name' => $link->name, 'tag' => $link->account_tag])->render();
+        }
+    
+        return response()->json([
+            'results' => $linkViews,
         ]);
     }
 
