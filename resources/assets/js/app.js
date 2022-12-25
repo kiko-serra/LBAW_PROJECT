@@ -456,14 +456,34 @@ function leftPanelRequestHandler() {
             "No notifications to show";
     }
 
+    // LINKS
+
+    let link_counter = document.querySelector("#left_panel_link_counter");
+    let link_list = document.querySelector("#left_panel_links_list");
+    link_list.innerHTML = "";
+    if (data.links.length > 0) {
+        link_counter.classList.remove("hidden");
+        link_counter.innerHTML = data.links.length;
+        data.links.forEach((element) => {
+            var newElement = createElementFromHTML(element);
+            link_list.appendChild(newElement);
+        });
+    } else {
+        link_counter.classList.add("hidden");
+        document.querySelector("#left_panel_links_list").innerHTML =
+            "No links to show";
+    }
+
     // LINK REQUESTS
 
-    let link_counter = document.querySelector("#left_panel_link_add_counter");
-    let link_list = document.querySelector("#left_panel_links_add_list");
-    link_list.innerHTML = "";
+    let link_req_counter = document.querySelector(
+        "#left_panel_link_add_counter"
+    );
+    let link_req_list = document.querySelector("#left_panel_links_add_list");
+    link_req_list.innerHTML = "";
     if (data.link_requests.length > 0) {
-        link_counter.classList.remove("hidden");
-        link_counter.innerHTML = data.link_requests.length;
+        link_req_counter.classList.remove("hidden");
+        link_req_counter.innerHTML = data.link_requests.length;
         data.link_requests.forEach((element) => {
             var newElement = createElementFromHTML(element);
             newElement
@@ -476,19 +496,19 @@ function leftPanelRequestHandler() {
                 .addEventListener("click", (ev) =>
                     declineLinkRequest(newElement)
                 );
-            link_list.appendChild(newElement);
+            link_req_list.appendChild(newElement);
         });
 
         var refreshButton = createElementFromHTML(
             '<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">'
         );
-        link_list.appendChild(refreshButton);
+        link_req_list.appendChild(refreshButton);
         refreshButton.addEventListener("click", () => {
-            linkRequestsGetMoreData(link_list.childElementCount - 1);
-            link_list.removeChild(refreshButton);
+            linkRequestsGetMoreData(link_req_list.childElementCount - 1);
+            link_req_list.removeChild(refreshButton);
         });
     } else {
-        link_counter.classList.add("hidden");
+        link_req_counter.classList.add("hidden");
         document.querySelector("#left_panel_links_add_list").innerHTML =
             "No link requests to show";
     }
