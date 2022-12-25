@@ -20,10 +20,6 @@ class UserDataController extends Controller
     public function getData(Request $request) {
         if (!Auth::check()) return response(null, 401);
 
-        $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
-        $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
-        $friendships = $friendships1->merge($friendships2);
-
         $limit = 15;
 
         $friendRequests = User::join('friend_request', 'account.id_account', '=', 'friend_request.id_sender')->where('friend_request.id_receiver', Auth::user()->id_account)->get();
@@ -70,6 +66,17 @@ class UserDataController extends Controller
         }
 
 
+        $linkViews = [];
+
+        $friendships1 = User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', Auth::user()->id_account)->get();
+        $friendships2 = User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', Auth::user()->id_account)->get();
+        $friendships = $friendships1->merge($friendships2);
+        
+        foreach ($friendships as $link) {
+            $linkViews[] = view('partials.leftPanel.links', ['id' => $link->id_account, 'name' => $link->name])->render();
+        }
+
+
         
         $groupRequests = Community::join('relationship', 'community.id_community', '=', 'relationship.id_community')
                                     ->where('relationship.id_account', Auth::user()->id_account)
@@ -86,6 +93,7 @@ class UserDataController extends Controller
 
         return response()->json([
             'friends' => $friendships,
+            'links' => $linkViews,
             'link_requests' => $friendRequestViews,
             'notifications' => $notificationViews,
             'groups' => $groupViews,
