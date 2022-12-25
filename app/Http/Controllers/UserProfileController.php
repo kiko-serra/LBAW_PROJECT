@@ -70,8 +70,7 @@ class UserProfileController extends Controller
           $linkStatus = "pending";
         } else if (count($friendships2)) {
           $linkStatus = "received";
-        }
-        
+        }  
       } else {
         $linkStatus = "linked";
       }
