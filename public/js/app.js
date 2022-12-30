@@ -15,6 +15,17 @@
 
 //require('./bootstrap');
 
+var rightPanelChangeTab = function rightPanelChangeTab(tab, element, leftTab, rightTab) {
+  if (tab) {
+    element.classList.add("right-sidepanel-tab-closed");
+    leftTab.classList.remove("right-sidepanel-tab-button-selected");
+    rightTab.classList.add("right-sidepanel-tab-button-selected");
+  } else {
+    element.classList.remove("right-sidepanel-tab-closed");
+    leftTab.classList.add("right-sidepanel-tab-button-selected");
+    rightTab.classList.remove("right-sidepanel-tab-button-selected");
+  }
+};
 var openProfileEditModal = function openProfileEditModal() {
   var modal = document.querySelector("#editUserModal");
   modal.classList.remove("hidden");
@@ -27,11 +38,58 @@ var openProfileEditModal = function openProfileEditModal() {
   locationField.value = locationField.getAttribute("data-default-location");
   descriptionField.value = descriptionField.getAttribute("data-default-description");
 };
-function closeProfileEditModal() {
+var toggleGroupInviteModal = function toggleGroupInviteModal() {
+  var groupInviteModal = document.querySelector("#groupInviteModal");
+  if (!groupInviteModal) return;
+  groupInviteModal.classList.toggle("hidden");
+  var offset = document.getElementById("groupInviteModalContent").childElementCount;
+  var id = groupInviteModal.getAttribute("data-id");
+  query = document.getElementById("inviteGroupQuery").value;
+  if (!groupInviteModal.classList.contains("hidden")) {
+    sendAjaxRequest("POST", "/api/group/friends/search/", {
+      group: id,
+      offset: offset,
+      query: query
+    }, groupInviteModalHandler);
+  }
+  document.querySelector("#groupInviteModalContent").innerHTML = "";
+};
+var kickUserFromGroup = function kickUserFromGroup(ev) {
+  var user_id = ev.target.getAttribute("data-id");
+  var group_id = ev.target.getAttribute("data-group");
+  if (user_id != null && group_id != null) sendAjaxRequest("DELETE", "/api/group/", {
+    userid: user_id,
+    groupid: group_id
+  }, reloadIfSuccessful);
+};
+var inviteToGroup = function inviteToGroup(group, id) {
+  sendAjaxRequest("POST", "/api/group/invite", {
+    group: group,
+    invitee: id
+  }, inviteRequestHandler);
+};
+var queryInviteUser = function queryInviteUser() {
+  var groupInviteModal = document.querySelector("#groupInviteModal");
+  if (!groupInviteModal) return;
+  var offset = 0;
+  var id = groupInviteModal.getAttribute("data-id");
+  query = document.getElementById("inviteGroupQuery").value;
+  if (!groupInviteModal.classList.contains("hidden")) {
+    sendAjaxRequest("POST", "/api/group/friends/search/", {
+      group: id,
+      offset: offset,
+      query: query
+    }, groupInviteModalHandler);
+  }
+  document.querySelector("#groupInviteModalContent").innerHTML = "";
+};
+var toggleCreateGroupModal = function toggleCreateGroupModal() {
+  document.querySelector("#leftPanelCreateGroupModal").classList.toggle("hidden");
+};
+var closeProfileEditModal = function closeProfileEditModal() {
   var modal = document.querySelector("#editUserModal");
   modal.classList.add("hidden");
-}
-;
+};
 var openLeftPanelTab = function openLeftPanelTab(number) {
   var leftPanelLinksList = document.querySelector("#left_panel_links_list");
   var leftPanelLinksAddList = document.querySelector("#left_panel_links_add_list");
@@ -101,15 +159,15 @@ var openLeftPanelTab = function openLeftPanelTab(number) {
 window.block = function (element) {
   if (element.value == "Block") {
     element.value = "Unblock";
-    element.classList.remove('bg-red-400', 'hover:bg-red-700');
-    element.classList.add('bg-green-400', 'hover:bg-green-700');
+    element.classList.remove("bg-red-400", "hover:bg-red-700");
+    element.classList.add("bg-green-400", "hover:bg-green-700");
     element = element.parentNode;
     var id = element.id;
     sendAjaxRequest("GET", "/users/block/" + id, null, reloadIfSuccessful);
   } else {
     element.value = "Block";
-    element.classList.remove('bg-green-400', 'hover:bg-green-700');
-    element.classList.add('bg-red-400', 'hover:bg-red-700');
+    element.classList.remove("bg-green-400", "hover:bg-green-700");
+    element.classList.add("bg-red-400", "hover:bg-red-700");
     element = element.parentNode;
     var id = element.id;
     sendAjaxRequest("GET", "/users/unblock/" + id, null, reloadIfSuccessful);
@@ -123,6 +181,9 @@ var linkRequestsGetMoreData = function linkRequestsGetMoreData(offset) {
 };
 var notificationsGetMoreData = function notificationsGetMoreData(offset) {
   sendAjaxRequest("get", "/api/leftpanel/notifications/" + offset, null, notificationsGetMoreDataHandler);
+};
+var groupsGetMoreData = function groupsGetMoreData(offset) {
+  sendAjaxRequest("get", "/api/leftpanel/groups/" + offset, null, groupsGetMoreDataHandler);
 };
 var linkUser = function linkUser(event) {
   var receiver_id = event.target.getAttribute("data-id");
@@ -155,6 +216,28 @@ var deleteUserLink = function deleteUserLink(event) {
   receiver_id = parseInt(receiver_id);
   sendAjaxRequest("delete", "/api/friendship", {
     id: receiver_id
+  }, reloadIfSuccessful);
+};
+var acceptGroupRequest = function acceptGroupRequest(element) {
+  var group_id = element.getAttribute("data-id");
+  if (group_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  group_id = parseInt(group_id);
+  sendAjaxRequest("put", "/api/group/invite", {
+    group_id: group_id
+  }, reloadIfSuccessful);
+};
+var declineGroupRequest = function declineGroupRequest(element) {
+  var group_id = element.getAttribute("data-id");
+  if (group_id === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  group_id = parseInt(group_id);
+  sendAjaxRequest("delete", "/api/group/invite", {
+    group_id: group_id
   }, reloadIfSuccessful);
 };
 var acceptLinkRequest = function acceptLinkRequest(event) {
@@ -191,21 +274,64 @@ var filterLinks = function filterLinks(input, common) {
     common: common
   }, linksFiltered);
 };
+var leftPanelFilterLinks = function leftPanelFilterLinks(input) {
+  sendAjaxRequest("post", "/api/leftpanel/links", {
+    text: input.value
+  }, leftPanelLinksFiltered);
+};
+var filterMembers = function filterMembers(input) {
+  var community = input.getAttribute("data-id");
+  if (community === null) {
+    console.log("An error has occurred.");
+    return;
+  }
+  sendAjaxRequest("post", "/api/group/members/search", {
+    id: community,
+    text: input.value
+  }, membersFiltered);
+};
 
 //LINK HANDLERS
 
+function membersFiltered() {
+  if (this.status != 200) {
+    console.log("Action failed");
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  var list = document.querySelector("#right-sidepanel-left-tab-content");
+  list.innerHTML = "";
+  data.results.forEach(function (element) {
+    var newElement = createElementFromHTML(element);
+    list.appendChild(newElement);
+  });
+}
 function linksFiltered() {
   if (this.status != 200) {
     console.log("Action failed.");
     return;
   }
   var data = JSON.parse(this.responseText);
-  var list = document.querySelector("#right-panel-links");
+  var list = document.querySelector("#right-sidepanel-left-tab-content");
   list.innerHTML = "";
   data.results.forEach(function (element) {
     var newElement = createElementFromHTML(element);
     list.appendChild(newElement);
   });
+}
+function leftPanelLinksFiltered() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  var list = document.querySelector("#left_panel_links_list_content");
+  list.innerHTML = "";
+  data.results.forEach(function (element) {
+    var newElement = createElementFromHTML(element);
+    list.appendChild(newElement);
+  });
+  if (data.results.length === 0) list.innerHTML = "No links found";
 }
 function reloadIfSuccessful() {
   //console.log(this.responseText)
@@ -254,14 +380,31 @@ function leftPanelRequestHandler() {
     document.querySelector("#left_panel_notifications_list").innerHTML = "No notifications to show";
   }
 
+  // LINKS
+
+  var link_counter = document.querySelector("#left_panel_link_counter");
+  var link_list = document.querySelector("#left_panel_links_list_content");
+  link_list.innerHTML = "";
+  if (data.links.length > 0) {
+    link_counter.classList.remove("hidden");
+    link_counter.innerHTML = data.links.length;
+    data.links.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      link_list.appendChild(newElement);
+    });
+  } else {
+    link_counter.classList.add("hidden");
+    document.querySelector("#left_panel_links_list_content").innerHTML = "No links to show";
+  }
+
   // LINK REQUESTS
 
-  var link_counter = document.querySelector("#left_panel_link_add_counter");
-  var link_list = document.querySelector("#left_panel_links_add_list");
-  link_list.innerHTML = "";
+  var link_req_counter = document.querySelector("#left_panel_link_add_counter");
+  var link_req_list = document.querySelector("#left_panel_links_add_list");
+  link_req_list.innerHTML = "";
   if (data.link_requests.length > 0) {
-    link_counter.classList.remove("hidden");
-    link_counter.innerHTML = data.link_requests.length;
+    link_req_counter.classList.remove("hidden");
+    link_req_counter.innerHTML = data.link_requests.length;
     data.link_requests.forEach(function (element) {
       var newElement = createElementFromHTML(element);
       newElement.querySelector(".link-request-accept").addEventListener("click", function (ev) {
@@ -270,17 +413,85 @@ function leftPanelRequestHandler() {
       newElement.querySelector(".link-request-refuse").addEventListener("click", function (ev) {
         return declineLinkRequest(newElement);
       });
-      link_list.appendChild(newElement);
+      link_req_list.appendChild(newElement);
     });
     var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
-    link_list.appendChild(refreshButton);
+    link_req_list.appendChild(refreshButton);
     refreshButton.addEventListener("click", function () {
-      linkRequestsGetMoreData(link_list.childElementCount - 1);
-      link_list.removeChild(refreshButton);
+      linkRequestsGetMoreData(link_req_list.childElementCount - 1);
+      link_req_list.removeChild(refreshButton);
     });
   } else {
-    link_counter.classList.add("hidden");
+    link_req_counter.classList.add("hidden");
     document.querySelector("#left_panel_links_add_list").innerHTML = "No link requests to show";
+  }
+
+  // GROUPS
+  var group_list = document.querySelector("#left_panel_groups_list_content");
+  group_list.innerHTML = "";
+  if (data.groups.length > 0) {
+    data.groups.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      group_list.appendChild(newElement);
+    });
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
+    group_list.appendChild(refreshButton);
+    refreshButton.addEventListener("click", function () {
+      groupsGetMoreData(group_list.childElementCount - 1);
+      group_list.removeChild(refreshButton);
+    });
+  } else {
+    document.querySelector("#left_panel_groups_list_content").innerHTML = "No groups to show";
+  }
+
+  // GROUP REQUESTS
+
+  var group_counter = document.querySelector("#left_panel_group_add_counter");
+  var group_request_list = document.querySelector("#left_panel_groups_add_list");
+  group_request_list.innerHTML = "";
+  if (data.group_requests.length > 0) {
+    group_counter.classList.remove("hidden");
+    group_counter.innerHTML = data.group_requests.length;
+    data.group_requests.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      newElement.querySelector(".group-request-accept").addEventListener("click", function (ev) {
+        return acceptGroupRequest(newElement);
+      });
+      newElement.querySelector(".group-request-refuse").addEventListener("click", function (ev) {
+        return declineGroupRequest(newElement);
+      });
+      group_request_list.appendChild(newElement);
+    });
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="group icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
+    group_request_list.appendChild(refreshButton);
+    refreshButton.addEventListener("click", function () {
+      groupRequestsGetMoreData(group_list.childElementCount - 1);
+      group_list.removeChild(refreshButton);
+    });
+  } else {
+    group_counter.classList.add("hidden");
+    document.querySelector("#left_panel_groups_add_list").innerHTML = "No group requests to show";
+  }
+}
+function groupInviteModalHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    document.getElementById("groupInviteModalContent").innerHTML = "Failed to load";
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  var invite_list = document.getElementById("groupInviteModalContent");
+  if (invite_list.childElementCount == 0) invite_list.innerHTML = "";
+  if (data.results.length > 0) {
+    data.results.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      invite_list.appendChild(newElement);
+      var button = newElement.querySelector(".invite-button");
+      var group = document.querySelector("#groupInviteModal");
+      if (button != null && group != null && group.getAttribute("data-id") != null) button.addEventListener("click", function (ev) {
+        return inviteToGroup(group.getAttribute("data-id"), newElement.getAttribute("data-id"));
+      });
+    });
   }
 }
 function linkRequestsGetMoreDataHandler() {
@@ -360,6 +571,52 @@ function notificationsGetMoreDataHandler() {
     }
   }
 }
+function inviteRequestHandler() {
+  var _this = this;
+  if (this.status != 200) {
+    console.log("Action failed.");
+  }
+  var buttons = document.querySelectorAll("#groupInviteModalContent > article");
+  buttons.forEach(function (element) {
+    if (element.getAttribute("data-id") == _this.responseText) {
+      var button = element.querySelector("button");
+      button.setAttribute("disabled", "disabled");
+      button.textContent = "INVITED";
+    }
+  });
+}
+function groupsGetMoreDataHandler() {
+  if (this.status != 200) {
+    console.log("Action failed.");
+    var notifications_list = document.querySelector("#left_panel_groups_list_content");
+    var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="refresh icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
+    notifications_list.appendChild(refreshButton);
+    refreshButton.addEventListener("click", function () {
+      groupsGetMoreData(notifications_list.childElementCount - 1);
+      notifications_list.removeChild(refreshButton);
+    });
+    return;
+  }
+  var data = JSON.parse(this.responseText);
+  var group_list = document.querySelector("#left_panel_groups_list_content");
+  group_list.innerHTML = "";
+  if (data.groups.length > 0) {
+    data.groups.forEach(function (element) {
+      var newElement = createElementFromHTML(element);
+      group_list.appendChild(newElement);
+    });
+    if (data.more_data) {
+      var refreshButton = createElementFromHTML('<img src=\'/icons/refresh.svg\') alt="link icon" width=28" height=28" class="h-7 w-7 m-2 cursor-pointer">');
+      group_list.appendChild(refreshButton);
+      refreshButton.addEventListener("click", function () {
+        groupsGetMoreData(group_list.childElementCount - 1);
+        group_list.removeChild(refreshButton);
+      });
+    }
+  } else {
+    document.querySelector("#left_panel_groups_list_content").innerHTML = "No groups to show";
+  }
+}
 function notificationReadHandler() {
   if (this.status != 200) {
     console.log("action failed");
@@ -428,6 +685,16 @@ function addEventListeners() {
   var userProfileFriendLinks = document.querySelector("#userProfileFriendlinks");
   var userProfileLinks = document.querySelector("#userProfilelinks");
   var createGroupButton = document.querySelector("#left_panel_groups_create");
+  var groupInviteButton = document.querySelector("#groupInviteModalButton");
+  var rightSidepanelRightTabButton = document.querySelector("#right-sidepanel-right-tab-button");
+  var rightSidepanelLeftTabButton = document.querySelector("#right-sidepanel-left-tab-button");
+  var rightSidepanelLeftTab = document.querySelector("#right-sidepanel-left-tab");
+  var inviteGroupQuery = document.querySelector("#inviteGroupQuery");
+  var redirectCommands = document.querySelectorAll(".redirect-cmd");
+  var membersFilter = document.querySelector("#membersfilter");
+  var leftPanelFilterLinksInput = document.querySelector("#leftpanellinksfilter");
+  var groupKickButtons = document.querySelectorAll(".group-kick-button");
+  var groupJoinButton = document.querySelector("#group-join-button");
   if (editUserModalBack != null) editUserModalBack.addEventListener("click", function () {
     return closeProfileEditModal();
   });
@@ -473,6 +740,14 @@ function addEventListeners() {
       filterLinks(ev.target, commonLinkFilter.classList.contains("common-link-filter-selected"));
     });
   }
+  if (membersFilter != null) {
+    membersFilter.addEventListener("keyup", function (ev) {
+      filterMembers(ev.target);
+    });
+  }
+  if (leftPanelFilterLinksInput != null) leftPanelFilterLinksInput.addEventListener("keyup", function (ev) {
+    leftPanelFilterLinks(leftPanelFilterLinksInput);
+  });
   if (userProfileFriendLinks != null && linkFilter != null) {
     userProfileFriendLinks.addEventListener("click", function (ev) {
       if (commonLinkFilter != null) commonLinkFilter.classList.add("common-link-filter-selected");
@@ -489,9 +764,50 @@ function addEventListeners() {
   }
   if (createGroupButton != null) {
     createGroupButton.addEventListener("click", function (ev) {
-      return alert("open Modal");
+      return toggleCreateGroupModal();
+    });
+    if (document.querySelector("#toggleCreateGroupModalClose")) document.querySelector("#toggleCreateGroupModalClose").addEventListener("click", function (ev) {
+      return toggleCreateGroupModal();
     });
   }
+  if (groupInviteButton != null) {
+    groupInviteButton.addEventListener("click", function (ev) {
+      return toggleGroupInviteModal();
+    });
+    if (document.querySelector("#toggleGroupInviteModalClose")) document.querySelector("#toggleGroupInviteModalClose").addEventListener("click", function (ev) {
+      return toggleGroupInviteModal();
+    });
+  }
+  if (rightSidepanelLeftTabButton != null && rightSidepanelRightTabButton != null && rightSidepanelLeftTab != null) {
+    rightSidepanelLeftTabButton.addEventListener("click", function (ev) {
+      return rightPanelChangeTab(0, rightSidepanelLeftTab, rightSidepanelLeftTabButton, rightSidepanelRightTabButton);
+    });
+    rightSidepanelRightTabButton.addEventListener("click", function (ev) {
+      return rightPanelChangeTab(1, rightSidepanelLeftTab, rightSidepanelLeftTabButton, rightSidepanelRightTabButton);
+    });
+  }
+  if (inviteGroupQuery != null) {
+    inviteGroupQuery.addEventListener("keyup", function (ev) {
+      if (inviteGroupQuery.value != inviteGroupQuery.getAttribute("data-last-query")) queryInviteUser();
+      inviteGroupQuery.setAttribute("data-last-query", inviteGroupQuery.value);
+    });
+  }
+  if (redirectCommands != null) redirectCommands.forEach(function (element) {
+    var cmd = element.getAttribute("data-function");
+    if (cmd == "openModalCreateGroup") {
+      toggleCreateGroupModal();
+    } else if (cmd == "showEditInformation") {
+      rightPanelChangeTab(1, rightSidepanelLeftTab, rightSidepanelLeftTabButton, rightSidepanelRightTabButton);
+    }
+  });
+  if (groupKickButtons != null) groupKickButtons.forEach(function (element) {
+    element.addEventListener("click", function (ev) {
+      return kickUserFromGroup(ev);
+    });
+  });
+  if (groupJoinButton != null) groupJoinButton.addEventListener("click", function (ev) {
+    return acceptGroupRequest(ev.target);
+  });
 }
 addEventListeners();
 
