@@ -2,7 +2,7 @@
   <a id="postCardLeftBar" class="flex flex-col" href="/user/{{ $post->owner_id }}">
     <div class="w-20 h-20 bg-blue-500 rounded-full"></div>
   </a>
-  <div id="postCardRightBar" class="flex flex-row justify-between w-full">
+  <div id="postCardRightBar" class="flex flex-row justify-between w-full break-all">
     <div id="postCardInfo" class="flex flex-col ml-2">
       <header class="flex flex-row gap-x-2 mb-2 items-center">
         <a class="text-lg" href="/user/{{ $post->owner_id }}">{{ $post->name }}</a>
