@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -45,4 +46,11 @@ class LoginController extends Controller
         return redirect('login');
     }
 
+    public function recoveryShow() {
+        return view('auth.recovery');
+    }
+
+    public function recovery(Request $request) {
+        return $request;
+    }
 }

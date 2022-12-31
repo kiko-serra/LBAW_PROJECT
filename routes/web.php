@@ -72,6 +72,8 @@ Route::get('api/leftpanel/groups/{offset}', 'UserDataController@getMoreGroups')-
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
+Route::get('recover', 'Auth\LoginController@recoveryShow')->name('recovery');
+Route::post('recover', 'Auth\LoginController@recovery');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
@@ -101,10 +103,15 @@ Route::middleware('admin')->group(function () {
 
 
 Route::get('debug/users', function() {
-    foreach (\App\Models\User::all() as $user) {
-        echo $user->id . " " . $user->name . "<br>";
-    }
-    dump(\App\Models\User::get());
+    $mailData = [
+        'account_tag' => 'User Name',
+        'recovery_code' => 'code1324131',
+        'email' => 'up202006767@g.uporto.pt', // Change to your email for testing.
+    ];
+
+    Mail::to($mailData['email'])->send(new App\Mail\PasswordRecovery($mailData));
+
+    return $mailData;
 });
 
 Route::get('debug/posts', function() {
