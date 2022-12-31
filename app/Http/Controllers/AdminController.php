@@ -132,11 +132,6 @@ class AdminController extends Controller
         $user->save();
     }
 
-    public function register(){
-        dd("here");
-        return view('admin.adminRegister');
-    }
-
     public function block($id_user)
     {
         $user = User::find($id_user);
