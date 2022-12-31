@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\RecoveryCode;
 
 use App\Mail\PasswordRecovery;
 
@@ -81,10 +82,18 @@ class LoginController extends Controller
 
         $recoveryCode = bin2hex($bytes);
 
+        $newRecoveryCode = new RecoveryCode([
+            'id_account' => $user->id_account,
+            'code' => $recoveryCode,
+            'valid_until' => date("Y-m-d H:i:s", strtotime('+2 hours'))
+        ]);
+
+        $newRecoveryCode->save();
+
         $mailData = [
             'account_tag' => $user->account_tag,
             'recovery_code' => $recoveryCode,
-            'email' => $request['email'], // Change to your email for testing.
+            'email' => $request['email'],
         ];
     
         Mail::to($mailData['email'])->send(new PasswordRecovery($mailData));
