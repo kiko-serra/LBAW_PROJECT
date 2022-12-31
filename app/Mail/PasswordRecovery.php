@@ -8,19 +8,25 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class PasswordRecovery extends Mailable
 {
     use Queueable, SerializesModels;
+
+    // Necessary to pass data from the controller.
+    public $mailData;
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($mailData)
     {
-        //
+        // Necessary to pass data from the controller.
+        $this->mailData = $mailData;
     }
 
     /**
@@ -44,7 +50,7 @@ class PasswordRecovery extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.passwordRecovery',
         );
     }
 
