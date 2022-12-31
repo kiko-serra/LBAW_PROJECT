@@ -161,6 +161,9 @@ main > header span {
     margin: 1rem;
     justify-self: center;
 }
+main > header a i{
+    color: var(--primary-color);
+}
 main > header a.logout_button {
     justify-self: center;
     color: var(--primary-color);
@@ -594,15 +597,12 @@ input:focus {
     }
 
     main > header {
-       padding: 1rem 1.2rem;
+       padding: 1rem 1rem;
     }
 
-    main > header > h1 a{
-        font-size: 1.5rem;
-     }
-
-    main > header a i{
-        color: var(--primary-color);
+     main > header h1 {
+        text-align: left;
+        padding-left: 1rem;
     }
 
     main > header > .search_bar{
@@ -648,6 +648,100 @@ input:focus {
     section#profile > #profile_image{
         height: 70%;
     }
+    #posts{
+        margin-top: 0;
+    }
+
+    /* MOBILE MENU */
+    .mobile-menu ul {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .mobile-menu li {
+        font-size: 20px;
+        line-height: 30px;
+        margin: 0;
+        overflow: hidden;
+        padding: 5px;
+        position: relative;
+        text-align: left;
+        text-transform: uppercase;
+        padding-left:15px;
+      }
+      
+      .mobile-menu li:first-child {
+        margin-top: 70px;
+      }
+      
+      .mobile-menu li:hover {
+        background: #CCCCCC;
+      }
+      
+      .mobile-menu li a {
+        text-decoration: none;
+        color: black;
+      }
+      
+          /*---------------------
+          Mobiles Menu - Slide IN 
+          ----------------------*/
+      
+      .mobile-menu {
+        top: 4.8rem;
+        left: -100%;
+        width: 100%;
+        background-color: #ffffff;
+        color: black;
+        height: 100%;
+        position: fixed;
+        z-index: 9997;
+        overflow-y: auto;
+        -webkit-transform: translate3d(0, 0, 205px);
+        -moz-transform: translate3d(0, 0, 205px);
+        transform: translate3d(0, 0, 205px);
+        -webkit-transition: all 500ms ease-in-out;
+        -moz-transition: all 500ms ease-in-out;
+        transition: all 500ms ease-in-out;
+      }
+      
+      .mobile-menu.active {
+        left: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transition: all 500ms ease-in-out;
+        -moz-transition: all 500ms ease-in-out;
+        transition: all 500ms ease-in-out;
+      }
+
+      .sidepanel-mobile{
+        display: block;
+      }
+      .sidepanel-mobile > div *{
+        font-size: 14px;
+      }
+      .left-panel-button{
+        height: 6rem;
+        font-size: 15px;
+        background-color: rgb(255, 255, 255);
+        color: black;
+      }
+      .left-panel-button-selected{
+        background-color: #6495ed4d;
+        color: black;
+      }
+
+      #left_panel_links_list {
+        max-height: 24rem;
+      }
+      #left_panel_links_list > :first-child{
+        height: 3rem;
+      }
+
+      
+
+      /*---------------------*/
 }
 
 @media (min-width: 800px){
