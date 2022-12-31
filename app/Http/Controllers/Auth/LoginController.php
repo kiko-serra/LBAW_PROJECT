@@ -74,7 +74,7 @@ class LoginController extends Controller
 
         $mailExists = User::where('account.email', '=', $request['email'])->exists();
         
-        if (!$mailExists) return back()->withInput(['error' => 'An account with this email does not exist']);
+        if (!$mailExists) return back()->with('emailnotfound', 'An account with this email does not exist');
         
         $user = User::where('account.email', '=', $request['email'])->first();
 

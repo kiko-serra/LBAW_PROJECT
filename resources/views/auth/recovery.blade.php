@@ -12,6 +12,12 @@
         <span class="error">
           {{ $errors->first('email') }}
         </span>
+    @else
+        @if(session('emailnotfound'))
+        <span class="error">
+            {{ session('emailnotfound') }}
+          </span>
+        @endif
     @endif
 
     <div class="flex flex-row justify-evenly mt-5" >
