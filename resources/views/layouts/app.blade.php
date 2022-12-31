@@ -25,7 +25,7 @@
     <main>
       <area id="background_color_1"></area>
       <header>
-        <h1><a href="{{ url('/timeline') }}">Unilinks</a></h1> <!-- Mudar link! -->
+        <h1><a href="{{ url('/timeline') }}">UniLinks</a></h1> <!-- Mudar link! -->
         @if (Auth::check()) 
         <div class="search_bar flex flex-row">
           <!-- TODO -->
@@ -34,12 +34,18 @@
             <input id="account_tag" type="text" name="account_tag" required>
           </form>
         </div>
-        <div class="flex flex-row justify-evenly">
+        <div class="flex flex-row justify-evenly items-center">
         @if(Auth::user()->is_admin === true)
-        <a href="{{ url('/users') }}" class="justify-self-center">Users</a>
+        <a class="justify-self-center desktop" href="{{ url('/users') }}">Users</a>
+        <a class="justify-self-center mobile" href="{{ url('/users') }}">
+          <i class="fa-solid fa-hammer"></i>
+        </a>
         @endif
-        <a class="logout_button" href="{{ url('/logout') }}"> Logout </a>
-        <a href="{{ route('profile', Auth::user()->id_account) }}" class="whitespace-nowrap">{{ Auth::user()->name }}</a>
+        <a class="logout_button desktop" href="{{ url('/logout') }}"> Logout </a>
+        <a class="logout_button mobile" href="{{ url('/logout') }}"> 
+          <i class="fa-solid fa-right-from-bracket"></i>
+       </a>
+        <a href="{{ route('profile', Auth::user()->id_account) }}" class="whitespace-nowrap w-12 h-12 bg-blue-500 rounded-full"></a>
         </div>
         @endif
       </header>

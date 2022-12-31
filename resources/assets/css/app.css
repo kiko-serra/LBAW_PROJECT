@@ -111,8 +111,7 @@
 body,
 html {
     margin: 0;
-    padding: 0;
-}
+    padding: 0;}
 * {
     box-sizing: border-box;
 }
@@ -139,14 +138,21 @@ main > header {
     background-color: #d2afe7;
     padding: 1em;
     background-color: #ffffff;
-    padding: 10px 40px;
+    padding: 1rem 3rem;
     margin-bottom: 2rem;
 }
-main > header h1 {
+main > header h1{
+    text-align: center;
+}
+main > header h1 a {
     margin: 0;
     font-size: 2rem;
     color: var(--primary-color);
     text-decoration: none;
+}
+
+main > header :last-child{
+    line-height: w;
 }
 main > header a {
     font-size: 1.2rem;
@@ -266,7 +272,7 @@ section#timeline {
 
 section#timeline-container {
     border-radius: 20px;
-    max-width: 38rem;
+    width: 38rem;
     min-height: 200px;
 }
 
@@ -312,7 +318,7 @@ section#profile > #profile_image {
 }
 section#profile > #user_life_info_container {
     grid-area: info;
-    height: 70%;
+    height: 50%;
     width: 100%;
 }
 section#profile > #user_life_info_container i {
@@ -348,7 +354,7 @@ section#profile > #user_bio_section {
 }
 section#profile > #user_bio_section > #bio {
     font-size: 1.1em;
-    padding-bottom: 10px;
+    padding-bottom: 1rem;
 }
 section#profile > #user_bio_section > :nth-last-child(2) {
     font-size: 0.9em;
@@ -423,14 +429,15 @@ section#profile > #filters {
 }
 article #postCardInfo > a {
     margin-right: 20px;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     height: 20px;
     line-height: 20px;
     text-align: center;
+    margin: 0 auto;
 }
 
 article #postCardInfo > a .arrows {
-    font-size: 1.5em;
+    font-size: 1.2rem;
 }
 #content label {
     font-weight: normal;
@@ -451,6 +458,7 @@ article #postCardInfo > a .arrows {
 }
 #content > form > p {
     margin: auto;
+    word-break: normal;    
 }
 #content > form > select {
     border: solid 1px var(--primary-color);
@@ -564,47 +572,113 @@ input:focus {
     outline: none !important;
 }
 
-@media (max-width: 70em) {
-    #posts {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-@media (max-width: 40em) {
-    #posts {
-        grid-template-columns: 1fr;
-    }
-}
-@media (max-width: 25em) {
-    body {
-        margin: 0;
-    }
-    main > header {
-        margin: 0;
-        padding: 0.5em;
-    }
-    main > header span {
-        margin: 0;
-    }
-    #content form {
-        margin: 0;
-        max-width: 25em;
-    }
-    article.post {
-        margin: 0;
-        border-bottom: 1px solid rgba(96, 108, 118, 0.4);
-    }
+.mobile {
+    display: none;
 }
 
+
+@media (max-width: 800px){
+    html{
+        font-size: 10px;
+        overflow: hidden;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile {
+        display:inline-block;
+    }
+    .desktop {
+        display: none;
+    }
+
+    main > header {
+       padding: 1rem 1.2rem;
+    }
+
+    main > header > h1 a{
+        font-size: 1.5rem;
+     }
+
+    main > header a i{
+        color: var(--primary-color);
+    }
+
+    main > header > .search_bar{
+        width: 17rem;
+        height: 2.7rem;
+        padding: 0rem 1rem;
+        padding-top: 0.2rem;
+        border: 1px solid var(--primary-color);
+    }
+
+    main > header > .search_bar #account_tag{
+        width: 10rem;
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    section#timeline-container{
+        width: 90vw;
+        padding: 0.7rem;
+    }
+    section#timeline-container #newPostCardLeftBar{
+       width: 4rem;
+       height: 4rem;
+    }
+    section#timeline-container #newPostCardLeftBar :first-child {
+        width: 4rem;
+        height: 4rem;
+     }
+
+     section#profile{
+        height: 20rem;
+        grid-template-rows: 96px 32px 66px 30px;
+    }
+
+    .sidepanel{
+        display: none;
+    }
+
+    #postCardLeftBar > div{
+        width: 4rem;
+        height: 4rem;
+    }
+
+    section#profile > #profile_image{
+        height: 70%;
+    }
+}
 
 @media (min-width: 800px){
     html{
-        font-size: 10px;
+        font-size: 12px;
+        overflow: hidden;
+    }
+    section#profile{
+        grid-template-rows: 100px 35px 60px 30px;
+    }
+    .sidepanel{
+        width: 15rem;
     }
 }
 
 @media (min-width: 1000px){
     html{
         font-size: 9px;
+        overflow: auto;
+    }
+    section#profile > #user_bio_section > #bio {
+        padding-bottom: 0.5rem;
+    }
+    section#profile{
+        height: 19rem;
+        grid-template-rows: 70px 28px 53px 10px;
+    }
+    #posts{
+        margin-top: 0;
+    }
+    .sidepanel{
+       width: 24rem;
     }
 }
 
@@ -612,11 +686,25 @@ input:focus {
     html{
         font-size: 10px;
     }
+    section#profile > #user_bio_section{
+        height: 5rem;
+    }
+    section#profile{
+        height: 20rem;
+        grid-template-rows: 100px 35px 60px 30px;
+    }
 }
 
 @media (min-width: 1300px){
     html{
         font-size: 13px;
+    }
+    section#profile > #user_bio_section{
+        height: 5rem;
+    }
+    section#profile{
+        height: 20rem;
+        grid-template-rows: 120px 60px 75px 30px;
     }
 }
 
