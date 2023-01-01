@@ -83,6 +83,7 @@ Route::get('endregistration', function() {
 // ----------------Password Recovery--------------------
 Route::get('recovery', 'PasswordRecoveryController@recoveryShow')->name('recovery');
 Route::post('recovery', 'PasswordRecoveryController@recovery');
+Route::get('recovery/send/{email}', 'PasswordRecoveryController@recoverySentShow')->where('email', '[a-zA-Z0-9]*@[a-zA-Z0-9]+(?>\.[a-zA-Z]+)+')->name('recovery.sent');
 Route::get('recovery/{token}', 'PasswordRecoveryController@afterTokenShow')->where('token', '[0-9a-f]{64}')->name('recovery.token');
 
 

@@ -16,7 +16,11 @@ use Validator;
 class PasswordRecoveryController extends Controller
 {
     public function recoveryShow() {
-        return view('auth.recovery');
+        return view('pages.recovery.show');
+    }
+
+    public function recoverySentShow($email) {
+        return view('pages.recovery.sent', ['email' => $email]);
     }
 
     public function recovery(Request $request) {
@@ -46,7 +50,7 @@ class PasswordRecoveryController extends Controller
 
             $recoveryCode = bin2hex($bytes);
             
-        } while (RecoveryCode::where('code', '=', $recoveryCode)->exists());
+        } while (RecoveryCode::where('code', '=', $recoveryCode)->exists()); // Generate another token if this one exists
 
         $newRecoveryCode = new RecoveryCode([
             'id_account' => $user->id_account,
