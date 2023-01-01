@@ -1098,4 +1098,12 @@ function addEventListeners() {
         );
 }
 
+let button = document.querySelector('.bars-menu');
+
+button.addEventListener('click', function() {
+    console.log(document.querySelector('.mobile-menu'));
+    console.log("ola");
+    document.querySelector('.mobile-menu').classList.toggle('active');
+  });
+
 addEventListeners();

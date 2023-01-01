@@ -17,10 +17,10 @@
         <a href=""><i class="fa-solid fa-ellipsis"></i></a>
       </div>
     </div>
-    <div id="postCardInfo" class="flex flex-col justify-between ml-2 pt-2 pb-2 items-center justify-center justify-items-center">
-      <a href=""><i class="fa-regular fa-square-caret-up arrows"></i></a>
+    <div id="postCardInfo" class="flex flex-col justify-between ml-7 pt-2 pb-2 items-center justify-center justify-items-center">
+      <a href=""><i class="fa-regular fa-square-caret-up arrows "></i></a>
       <a href=""><i class="fa-solid fa-circle"></i></a>
-      <a href=""><i class="fa-regular fa-square-caret-down arrows"></i></a>
+      <a href=""><i class="fa-regular fa-square-caret-down arrows "></i></a>
     </div>
   </div>
 </article>
