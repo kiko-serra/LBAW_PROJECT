@@ -93,19 +93,20 @@ class PasswordRecoveryController extends Controller
 
         $user = User::where('email', '=', $mail)->first();
 
-        if (!$user) return 'not found';
+        if (!$user) return redirect()->back()->with('response', 'Wrong email.');
 
         $mailExists = RecoveryCode::where('code', '=', $token)
                                     ->where('id_account', '=', $user->id_account)
                                     ->exists();
 
-        if (!$mailExists) return 'code not found';
+        if (!$mailExists) return redirect()->back()->with('response', 'Wrong token.');
         
         $token = RecoveryCode::where('code', '=', $token)->where('id_account', '=', $user->id_account)->first();
 
         if (date($token->valid_until) < now()) {
             RecoveryCode::where('code', '=', $token)->where('id_account', '=', $user->id_account)->delete();
-            return 'token expired';
+
+            return redirect()->back()->with('response', 'Token expired');
         }
 
         $mailExists = RecoveryCode::where('code', '=', $token)
@@ -114,8 +115,8 @@ class PasswordRecoveryController extends Controller
                                 
         $change = User::where('email', '=', $mail)->update(["password" => Hash::make($request['password'])]);
         
-        if (!$change) return 'failed to update';
+        if (!$change) return redirect()->back()->with('response', 'Failed to change the password.');;
 
-        return 'changed successfully';
+        return redirect(route('login'));
     }
 }

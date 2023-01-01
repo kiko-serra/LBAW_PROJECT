@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <form method="POST" action="{{ route('recovery.change') }}" class="flex flex-col">
 
     <h1 class="text-2xl mb-6 whitespace-nowrap">Password Recovery</h1>
@@ -19,11 +18,16 @@
     <!-- Obligatory-->
     <label for="token">Token</label>
     <input id="token" type="token" name="token" required>
+    @if ($errors->has('token'))
+        <span class="error">
+            {{ $errors->first('token') }}
+        </span>
+    @endif
+    
 
     <!-- Obligatory-->
     <label for="password" class="mt-4">Password</label>
     <input id="password" type="password" name="password" required>
-
     @if ($errors->has('password'))
         <span class="error">
             {{ $errors->first('password') }}
@@ -35,6 +39,12 @@
     <div class="flex flex-row justify-evenly mt-5" >
         <button type="submit">Recover</button>
     </div>
+
+    <span class="text-center mt-4 bg-red-600 text-white font-semibold rounded-md">
+        @if(session('response'))
+            {{ session('response')}}
+        @endif
+    </span>
 </form>
 
 @endsection
