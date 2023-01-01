@@ -88,7 +88,9 @@ class PasswordRecoveryController extends Controller
             ]
         );
 
-        if ($request['password'] != $request['password-confirm'])return redirect()->back()->with('response', 'The passwords do not match.');
+        if ($request['password'] != $request['password_confirmation']) {
+            return redirect()->back()->with('response', 'The passwords do not match.');
+        }
 
         $mail = $request['email'];
         $token = $request['token'];
