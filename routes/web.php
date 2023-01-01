@@ -81,8 +81,9 @@ Route::get('endregistration', function() {
 
 
 // ----------------Password Recovery--------------------
-Route::get('recover', 'PasswordRecoveryController@recoveryShow')->name('recovery');
-Route::post('recover', 'PasswordRecoveryController@recovery');
+Route::get('recovery', 'PasswordRecoveryController@recoveryShow')->name('recovery');
+Route::post('recovery', 'PasswordRecoveryController@recovery');
+Route::get('recovery/{token}', 'PasswordRecoveryController@afterTokenShow')->where('token', '[0-9a-f]{64}')->name('recovery.token');
 
 
 

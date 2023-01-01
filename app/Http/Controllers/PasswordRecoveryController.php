@@ -15,8 +15,6 @@ use Validator;
 
 class PasswordRecoveryController extends Controller
 {
-    
-
     public function recoveryShow() {
         return view('auth.recovery');
     }
@@ -61,5 +59,17 @@ class PasswordRecoveryController extends Controller
         Mail::to($mailData['email'])->send(new PasswordRecovery($mailData));
 
         return $mailData;
+    }
+
+    public function afterTokenShow($token) {        
+        $mailExists = RecoveryCode::where('code', '=', $token)->exists();
+        
+        if (!$mailExists) return 'Page not found';
+
+        
+
+
+
+        return $token;
     }
 }
