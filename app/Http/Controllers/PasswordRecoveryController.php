@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Models\RecoveryCode;
@@ -23,12 +24,16 @@ class PasswordRecoveryController extends Controller
         return view('pages.recovery.sent', ['email' => $email]);
     }
 
+    public function changePasswordShow() {        
+        return view('pages.recovery.change');
+    }
+
     public function recovery(Request $request) {
         $validator = Validator::make($request->all(), [ 
             'email' => 'required|string|email|max:255|regex:/[a-zA-Z0-9]*@[a-zA-Z0-9]+(?>\.[a-zA-Z]+)+/'
             ],
             [
-            'email.required'=> 'Your group should have a name',
+            'email.required'=> 'An email is required',
             ]
         );
     
@@ -71,15 +76,46 @@ class PasswordRecoveryController extends Controller
         return $mailData;
     }
 
-    public function afterTokenShow($token) {        
-        $mailExists = RecoveryCode::where('code', '=', $token)->exists();
+    public function changePassword(Request $request) {
+        $validator = Validator::make($request->all(), [ 
+                'email' => 'required|string|email|max:255|regex:/[a-zA-Z0-9]*@[a-zA-Z0-9]+(?>\.[a-zA-Z]+)+/',
+                'token' => 'required|string|max:64|regex:/[0-9a-f]{64}/',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            [
+                'email.required' => 'Please specify the email.',
+                'token.required' => 'Please specify the token.'
+            ]
+        );
+
+        $mail = $request['email'];
+        $token = $request['token'];
+
+        $user = User::where('email', '=', $mail)->first();
+
+        if (!$user) return 'not found';
+
+        $mailExists = RecoveryCode::where('code', '=', $token)
+                                    ->where('id_account', '=', $user->id_account)
+                                    ->exists();
+
+        if (!$mailExists) return 'code not found';
         
-        if (!$mailExists) return 'Page not found';
+        $token = RecoveryCode::where('code', '=', $token)->where('id_account', '=', $user->id_account)->first();
 
+        if (date($token->valid_until) < now()) {
+            RecoveryCode::where('code', '=', $token)->where('id_account', '=', $user->id_account)->delete();
+            return 'token expired';
+        }
+
+        $mailExists = RecoveryCode::where('code', '=', $token)
+                                    ->where('id_account', '=', $user->id_account)
+                                    ->delete();
+                                
+        $change = User::where('email', '=', $mail)->update(["password" => Hash::make($request['password'])]);
         
+        if (!$change) return 'failed to update';
 
-
-
-        return $token;
+        return 'changed successfully';
     }
 }
