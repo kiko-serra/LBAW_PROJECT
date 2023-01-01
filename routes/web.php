@@ -74,7 +74,7 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+Route::post('register', 'Auth\RegisterController@register')->name('register.post');
 Route::get('endregistration', function() {
     return view('pages.registerExtra');
 })->name('endregister.show');
@@ -89,6 +89,7 @@ Route::middleware('admin')->group(function () {
     Route::get('users/{id}', 'AdminController@edit')->name('admin.edit');
     Route::get('users/block/{id_user}', 'AdminController@block')->name('admin.block');
     Route::get('users/unblock/{id_user}', 'AdminController@unblock')->name('admin.unblock');
+    Route::post('/users/create', 'AdminController@store')->name('admin.store');
 });
 
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -17,7 +19,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all()->sortBy("name");
-        return view('pages.adminShow', ['users'=>$users]);
+        return view('admin.adminShow', ['users'=>$users]);
     }
 
     /**
@@ -27,7 +29,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('adminCreate');
+        return view('admin.create');
     }
 
     /**
@@ -39,14 +41,29 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'account_tag'=> 'required|unique:users',
+            'account_tag'=> 'required|unique:account',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:account',
             'birthday' => 'required|date',
             'university' => 'required|string|max:255',
             'course' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
+
+        if($request->get('password') != $request->get('password_confirmation')){
+            return redirect('/users/create')->with('error', 'Passwords do not match');
+        }
+        if($request->get('privacy') === 'public'){
+            $is_private = false;
+        } else if ($request->get('privacy') === 'private'){
+            $is_private = true;
+        }
+
+        if($request->get('is_admin') === "true"){
+            $is_admin = true;
+        } else if ($request->get('is_admin') === "false"){
+            $is_admin = false;
+        }
 
         $user = new User([
             'account_tag' => $request->get('account_tag'),
@@ -56,6 +73,15 @@ class AdminController extends Controller
             'university' => $request->get('university'),
             'course' => $request->get('course'),
             'password' => Hash::make($request->get('password')),
+            'age' => Carbon::parse($request->get('birthday'))->age,
+            'is_private' => $is_private,
+            'pronouns' => $request->get('pronouns'),
+            'location' => $request->get('location'),
+            'description' => $request->get('description'),
+            'is_admin' => $is_admin,
+            'is_blocked' => 'false',
+            'is_verified' => 'true',
+
         ]);
         $user->save();
         return redirect('/users')->with('success', 'User has been added');
