@@ -72,8 +72,6 @@ Route::get('api/leftpanel/groups/{offset}', 'UserDataController@getMoreGroups')-
 // ----------------Authentication--------------------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::get('recover', 'Auth\LoginController@recoveryShow')->name('recovery');
-Route::post('recover', 'Auth\LoginController@recovery');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
@@ -81,8 +79,13 @@ Route::get('endregistration', function() {
     return view('pages.registerExtra');
 })->name('endregister.show');
 
-//User
-//Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
+
+// ----------------Password Recovery--------------------
+Route::get('recover', 'PasswordRecoveryController@recoveryShow')->name('recovery');
+Route::post('recover', 'PasswordRecoveryController@recovery');
+
+
+
 
 //------------------Admin-------------------
 Route::middleware('admin')->group(function () {
