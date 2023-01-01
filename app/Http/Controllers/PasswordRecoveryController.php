@@ -38,9 +38,15 @@ class PasswordRecoveryController extends Controller
         
         $user = User::where('account.email', '=', $request['email'])->first();
 
-        $bytes = random_bytes(32);
+        $recoveryCode = "";
 
-        $recoveryCode = bin2hex($bytes);
+        do {
+
+            $bytes = random_bytes(32);
+
+            $recoveryCode = bin2hex($bytes);
+            
+        } while (RecoveryCode::where('code', '=', $recoveryCode)->exists());
 
         $newRecoveryCode = new RecoveryCode([
             'id_account' => $user->id_account,
