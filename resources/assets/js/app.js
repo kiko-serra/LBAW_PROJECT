@@ -921,6 +921,14 @@ function addEventListeners() {
     let groupKickButtons = document.querySelectorAll(".group-kick-button");
     let groupJoinButton = document.querySelector("#group-join-button");
 
+    let mobileNavButton = document.querySelector('.bars-menu');
+
+    if (mobileNavButton != null){
+        mobileNavButton.addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        })
+    };
+
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
             closeProfileEditModal()
@@ -1098,12 +1106,5 @@ function addEventListeners() {
         );
 }
 
-let button = document.querySelector('.bars-menu');
-
-button.addEventListener('click', function() {
-    console.log(document.querySelector('.mobile-menu'));
-    console.log("ola");
-    document.querySelector('.mobile-menu').classList.toggle('active');
-  });
 
 addEventListeners();
