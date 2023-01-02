@@ -376,6 +376,19 @@ const filterMembers = function (input) {
     );
 };
 
+const sendRecoveryEmail = function (statusElement) {
+    let email = statusElement.getAttribute("data-id");
+    if (email == null) return;
+    sendAjaxRequest(
+        "post",
+        "/recovery",
+        {
+            email: email,
+        },
+        recoveryEmailHandler(statusElement)
+    );
+};
+
 //LINK HANDLERS
 
 function membersFiltered() {
@@ -811,6 +824,16 @@ function notificationDeleteHandler() {
     }
 }
 
+function recoveryEmailHandler(statusElement) {
+    if (this.status != 200) {
+        console.log("action failed");
+        statusElement.textContent = "Failed to send email, please try again.";
+        return;
+    }
+
+    statusElement.textContent = "Email sent, please check your inbox.";
+}
+
 const readNotification = function (id) {
     sendAjaxRequest(
         "post",
@@ -920,6 +943,7 @@ function addEventListeners() {
     );
     let groupKickButtons = document.querySelectorAll(".group-kick-button");
     let groupJoinButton = document.querySelector("#group-join-button");
+    let recoveryStatus = document.querySelector("#recovery-status");
 
     let mobileNavButton = document.querySelector('.bars-menu');
 
@@ -1104,6 +1128,8 @@ function addEventListeners() {
         groupJoinButton.addEventListener("click", (ev) =>
             acceptGroupRequest(ev.target)
         );
+
+    if (recoveryStatus != null) sendRecoveryEmail(recoveryStatus);
 }
 
 

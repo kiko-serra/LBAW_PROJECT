@@ -12,7 +12,7 @@
     @endif
 
     <label for="password" >Password</label>
-    <input id="password" type="password" name="password" class="mb-2" required>
+    <input id="password" type="password" name="password" class="mb-4" required>
     @if ($errors->has('password'))
         <span class="error">
             {{ $errors->first('password') }}
@@ -22,6 +22,8 @@
     <label class="hidden">
         <input type="checkbox" name="remember2" {{old('remember3') ? 'checked' : ''}}> Remember Me
     </label>
+
+    <a href="{{ route('recovery') }}" class="underline">I forgot my password</a>
 
     <div class="flex flex-row justify-evenly mt-5" >
         <button type="submit">Login</button>

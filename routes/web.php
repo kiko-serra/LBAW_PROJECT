@@ -79,8 +79,15 @@ Route::get('endregistration', function() {
     return view('pages.registerExtra');
 })->name('endregister.show');
 
-//User
-//Route::get('user/{accountTag}', 'User\UserController')->name('userPage');
+
+// ----------------Password Recovery--------------------
+Route::get('/recover_password', 'PasswordRecoveryController@recoveryShow')->name('recovery');
+Route::post('/recover_password', 'PasswordRecoveryController@recovery');
+Route::get('/recover_password/change_password/', 'PasswordRecoveryController@changePasswordShow')->name('recovery.change');
+Route::post('/recover_password/change_password/', 'PasswordRecoveryController@changePassword');
+
+
+
 
 //------------------Admin-------------------
 Route::middleware('admin')->group(function () {
@@ -102,10 +109,15 @@ Route::middleware('admin')->group(function () {
 
 
 Route::get('debug/users', function() {
-    foreach (\App\Models\User::all() as $user) {
-        echo $user->id . " " . $user->name . "<br>";
-    }
-    dump(\App\Models\User::get());
+    $mailData = [
+        'account_tag' => 'User Name',
+        'recovery_code' => 'code1324131',
+        'email' => 'up202006767@g.uporto.pt', // Change to your email for testing.
+    ];
+
+    Mail::to($mailData['email'])->send(new App\Mail\PasswordRecovery($mailData));
+
+    return $mailData;
 });
 
 Route::get('debug/posts', function() {
