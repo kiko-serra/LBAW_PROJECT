@@ -203,8 +203,8 @@ section#content {
     align-items: flex-start;
 }
 section#content #home-container {
-    width: 800px;
-    height: 400px;
+    width: 50rem;
+    height: 26rem;
     background-color: white;
     position: absolute;
     top: 50%;
@@ -212,15 +212,15 @@ section#content #home-container {
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-areas: "title image" "buttons image";
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 6fr 4fr;
     grid-template-columns: 6fr 3fr;
-    padding: 40px 30px;
+    padding: 3rem 2rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 section#content #home-container h3 {
     grid-area: title;
-    font-size: 30px;
+    font-size: 1.7rem;
     width: 350px;
     line-height: 33px;
     font-weight: 800;
@@ -269,7 +269,7 @@ section#content #home-container #buttons :nth-child(2) {
 section#timeline {
     background: #fff;
     border-radius: 20px;
-    width: 38rem;
+    width: 32rem;
     min-height: 200px;
 }
 
@@ -358,8 +358,9 @@ section#profile > #user_bio_section {
 }
 section#profile > #user_bio_section > #bio {
     font-size: 1.1em;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
+
 section#profile > #user_bio_section > :nth-last-child(2) {
     font-size: 0.9em;
     text-decoration: underline;
@@ -369,6 +370,27 @@ section#profile > #user_bio_section > :nth-last-child(1) {
 }
 section#profile > #filters {
     grid-area: filters;
+}
+
+#edit_profile input, #edit_profile textarea{
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+}
+#edit_profile label{
+    margin-top: 10px;
+}
+
+#edit_profile input[type=radio]{
+    width: 15px;
+    margin: 12px 5px 5px 5px;
+}
+
+#edit_profile textarea{
+    max-height: 80px;
 }
 
 #posts {
@@ -581,6 +603,8 @@ input:focus {
 }
 
 
+
+
 @media (max-width: 800px){
     html{
         font-size: 10px;
@@ -618,8 +642,12 @@ input:focus {
         border-bottom: 1px solid var(--primary-color);
     }
 
+    section#timeline{
+        width: 34rem;
+    }
+
     section#timeline-container{
-        width: 90vw;
+        width: 34rem;
         padding: 0.7rem;
     }
     section#timeline-container #newPostCardLeftBar{
@@ -632,11 +660,21 @@ input:focus {
      }
 
      section#profile{
-        height: 20rem;
-        grid-template-rows: 96px 32px 66px 30px;
+        height: 21rem;
+        grid-template-rows: 96px 32px 53px 30px;
+    }
+    section#profile #filters{
+        gap: 0;
+        justify-content: space-between ;
+    }
+    section#profile .profile-page-filter-button {
+        width: 6rem;
     }
 
     .sidepanel{
+        position: fixed;
+    }
+    .right-sidepanel{
         display: none;
     }
 
@@ -739,7 +777,57 @@ input:focus {
         height: 3rem;
       }
 
-      
+      /*---- LOGIM PAGE -----*/
+
+      section#content #home-container{
+        width: 30rem;
+        height: 45rem;
+        padding: 8rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      section#content #home-container img{
+        height: 120px;
+        margin: 0;
+      } 
+      section#content #home-container h3 {
+        text-align: center;
+        left: 0;
+        top: 0;
+        line-height: 20px;
+        position: relative;
+        transform: translate(0,0);
+      }
+    
+      section#content #home-container #buttons{
+        width: 180px;
+        margin: 0;
+        
+      }
+
+    section#content #home-container #buttons :first-child{
+        width: 80px;
+        height: 30px;
+        line-height: 25px;
+        font-size: 16px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 80px;
+        height: 28px;
+        line-height: 24px;
+        font-size: 16px;
+    }
+
+    #editUserModal :nth-child(2){
+        max-width: 90%;
+    }
+
+
+
+    
 
       /*---------------------*/
 }
@@ -750,11 +838,52 @@ input:focus {
         overflow: hidden;
     }
     section#profile{
+        height: 18rem;
         grid-template-rows: 100px 35px 60px 30px;
     }
     .sidepanel{
         width: 15rem;
     }
+
+    
+
+
+        /* Home Login Page  */
+    section#content #home-container{
+        width: 55em;
+        height: 30rem;
+        padding: 4rem 5rem;
+        grid-template-columns: 6fr 3fr;
+        grid-template-rows: 5fr 4fr;
+        grid-template-areas: "title image" "buttons image";
+
+    }
+    section#content #home-container #buttons{
+        width: 240px;
+        margin: 20px auto;
+        padding-right: 50px;
+        
+    }
+    section#content #home-container img{
+        height: 100%;
+    }
+    section#content #home-container h3 {
+        width: 250px;
+        padding-right: 50px;
+    }
+    section#content #home-container #buttons :first-child{
+        width: 80px;
+        height: 30px;
+        line-height: 25px;
+        font-size: 15px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 80px;
+        height: 30px;
+        line-height: 24px;
+        font-size: 15px;
+    }
+
 }
 
 @media (min-width: 1000px){
@@ -775,6 +904,8 @@ input:focus {
     .sidepanel{
        width: 24rem;
     }
+
+    
 }
 
 @media (min-width: 1100px){
@@ -788,7 +919,47 @@ input:focus {
         height: 21rem;
         grid-template-rows: 100px 35px 54px 30px;
     }
+    section#profile > #profile_image {
+        height: 60%;
+    }
 }
+
+@media (min-width: 800) and (max-width: 1300px){
+    section#content #home-container{
+        width: 55em;
+        height: 30rem;
+        padding: 4rem 5rem;
+        grid-template-columns: 5fr 3fr;
+        grid-template-rows: 5fr 4fr;
+    }
+    
+    section#content #home-container img{
+        height: 100%;
+    }
+    section#content #home-container h3 {
+        width: 250px;
+        padding-right: 50px;
+    }
+    section#content #home-container #buttons{
+        width: 240px;
+        margin: 20px auto;
+        padding-right: 50px;
+        
+    }
+    section#content #home-container #buttons :first-child{
+        width: 80px;
+        height: 30px;
+        line-height: 25px;
+        font-size: 15px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 80px;
+        height: 30px;
+        line-height: 24px;
+        font-size: 15px;
+    }
+}
+
 
 @media (min-width: 1300px){
     html{
@@ -801,6 +972,14 @@ input:focus {
         height: 20rem;
         grid-template-rows: 120px 44px 66px 33px;
     }
+    section#profile > #profile_image {
+        height: 70%;
+    }
+    section#content #home-container h3 {
+        width: 260px;
+        padding: 0;
+    }
+    
 }
 
 @media (min-width: 1650px){
@@ -812,13 +991,43 @@ input:focus {
         height: 5rem;
     }
     section#profile{
-        height: 17rem;
+        height: 19rem;
         grid-template-rows: 120px 73px 105px 44px;
+    }
+
+    section#profile > #profile_image {
+        height: 80%;
+    }
+    section#content #home-container h3 {
+        width: 350px;
+        padding: 0;
+    }
+    section#content #home-container #buttons{
+        width: 350px;
+        margin: 20px auto;
+        padding-right: 50px;
+        
+    }
+    section#content #home-container #buttons :first-child{
+        width: 130px;
+        height: 40px;
+        line-height: 35px;
+        font-size: 20px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 130px;
+        height: 40px;
+        line-height: 34px;
+        font-size: 20px;
     }
 }
 
 @media (min-width: 2000px){
     html{
         font-size: 20px;
+    }
+    section#profile{
+        height: 18rem;
+        grid-template-rows: 120px 73px 105px 44px;
     }
 }

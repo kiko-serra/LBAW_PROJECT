@@ -26,11 +26,16 @@
       <area id="background_color_1"></area>
       <header>
         <h1 class="desktop"><a href="{{ url('/timeline') }}">UniLinks</a></h1>
+        @if (Auth::check()) 
         <h1 class="mobile">
           <a class="bars-menu">
               <i class=" fa-sharp fa-solid fa-bars"></i>
           </a>
         </h1>
+        @else
+        <h1 class="mobile"><a href="{{ url('/timeline') }}">UniLinks</a></h1>
+        @endif
+
         @if (Auth::check()) 
         <div class="search_bar flex flex-row">
           <!-- TODO -->
@@ -57,10 +62,8 @@
         </div>
         @endif
       </header>
-
       
       <section id="content">
-      <!-- ------ -->
 
         @yield('content')
       </section>
