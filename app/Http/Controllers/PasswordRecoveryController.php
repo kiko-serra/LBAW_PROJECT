@@ -73,7 +73,7 @@ class PasswordRecoveryController extends Controller
     
         Mail::to($mailData['email'])->send(new PasswordRecovery($mailData));
 
-        return $mailData;
+        return redirect(route('recovery.change'));
     }
 
     public function changePassword(Request $request) {
