@@ -1,4 +1,4 @@
-<section class="sidepanel" id="leftPanel"> 
+<section class="sidepanel right-sidepanel" id="leftPanel"> 
     @if($type=="profile")
         <div class="flex flex-row w-full mb-2">
             <h2 id="right-sidepanel-left-tab-button" class="right-sidepanel-tab-button right-sidepanel-tab-button-selected" >Links</h2>

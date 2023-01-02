@@ -1,4 +1,4 @@
-<section class="sidepanel left-sidepanel" id="leftPanel"> 
+<section class="sidepanel left-sidepanel mobile-menu" id="leftPanel"> 
     <a href={{ route('timeline') }} class="left-panel-button <?php if ($_SERVER['REQUEST_URI'] == "/timeline") echo "left-panel-button-selected"; ?>">
         <img src={{ asset('icons/home.svg') }} alt="house icon" width=28" height=28" class="h-7 w-7">
         <p>FEED</p>
