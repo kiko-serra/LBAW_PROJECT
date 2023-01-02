@@ -1476,7 +1476,7 @@ section#content #home-container #buttons :nth-child(2) {
 section#timeline {
     background: #fff;
     border-radius: 20px;
-    width: 38rem;
+    width: 32rem;
     min-height: 200px;
 }
 
@@ -1565,8 +1565,9 @@ section#profile > #user_bio_section {
 }
 section#profile > #user_bio_section > #bio {
     font-size: 1.1em;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
+
 section#profile > #user_bio_section > :nth-last-child(2) {
     font-size: 0.9em;
     text-decoration: underline;
@@ -1826,8 +1827,12 @@ input:focus {
         border-bottom: 1px solid var(--primary-color);
     }
 
+    section#timeline{
+        width: 34rem;
+    }
+
     section#timeline-container{
-        width: 90vw;
+        width: 34rem;
         padding: 0.7rem;
     }
     section#timeline-container #newPostCardLeftBar{
@@ -1841,7 +1846,14 @@ input:focus {
 
      section#profile{
         height: 20rem;
-        grid-template-rows: 96px 32px 66px 30px;
+        grid-template-rows: 96px 32px 53px 30px;
+    }
+    section#profile #filters{
+        gap: 0;
+        justify-content: space-between ;
+    }
+    section#profile .profile-page-filter-button {
+        width: 6rem;
     }
 
     .sidepanel{
