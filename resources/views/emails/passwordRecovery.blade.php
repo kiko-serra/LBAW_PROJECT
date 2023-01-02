@@ -6,17 +6,10 @@
     <style>
         input {border:0;outline:0;}
         input:focus {outline:none!important;}
-    </style>
-    <script>
-        function copyCodeToClipboard() {
-            document.getElementById('code').select();
-            document.execCommand('copy');
-            document.getElementById('copyButton').innerText = "COPIED"
-        }
-    </script>    
+    </style>  
 </head>
-<body style="font-family: sans-serif;">
-    <div style="display: block; margin: auto; max-width: 600px;">
+<body style="font-family: sans-serif; margin:0; overflow-x: hidden;">
+    <div style="display: block; margin: auto; width: 100vw; max-width: 600px;">
 
         <h1 style="font-size: 20px; font-weight: bold; margin-top: 20px; text-align: center;">UniLinks Password Recovery</h1>
         
@@ -26,9 +19,7 @@
 
             <p>Here is your recovery code.</p>
             
-            <input type="text" disabled value="{{$mailData['recovery_code']}}" id="code" style="color:rgb(241 245 249 / 1); background-color: rgb(75 75 79); padding: 10px; margin-bottom: 10px; text-align: center;">
-            
-            <div id="copyButton" style="width: 6ch; text-align:center; background-color: rgb(147 197 253 / 1); padding: 8px 14px; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; user-select: none;" onclick="copyCodeToClipboard()">COPY</div>
+            <p id="code" style="color:rgb(241 245 249 / 1); background-color: rgb(75 75 79); padding: 10px; margin-bottom: 10px; text-align: center; max-width: 90vw; overflow-wrap: break-word;"> {{$mailData['recovery_code']}} </p>
 
         </div>
         
