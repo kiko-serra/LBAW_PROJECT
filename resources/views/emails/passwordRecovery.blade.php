@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Password Recovery</title>
-    <style>
-        input {border:0;outline:0;}
-        input:focus {outline:none!important;}
-    </style>  
 </head>
 <body style="font-family: sans-serif; margin:0; overflow-x: hidden;">
     <div style="display: block; margin: auto; width: 100vw; max-width: 600px;">
