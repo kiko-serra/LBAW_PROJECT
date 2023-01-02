@@ -1417,8 +1417,8 @@ section#content {
     align-items: flex-start;
 }
 section#content #home-container {
-    width: 800px;
-    height: 400px;
+    width: 50rem;
+    height: 26rem;
     background-color: white;
     position: absolute;
     top: 50%;
@@ -1426,15 +1426,15 @@ section#content #home-container {
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-areas: "title image" "buttons image";
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 6fr 4fr;
     grid-template-columns: 6fr 3fr;
-    padding: 40px 30px;
+    padding: 3rem 2rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 section#content #home-container h3 {
     grid-area: title;
-    font-size: 30px;
+    font-size: 1.7rem;
     width: 350px;
     line-height: 33px;
     font-weight: 800;
@@ -1961,8 +1961,53 @@ input:focus {
         height: 3rem;
       }
 
+      /*---- LOGIM PAGE -----*/
 
-      
+      section#content #home-container{
+        width: 30rem;
+        height: 45rem;
+        padding: 8rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      section#content #home-container img{
+        height: 120px;
+        margin: 0;
+      } 
+      section#content #home-container h3 {
+        text-align: center;
+        left: 0;
+        top: 0;
+        line-height: 20px;
+        position: relative;
+        transform: translate(0,0);
+      }
+    
+      section#content #home-container #buttons{
+        width: 180px;
+        margin: 0;
+        
+      }
+
+    section#content #home-container #buttons :first-child{
+        width: 80px;
+        height: 30px;
+        line-height: 25px;
+        font-size: 16px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 80px;
+        height: 28px;
+        line-height: 24px;
+        font-size: 16px;
+    }
+
+
+
+    
 
       /*---------------------*/
 }
@@ -1978,6 +2023,44 @@ input:focus {
     .sidepanel{
         width: 15rem;
     }
+
+
+        /* Home Login Page  */
+    section#content #home-container{
+        width: 55em;
+        height: 30rem;
+        padding: 4rem 5rem;
+        grid-template-columns: 6fr 3fr;
+        grid-template-rows: 5fr 4fr;
+        grid-template-areas: "title image" "buttons image";
+
+    }
+    section#content #home-container #buttons{
+        width: 240px;
+        margin: 20px auto;
+        padding-right: 50px;
+        
+    }
+    section#content #home-container img{
+        height: 100%;
+    }
+    section#content #home-container h3 {
+        width: 250px;
+        padding-right: 50px;
+    }
+    section#content #home-container #buttons :first-child{
+        width: 80px;
+        height: 30px;
+        line-height: 25px;
+        font-size: 15px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 80px;
+        height: 30px;
+        line-height: 24px;
+        font-size: 15px;
+    }
+
 }
 
 @media (min-width: 1000px){
@@ -1998,6 +2081,9 @@ input:focus {
     .sidepanel{
        width: 24rem;
     }
+
+    
+    
 }
 
 @media (min-width: 1100px){
@@ -2013,6 +2099,43 @@ input:focus {
     }
 }
 
+@media (min-width: 800) and (max-width: 1300px){
+    section#content #home-container{
+        width: 55em;
+        height: 30rem;
+        padding: 4rem 5rem;
+        grid-template-columns: 5fr 3fr;
+        grid-template-rows: 5fr 4fr;
+    }
+    
+    section#content #home-container img{
+        height: 100%;
+    }
+    section#content #home-container h3 {
+        width: 250px;
+        padding-right: 50px;
+    }
+    section#content #home-container #buttons{
+        width: 240px;
+        margin: 20px auto;
+        padding-right: 50px;
+        
+    }
+    section#content #home-container #buttons :first-child{
+        width: 80px;
+        height: 30px;
+        line-height: 25px;
+        font-size: 15px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 80px;
+        height: 30px;
+        line-height: 24px;
+        font-size: 15px;
+    }
+}
+
+
 @media (min-width: 1300px){
     html{
         font-size: 13px;
@@ -2023,6 +2146,10 @@ input:focus {
     section#profile{
         height: 20rem;
         grid-template-rows: 120px 44px 66px 33px;
+    }
+    section#content #home-container h3 {
+        width: 260px;
+        padding: 0;
     }
 }
 
@@ -2037,6 +2164,29 @@ input:focus {
     section#profile{
         height: 17rem;
         grid-template-rows: 120px 73px 105px 44px;
+    }
+
+    section#content #home-container h3 {
+        width: 350px;
+        padding: 0;
+    }
+    section#content #home-container #buttons{
+        width: 350px;
+        margin: 20px auto;
+        padding-right: 50px;
+        
+    }
+    section#content #home-container #buttons :first-child{
+        width: 130px;
+        height: 40px;
+        line-height: 35px;
+        font-size: 20px;
+    }
+    section#content #home-container #buttons :nth-child(2){
+        width: 130px;
+        height: 40px;
+        line-height: 34px;
+        font-size: 20px;
     }
 }
 
