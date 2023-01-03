@@ -25,13 +25,14 @@
 
 <body>
     <main>
-        <area id="background_color_1"></area>
+        <div class="fixed h-[55vh] w-screen bg-blue-400 -z-10"></div>
 
-        @include('partials.layout.header');
+        @include('partials.layout.header')
 
         <section id="content">
 
             @yield('content')
+
         </section>
     </main>
 </body>
