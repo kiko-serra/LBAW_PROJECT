@@ -97,51 +97,5 @@ Route::middleware('admin')->group(function () {
     Route::get('users/block/{id_user}', 'AdminController@block')->name('admin.block');
     Route::get('users/unblock/{id_user}', 'AdminController@unblock')->name('admin.unblock');
     Route::post('/users/create', 'AdminController@store')->name('admin.store');
-});
-
-
-
-/**
- * 
- * DEBUG ROUTES, should be deleted afterwards.
- * 
-*/
-
-
-Route::get('debug/users', function() {
-    $mailData = [
-        'account_tag' => 'User Name',
-        'recovery_code' => 'code1324131',
-        'email' => 'up202006767@g.uporto.pt', // Change to your email for testing.
-    ];
-
-    Mail::to($mailData['email'])->send(new App\Mail\PasswordRecovery($mailData));
-
-    return $mailData;
-});
-
-Route::get('debug/posts', function() {
-    foreach (\App\Models\Post::all() as $post) {
-        echo $post->id_post . " " . $post->description . "<br>";
-    }
-    dump(\App\Models\Post::get());
-});
-
-/** A user's posts */
-Route::get('debug/user/{id}/posts', function($id) {
-    foreach (\App\Models\User::find($id)->posts()->get() as $post) {
-        echo $post->id_post . " " . $post->description . "<br>";
-    }
-    dump(\App\Models\User::find($id)->posts()->get());
-});
-
-/** A user's specific post */
-Route::get('debug/user/{user_id}/posts/{post_id}', function($user_id, $post_id) {
-    $post = \App\Models\User::find($user_id)->posts()->find($post_id);
-    echo $post->id_post . " " . $post->description . "<br>";
-    dump($post);
-});
-
-Route::get('debug/friendships/{id}', function($id) {
-    return \App\Models\Friendship::where('account1_id', $id)->orWhere('account2_id', $id)->get();
+    Route::get('/users/delete/{id}', 'AdminController@delete')->name('admin.delete');
 });
