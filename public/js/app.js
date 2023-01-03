@@ -699,6 +699,7 @@ function sendAjaxRequest(method, url, data, handler) {
 
 function addEventListeners() {
   var editUserModalBack = document.querySelector("#editUserModalBack");
+  var editUserExit = document.querySelector("#editUserExit");
   var linkButton = document.querySelector("#link_button");
   var linkButtonAccept = document.querySelector("#link_button_accept");
   var linkButtonDecline = document.querySelector("#link_button_decline");
@@ -724,14 +725,16 @@ function addEventListeners() {
   var groupKickButtons = document.querySelectorAll(".group-kick-button");
   var groupJoinButton = document.querySelector("#group-join-button");
   var recoveryStatus = document.querySelector("#recovery-status");
-  var mobileNavButton = document.querySelector('.bars-menu');
+  var mobileNavButton = document.querySelector(".bars-menu");
   if (mobileNavButton != null) {
-    mobileNavButton.addEventListener('click', function () {
-      document.querySelector('.mobile-menu').classList.toggle('active');
+    mobileNavButton.addEventListener("click", function () {
+      document.querySelector(".mobile-menu").classList.toggle("active");
     });
   }
-  ;
   if (editUserModalBack != null) editUserModalBack.addEventListener("click", function () {
+    return closeProfileEditModal();
+  });
+  if (editUserExit != null) editUserExit.addEventListener("click", function () {
     return closeProfileEditModal();
   });
   if (linkButton != null) {

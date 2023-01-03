@@ -34,7 +34,7 @@
 
 </section>
 
-<section class="sidepanel" id="right"> 
+<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account, 'groups' => $groups]); ?>
     
 </section>
 
