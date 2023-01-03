@@ -108,6 +108,7 @@
     --primary-color: #6495ed;
     --search-bar-background-color: #ececec;
 }
+
 body,
 html {
     margin: 0;
@@ -123,7 +124,7 @@ body {
     font-family: "Inter", sans-serif;
     font-weight: 400;
 }
-main > header {
+/* main > header {
     display: grid;
     grid-template-columns: 6fr 10fr 6fr;
     align-items: center;
@@ -159,7 +160,7 @@ main > header a i {
 main > header a.logout_button {
     justify-self: center;
     color: var(--primary-color);
-}
+} */
 main > header > .search_bar {
     margin: auto;
     height: 3rem;
@@ -608,15 +609,6 @@ input:focus {
     }
     .desktop {
         display: none;
-    }
-
-    main > header {
-        padding: 1rem 1rem;
-    }
-
-    main > header h1 {
-        text-align: left;
-        padding-left: 1rem;
     }
 
     main > header > .search_bar {

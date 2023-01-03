@@ -25,7 +25,7 @@
 
 <body>
     <main>
-        <div class="fixed h-[55vh] w-screen bg-blue-400 -z-10"></div>
+        <div class="fixed h-[55vh] w-screen bg-primary -z-10"></div>
 
         @include('partials.layout.header')
 

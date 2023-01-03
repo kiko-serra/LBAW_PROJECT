@@ -12,6 +12,9 @@ module.exports = {
             animation: {
                 press: "press 1s ease-in-out infinite",
             },
+            colors: {
+                primary: "#6495ed",
+            },
         },
     },
     plugins: [],
