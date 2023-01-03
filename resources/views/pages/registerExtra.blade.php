@@ -5,7 +5,13 @@
     {{ csrf_field() }} 
 
     <p class="font-normal text-2xl" id="register-title"> Almost There! </p>
-
+    <label for="picture" class="mt-4">Profile Picture</label>
+    <input id="picture" type="file" name="picture" value="{{ old('picture') }}">
+    @if ($errors->has('picture'))
+      <span class="error">
+          {{ $errors->first('picture') }} 
+      </span>
+    @endif
     <!-- Obligatory -->
     <label for="name" class="mt-2">Name</label>
     <input id="name" type="text" name="name" value="{{ old('accounttag') }}" maxlength="32">

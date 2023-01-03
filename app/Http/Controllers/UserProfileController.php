@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use Validator;
 
@@ -83,7 +84,9 @@ class UserProfileController extends Controller
     }
 
     public function endRegister(EndRegisterRequest $request) {
-
+      
+      if($request['picture'] != null)
+          $request['picture']->storeAs('storage/profile_pictures', $request['accounttag']);
       $validated = $request->validated();
 
       if ($request['name'] != null) {
