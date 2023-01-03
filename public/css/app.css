@@ -799,6 +799,10 @@ video {
 .m-0 {
   margin: 0px;
 }
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -821,14 +825,14 @@ video {
 .mt-4 {
   margin-top: 1rem;
 }
+.mb-4 {
+  margin-bottom: 1rem;
+}
 .mt-2 {
   margin-top: 0.5rem;
 }
 .mt-3 {
   margin-top: 0.75rem;
-}
-.mb-4 {
-  margin-bottom: 1rem;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -936,6 +940,9 @@ video {
 .w-7 {
   width: 1.75rem;
 }
+.w-36 {
+  width: 9rem;
+}
 .w-full {
   width: 100%;
 }
@@ -951,9 +958,6 @@ video {
 }
 .w-screen {
   width: 100vw;
-}
-.w-36 {
-  width: 9rem;
 }
 .w-9 {
   width: 2.25rem;
@@ -1146,6 +1150,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
 .bg-blue-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(147 197 253 / var(--tw-bg-opacity));
@@ -1161,10 +1169,6 @@ video {
 .bg-cyan-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(34 211 238 / var(--tw-bg-opacity));
-}
-.bg-blue-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 .bg-yellow-400 {
   --tw-bg-opacity: 1;
@@ -1255,6 +1259,10 @@ video {
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -1559,7 +1567,7 @@ section#profile > #profile_image {
 }
 section#profile > #user_life_info_container {
     grid-area: info;
-    height: 50%;
+    height: auto;
     width: 100%;
 }
 section#profile > #user_life_info_container i {
@@ -1854,6 +1862,29 @@ section.content .card-body > input {
     margin-bottom: 0.4rem;
 }
 
+    form#create_user{
+        padding: 2rem 2rem;
+    }
+
+    form#create_user input,
+    form#create_user textarea {
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+    }
+    #create_user label {
+        margin-top: 10px;
+    }
+
+    #create_user input[type="radio"] {
+        width: 15px;
+        margin: 12px 5px 5px 5px;
+    }
+
+
 input:checked,
 input:focus {
     outline: none !important;
@@ -2086,6 +2117,7 @@ footer {
     #aboutus-container{
         width: 30rem;
     }
+
 }
 
 @media (min-width: 800px) {
@@ -2237,7 +2269,7 @@ footer {
     }
     section#profile {
         height: 19rem;
-        grid-template-rows: 120px 73px 105px 44px;
+        grid-template-rows: 150px 73px 98px 44px;
     }
 
     section#profile > #profile_image {
@@ -2272,7 +2304,7 @@ footer {
     }
     section#profile {
         height: 18rem;
-        grid-template-rows: 120px 73px 105px 44px;
+        grid-template-rows: 150px 73px 98px 44px;
     }
 }
 
@@ -2295,6 +2327,10 @@ i#deleteUser:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
+.hover\:bg-blue-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
 .hover\:bg-orange-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(234 88 12 / var(--tw-bg-opacity));
@@ -2310,10 +2346,6 @@ i#deleteUser:hover {
 .hover\:bg-orange-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(251 146 60 / var(--tw-bg-opacity));
-}
-.hover\:bg-blue-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 .hover\:bg-slate-400:hover {
   --tw-bg-opacity: 1;

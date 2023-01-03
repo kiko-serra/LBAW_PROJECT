@@ -54,7 +54,7 @@
                         </a>
                     @endif
                     <a class="logout_button desktop" href="{{ url('/logout') }}"> Logout </a>
-                    <a class="logout_button mobile" href="{{ url('/logout') }}">
+                    <a class="logout_button mobile"\ href="{{ url('/logout') }}">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </a>
                     <a class="mobile" href="{{ route('profile', Auth::user()->id_account) }}">
@@ -74,7 +74,6 @@
 
         <footer class=" bottom-0 w-full flex flex-row justify-evenly items-center">
         <h1>UniLinks</h1>
-        <a href="{{ url('/faq') }}">Frequently Asked Questions</a>
         <a href="{{ url('/about_us') }}">About Us</a>
         </footer>
 

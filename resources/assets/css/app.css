@@ -326,7 +326,7 @@ section#profile > #profile_image {
 }
 section#profile > #user_life_info_container {
     grid-area: info;
-    height: 50%;
+    height: auto;
     width: 100%;
 }
 section#profile > #user_life_info_container i {
@@ -620,6 +620,29 @@ section.content .card-body > input {
     margin-bottom: 0.4rem;
 }
 
+    form#create_user{
+        padding: 2rem 2rem;
+    }
+
+    form#create_user input,
+    form#create_user textarea {
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+    }
+    #create_user label {
+        margin-top: 10px;
+    }
+
+    #create_user input[type="radio"] {
+        width: 15px;
+        margin: 12px 5px 5px 5px;
+    }
+
+
 input:checked,
 input:focus {
     outline: none !important;
@@ -860,6 +883,7 @@ footer {
     #aboutus-container{
         width: 30rem;
     }
+
 }
 
 @media (min-width: 800px) {
@@ -1011,7 +1035,7 @@ footer {
     }
     section#profile {
         height: 19rem;
-        grid-template-rows: 120px 73px 105px 44px;
+        grid-template-rows: 150px 73px 98px 44px;
     }
 
     section#profile > #profile_image {
@@ -1046,7 +1070,7 @@ footer {
     }
     section#profile {
         height: 18rem;
-        grid-template-rows: 120px 73px 105px 44px;
+        grid-template-rows: 150px 73px 98px 44px;
     }
 }
 
