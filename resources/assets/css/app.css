@@ -662,7 +662,6 @@ footer {
 @media (max-width: 800px) {
     html {
         font-size: 10px;
-        overflow: hidden;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-tap-highlight-color: transparent;
     }
@@ -884,12 +883,20 @@ footer {
         width: 30rem;
     }
 
+    #admin_usershow_container{
+        width: 95%;
+    }
+    #admin_usershow_container > div{
+        width: 45rem;
+        padding: 2rem 0.5rem;
+        font-size: 8px;
+    }
+
 }
 
 @media (min-width: 800px) {
     html {
         font-size: 12px;
-        overflow: hidden;
     }
     section#profile {
         height: 18rem;
@@ -937,7 +944,6 @@ footer {
 @media (min-width: 1000px) {
     html {
         font-size: 9px;
-        overflow: auto;
     }
     section#profile > #user_bio_section > #bio {
         padding-bottom: 0.5rem;
