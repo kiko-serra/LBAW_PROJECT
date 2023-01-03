@@ -883,6 +883,15 @@ footer {
         width: 30rem;
     }
 
+    #admin_usershow_container{
+        width: 95%;
+    }
+    #admin_usershow_container > div{
+        width: 45rem;
+        padding: 2rem 0.5rem;
+        font-size: 8px;
+    }
+
 }
 
 @media (min-width: 800px) {

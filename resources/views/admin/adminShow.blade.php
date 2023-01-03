@@ -8,7 +8,7 @@
     <div class="text-center mt-5">
         <a class="text-violet-700" href="{{ route('admin.create') }}">Create new user</a>
     </div>
-    <div class="flex flex-col mt-4">
+    <div id="admin_usershow_container" class="flex flex-col mt-4">
         @foreach ($users as $user)
             @if($user->name === "Anonymous")
                 @continue
