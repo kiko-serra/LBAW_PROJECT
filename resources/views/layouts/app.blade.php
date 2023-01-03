@@ -26,7 +26,7 @@
 <body>
     <main>
         <div id="background_color_1"></div>
-        <header>
+        <header class="sticky w-full">
             <h1 class="desktop"><a href="{{ url('/timeline') }}">UniLinks</a></h1>
             @if (Auth::check())
                 <h1 class="mobile">
@@ -70,6 +70,14 @@
 
             @yield('content')
         </section>
+
+
+        <footer class=" bottom-0 w-full flex flex-row justify-evenly items-center">
+        <h1>UniLinks</h1>
+        <a href="{{ url('/faq') }}">Frequently Asked Questions</a>
+        <a href="{{ url('/about_us') }}">About Us</a>
+        </footer>
+
     </main>
 </body>
 

@@ -16,6 +16,9 @@ Route::get('/', function() {
 // ----------------Timeline--------------------
 Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
+// ----------------Contacts--------------------
+Route::get('/about_us', function() {return view('pages.about_us');})->name('about_us');
+
 // ----------------User Profile--------------------
 Route::get('/user/{id}', 'UserProfileController@redirect')->where('id', '[0-9]+')->name('profile');
 Route::get('/user/{account_tag}', 'UserProfileController@show')->name('profile.tag');
