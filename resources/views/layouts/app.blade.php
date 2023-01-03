@@ -74,6 +74,7 @@
 
         <footer class=" bottom-0 w-full flex flex-row justify-evenly items-center">
         <h1>UniLinks</h1>
+        <a href="{{ url('/contacts') }}">Contacts</a>
         <a href="{{ url('/about_us') }}">About Us</a>
         </footer>
 

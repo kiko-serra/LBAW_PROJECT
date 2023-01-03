@@ -16,8 +16,11 @@ Route::get('/', function() {
 // ----------------Timeline--------------------
 Route::get('/timeline', 'TimelineController@list')->name('timeline');
 
-// ----------------Contacts--------------------
+// ----------------About us--------------------
 Route::get('/about_us', function() {return view('pages.about_us');})->name('about_us');
+
+// ----------------Contacts--------------------
+Route::get('/contacts', function() {return view('pages.contacts');})->name('contacts');
 
 // ----------------User Profile--------------------
 Route::get('/user/{id}', 'UserProfileController@redirect')->where('id', '[0-9]+')->name('profile');
