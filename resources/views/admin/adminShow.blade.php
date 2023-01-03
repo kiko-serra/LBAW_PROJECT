@@ -10,6 +10,9 @@
     </div>
     <div class="flex flex-col mt-4">
         @foreach ($users as $user)
+            @if($user->name === "Anonymous")
+                @continue
+            @endif
             <div id={{$user->id_account}} class="card-body flex flex-row m-6 text-center items-center h-28 break-words">
                 <img src="{{ asset('storage/' . $user->profile_picture) }}" class="img-thumbnail" alt="">
                 <a class="underline hover:no-underline" href="/user/{{ $user->id_account }}">{{ $user->name }}</a> 
@@ -24,6 +27,7 @@
                 @else
                     <input class="bg-red-400 hover:bg-red-700 rounded py-2 px-3 cursor-pointer text-center" type="button" value="Block" onclick="block(this);">
                 @endif
+                <i id="deleteUser" class="fa-solid fa-trash" onclick="deleteUser(this);"></i>
             </div>
         @endforeach 
     </div>

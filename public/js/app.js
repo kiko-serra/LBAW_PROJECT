@@ -173,6 +173,19 @@ window.block = function (element) {
     sendAjaxRequest("GET", "/users/unblock/" + id, null, reloadIfSuccessful);
   }
 };
+window.deleteUser = function (element) {
+  element = element.parentNode;
+  var id = element.id;
+  sendAjaxRequest("GET", "/users/delete/" + id, function (response) {
+    if (response.success) {
+      // Remove the row element from the DOM
+      element.parentNode.removeChild(element);
+    } else {
+      // Handle error
+      console.error("Error deleting user:", response.error);
+    }
+  });
+};
 var leftPanelGetData = function leftPanelGetData() {
   sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
 };
@@ -289,6 +302,13 @@ var filterMembers = function filterMembers(input) {
     id: community,
     text: input.value
   }, membersFiltered);
+};
+var sendRecoveryEmail = function sendRecoveryEmail(statusElement) {
+  var email = statusElement.getAttribute("data-id");
+  if (email == null) return;
+  sendAjaxRequest("post", "/recovery", {
+    email: email
+  }, recoveryEmailHandler(statusElement));
 };
 
 //LINK HANDLERS
@@ -631,6 +651,14 @@ function notificationDeleteHandler() {
     return;
   }
 }
+function recoveryEmailHandler(statusElement) {
+  if (this.status != 200) {
+    console.log("action failed");
+    statusElement.textContent = "Failed to send email, please try again.";
+    return;
+  }
+  statusElement.textContent = "Email sent, please check your inbox.";
+}
 var readNotification = function readNotification(id) {
   sendAjaxRequest("post", "/api/notification", {
     id: id
@@ -695,6 +723,7 @@ function addEventListeners() {
   var leftPanelFilterLinksInput = document.querySelector("#leftpanellinksfilter");
   var groupKickButtons = document.querySelectorAll(".group-kick-button");
   var groupJoinButton = document.querySelector("#group-join-button");
+  var recoveryStatus = document.querySelector("#recovery-status");
   var mobileNavButton = document.querySelector('.bars-menu');
   if (mobileNavButton != null) {
     mobileNavButton.addEventListener('click', function () {
@@ -815,6 +844,7 @@ function addEventListeners() {
   if (groupJoinButton != null) groupJoinButton.addEventListener("click", function (ev) {
     return acceptGroupRequest(ev.target);
   });
+  if (recoveryStatus != null) sendRecoveryEmail(recoveryStatus);
 }
 addEventListeners();
 

@@ -193,6 +193,20 @@ window.block = function (element) {
         );
     }
 };
+window.deleteUser = function (element) {
+    element = element.parentNode;
+    var id = element.id;
+    sendAjaxRequest("GET", "/users/delete/" + id, function(response) {
+      if (response.success) {
+        // Remove the row element from the DOM
+        element.parentNode.removeChild(element);
+      } else {
+        // Handle error
+        console.error("Error deleting user:", response.error);
+      }
+    });
+  };
+  
 
 const leftPanelGetData = function () {
     sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
