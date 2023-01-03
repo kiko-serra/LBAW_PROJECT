@@ -151,7 +151,21 @@ class AdminController extends Controller
     public function delete(Request $request, $id)
     {
         $user = User::find($id);
-        $user->delete();
+        $lastAnnon = User::where('name', 'Anonymous')->orderBy('account_tag', 'desc')->first();
+        if($lastAnnon == null){
+            $annonNum = 0;
+        } else {
+            $annonNum = explode("anonymous", $lastAnnon->account_tag)[1];
+        }
+
+        $user->account_tag = "anonymous" . ($annonNum + 1);
+        $user->name = "Anonymous";
+        $user->email = "anonymous" . ($annonNum + 1) . "@anonymous.com";
+        $user->birthday = "2000-01-01";
+        $user->university = "None";
+        $user->course = "None";
+        $user->password = Hash::make("anonymous" . ($annonNum + 1) . "anonymous" . ($annonNum + 1) . "@anonymous.com" . "2000-01-01");
+        $user->save();
         return redirect('/users')->with('success', 'User has been deleted');
     }
 }
