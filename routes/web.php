@@ -97,6 +97,7 @@ Route::middleware('admin')->group(function () {
     Route::get('users/block/{id_user}', 'AdminController@block')->name('admin.block');
     Route::get('users/unblock/{id_user}', 'AdminController@unblock')->name('admin.unblock');
     Route::post('/users/create', 'AdminController@store')->name('admin.store');
+    Route::get('/users/delete/{id}', 'AdminController@delete')->name('admin.delete');
 });
 
 
