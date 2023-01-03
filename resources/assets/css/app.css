@@ -111,7 +111,8 @@
 body,
 html {
     margin: 0;
-    padding: 0;}
+    padding: 0;
+}
 * {
     box-sizing: border-box;
 }
@@ -122,14 +123,14 @@ body {
     font-family: "Inter", sans-serif;
     font-weight: 400;
 }
-area#background_color_1 {
+div#background_color_1 {
     position: absolute;
     top: 0;
     bottom: 0;
     z-index: -1;
     width: 100%;
     height: 55vh;
-    background: var(--bg_color1);
+    background-color: var(--bg_color1);
 }
 main > header {
     display: grid;
@@ -141,7 +142,7 @@ main > header {
     padding: 1rem 3rem;
     margin-bottom: 2rem;
 }
-main > header h1{
+main > header h1 {
     text-align: center;
 }
 main > header h1 a {
@@ -151,7 +152,7 @@ main > header h1 a {
     text-decoration: none;
 }
 
-main > header :last-child{
+main > header :last-child {
     line-height: w;
 }
 main > header a {
@@ -161,7 +162,7 @@ main > header span {
     margin: 1rem;
     justify-self: center;
 }
-main > header a i{
+main > header a i {
     color: var(--primary-color);
 }
 main > header a.logout_button {
@@ -372,7 +373,8 @@ section#profile > #filters {
     grid-area: filters;
 }
 
-#edit_profile input, #edit_profile textarea{
+#edit_profile input,
+#edit_profile textarea {
     outline: 0;
     background: #f2f2f2;
     width: 100%;
@@ -380,16 +382,16 @@ section#profile > #filters {
     margin: 0 0 15px;
     padding: 15px;
 }
-#edit_profile label{
+#edit_profile label {
     margin-top: 10px;
 }
 
-#edit_profile input[type=radio]{
+#edit_profile input[type="radio"] {
     width: 15px;
     margin: 12px 5px 5px 5px;
 }
 
-#edit_profile textarea{
+#edit_profile textarea {
     max-height: 80px;
 }
 
@@ -484,7 +486,7 @@ article #postCardInfo > a .arrows {
 }
 #content > form > p {
     margin: auto;
-    word-break: normal;    
+    word-break: normal;
 }
 #content > form > select {
     border: solid 1px var(--primary-color);
@@ -602,34 +604,31 @@ input:focus {
     display: none;
 }
 
-
-
-
-@media (max-width: 800px){
-    html{
+@media (max-width: 800px) {
+    html {
         font-size: 10px;
         overflow: hidden;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-tap-highlight-color: transparent;
     }
 
     .mobile {
-        display:inline-block;
+        display: inline-block;
     }
     .desktop {
         display: none;
     }
 
     main > header {
-       padding: 1rem 1rem;
+        padding: 1rem 1rem;
     }
 
-     main > header h1 {
+    main > header h1 {
         text-align: left;
         padding-left: 1rem;
     }
 
-    main > header > .search_bar{
+    main > header > .search_bar {
         width: 17rem;
         height: 2.7rem;
         padding: 0rem 1rem;
@@ -637,56 +636,56 @@ input:focus {
         border: 1px solid var(--primary-color);
     }
 
-    main > header > .search_bar #account_tag{
+    main > header > .search_bar #account_tag {
         width: 10rem;
         border-bottom: 1px solid var(--primary-color);
     }
 
-    section#timeline{
+    section#timeline {
         width: 34rem;
     }
 
-    section#timeline-container{
+    section#timeline-container {
         width: 34rem;
         padding: 0.7rem;
     }
-    section#timeline-container #newPostCardLeftBar{
-       width: 4rem;
-       height: 4rem;
+    section#timeline-container #newPostCardLeftBar {
+        width: 4rem;
+        height: 4rem;
     }
     section#timeline-container #newPostCardLeftBar :first-child {
         width: 4rem;
         height: 4rem;
-     }
+    }
 
-     section#profile{
+    section#profile {
         height: 21rem;
         grid-template-rows: 96px 32px 53px 30px;
     }
-    section#profile #filters{
+    section#profile #filters {
         gap: 0;
-        justify-content: space-between ;
+        justify-content: space-between;
     }
     section#profile .profile-page-filter-button {
         width: 6rem;
     }
 
-    .sidepanel{
+    .sidepanel {
         position: fixed;
     }
-    .right-sidepanel{
+    .right-sidepanel {
         display: none;
     }
 
-    #postCardLeftBar > div{
+    #postCardLeftBar > div {
         width: 4rem;
         height: 4rem;
     }
 
-    section#profile > #profile_image{
+    section#profile > #profile_image {
         height: 70%;
     }
-    #posts{
+    #posts {
         margin-top: 0;
     }
 
@@ -694,9 +693,9 @@ input:focus {
     .mobile-menu ul {
         margin: 0;
         padding: 0;
-      }
-      
-      .mobile-menu li {
+    }
+
+    .mobile-menu li {
         font-size: 20px;
         line-height: 30px;
         margin: 0;
@@ -705,27 +704,27 @@ input:focus {
         position: relative;
         text-align: left;
         text-transform: uppercase;
-        padding-left:15px;
-      }
-      
-      .mobile-menu li:first-child {
+        padding-left: 15px;
+    }
+
+    .mobile-menu li:first-child {
         margin-top: 70px;
-      }
-      
-      .mobile-menu li:hover {
-        background: #CCCCCC;
-      }
-      
-      .mobile-menu li a {
+    }
+
+    .mobile-menu li:hover {
+        background: #cccccc;
+    }
+
+    .mobile-menu li a {
         text-decoration: none;
         color: black;
-      }
-      
-          /*---------------------
+    }
+
+    /*---------------------
           Mobiles Menu - Slide IN 
           ----------------------*/
-      
-      .mobile-menu {
+
+    .mobile-menu {
         top: 4.8rem;
         left: -100%;
         width: 100%;
@@ -741,9 +740,9 @@ input:focus {
         -webkit-transition: all 500ms ease-in-out;
         -moz-transition: all 500ms ease-in-out;
         transition: all 500ms ease-in-out;
-      }
-      
-      .mobile-menu.active {
+    }
+
+    .mobile-menu.active {
         left: 0;
         -webkit-transform: translate3d(0, 0, 0);
         -moz-transform: translate3d(0, 0, 0);
@@ -751,35 +750,35 @@ input:focus {
         -webkit-transition: all 500ms ease-in-out;
         -moz-transition: all 500ms ease-in-out;
         transition: all 500ms ease-in-out;
-      }
+    }
 
-      .sidepanel-mobile{
+    .sidepanel-mobile {
         display: block;
-      }
-      .sidepanel-mobile > div *{
+    }
+    .sidepanel-mobile > div * {
         font-size: 14px;
-      }
-      .left-panel-button{
+    }
+    .left-panel-button {
         height: 6rem;
         font-size: 15px;
         background-color: rgb(255, 255, 255);
         color: black;
-      }
-      .left-panel-button-selected{
+    }
+    .left-panel-button-selected {
         background-color: #6495ed4d;
         color: black;
-      }
+    }
 
-      #left_panel_links_list {
+    #left_panel_links_list {
         max-height: 24rem;
-      }
-      #left_panel_links_list > :first-child{
+    }
+    #left_panel_links_list > :first-child {
         height: 3rem;
-      }
+    }
 
-      /*---- LOGIM PAGE -----*/
+    /*---- LOGIM PAGE -----*/
 
-      section#content #home-container{
+    section#content #home-container {
         width: 30rem;
         height: 45rem;
         padding: 8rem 2rem;
@@ -787,135 +786,122 @@ input:focus {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-      }
+    }
 
-      section#content #home-container img{
+    section#content #home-container img {
         height: 120px;
         margin: 0;
-      } 
-      section#content #home-container h3 {
+    }
+    section#content #home-container h3 {
         text-align: center;
         left: 0;
         top: 0;
         line-height: 20px;
         position: relative;
-        transform: translate(0,0);
-      }
-    
-      section#content #home-container #buttons{
+        transform: translate(0, 0);
+    }
+
+    section#content #home-container #buttons {
         width: 180px;
         margin: 0;
-        
-      }
+    }
 
-    section#content #home-container #buttons :first-child{
+    section#content #home-container #buttons :first-child {
         width: 80px;
         height: 30px;
         line-height: 25px;
         font-size: 16px;
     }
-    section#content #home-container #buttons :nth-child(2){
+    section#content #home-container #buttons :nth-child(2) {
         width: 80px;
         height: 28px;
         line-height: 24px;
         font-size: 16px;
     }
 
-    #editUserModal :nth-child(2){
+    #editUserModal :nth-child(2) {
         max-width: 90%;
     }
 
-
-
-    
-
-      /*---------------------*/
+    /*---------------------*/
 }
 
-@media (min-width: 800px){
-    html{
+@media (min-width: 800px) {
+    html {
         font-size: 12px;
         overflow: hidden;
     }
-    section#profile{
+    section#profile {
         height: 18rem;
         grid-template-rows: 100px 35px 60px 30px;
     }
-    .sidepanel{
+    .sidepanel {
         width: 15rem;
     }
 
-    
-
-
-        /* Home Login Page  */
-    section#content #home-container{
+    /* Home Login Page  */
+    section#content #home-container {
         width: 55em;
         height: 30rem;
         padding: 4rem 5rem;
         grid-template-columns: 6fr 3fr;
         grid-template-rows: 5fr 4fr;
         grid-template-areas: "title image" "buttons image";
-
     }
-    section#content #home-container #buttons{
+    section#content #home-container #buttons {
         width: 240px;
         margin: 20px auto;
         padding-right: 50px;
-        
     }
-    section#content #home-container img{
+    section#content #home-container img {
         height: 100%;
     }
     section#content #home-container h3 {
         width: 250px;
         padding-right: 50px;
     }
-    section#content #home-container #buttons :first-child{
+    section#content #home-container #buttons :first-child {
         width: 80px;
         height: 30px;
         line-height: 25px;
         font-size: 15px;
     }
-    section#content #home-container #buttons :nth-child(2){
+    section#content #home-container #buttons :nth-child(2) {
         width: 80px;
         height: 30px;
         line-height: 24px;
         font-size: 15px;
     }
-
 }
 
-@media (min-width: 1000px){
-    html{
+@media (min-width: 1000px) {
+    html {
         font-size: 9px;
         overflow: auto;
     }
     section#profile > #user_bio_section > #bio {
         padding-bottom: 0.5rem;
     }
-    section#profile{
+    section#profile {
         height: 19rem;
         grid-template-rows: 70px 28px 53px 10px;
     }
-    #posts{
+    #posts {
         margin-top: 0;
     }
-    .sidepanel{
-       width: 24rem;
+    .sidepanel {
+        width: 24rem;
     }
-
-    
 }
 
-@media (min-width: 1100px){
-    html{
+@media (min-width: 1100px) {
+    html {
         font-size: 10px;
     }
-    section#profile > #user_bio_section{
+    section#profile > #user_bio_section {
         height: 5rem;
     }
-    section#profile{
+    section#profile {
         height: 21rem;
         grid-template-rows: 100px 35px 54px 30px;
     }
@@ -924,35 +910,34 @@ input:focus {
     }
 }
 
-@media (min-width: 800) and (max-width: 1300px){
-    section#content #home-container{
+@media (min-width: 800) and (max-width: 1300px) {
+    section#content #home-container {
         width: 55em;
         height: 30rem;
         padding: 4rem 5rem;
         grid-template-columns: 5fr 3fr;
         grid-template-rows: 5fr 4fr;
     }
-    
-    section#content #home-container img{
+
+    section#content #home-container img {
         height: 100%;
     }
     section#content #home-container h3 {
         width: 250px;
         padding-right: 50px;
     }
-    section#content #home-container #buttons{
+    section#content #home-container #buttons {
         width: 240px;
         margin: 20px auto;
         padding-right: 50px;
-        
     }
-    section#content #home-container #buttons :first-child{
+    section#content #home-container #buttons :first-child {
         width: 80px;
         height: 30px;
         line-height: 25px;
         font-size: 15px;
     }
-    section#content #home-container #buttons :nth-child(2){
+    section#content #home-container #buttons :nth-child(2) {
         width: 80px;
         height: 30px;
         line-height: 24px;
@@ -960,15 +945,14 @@ input:focus {
     }
 }
 
-
-@media (min-width: 1300px){
-    html{
+@media (min-width: 1300px) {
+    html {
         font-size: 13px;
     }
-    section#profile > #user_bio_section{
+    section#profile > #user_bio_section {
         height: 5rem;
     }
-    section#profile{
+    section#profile {
         height: 20rem;
         grid-template-rows: 120px 44px 66px 33px;
     }
@@ -979,18 +963,17 @@ input:focus {
         width: 260px;
         padding: 0;
     }
-    
 }
 
-@media (min-width: 1650px){
-    html{
+@media (min-width: 1650px) {
+    html {
         font-size: 18px;
     }
 
-    section#profile > #user_bio_section{
+    section#profile > #user_bio_section {
         height: 5rem;
     }
-    section#profile{
+    section#profile {
         height: 19rem;
         grid-template-rows: 120px 73px 105px 44px;
     }
@@ -1002,19 +985,18 @@ input:focus {
         width: 350px;
         padding: 0;
     }
-    section#content #home-container #buttons{
+    section#content #home-container #buttons {
         width: 350px;
         margin: 20px auto;
         padding-right: 50px;
-        
     }
-    section#content #home-container #buttons :first-child{
+    section#content #home-container #buttons :first-child {
         width: 130px;
         height: 40px;
         line-height: 35px;
         font-size: 20px;
     }
-    section#content #home-container #buttons :nth-child(2){
+    section#content #home-container #buttons :nth-child(2) {
         width: 130px;
         height: 40px;
         line-height: 34px;
@@ -1022,11 +1004,11 @@ input:focus {
     }
 }
 
-@media (min-width: 2000px){
-    html{
+@media (min-width: 2000px) {
+    html {
         font-size: 20px;
     }
-    section#profile{
+    section#profile {
         height: 18rem;
         grid-template-rows: 120px 73px 105px 44px;
     }
