@@ -26,7 +26,7 @@
 <body>
     <main>
         <div id="background_color_1"></div>
-        <header>
+        <header class="sticky w-full">
             <h1 class="desktop"><a href="{{ url('/timeline') }}">UniLinks</a></h1>
             @if (Auth::check())
                 <h1 class="mobile">
@@ -54,7 +54,7 @@
                         </a>
                     @endif
                     <a class="logout_button desktop" href="{{ url('/logout') }}"> Logout </a>
-                    <a class="logout_button mobile" href="{{ url('/logout') }}">
+                    <a class="logout_button mobile"\ href="{{ url('/logout') }}">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </a>
                     <a class="mobile" href="{{ route('profile', Auth::user()->id_account) }}">
@@ -70,6 +70,13 @@
 
             @yield('content')
         </section>
+
+
+        <footer class=" bottom-0 w-full flex flex-row justify-evenly items-center">
+        <h1>UniLinks</h1>
+        <a href="{{ url('/about_us') }}">About Us</a>
+        </footer>
+
     </main>
 </body>
 

@@ -2,10 +2,10 @@
 
 @section('content')
 <section class="content">
-    <div class="text-center text-black text-6xl">Create New User</div>
     <div class="flex flex-col mt-4">
-        <form method="POST" action="{{ route('admin.store') }}" class = "rounded-2xl bg-white flex flex-col justify-between">
+        <form method="POST" id="create_user" action="{{ route('admin.store') }}" class = "rounded-2xl bg-white flex flex-col justify-between">
             {{ csrf_field() }} 
+            <div class="text-black text-3xl mb-4">Create New User</div>
             <label for="name" class="mt-4">Name</label>
             <input id="name" type="text" name="name" value="{{ old('name') }}" required>
             @if ($errors->has('name'))
@@ -111,7 +111,7 @@
             </span>
             @endif
 
-            <button type="submit" class="mt-4">
+            <button type="submit" class="mx-auto mt-4 w-36 bg-blue-400 hover:bg-blue-700 action-button">
             Register
             </button>
         </form>
