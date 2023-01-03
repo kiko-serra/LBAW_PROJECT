@@ -62,11 +62,10 @@
             </span>
             @endif
 
-
             <div class="flex flex-row justify-center w-72 m-auto">
                 <button type="submit" class="w-36 mr-10 bg-blue-400 hover:bg-blue-700 action-button">Save</button>
-                <button id="editUserExit" type="button" class="w-36 bg-red-400 hover:bg-red-700 action-button"
-                    onclick="closeProfileEditModal();">Exit</button>
+                <button id="editUserExit" type="button"
+                    class="w-36 bg-red-400 hover:bg-red-700 action-button">Exit</button>
             </div>
         </Form>
     </div>

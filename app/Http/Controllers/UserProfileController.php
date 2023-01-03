@@ -34,10 +34,12 @@ class UserProfileController extends Controller
     public function show($account_tag)
     {
       if (!Auth::check()) return redirect('/login');
-      //$this->authorize('list', Post::class); //TODO: discover what this is
       $user = User::where('account_tag', '=', $account_tag)->first();
       if (!$user) return "No user found";
-      $posts = $user->posts()->orderByDesc('publication_date')->get();
+
+      $posts = User::join('post', 'account.id_account', '=', 'post.owner_id')
+                  ->where('account.id_account', '=', $user->id_account)
+                  ->get(['post.*', 'account.name', 'account.account_tag'])->sortByDesc('edited_date');
 
       $friendships1 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account2_id')->where('friendship.account1_id', $user->id_account)->get();
       $friendships2 = \App\Models\User::join('friendship', 'account.id_account', '=', 'friendship.account1_id')->where('friendship.account2_id', $user->id_account)->get();
