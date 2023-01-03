@@ -196,17 +196,16 @@ window.block = function (element) {
 window.deleteUser = function (element) {
     element = element.parentNode;
     var id = element.id;
-    sendAjaxRequest("GET", "/users/delete/" + id, function(response) {
-      if (response.success) {
-        // Remove the row element from the DOM
-        element.parentNode.removeChild(element);
-      } else {
-        // Handle error
-        console.error("Error deleting user:", response.error);
-      }
+    sendAjaxRequest("GET", "/users/delete/" + id, function (response) {
+        if (response.success) {
+            // Remove the row element from the DOM
+            element.parentNode.removeChild(element);
+        } else {
+            // Handle error
+            console.error("Error deleting user:", response.error);
+        }
     });
-  };
-  
+};
 
 const leftPanelGetData = function () {
     sendAjaxRequest("get", "/api/leftpanel", null, leftPanelRequestHandler);
@@ -910,6 +909,7 @@ function sendAjaxRequest(method, url, data, handler) {
 
 function addEventListeners() {
     let editUserModalBack = document.querySelector("#editUserModalBack");
+    let editUserExit = document.querySelector("#editUserExit");
     let linkButton = document.querySelector("#link_button");
     let linkButtonAccept = document.querySelector("#link_button_accept");
     let linkButtonDecline = document.querySelector("#link_button_decline");
@@ -959,18 +959,20 @@ function addEventListeners() {
     let groupJoinButton = document.querySelector("#group-join-button");
     let recoveryStatus = document.querySelector("#recovery-status");
 
-    let mobileNavButton = document.querySelector('.bars-menu');
+    let mobileNavButton = document.querySelector(".bars-menu");
 
-    if (mobileNavButton != null){
-        mobileNavButton.addEventListener('click', function() {
-            document.querySelector('.mobile-menu').classList.toggle('active');
-        })
-    };
+    if (mobileNavButton != null) {
+        mobileNavButton.addEventListener("click", function () {
+            document.querySelector(".mobile-menu").classList.toggle("active");
+        });
+    }
 
     if (editUserModalBack != null)
         editUserModalBack.addEventListener("click", () =>
             closeProfileEditModal()
         );
+    if (editUserExit != null)
+        editUserExit.addEventListener("click", () => closeProfileEditModal());
     if (linkButton != null) {
         if (linkButton.getAttribute("data-method") == "edit")
             linkButton.addEventListener("click", () => openProfileEditModal());
@@ -1145,6 +1147,5 @@ function addEventListeners() {
 
     if (recoveryStatus != null) sendRecoveryEmail(recoveryStatus);
 }
-
 
 addEventListeners();
