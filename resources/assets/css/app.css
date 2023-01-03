@@ -124,71 +124,7 @@ body {
     font-family: "Inter", sans-serif;
     font-weight: 400;
 }
-/* main > header {
-    display: grid;
-    grid-template-columns: 6fr 10fr 6fr;
-    align-items: center;
-    background-color: #d2afe7;
-    padding: 1em;
-    background-color: #ffffff;
-    padding: 1rem 3rem;
-    margin-bottom: 2rem;
-}
-main > header h1 {
-    text-align: center;
-}
-main > header h1 a {
-    margin: 0;
-    font-size: 2rem;
-    color: var(--primary-color);
-    text-decoration: none;
-}
 
-main > header :last-child {
-    line-height: w;
-}
-main > header a {
-    font-size: 1.2rem;
-}
-main > header span {
-    margin: 1rem;
-    justify-self: center;
-}
-main > header a i {
-    color: var(--primary-color);
-}
-main > header a.logout_button {
-    justify-self: center;
-    color: var(--primary-color);
-} */
-main > header > .search_bar {
-    margin: auto;
-    height: 3rem;
-    width: 31rem;
-    border-radius: 50px;
-    border: 2px solid var(--primary-color);
-    align-items: center;
-    padding: 0px 2rem;
-    text-align: center;
-}
-main > header > .search_bar > form {
-    width: 400px;
-    height: 20px;
-    margin: auto;
-    margin-bottom: 0.6rem;
-    border-bottom: var(--primary-color);
-}
-main > header > .search_bar > i {
-    color: var(--primary-color);
-    font-size: 1.3em;
-}
-main > header > .search_bar > form > input,
-.search_bar > form > input:focus {
-    border: 0px;
-    border-radius: 0;
-    border-bottom: 2px solid var(--primary-color);
-    height: 20px;
-}
 section#content {
     display: flex;
     flex-direction: row;
@@ -598,7 +534,6 @@ input:focus {
 
 @media (max-width: 800px) {
     html {
-        font-size: 10px;
         overflow: hidden;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-tap-highlight-color: transparent;
@@ -811,7 +746,6 @@ input:focus {
 
 @media (min-width: 800px) {
     html {
-        font-size: 12px;
         overflow: hidden;
     }
     section#profile {
@@ -859,7 +793,6 @@ input:focus {
 
 @media (min-width: 1000px) {
     html {
-        font-size: 9px;
         overflow: auto;
     }
     section#profile > #user_bio_section > #bio {
@@ -878,9 +811,6 @@ input:focus {
 }
 
 @media (min-width: 1100px) {
-    html {
-        font-size: 10px;
-    }
     section#profile > #user_bio_section {
         height: 5rem;
     }
@@ -929,9 +859,6 @@ input:focus {
 }
 
 @media (min-width: 1300px) {
-    html {
-        font-size: 13px;
-    }
     section#profile > #user_bio_section {
         height: 5rem;
     }
@@ -949,10 +876,6 @@ input:focus {
 }
 
 @media (min-width: 1650px) {
-    html {
-        font-size: 18px;
-    }
-
     section#profile > #user_bio_section {
         height: 5rem;
     }
@@ -988,9 +911,6 @@ input:focus {
 }
 
 @media (min-width: 2000px) {
-    html {
-        font-size: 20px;
-    }
     section#profile {
         height: 18rem;
         grid-template-rows: 120px 73px 105px 44px;
