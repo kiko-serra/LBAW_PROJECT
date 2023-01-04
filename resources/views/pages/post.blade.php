@@ -3,5 +3,12 @@
 @section('title', $post->name)
 
 @section('content')
-  @include('partials.post', ['post' => $post])
+
+    <?php echo view('partials.leftPanel.panel'); ?>
+
+
+    @include('partials.post', ['post' => $post])
+
+    <?php echo view('partials.rightPanel.panel', ['type' => 'post']); ?>
+
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\PostCreationRequest;
 
+use App\Models\User;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -20,8 +21,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-      $post = Post::find($id);
-      $this->authorize('show', $post);
+      $post = User::join('post', 'account.id_account', '=', 'post.owner_id')
+                  ->where('post.id_post', '=', $id)
+                  ->first(['post.*', 'account.name', 'account.account_tag']);
+
       return view('pages.post', ['post' => $post]);
     }
 
@@ -62,7 +65,7 @@ class PostController extends Controller
       $post->is_visible = true;
       $post->save();
 
-      return redirect()->route('timeline');
+      return redirect()->back();
     }
 
     public function delete(Request $request, $id)

@@ -140,7 +140,6 @@ main > header {
     padding: 1em;
     background-color: #ffffff;
     padding: 1rem 3rem;
-    margin-bottom: 2rem;
 }
 main > header h1 {
     text-align: center;
@@ -202,6 +201,9 @@ section#content {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
+    margin-top: 40px; /*for header */
+    padding-bottom: 4rem; /*for footer */
+    min-height: 82vh;
 }
 section#content #home-container {
     width: 50rem;
@@ -278,6 +280,7 @@ section#timeline-container {
     border-radius: 20px;
     width: 38rem;
     min-height: 200px;
+    margin-bottom: 2rem;
     background-color: white;
 }
 
@@ -323,7 +326,7 @@ section#profile > #profile_image {
 }
 section#profile > #user_life_info_container {
     grid-area: info;
-    height: 50%;
+    height: auto;
     width: 100%;
 }
 section#profile > #user_life_info_container i {
@@ -595,6 +598,50 @@ section.content .card-body > input {
     border: 2px solid var(--primary-color);
 }
 
+#aboutus-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50rem;
+    height: auto;
+    padding: 2rem 3rem;
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+#aboutus-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#aboutus-container h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.4rem;
+}
+
+form#create_user {
+    padding: 2rem 2rem;
+}
+
+form#create_user input,
+form#create_user textarea {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+}
+#create_user label {
+    margin-top: 10px;
+}
+
+#create_user input[type="radio"] {
+    width: 15px;
+    margin: 12px 5px 5px 5px;
+}
+
 input:checked,
 input:focus {
     outline: none !important;
@@ -604,10 +651,16 @@ input:focus {
     display: none;
 }
 
+footer {
+    height: 4rem;
+    font-size: 1.1rem;
+    background-color: #dcdcdc;
+    color: black;
+}
+
 @media (max-width: 800px) {
     html {
         font-size: 10px;
-        overflow: hidden;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-tap-highlight-color: transparent;
     }
@@ -824,12 +877,24 @@ input:focus {
     }
 
     /*---------------------*/
+
+    #aboutus-container {
+        width: 30rem;
+    }
+
+    #admin_usershow_container {
+        width: 95%;
+    }
+    #admin_usershow_container > div {
+        width: 45rem;
+        padding: 2rem 0.5rem;
+        font-size: 8px;
+    }
 }
 
 @media (min-width: 800px) {
     html {
         font-size: 12px;
-        overflow: hidden;
     }
     section#profile {
         height: 18rem;
@@ -877,7 +942,6 @@ input:focus {
 @media (min-width: 1000px) {
     html {
         font-size: 9px;
-        overflow: auto;
     }
     section#profile > #user_bio_section > #bio {
         padding-bottom: 0.5rem;
@@ -975,7 +1039,7 @@ input:focus {
     }
     section#profile {
         height: 19rem;
-        grid-template-rows: 120px 73px 105px 44px;
+        grid-template-rows: 150px 73px 98px 44px;
     }
 
     section#profile > #profile_image {
@@ -1010,6 +1074,14 @@ input:focus {
     }
     section#profile {
         height: 18rem;
-        grid-template-rows: 120px 73px 105px 44px;
+        grid-template-rows: 150px 73px 98px 44px;
     }
+}
+
+i#deleteUser {
+    color: rgb(248 113 113);
+}
+i#deleteUser:hover {
+    color: rgb(185 28 28);
+    cursor: pointer;
 }

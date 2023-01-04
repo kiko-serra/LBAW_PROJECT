@@ -1,4 +1,4 @@
-create schema if not exists lbaw;
+create schema if not exists lbaw2222;
 
 --Index drops
 DROP INDEX IF EXISTS tsv_idx;
@@ -304,8 +304,8 @@ CREATE INDEX tsv_idx ON post USING GIN(tsvectors);
 
 INSERT INTO account (account_tag, password, name, age, birthday, is_private, email, university, course, is_verified, description, location, pronouns, is_admin, is_blocked)
 VALUES
- ('Admin', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W', 'Conta Admin', 20, '2002-07-01', false, 'conta@admin.pt', 'Faculdade de Engenharia da Universidade do Porto', 'Engenharia Informática e Computação', true, 'Olá, bem-vindo à minha página!', 'Porto', 'He/Him', true, false),
- ('Utilizador', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W', 'Jorge Silva', 16, '1983-06-03', false, 'jorge@mail.pt', 'Tarim University', 'Dakota', false, 'Peritoneal suture', 'Santa Catalina', 'He/Him', false, false),
+ ('Admin', '$2y$10$y75Xb2jqGfOT85ef2xkIkO3vqaF0/Mhhm1Gm.13OJ878Jwf0sHKG.', 'Conta Admin', 20, '2002-07-01', false, 'conta@admin.pt', 'Faculdade de Engenharia da Universidade do Porto', 'Engenharia Informática e Computação', true, 'Olá, bem-vindo à minha página!', 'Porto', 'He/Him', true, false),
+ ('Utilizador', '$2y$10$R7HOS6YRBiWSGojx1gpNUunaTGSsGbWuTakAXU3OCkP8BD9DdvojG', 'Jorge Silva', 16, '1983-06-03', false, 'jorge@mail.pt', 'Tarim University', 'Dakota', false, 'Peritoneal suture', 'Santa Catalina', 'He/Him', false, false),
  ('fo1', 'IKYukrzIy', 'Felike O'' Liddy', 20, '1977-03-25', false, 'fo1@wikia.com', 'Wenzhou University', 'PT Cruiser', false, 'Anterior chamber op NEC', 'Qianhong', 'Avalon', false, false),
  ('gwhilder2', 'RHgQE5FU', 'Ginny Whilder', 23, '1972-09-13', false, 'gwhilder2@technorati.com', 'Hirosaki University', 'Yukon XL 1500', true, 'Lacrimal punctum probe', 'Cipatujah', 'Rondo', true, false),
  ('nratt3', 'OWZlLLjIz', 'Nedda Ratt', 24, '1983-07-05', true, 'nratt3@weebly.com', 'Hogeschool Rotterdam', 'Pathfinder', false, 'Opn rep umb hrn-grft NEC', 'Asprángeloi', 'Fox', false, false),
@@ -314,7 +314,7 @@ VALUES
  ('babbatini6', 'GJs0uHzo', 'Bartholomeo Abbatini', 17, '1996-03-02', false, 'babbatini6@yelp.com', 'Colgate University', 'Stratus', true, 'Injct/infus glucarpidase', 'Humaitá', 'Minx Magnificent', false, false),
  ('alongdon7', 'MCglkP3hH', 'Aluino Longdon', 18, '1980-04-29', true, 'alongdon7@usgs.gov', 'Indiana Institute of Technologyy', 'Milan', false, 'Thorac var v lig-strip', 'Luxi', '300SE', false, false),
  ('vingleson8', '9bdWxT', 'Vivi Ingleson', 19, '1993-01-21', true, 'vingleson8@ow.ly', 'NTI University', 'Intrepid', true, 'Vasc proc revision NEC', 'Xiaoshi', 'TL', false, true),
- ('efarnaby9', 'zFMGF4WFl6Wq', 'Everett Farnaby', 19, '1986-04-11', false, 'efarnaby9@51.la', 'Kosin University', 'Expo LRV', false, 'Perianal biopsy', 'Besançon', 'S60', false, true);
+ ('AIFAvila', '$2y$10$s7wgH57vJYmWGv4pszWu9uiWOugcSw259nLay.dguYcsc/EZJ2f26', 'André Ávila', 20, '2002-01-07', false, 'up202006767@g.uporto.pt', 'porto', 'Engenharia Informática e Computação', false, 'hi :)', 'Praia da Vitória', 'he/him', false, false);
 
 
 INSERT INTO community (name, description, is_public)
@@ -351,7 +351,7 @@ VALUES
 
 INSERT INTO recovery_code (id_account, code, valid_until)
 VALUES
-   (8, 'hfKJsdjHJASas', '2022-11-29 21:50:50');
+   (8, 'hfKJsdjHJASas', '2023-11-29 21:50:50');
 
 INSERT INTO post_report (id_post, reason, description)
 VALUES

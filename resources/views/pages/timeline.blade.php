@@ -6,26 +6,27 @@
 
 <?php echo view('partials.leftPanel.panel'); ?>
 
-<section class="flex flex-col justify-start">
+<section class="flex flex-col justify-between" id="timeline-container">
   <form method="POST" action="{{ route('newpost') }}"  class="bg-white rounded-2xl p-4">
     {{ csrf_field() }}
     <div class="flex flex-row">
       <div id="newPostCardLeftBar" class="flex flex-col">
         <div class="w-24 h-24 bg-blue-500 rounded-full"></div>
       </div>
-      <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" class="w-full">
+      <input type="textarea" name="description" id="newPostDescription" placeholder="What are you thinking?" required autocomplete=off class="w-full px-4 break-words">
     </div>
     <div class="flex flex-row justify-between mt-4">
       <select name="group" id="newpostvisibility" class="w-fit">
         <option disabled> Show to everyone </option>
         <option for="group" value="0">Friends</option>
-        <option for="group" value="1">FSI 22/23</option> <!--The user's groups -->
+        @foreach($groups as $group) <!--The user's groups -->
+          <option for="group" value="{{ $group->id_community }}"> {{ $group->name }}</option>
+        @endforeach
       </select>
-      <button class="px-4"> Publish </button>
+      <button class="px-4 btn"> Publish </button>
     </div>
   </form>
 
-  <span class="my-4"></span>
     
   <div id="posts" class="bg-white rounded-2xl">
     @each('partials.post', $posts, 'post')
@@ -33,7 +34,7 @@
 
 </section>
 
-<section class="sidepanel" id="right"> 
+<?php echo view('partials.rightPanel.panel', ['type' => 'profile', 'friends' => $friendships, 'userID' => $user->id_account, 'groups' => $groups]); ?>
     
 </section>
 

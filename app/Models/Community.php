@@ -9,6 +9,10 @@ class Community extends Model
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
+    protected $primaryKey = 'id_community';
+
+    protected $table = 'community';
+
     /**
      * The posts this user owns.
      */
